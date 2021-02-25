@@ -2,8 +2,8 @@
 // Created by Marco Bassaletti on 22-02-21.
 //
 
-#ifndef MBASSALE_PM_APPLICATION_H
-#define MBASSALE_PM_APPLICATION_H
+#ifndef OWNPASS_APPLICATION_H
+#define OWNPASS_APPLICATION_H
 
 #include "Group.h"
 
@@ -14,4 +14,4 @@ public:
 };
 
 
-#endif //MBASSALE_PM_APPLICATION_H
+#endif //OWNPASS_APPLICATION_H

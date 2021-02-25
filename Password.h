@@ -2,18 +2,20 @@
 // Created by Marco Bassaletti on 22-02-21.
 //
 
-#ifndef MBASSALE_PM_PASSWORD_H
-#define MBASSALE_PM_PASSWORD_H
+#ifndef OWNPASS_PASSWORD_H
+#define OWNPASS_PASSWORD_H
 
-#include "Group.h"
+class Group;
 
 class Password {
 public:
-    Password(std::string& username, std::string& password);
-    Password(std::string& username, std::string& password, std::string& description);
-    Password(Group& group, std::string& username, std::string& password);
-    Password(Group& group, std::string& username, std::string& password, std::string& description);
-    ~Password();
+    Password(Group& group, std::string& username, std::string& password) :
+            group{ group }, username{ username }, password{ password } {}
+    Password(Group& group, std::string& username, std::string& password, std::string& description) :
+            group{ group }, username{ username }, password{ password }, description{ description } {}
+    Password(Group& group, std::string&& username, std::string&& password, std::string&& description) :
+            group{ group }, username{ std::move(username) }, password{ std::move(password) }, description{ std::move(description) } {}
+    ~Password() = default;
 
     [[nodiscard]] const std::string& get_username() const { return username; }
     [[nodiscard]] const std::string& get_password() const { return password; }
@@ -28,4 +30,4 @@ private:
 };
 
 
-#endif //MBASSALE_PM_PASSWORD_H
+#endif //OWNPASS_PASSWORD_H
