@@ -17,18 +17,23 @@ public:
     constexpr static const auto DefaultGroupName{ "Default" };
 
     Group() : name(DefaultGroupName) {}
-    explicit Group(std::string& name) : name(name) {}
-    explicit Group(std::string&& name) : name(std::move(name)) {}
+    explicit Group(std::string& name) : name{name} {}
+    explicit Group(std::string& name, std::list<Password>& passwords) : name{ name }, passwords{ passwords } {}
+    explicit Group(std::string&& name) : name() { this->name = std::move(name); }
+    explicit Group(std::string&& name, std::list<Password>&& passwords) : name{}, passwords{} {
+        this->name = std::move(name);
+        this->passwords = std::move(passwords);
+    }
     ~Group() = default;
 
     [[nodiscard]] const std::string& get_name() const { return name; }
-    [[nodiscard]] std::list<std::shared_ptr<Password>>& get_passwords() { return passwords; }
-    Group& add_password(const std::shared_ptr<Password>& password);
+    [[nodiscard]] std::list<Password>& get_passwords() { return passwords; }
+    Group& add_password(const Password& password);
 
     static Group& get_default();
 protected:
     std::string name;
-    std::list<std::shared_ptr<Password>> passwords;
+    std::list<Password> passwords;
 };
 
 

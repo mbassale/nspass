@@ -7,17 +7,31 @@
 
 #include "Group.h"
 #include <list>
+#include <optional>
 
 class Category {
 public:
     Category() = default;
-    Category(std::list<std::shared_ptr<Group>>& groups) : groups{ groups } {}
+    Category(Category& other) = default;
+    Category(Category&& other) noexcept : groups{} { *this = std::move(other); }
+    Category(std::string& name) : name{ name } {}
     ~Category() = default;
 
-    [[nodiscard]] const std::list<std::shared_ptr<Group>>& get_groups() const { return groups; }
-    Category& add_group(const std::shared_ptr<Group>& group);
+    Category& operator=(Category&& other)  noexcept {
+        groups.clear();
+        groups = std::move(other.groups);
+        return *this;
+    }
+    [[nodiscard]] const std::string& get_name() const { return name; }
+    [[nodiscard]] const std::list<Group>& get_groups() const { return groups; }
+    Category& add_group(Group& group);
+    std::optional<Group> find_group(std::string& group_name);
+    std::list<std::reference_wrapper<Group>> find_groups(std::string& search);
+    Category& remove_group(Group& group);
+    Category& remove_group(std::string& group_name);
 private:
-    std::list<std::shared_ptr<Group>> groups;
+    std::string name;
+    std::list<Group> groups;
 };
 
 

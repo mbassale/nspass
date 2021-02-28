@@ -4,13 +4,10 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include <string>
-#include <vector>
-#include <boost/algorithm/string/predicate.hpp>
+#include <algorithm>
 #include "../Category.h"
-#include "../Group.h"
 #include "../Site.h"
 #include "../Application.h"
-#include "../Password.h"
 
 using namespace std;
 
@@ -53,30 +50,67 @@ TEST_CASE("Create passwords") {
     }
 }
 
-TEST_CASE("Create a category") {
-    Category category;
-    for (auto i = 0; i < 10; i++) {
-        ostringstream username;
-        username << "test" << i <<  "@test.com";
-        ostringstream password_s;
-        password_s << "test" << i;
-        ostringstream description;
-        description << "lorem_ipsum_" << i;
-        ostringstream group_name;
-        group_name << "Group #" << i;
-        shared_ptr<Group> group = std::make_shared<Group>(group_name.str());
-        shared_ptr<Password> password = std::make_shared<Password>(*group, username.str(), password_s.str(), description.str());
-        group->add_password(password);
-        category.add_group(group);
+TEST_CASE("Categories") {
+
+    SECTION("Create category") {
+        string category_name = "Category #0";
+        Category category{ category_name };
+        REQUIRE(category.get_name() == category_name);
     }
-    REQUIRE(category.get_groups().size() == 10);
-    for (const auto& group : category.get_groups()) {
-        REQUIRE(boost::starts_with(group->get_name(), "Group #"));
-        for (const auto& password : group->get_passwords()) {
-            REQUIRE(boost::starts_with(password->get_username(), "test"));
-            REQUIRE(boost::ends_with(password->get_username(), "@test.com"));
-            REQUIRE(boost::starts_with(password->get_password(), "test"));
-            REQUIRE(boost::starts_with(password->get_description(), "lorem_ipsum_"));
+
+    SECTION("add/find/remove groups") {
+        string category_name = "Category #0";
+        Category category{ category_name };
+        for (auto i = 0; i < 100; i++) {
+            ostringstream group_name;
+            group_name << "Group #" << i;
+            Group group{ group_name.str() };
+            category.add_group(group);
         }
+
+        string group_name = "Group #5";
+        auto group = category.find_group(group_name);
+        REQUIRE(group.has_value());
+        REQUIRE(group.value().get_name() == group_name);
+        string group_name2 = "Group #1000";
+        auto group2 = category.find_group(group_name2);
+        REQUIRE_FALSE(group2.has_value());
+
+        // Case-insensitive search of groups
+        string search_str = "Group #2";
+        auto results = category.find_groups(search_str);
+        REQUIRE(results.size() == 11);
+        for (auto group_ref : results) {
+            REQUIRE(group_ref.get().get_name().find("Group #2") != string::npos);
+        }
+        results.clear();
+
+        // remove Group #5 by reference
+        category.remove_group(group.value());
+        REQUIRE(category.get_groups().size() == 99);
+
+        // remove Group #2 by name
+        group_name = "Group #2";
+        category.remove_group(group_name);
+        results = category.find_groups(search_str);
+        REQUIRE(results.size() == 10);
+        REQUIRE(category.get_groups().size() == 98);
+    }
+}
+
+TEST_CASE("Groups") {
+
+    SECTION("Create Sites") {
+        string site_name = "Site 0";
+        Site site{ site_name };
+        REQUIRE(site.get_name() == site_name);
+        REQUIRE(site.get_passwords().empty());
+    }
+
+    SECTION("Create Applications") {
+        string app_name = "App 0";
+        Application app{ app_name };
+        REQUIRE(app.get_name() == app_name);
+        REQUIRE(app.get_passwords().empty());
     }
 }
