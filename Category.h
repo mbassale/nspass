@@ -15,7 +15,8 @@ namespace OwnPass {
         Category() = default;
         Category(Category& other) = default;
         Category(Category&& other) noexcept : groups{} { *this = std::move(other); }
-        Category(std::string& name) : name{ name } {}
+        explicit Category(std::string& name) : name{ name } {}
+        explicit Category(std::string&& name) : name{ std::move(name) } {}
         ~Category() = default;
 
         Category& operator=(Category&& other)  noexcept {
