@@ -3,12 +3,15 @@
 //
 
 #include "Application.h"
+#include "Group.h"
 
-Application::Application(std::string &name) : Group(name) {
+namespace OwnPass {
+    Application::Application(std::string &name) : Group(name) {
 
-}
+    }
 
-Application::~Application() {
+    Application::~Application() {
 
+    }
 }
 

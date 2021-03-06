@@ -10,6 +10,7 @@
 #include "../Application.h"
 
 using namespace std;
+using namespace OwnPass;
 
 TEST_CASE("Default Group") {
     auto group = Group::get_default();

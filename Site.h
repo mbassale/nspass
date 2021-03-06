@@ -7,11 +7,13 @@
 
 #include "Group.h"
 
-class Site : public Group {
-public:
-    Site(std::string &name);
-    ~Site();
-};
+namespace OwnPass {
+    class Site : public Group {
+    public:
+        Site(std::string &name);
+        ~Site();
+    };
+}
 
 
 #endif //OWNPASS_SITE_H

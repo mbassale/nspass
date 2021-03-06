@@ -3,9 +3,11 @@
 //
 
 #include "Site.h"
+#include "Group.h"
 
-Site::Site(std::string &name) : Group(name) {
-}
-
-Site::~Site() {
+namespace OwnPass {
+    Site::Site(std::string &name) : Group(name) {
+    }
+    Site::~Site() {
+    }
 }
