@@ -7,7 +7,6 @@
 #include <vector>
 #include <sstream>
 #include "../Storage.h"
-#include "../SQLite3Storage.h"
 #include "../Category.h"
 #include "../Site.h"
 #include "../Application.h"

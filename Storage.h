@@ -17,11 +17,14 @@ namespace OwnPass::DB {
     public:
         Storage() = default;
         virtual ~Storage() = 0;
+
         virtual std::vector<OwnPass::Category> list_categories() = 0;
         virtual Category& save_category(Category& category) = 0;
-        virtual std::vector<OwnPass::Group> list_groups(Category &category) = 0;
         virtual OwnPass::Category find_category(std::string &search) = 0;
-        virtual OwnPass::Group find_group(std::string &search) = 0;
+
+        virtual std::vector<OwnPass::Group> list_groups(Category& category) = 0;
+        virtual Group& save_group(Group& group) = 0;
+        virtual OwnPass::Group find_group(std::string& search) = 0;
     };
 
     class StorageFactory {
