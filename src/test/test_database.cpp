@@ -28,7 +28,9 @@ TEST_CASE("categories")
 	SECTION("empty") {
 		list<Category> categories = db->list_categories();
 		REQUIRE(categories.empty());
-	}SECTION("add 10 list again") {
+	}
+
+	SECTION("add 10 list again") {
 		for (auto i = 0; i < 10; i++) {
 			stringstream category_name;
 			category_name << "Category #" << i;
@@ -40,7 +42,9 @@ TEST_CASE("categories")
 		for (auto& category : categories) {
 			REQUIRE(category.get_name().find("Category #") != string::npos);
 		}
-	}SECTION("search for specific string") {
+	}
+
+	SECTION("search for specific string") {
 		using namespace string_literals;
 		for (auto i = 0; i < 10; i++) {
 			stringstream category_name;
@@ -73,7 +77,9 @@ TEST_CASE("groups")
 
 	SECTION("new category with no group") {
 		REQUIRE(first_category.get_groups().empty());
-	}SECTION("add group to existing category") {
+	}
+
+	SECTION("add group to existing category") {
 
 		Group group{ "Group #1" };
 		first_category.add_group(group);

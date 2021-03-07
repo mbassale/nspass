@@ -30,7 +30,9 @@ TEST_CASE("Create passwords")
 		REQUIRE(password.get_password() == "test1234");
 		REQUIRE(password.get_description() == "lorem_ipsum");
 		REQUIRE(password.get_group().get_name() == Group::DefaultGroupName);
-	}SECTION("in a site") {
+	}
+
+	SECTION("in a site") {
 		std::string site_name{ "test.com" };
 		Site site{ site_name };
 		REQUIRE(site.get_name() == "test.com");
@@ -39,7 +41,9 @@ TEST_CASE("Create passwords")
 		REQUIRE(password.get_password() == "test1234");
 		REQUIRE(password.get_description() == "lorem_ipsum");
 		REQUIRE(&(password.get_group()) == &site);
-	}SECTION("in an application") {
+	}
+
+	SECTION("in an application") {
 		std::string app_name{ "myawesomeapp" };
 		Application app{ app_name };
 		REQUIRE(app.get_name() == "myawesomeapp");
@@ -53,7 +57,6 @@ TEST_CASE("Create passwords")
 
 TEST_CASE("Categories")
 {
-
 	SECTION("Create category") {
 		string category_name = "Category #0";
 		Category category{ category_name };
@@ -102,7 +105,6 @@ TEST_CASE("Categories")
 
 TEST_CASE("Groups")
 {
-
 	SECTION("Create Sites") {
 		string site_name = "Site 0";
 		Site site{ site_name };
