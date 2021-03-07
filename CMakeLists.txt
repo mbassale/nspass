@@ -4,13 +4,20 @@ project(ownpass)
 find_package(Boost REQUIRED COMPONENTS Json)
 
 set(CMAKE_CXX_STANDARD 17)
-set(SOURCE_FILES Group.cpp Group.h Password.cpp Password.h Site.cpp Site.h Application.cpp Application.h Category.cpp Category.h Storage.cpp Storage.h JSONStorage.h JSONStorage.cpp)
+set(SOURCE_FILES
+        src/Group.cpp src/Group.h
+        src/Password.cpp src/Password.h
+        src/Site.cpp src/Site.h
+        src/Application.cpp src/Application.h
+        src/Category.cpp src/Category.h
+        src/Storage.cpp src/Storage.h
+        src/JSONStorage.h src/JSONStorage.cpp)
 
 # Password Manager
-add_executable(ownpass main.cpp ${SOURCE_FILES})
+add_executable(ownpass src/main.cpp ${SOURCE_FILES})
 
 # Test Suites
-add_executable(tests test/test.cpp test/test_database.cpp ${SOURCE_FILES})
+add_executable(tests src/test/test.cpp src/test/test_database.cpp ${SOURCE_FILES})
 
 target_link_libraries(ownpass Boost::headers)
 
