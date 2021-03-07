@@ -2,8 +2,8 @@
 // Created by Marco Bassaletti on 07-03-21.
 //
 
-#ifndef OWNPASS_CATEGORIESSERIALIZER_H
-#define OWNPASS_CATEGORIESSERIALIZER_H
+#ifndef OWNPASS_CATEGORYSERIALIZER_H
+#define OWNPASS_CATEGORYSERIALIZER_H
 
 #include "JsonSerializer.h"
 #include "../Category.h"
@@ -11,10 +11,10 @@
 #include <boost/json.hpp>
 
 namespace OwnPass::DB {
-    class CategoriesSerializer : public JsonSerializer<Category> {
+    class CategorySerializer : public JsonSerializer<Category> {
     public:
-        CategoriesSerializer() = default;
-        ~CategoriesSerializer() = default;
+        CategorySerializer() = default;
+        ~CategorySerializer() = default;
 
         boost::json::object serialize(Category& obj) override;
         boost::json::array serialize(std::list<Category>& objs) override;
@@ -27,4 +27,4 @@ namespace OwnPass::DB {
 }
 
 
-#endif //OWNPASS_CATEGORIESSERIALIZER_H
+#endif //OWNPASS_CATEGORYSERIALIZER_H

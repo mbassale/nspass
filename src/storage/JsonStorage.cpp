@@ -10,7 +10,7 @@
 #include "JsonStorage.h"
 #include "JsonParser.h"
 #include "JsonWriter.h"
-#include "CategoriesSerializer.h"
+#include "CategorySerializer.h"
 
 namespace OwnPass::DB {
     using namespace std;
@@ -19,13 +19,13 @@ namespace OwnPass::DB {
     JsonStorage::JsonStorage() {
         JsonParser json_parser{ StorageFile };
         boost::json::value root = json_parser.get_root();
-        CategoriesSerializer categories_serializer;
+        CategorySerializer categories_serializer;
         categories = categories_serializer.deserialize(root.as_array());
     }
 
     JsonStorage::~JsonStorage() {
         try {
-            CategoriesSerializer categories_serializer;
+            CategorySerializer categories_serializer;
             boost::json::array root = categories_serializer.serialize(categories);
             boost::json::value root_value = root;
             JsonWriter json_writer{root_value, StorageFile};

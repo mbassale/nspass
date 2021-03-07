@@ -2,18 +2,18 @@
 // Created by Marco Bassaletti on 07-03-21.
 //
 
-#include "CategoriesSerializer.h"
+#include "CategorySerializer.h"
 
 namespace OwnPass::DB {
 
-    boost::json::object CategoriesSerializer::serialize(Category& obj) {
+    boost::json::object CategorySerializer::serialize(Category& obj) {
         return {
             { "name", obj.get_name() },
             { "groups", nullptr }
         };
     }
 
-    boost::json::array CategoriesSerializer::serialize(std::list<Category>& objs) {
+    boost::json::array CategorySerializer::serialize(std::list<Category>& objs) {
         boost::json::array category_data;
         for (auto& category : objs) {
             auto category_datum = serialize(category);
@@ -22,11 +22,11 @@ namespace OwnPass::DB {
         return category_data;
     }
 
-    Category CategoriesSerializer::deserialize(boost::json::object& obj) {
+    Category CategorySerializer::deserialize(boost::json::object& obj) {
         throw std::runtime_error("Not Implemented");
     }
 
-    std::list<Category> CategoriesSerializer::deserialize(boost::json::array& objs) {
+    std::list<Category> CategorySerializer::deserialize(boost::json::array& objs) {
         std::list<Category> categories;
         for (auto category_datum : objs) {
             auto category_obj = category_datum.as_object();
@@ -38,7 +38,7 @@ namespace OwnPass::DB {
         return categories;
     }
 
-    std::list<Category> CategoriesSerializer::make_default() {
+    std::list<Category> CategorySerializer::make_default() {
         return std::list<Category>();
     }
 
