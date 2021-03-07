@@ -10,6 +10,7 @@ set(SOURCE_FILES
         src/Site.cpp src/Site.h
         src/Application.cpp src/Application.h
         src/Category.cpp src/Category.h
+        src/IdGenerator.h src/IdGenerator.cpp
         src/storage/Storage.cpp src/storage/Storage.h
         src/storage/JsonStorage.h src/storage/JsonStorage.cpp
         src/storage/JsonParser.h src/storage/JsonParser.cpp
