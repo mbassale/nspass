@@ -12,9 +12,11 @@
 namespace OwnPass {
     class Category {
     public:
-        Category() = default;
-        Category(Category& other) = default;
+        const char* DefaultName = "Default";
+        Category() : name{ DefaultName } {}
+        Category(const Category& other) = default;
         Category(Category&& other) noexcept : groups{} { *this = std::move(other); }
+        explicit Category(const char* name) : name { name } {}
         explicit Category(std::string& name) : name{ name } {}
         explicit Category(std::string&& name) : name{ std::move(name) } {}
         ~Category() = default;
@@ -31,9 +33,11 @@ namespace OwnPass {
         std::__1::list<std::__1::reference_wrapper<Group>> find_groups(std::string& search);
         Category& remove_group(Group& group);
         Category& remove_group(std::string& group_name);
+
+        bool operator==(const Category& other) const { return name == other.name; }
     private:
         std::string name;
-        std::__1::list<Group> groups;
+        std::list<Group> groups;
     };
 }
 

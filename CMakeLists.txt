@@ -10,8 +10,12 @@ set(SOURCE_FILES
         src/Site.cpp src/Site.h
         src/Application.cpp src/Application.h
         src/Category.cpp src/Category.h
-        src/Storage.cpp src/Storage.h
-        src/JSONStorage.h src/JSONStorage.cpp)
+        src/storage/Storage.cpp src/storage/Storage.h
+        src/storage/JsonStorage.h src/storage/JsonStorage.cpp
+        src/storage/JsonParser.h src/storage/JsonParser.cpp
+        src/storage/JsonWriter.h src/storage/JsonWriter.cpp
+        src/storage/JsonSerializer.h src/storage/JsonSerializer.cpp
+        src/storage/CategoriesSerializer.h src/storage/CategoriesSerializer.cpp)
 
 # Password Manager
 add_executable(ownpass src/main.cpp ${SOURCE_FILES})
@@ -19,6 +23,6 @@ add_executable(ownpass src/main.cpp ${SOURCE_FILES})
 # Test Suites
 add_executable(tests src/test/test.cpp src/test/test_database.cpp ${SOURCE_FILES})
 
-target_link_libraries(ownpass Boost::headers)
+target_link_libraries(ownpass Boost::headers Boost::json)
 
-target_link_libraries(tests Boost::headers)
+target_link_libraries(tests Boost::headers Boost::json)

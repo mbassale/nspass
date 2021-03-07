@@ -4,12 +4,10 @@
 #include "catch.hpp"
 #include <string>
 #include <algorithm>
-#include <vector>
+#include <boost/algorithm/string.hpp>
+#include <list>
 #include <sstream>
-#include "../Storage.h"
-#include "../Category.h"
-#include "../Site.h"
-#include "../Application.h"
+#include "../storage/Storage.h"
 
 using namespace std;
 using namespace OwnPass;
@@ -22,9 +20,10 @@ TEST_CASE("make instance") {
 
 TEST_CASE("categories") {
     shared_ptr<Storage> db = StorageFactory::make();
+    db->purge();
 
     SECTION("empty") {
-        vector<Category> categories = db->list_categories();
+        list<Category> categories = db->list_categories();
         REQUIRE(categories.empty());
     }
     SECTION("add 10 list again") {
@@ -34,7 +33,25 @@ TEST_CASE("categories") {
             Category category{ category_name.str() };
             db->save_category(category);
         }
-        vector<Category> categories = db->list_categories();
-        REQUIRE(categories.size() == 0);
+        list<Category> categories = db->list_categories();
+        REQUIRE(categories.size() == 10);
+        for (auto& category : categories) {
+             REQUIRE(category.get_name().find("Category #") != string::npos);
+        }
+    }
+    SECTION("search for specific string") {
+        using namespace string_literals;
+        for (auto i = 0; i < 10; i++) {
+            stringstream category_name;
+            category_name << "Category #" << i;
+            Category category{ category_name.str() };
+            db->save_category(category);
+        }
+        auto category_name = "Category #5"s;
+        auto category = db->find_category(category_name);
+        REQUIRE(category.get_name() == category_name);
+        auto category_name2 = "category #5"s;
+        auto category2 = db->find_category(category_name2);
+        REQUIRE(boost::algorithm::icontains(category2.get_name(), category_name2));
     }
 }

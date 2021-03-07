@@ -6745,7 +6745,7 @@ namespace Catch {
                 }
 
                 BenchmarkFunction& operator=(BenchmarkFunction const& that) {
-                    f.reset(that.f->clone());
+                    f.purge(that.f->clone());
                     return *this;
                 }
 
@@ -8018,7 +8018,7 @@ namespace Catch {
 
         static LONG CALLBACK handleVectoredException(PEXCEPTION_POINTERS ExceptionInfo);
         FatalConditionHandler();
-        static void reset();
+        static void purge();
         ~FatalConditionHandler();
 
     private:
@@ -8055,7 +8055,7 @@ namespace Catch {
 
 namespace Catch {
     struct FatalConditionHandler {
-        void reset();
+        void purge();
     };
 }
 
@@ -10799,7 +10799,7 @@ namespace Catch {
     }
 
     FatalConditionHandler::~FatalConditionHandler() {
-        reset();
+        purge();
     }
 
 bool FatalConditionHandler::isSet = false;
@@ -10885,7 +10885,7 @@ namespace Catch {
 #else
 
 namespace Catch {
-    void FatalConditionHandler::reset() {}
+    void FatalConditionHandler::purge() {}
 }
 
 #endif // signals/SEH handling
