@@ -8,31 +8,36 @@
 #include "JsonParser.h"
 
 namespace OwnPass::Storage {
-    using namespace std;
+	using namespace std;
 
-    JsonParser::JsonParser(const char* filename) : filename{ filename } {
-        load();
-    }
+	JsonParser::JsonParser(const char* filename)
+			:filename{ filename }
+	{
+		load();
+	}
 
-    void JsonParser::load() {
-        if (!std::filesystem::exists(filename))
-            return create_empty();
-        else
-            return parse();
-    }
+	void JsonParser::load()
+	{
+		if (!std::filesystem::exists(filename))
+			return create_empty();
+		else
+			return parse();
+	}
 
-    void JsonParser::create_empty() {
-        root = boost::json::value(boost::json::array_kind);
-    }
+	void JsonParser::create_empty()
+	{
+		root = boost::json::value(boost::json::array_kind);
+	}
 
-    void JsonParser::parse() {
-        ifstream is{"./ownpass.json", std::ios::in};
-        if (!is.is_open()) throw std::runtime_error("Cannot open storage file.");
-        boost::json::stream_parser p;
-        std::string line;
-        while(std::getline( is, line))
-            p.write(line);
-        p.finish();
-        root = p.release();
-    }
+	void JsonParser::parse()
+	{
+		ifstream is{ "./ownpass.json", std::ios::in };
+		if (!is.is_open()) throw std::runtime_error("Cannot open storage file.");
+		boost::json::stream_parser p;
+		std::string line;
+		while (std::getline(is, line))
+			p.write(line);
+		p.finish();
+		root = p.release();
+	}
 }

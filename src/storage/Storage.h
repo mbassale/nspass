@@ -14,26 +14,26 @@
 
 namespace OwnPass::Storage {
 
-    class Storage {
-    public:
-        Storage() = default;
-        virtual ~Storage() = 0;
+	class Storage {
+	public:
+		Storage() = default;
+		virtual ~Storage() = 0;
 
-        virtual void flush() = 0;
-        virtual void reload() = 0;
-        virtual void purge() = 0;
+		virtual void flush() = 0;
+		virtual void reload() = 0;
+		virtual void purge() = 0;
 
-        virtual std::list<OwnPass::Category>& list_categories() = 0;
-        virtual Category& save_category(Category& category) = 0;
-        virtual Category& find_category(std::string &search) = 0;
-    };
+		virtual std::list<OwnPass::Category>& list_categories() = 0;
+		virtual Category& save_category(Category& category) = 0;
+		virtual Category& find_category(std::string& search) = 0;
+	};
 
-    class StorageFactory {
-    public:
-        static std::shared_ptr<Storage> make();
-    private:
-        StorageFactory() = default;
-    };
+	class StorageFactory {
+	public:
+		static std::shared_ptr<Storage> make();
+	private:
+		StorageFactory() = default;
+	};
 }
 
 #endif //OWNPASS_STORAGE_H

@@ -6,12 +6,13 @@
 #include "JsonStorage.h"
 
 namespace OwnPass::Storage {
-    using namespace OwnPass;
-    using namespace std;
+	using namespace OwnPass;
+	using namespace std;
 
-    std::shared_ptr<Storage> StorageFactory::make() {
-        return std::make_shared<JsonStorage>();
-    }
+	std::shared_ptr<Storage> StorageFactory::make()
+	{
+		return std::make_shared<JsonStorage>();
+	}
 
-    Storage::~Storage() = default;
+	Storage::~Storage() = default;
 }

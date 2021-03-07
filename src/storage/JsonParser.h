@@ -8,19 +8,18 @@
 #include <boost/json.hpp>
 
 namespace OwnPass::Storage {
-    class JsonParser {
-    public:
-        explicit JsonParser(const char* filename);
-        void load();
-        void parse();
-        void create_empty();
+	class JsonParser {
+	public:
+		explicit JsonParser(const char* filename);
+		void load();
+		void parse();
+		void create_empty();
 
-        [[nodiscard]] boost::json::value get_root() noexcept { return root; }
-    private:
-        const char* filename;
-        boost::json::value root;
-    };
+		[[nodiscard]] boost::json::value get_root() noexcept { return root; }
+	private:
+		const char* filename;
+		boost::json::value root;
+	};
 }
-
 
 #endif //OWNPASS_JSONPARSER_H

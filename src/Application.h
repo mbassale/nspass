@@ -8,12 +8,11 @@
 #include "Group.h"
 
 namespace OwnPass {
-    class Application : public Group {
-    public:
-        Application(std::string& name);
-        ~Application();
-    };
+	class Application : public Group {
+	public:
+		Application(std::string& name);
+		~Application();
+	};
 }
-
 
 #endif //OWNPASS_APPLICATION_H

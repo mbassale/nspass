@@ -6,8 +6,11 @@
 #include "Group.h"
 
 namespace OwnPass {
-    Site::Site(std::string &name) : Group(name) {
-    }
-    Site::~Site() {
-    }
+	Site::Site(std::string& name)
+			:Group(name)
+	{
+	}
+	Site::~Site()
+	{
+	}
 }

@@ -44,7 +44,7 @@ namespace OwnPass {
 
 		Category& operator=(const Category& other)
 		{
-			if (this==&other) return *this;
+			if (this == &other) return *this;
 			id = other.id;
 			name = other.name;
 			groups = other.groups;
@@ -90,7 +90,7 @@ namespace OwnPass {
 
 		Category& remove_group(std::string& group_name);
 
-		bool operator==(const Category& other) const { return id==other.id; }
+		bool operator==(const Category& other) const { return id == other.id; }
 
 	private:
 		boost::uuids::uuid id;

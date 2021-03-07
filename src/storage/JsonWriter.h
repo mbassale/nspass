@@ -8,14 +8,14 @@
 #include <boost/json.hpp>
 
 namespace OwnPass::Storage {
-    class JsonWriter {
-    public:
-        JsonWriter(boost::json::value& root, const char* filename);
-        void save();
-    private:
-        boost::json::value& root;
-        const char* filename;
-    };
+	class JsonWriter {
+	public:
+		JsonWriter(boost::json::value& root, const char* filename);
+		void save();
+	private:
+		boost::json::value& root;
+		const char* filename;
+	};
 }
 
 #endif //OWNPASS_JSONWRITER_H
