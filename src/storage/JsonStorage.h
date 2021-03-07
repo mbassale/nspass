@@ -11,7 +11,7 @@
 #include "../Group.h"
 
 
-namespace OwnPass::DB {
+namespace OwnPass::Storage {
     class JsonStorage : public Storage {
     public:
         JsonStorage();

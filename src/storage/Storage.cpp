@@ -5,7 +5,7 @@
 #include "Storage.h"
 #include "JsonStorage.h"
 
-namespace OwnPass::DB {
+namespace OwnPass::Storage {
     using namespace OwnPass;
     using namespace std;
 

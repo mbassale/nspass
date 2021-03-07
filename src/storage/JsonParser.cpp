@@ -7,7 +7,7 @@
 #include <boost/json.hpp>
 #include "JsonParser.h"
 
-namespace OwnPass::DB {
+namespace OwnPass::Storage {
     using namespace std;
 
     JsonParser::JsonParser(const char* filename) : filename{ filename } {

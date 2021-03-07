@@ -4,7 +4,7 @@
 
 #include "CategorySerializer.h"
 
-namespace OwnPass::DB {
+namespace OwnPass::Storage {
 
     boost::json::object CategorySerializer::serialize(Category& obj) {
         return {

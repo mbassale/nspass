@@ -12,7 +12,7 @@
 #include "../Group.h"
 #include "../Password.h"
 
-namespace OwnPass::DB {
+namespace OwnPass::Storage {
 
     class Storage {
     public:

@@ -11,7 +11,7 @@
 
 using namespace std;
 using namespace OwnPass;
-using namespace OwnPass::DB;
+using namespace OwnPass::Storage;
 
 
 TEST_CASE("make instance") {
@@ -19,7 +19,7 @@ TEST_CASE("make instance") {
 }
 
 TEST_CASE("categories") {
-    shared_ptr<Storage> db = StorageFactory::make();
+    shared_ptr<OwnPass::Storage::Storage> db = StorageFactory::make();
     db->purge();
 
     SECTION("empty") {

@@ -10,7 +10,7 @@
 #include <list>
 #include <boost/json.hpp>
 
-namespace OwnPass::DB {
+namespace OwnPass::Storage {
     class CategorySerializer : public JsonSerializer<Category> {
     public:
         CategorySerializer() = default;

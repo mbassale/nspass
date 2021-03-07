@@ -12,7 +12,7 @@
 #include "JsonWriter.h"
 #include "CategorySerializer.h"
 
-namespace OwnPass::DB {
+namespace OwnPass::Storage {
     using namespace std;
     using namespace OwnPass;
 

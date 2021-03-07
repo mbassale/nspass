@@ -7,7 +7,7 @@
 
 #include <boost/json.hpp>
 
-namespace OwnPass::DB {
+namespace OwnPass::Storage {
     class JsonParser {
     public:
         explicit JsonParser(const char* filename);

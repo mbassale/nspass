@@ -8,7 +8,7 @@
 #include <list>
 #include <boost/json.hpp>
 
-namespace OwnPass::DB {
+namespace OwnPass::Storage {
     template <typename T>
     class JsonSerializer {
     public:
