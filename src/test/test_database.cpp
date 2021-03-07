@@ -55,3 +55,30 @@ TEST_CASE("categories") {
         REQUIRE(boost::algorithm::icontains(category2.get_name(), category_name2));
     }
 }
+
+TEST_CASE("groups") {
+    shared_ptr<OwnPass::Storage::Storage> db = StorageFactory::make();
+    {
+        db->purge();
+        Category category;
+        db->save_category(category);
+        db->flush();
+        db->reload();
+    }
+
+    auto& categories = db->list_categories();
+    auto& first_category = categories.front();
+
+    SECTION("new category with no group") {
+        REQUIRE(first_category.get_groups().empty());
+    }
+    SECTION("add group to existing category") {
+        Group group{ "Group #1" };
+        first_category.add_group(group);
+        db->save_category(first_category);
+        db->flush();
+        db->reload();
+        auto& first_category2 = db->list_categories().front();
+        REQUIRE_FALSE(first_category2.get_groups().empty());
+    }
+}

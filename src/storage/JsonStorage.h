@@ -17,19 +17,20 @@ namespace OwnPass::Storage {
         JsonStorage();
         ~JsonStorage() override;
 
+        void flush() override;
+        void reload() override;
         void purge() override;
 
-        std::list<OwnPass::Category> list_categories() override;
+        std::list<OwnPass::Category>& list_categories() override;
         Category& save_category(Category& category) override;
         Category& find_category(std::string& search) override;
-
-        std::list<OwnPass::Group> list_groups(Category& category) override;
-        Group& save_group(Group& group) override;
-        Group& find_group(std::string& search) override;
 
     private:
         static constexpr const char* StorageFile = "ownpass.json";
         std::list<Category> categories;
+
+        void load();
+        void save();
     };
 }
 

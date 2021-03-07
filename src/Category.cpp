@@ -8,9 +8,9 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/iterator/filter_iterator.hpp>
 
-using namespace std;
-
 namespace OwnPass {
+    using namespace std;
+
     Category &Category::add_group(Group &group) {
         groups.push_back(group);
         return *this;

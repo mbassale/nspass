@@ -19,15 +19,13 @@ namespace OwnPass::Storage {
         Storage() = default;
         virtual ~Storage() = 0;
 
+        virtual void flush() = 0;
+        virtual void reload() = 0;
         virtual void purge() = 0;
 
-        virtual std::list<OwnPass::Category> list_categories() = 0;
+        virtual std::list<OwnPass::Category>& list_categories() = 0;
         virtual Category& save_category(Category& category) = 0;
         virtual Category& find_category(std::string &search) = 0;
-
-        virtual std::list<OwnPass::Group> list_groups(Category& category) = 0;
-        virtual Group& save_group(Group& group) = 0;
-        virtual Group& find_group(std::string& search) = 0;
     };
 
     class StorageFactory {

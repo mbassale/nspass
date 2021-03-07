@@ -17,30 +17,32 @@ namespace OwnPass::Storage {
     using namespace OwnPass;
 
     JsonStorage::JsonStorage() {
-        JsonParser json_parser{ StorageFile };
-        boost::json::value root = json_parser.get_root();
-        CategorySerializer categories_serializer;
-        categories = categories_serializer.deserialize(root.as_array());
+        load();
     }
 
     JsonStorage::~JsonStorage() {
         try {
-            CategorySerializer categories_serializer;
-            boost::json::array root = categories_serializer.serialize(categories);
-            boost::json::value root_value = root;
-            JsonWriter json_writer{root_value, StorageFile};
-            json_writer.save();
+            save();
         } catch (std::runtime_error& e) {
             std::cerr << "Error saving json file: " << StorageFile << " error: " << e.what() << std::endl;
         }
     }
 
+    void JsonStorage::flush() {
+        save();
+    }
+
+    void JsonStorage::reload() {
+        load();
+    }
+
     void JsonStorage::purge() {
         categories.clear();
         std::filesystem::remove(StorageFile);
+        save();
     }
 
-    list<Category> JsonStorage::list_categories() {
+    list<Category>& JsonStorage::list_categories() {
         return categories;
     }
 
@@ -48,6 +50,8 @@ namespace OwnPass::Storage {
         auto it = find(categories.begin(), categories.end(), category);
         if (it == categories.end()) {
             categories.push_back(category);
+        } else {
+            *it = category;
         }
         return category;
     }
@@ -60,16 +64,18 @@ namespace OwnPass::Storage {
         return *it;
     }
 
-
-    list<Group> JsonStorage::list_groups(Category &category) {
-        throw std::runtime_error("Not implemented.");
+    void JsonStorage::load() {
+        JsonParser json_parser{ StorageFile };
+        boost::json::value root = json_parser.get_root();
+        CategorySerializer categories_serializer;
+        categories = categories_serializer.deserialize(root.as_array());
     }
 
-    Group &JsonStorage::save_group(Group &group) {
-        throw std::runtime_error("Not implemented.");
-    }
-
-    Group& JsonStorage::find_group(string &search) {
-        throw std::runtime_error("Not implemented.");
+    void JsonStorage::save() {
+        CategorySerializer categories_serializer;
+        boost::json::array root = categories_serializer.serialize(categories);
+        boost::json::value root_value = root;
+        JsonWriter json_writer{root_value, StorageFile};
+        json_writer.save();
     }
 }

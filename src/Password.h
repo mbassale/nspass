@@ -12,6 +12,9 @@ namespace OwnPass {
 
     class Password {
     public:
+        Password(const Password& other) : group{ other.group }, username{ other.username }, password{ other.password },
+            description{ other.description } {}
+        Password(Password&& other) : group{ other.group } { *this = std::move(other); }
         Password(Group &group, std::string &username, std::string &password) :
                 group{group}, username{username}, password{password} {}
 
@@ -23,6 +26,20 @@ namespace OwnPass {
                 description{std::move(description)} {}
 
         ~Password() = default;
+
+        Password& operator=(const Password& other) {
+            if (this == &other) return *this;
+            username = other.username;
+            password = other.password;
+            description = other.description;
+            return *this;
+        }
+        Password& operator=(Password&& other) {
+            username = std::move(other.username);
+            password = std::move(other.password);
+            description = std::move(other.description);
+            return *this;
+        }
 
         [[nodiscard]] const std::string &get_username() const { return username; }
 

@@ -15,7 +15,8 @@ set(SOURCE_FILES
         src/storage/JsonParser.h src/storage/JsonParser.cpp
         src/storage/JsonWriter.h src/storage/JsonWriter.cpp
         src/storage/JsonSerializer.h src/storage/JsonSerializer.cpp
-        src/storage/CategorySerializer.h src/storage/CategorySerializer.cpp)
+        src/storage/CategorySerializer.h src/storage/CategorySerializer.cpp
+        src/storage/GroupSerializer.h src/storage/GroupSerializer.cpp)
 
 # Password Manager
 add_executable(ownpass src/main.cpp ${SOURCE_FILES})

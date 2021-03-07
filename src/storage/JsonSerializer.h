@@ -15,8 +15,8 @@ namespace OwnPass::Storage {
         JsonSerializer() = default;
         ~JsonSerializer() = default;
 
-        virtual boost::json::object serialize(T& obj) = 0;
-        virtual boost::json::array serialize(std::list<T>& objs) = 0;
+        virtual boost::json::object serialize(const T& obj) = 0;
+        virtual boost::json::array serialize(const std::list<T>& objs) = 0;
 
         virtual T deserialize(boost::json::object& obj) = 0;
         virtual std::list<T> deserialize(boost::json::array& objs) = 0;
