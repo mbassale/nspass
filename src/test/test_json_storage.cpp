@@ -12,19 +12,47 @@
 #include "../storage/Storage.h"
 
 using namespace std;
+using namespace std::string_literals;
 using namespace OwnPass;
 using namespace OwnPass::Storage;
 
-TEST_CASE("make instance")
+class JsonStorageFixture {
+public:
+	JsonStorageFixture()
+	{
+		db = StorageFactory::make();
+		db->purge();
+	}
+protected:
+	shared_ptr<OwnPass::Storage::Storage> db;
+
+	void save_category(const string& prefix, int index = 0)
+	{
+		stringstream category_name;
+		category_name << prefix << index;
+		Category category{ category_name.str() };
+		db->save_category(category);
+	}
+
+	void save_group(Category& category, const string& name) {
+		Group group{ name };
+		category.add_group(group);
+		db->save_category(category);
+	}
+
+	void flush_and_reload() {
+		db->flush();
+		db->reload();
+	}
+};
+
+TEST_CASE_METHOD(JsonStorageFixture, "make instance")
 {
 	REQUIRE_NOTHROW(StorageFactory::make());
 }
 
-TEST_CASE("categories")
+TEST_CASE_METHOD(JsonStorageFixture, "categories")
 {
-	shared_ptr<OwnPass::Storage::Storage> db = StorageFactory::make();
-	db->purge();
-
 	SECTION("empty") {
 		list<Category> categories = db->list_categories();
 		REQUIRE(categories.empty());
@@ -32,10 +60,7 @@ TEST_CASE("categories")
 
 	SECTION("add 10 list again") {
 		for (auto i = 0; i < 10; i++) {
-			stringstream category_name;
-			category_name << "Category #" << i;
-			Category category{ category_name.str() };
-			db->save_category(category);
+			save_category("Category #", i);
 		}
 		list<Category> categories = db->list_categories();
 		REQUIRE(categories.size() == 10);
@@ -45,23 +70,19 @@ TEST_CASE("categories")
 	}
 
 	SECTION("search for specific string") {
-		using namespace string_literals;
 		for (auto i = 0; i < 10; i++) {
-			stringstream category_name;
-			category_name << "Category #" << i;
-			Category category{ category_name.str() };
-			db->save_category(category);
+			save_category("Category #", i);
 		}
-		auto category_name = "Category #5"s;
+		auto category_name = "Category #5";
 		auto category = db->find_category(category_name);
 		REQUIRE(category.get_name() == category_name);
-		auto category_name2 = "category #5"s;
+		auto category_name2 = "category #5";
 		auto category2 = db->find_category(category_name2);
 		REQUIRE(boost::algorithm::icontains(category2.get_name(), category_name2));
 	}
 }
 
-TEST_CASE("groups")
+TEST_CASE_METHOD(JsonStorageFixture, "groups")
 {
 	shared_ptr<OwnPass::Storage::Storage> db = StorageFactory::make();
 	{
@@ -80,12 +101,8 @@ TEST_CASE("groups")
 	}
 
 	SECTION("add group to existing category") {
-
-		Group group{ "Group #1" };
-		first_category.add_group(group);
-		db->save_category(first_category);
-		db->flush();
-		db->reload();
+		save_group(first_category, "Group #1");
+		flush_and_reload();
 		auto& first_category2 = db->list_categories().front();
 		REQUIRE_FALSE(first_category2.get_groups().empty());
 
@@ -94,12 +111,20 @@ TEST_CASE("groups")
 			first_category_copy.set_name("Updated Category");
 			first_category_copy.get_groups().front().set_name("Updated Group");
 			db->save_category(first_category_copy);
-			db->flush();
-			db->reload();
+			flush_and_reload();
 			auto& updated_category = db->list_categories().front();
 			REQUIRE(updated_category.get_name() == "Updated Category");
 			auto& updated_group = updated_category.get_groups().front();
 			REQUIRE(updated_group.get_name() == "Updated Group");
 		}
+	}
+
+	SECTION("remove group from existing category") {
+		Group group{ "Group #1" };
+		first_category.add_group(group);
+		db->save_category(first_category);
+		db->flush();
+		db->reload();
+		auto& first_category2 = db->list_categories().front();
 	}
 }

@@ -10,8 +10,8 @@
 namespace OwnPass {
 	class Application : public Group {
 	public:
-		Application(std::string& name);
-		~Application();
+		explicit Application(const std::string& name) : Group(name) {}
+		~Application() = default;
 	};
 }
 

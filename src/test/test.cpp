@@ -106,14 +106,14 @@ TEST_CASE("Categories")
 TEST_CASE("Groups")
 {
 	SECTION("Create Sites") {
-		string site_name = "Site 0";
+		auto site_name = "Site 0";
 		Site site{ site_name };
 		REQUIRE(site.get_name() == site_name);
 		REQUIRE(site.get_passwords().empty());
 	}
 
 	SECTION("Create Applications") {
-		string app_name = "App 0";
+		auto app_name = "App 0";
 		Application app{ app_name };
 		REQUIRE(app.get_name() == app_name);
 		REQUIRE(app.get_passwords().empty());

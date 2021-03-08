@@ -65,7 +65,7 @@ namespace OwnPass::Storage {
 		return category;
 	}
 
-	Category& JsonStorage::find_category(string& search)
+	Category& JsonStorage::find_category(const string& search)
 	{
 		auto it = find_if(categories.begin(), categories.end(), [&search](Category& category) {
 			return boost::algorithm::icontains(category.get_name(), search);

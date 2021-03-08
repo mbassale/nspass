@@ -28,15 +28,15 @@ namespace OwnPass {
 		Group(Group&& other) noexcept { *this = std::move(other); }
 		Group(const char* name)
 				:id{ IdGenerator::make() }, name{ name } { }
-		Group(std::string& name)
+		Group(const std::string& name)
 				:id{ IdGenerator::make() }, name{ name } { }
 		Group(std::string&& name)
 				:id{ IdGenerator::make() }, name{} { this->name = std::move(name); }
-		Group(std::string& name, std::list<Password>& passwords)
+		Group(const std::string& name, std::list<Password>& passwords)
 				:id{ IdGenerator::make() }, name{ name }, passwords{ passwords } { }
-		Group(boost::uuids::uuid& id, std::string& name)
+		Group(boost::uuids::uuid& id, const std::string& name)
 				:id{ id }, name{ name } { }
-		Group(boost::uuids::uuid& id, std::string& name, std::list<Password>& passwords)
+		Group(boost::uuids::uuid& id, const std::string& name, std::list<Password>& passwords)
 				:id{ id }, name{ name }, passwords{ passwords } { }
 		Group(boost::uuids::uuid& id, std::string&& name)
 				:id{ id }, name() { this->name = std::move(name); }

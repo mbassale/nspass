@@ -23,7 +23,7 @@ set(SOURCE_FILES
 add_executable(ownpass src/main.cpp ${SOURCE_FILES})
 
 # Test Suites
-add_executable(tests src/test/test.cpp src/test/test_database.cpp ${SOURCE_FILES})
+add_executable(tests src/test/test.cpp src/test/test_json_storage.cpp ${SOURCE_FILES})
 
 target_link_libraries(ownpass Boost::headers Boost::json)
 

@@ -4,17 +4,3 @@
 
 #include "Application.h"
 #include "Group.h"
-
-namespace OwnPass {
-	Application::Application(std::string& name)
-			:Group(name)
-	{
-
-	}
-
-	Application::~Application()
-	{
-
-	}
-}
-

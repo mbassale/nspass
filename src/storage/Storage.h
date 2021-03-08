@@ -25,7 +25,7 @@ namespace OwnPass::Storage {
 
 		virtual std::list<OwnPass::Category>& list_categories() = 0;
 		virtual Category& save_category(Category& category) = 0;
-		virtual Category& find_category(std::string& search) = 0;
+		virtual Category& find_category(const std::string& search) = 0;
 	};
 
 	class StorageFactory {

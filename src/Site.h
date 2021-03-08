@@ -10,8 +10,8 @@
 namespace OwnPass {
 	class Site : public Group {
 	public:
-		Site(std::string& name);
-		~Site();
+		explicit Site(const std::string& name) : Group(name) {}
+		~Site() = default;
 	};
 }
 
