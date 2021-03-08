@@ -5,8 +5,6 @@
 #include <string>
 #include <algorithm>
 #include <boost/algorithm/string.hpp>
-#include <boost/uuid/uuid.hpp>
-#include <boost/uuid/uuid_generators.hpp>
 #include <list>
 #include <sstream>
 #include "../storage/Storage.h"
@@ -34,13 +32,15 @@ protected:
 		db->save_category(category);
 	}
 
-	void save_group(Category& category, const string& name) {
+	void save_group(Category& category, const string& name)
+	{
 		Group group{ name };
 		category.add_group(group);
 		db->save_category(category);
 	}
 
-	void flush_and_reload() {
+	void flush_and_reload()
+	{
 		db->flush();
 		db->reload();
 	}
@@ -120,11 +120,17 @@ TEST_CASE_METHOD(JsonStorageFixture, "groups")
 	}
 
 	SECTION("remove group from existing category") {
-		Group group{ "Group #1" };
-		first_category.add_group(group);
-		db->save_category(first_category);
-		db->flush();
-		db->reload();
+		save_group(first_category, "Group #1");
+		flush_and_reload();
+
 		auto& first_category2 = db->list_categories().front();
+		REQUIRE_FALSE(first_category2.get_groups().empty());
+		auto& groups = first_category2.get_groups();
+		groups.clear();
+		REQUIRE(groups.empty());
+		flush_and_reload();
+
+		auto& first_category3 = db->list_categories().front();
+		REQUIRE(first_category3.get_groups().empty());
 	}
 }
