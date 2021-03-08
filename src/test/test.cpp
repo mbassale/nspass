@@ -20,37 +20,37 @@ TEST_CASE("Default Group")
 
 TEST_CASE("Create passwords")
 {
-	std::string username_s("test@test.com");
-	std::string password_s("test1234");
-	std::string description("lorem_ipsum");
+	auto username_s = "test@test.com";
+	auto password_s = "test1234";
+	auto description = "lorem_ipsum";
 	SECTION("in default group") {
 		Group& group = Group::get_default();
 		Password password{ group, username_s, password_s, description };
-		REQUIRE(password.get_username() == "test@test.com");
-		REQUIRE(password.get_password() == "test1234");
-		REQUIRE(password.get_description() == "lorem_ipsum");
+		REQUIRE(password.get_username() == username_s);
+		REQUIRE(password.get_password() == password_s);
+		REQUIRE(password.get_description() == description);
 		REQUIRE(password.get_group().get_name() == Group::DefaultGroupName);
 	}
 
 	SECTION("in a site") {
-		std::string site_name{ "test.com" };
+		auto site_name = "test.com";
 		Site site{ site_name };
-		REQUIRE(site.get_name() == "test.com");
+		REQUIRE(site.get_name() == site_name);
 		Password password{ site, username_s, password_s, description };
-		REQUIRE(password.get_username() == "test@test.com");
-		REQUIRE(password.get_password() == "test1234");
-		REQUIRE(password.get_description() == "lorem_ipsum");
+		REQUIRE(password.get_username() == username_s);
+		REQUIRE(password.get_password() == password_s);
+		REQUIRE(password.get_description() == description);
 		REQUIRE(&(password.get_group()) == &site);
 	}
 
 	SECTION("in an application") {
-		std::string app_name{ "myawesomeapp" };
+		auto app_name = "myawesomeapp";
 		Application app{ app_name };
-		REQUIRE(app.get_name() == "myawesomeapp");
+		REQUIRE(app.get_name() == app_name);
 		Password password{ app, username_s, password_s, description };
-		REQUIRE(password.get_username() == "test@test.com");
-		REQUIRE(password.get_password() == "test1234");
-		REQUIRE(password.get_description() == "lorem_ipsum");
+		REQUIRE(password.get_username() == username_s);
+		REQUIRE(password.get_password() == password_s);
+		REQUIRE(password.get_description() == description);
 		REQUIRE(&(password.get_group()) == &app);
 	}
 }
