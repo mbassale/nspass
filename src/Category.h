@@ -25,19 +25,13 @@ namespace OwnPass {
 		Category(Category&& other) noexcept
 				:id{} { *this = std::move(other); }
 
-		explicit Category(const char* name)
-				:id{ IdGenerator::make() }, name{ name } { }
-
-		explicit Category(std::string& name)
+		Category(const std::string& name)
 				:id{ IdGenerator::make() }, name{ name } { }
 
 		explicit Category(std::string&& name)
 				:id{ IdGenerator::make() }, name{ std::move(name) } { }
 
-		Category(boost::uuids::uuid& id, const char* name, std::list<Group>& groups)
-				:id{ id }, name{ name }, groups{ groups } { }
-
-		Category(boost::uuids::uuid& id, std::string& name, std::list<Group>& groups)
+		Category(boost::uuids::uuid& id, const std::string& name, std::list<Group>& groups)
 				:id{ id }, name{ name }, groups{ groups } { }
 
 		~Category() = default;
@@ -64,13 +58,7 @@ namespace OwnPass {
 
 		[[nodiscard]] const std::string& get_name() const { return name; }
 
-		Category& set_name(const char* new_name)
-		{
-			name = new_name;
-			return *this;
-		}
-
-		Category& set_name(std::string& new_name)
+		Category& set_name(const std::string& new_name)
 		{
 			name = new_name;
 			return *this;
@@ -82,13 +70,13 @@ namespace OwnPass {
 
 		Category& add_group(Group& group);
 
-		std::optional<Group> find_group(std::string& group_name);
+		std::optional<Group> find_group(const std::string& group_name);
 
-		std::list<std::reference_wrapper<Group>> find_groups(std::string& search);
+		std::list<std::reference_wrapper<Group>> find_groups(const std::string& search);
 
 		Category& remove_group(Group& group);
 
-		Category& remove_group(std::string& group_name);
+		Category& remove_group(const std::string& group_name);
 
 		bool operator==(const Category& other) const { return id == other.id; }
 

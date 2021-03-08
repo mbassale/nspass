@@ -58,13 +58,13 @@ TEST_CASE("Create passwords")
 TEST_CASE("Categories")
 {
 	SECTION("Create category") {
-		string category_name = "Category #0";
+		auto category_name = "Category #0";
 		Category category{ category_name };
 		REQUIRE(category.get_name() == category_name);
 	}
 
 	SECTION("add/find/remove groups") {
-		string category_name = "Category #0";
+		auto category_name = "Category #0";
 		Category category{ category_name };
 		for (auto i = 0; i < 100; i++) {
 			ostringstream group_name;
@@ -73,16 +73,16 @@ TEST_CASE("Categories")
 			category.add_group(group);
 		}
 
-		string group_name = "Group #5";
+		auto group_name = "Group #5";
 		auto group = category.find_group(group_name);
 		REQUIRE(group.has_value());
 		REQUIRE(group.value().get_name() == group_name);
-		string group_name2 = "Group #1000";
+		auto group_name2 = "Group #1000";
 		auto group2 = category.find_group(group_name2);
 		REQUIRE_FALSE(group2.has_value());
 
 		// Case-insensitive search of groups
-		string search_str = "Group #2";
+		auto search_str = "Group #2";
 		auto results = category.find_groups(search_str);
 		REQUIRE(results.size() == 11);
 		for (auto group_ref : results) {
@@ -95,8 +95,8 @@ TEST_CASE("Categories")
 		REQUIRE(category.get_groups().size() == 99);
 
 		// remove Group #2 by name
-		group_name = "Group #2";
-		category.remove_group(group_name);
+		auto group_name3 = "Group #2";
+		category.remove_group(group_name3);
 		results = category.find_groups(search_str);
 		REQUIRE(results.size() == 10);
 		REQUIRE(category.get_groups().size() == 98);
