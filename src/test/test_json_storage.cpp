@@ -8,6 +8,7 @@
 #include <list>
 #include <sstream>
 #include "../storage/Storage.h"
+#include "../Site.h"
 
 using namespace std;
 using namespace std::string_literals;
@@ -39,10 +40,31 @@ protected:
 		db->save_category(category);
 	}
 
+	void save_site(Category& category, const string& name, const string& url)
+	{
+		Site site{ name, url };
+		category.add_group(site);
+		db->save_category(category);
+	}
+
 	void flush_and_reload()
 	{
 		db->flush();
 		db->reload();
+	}
+
+	tuple<shared_ptr<OwnPass::Storage::Storage>, list<Category>&, Category&> initialize_db_with_category() {
+		shared_ptr<OwnPass::Storage::Storage> db = StorageFactory::make();
+		{
+			db->purge();
+			Category category;
+			db->save_category(category);
+			db->flush();
+			db->reload();
+		}
+		auto& categories = db->list_categories();
+		auto& first_category = categories.front();
+		return tuple<shared_ptr<OwnPass::Storage::Storage>, list<Category>&, Category&>(db, categories, first_category);
 	}
 };
 
@@ -84,17 +106,7 @@ TEST_CASE_METHOD(JsonStorageFixture, "categories")
 
 TEST_CASE_METHOD(JsonStorageFixture, "groups")
 {
-	shared_ptr<OwnPass::Storage::Storage> db = StorageFactory::make();
-	{
-		db->purge();
-		Category category;
-		db->save_category(category);
-		db->flush();
-		db->reload();
-	}
-
-	auto& categories = db->list_categories();
-	auto& first_category = categories.front();
+	auto [db, categories, first_category] = initialize_db_with_category();
 
 	SECTION("new category with no group") {
 		REQUIRE(first_category.get_groups().empty());
@@ -132,5 +144,16 @@ TEST_CASE_METHOD(JsonStorageFixture, "groups")
 
 		auto& first_category3 = db->list_categories().front();
 		REQUIRE(first_category3.get_groups().empty());
+	}
+}
+
+TEST_CASE_METHOD(JsonStorageFixture, "sites") {
+	auto [db, categories, first_category] = initialize_db_with_category();
+
+	SECTION("add site to existing category") {
+		save_site(first_category, "Site #1", "https://www.site.com");
+		flush_and_reload();
+		auto& first_category2 = db->list_categories().front();
+		REQUIRE_FALSE(first_category2.get_groups().empty());
 	}
 }

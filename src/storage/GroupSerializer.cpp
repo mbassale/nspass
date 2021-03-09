@@ -8,7 +8,10 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/string_generator.hpp>
 #include "../Group.h"
+#include "../Site.h"
 #include "GroupSerializer.h"
+#include "SiteSerializer.h"
+#include <iostream>
 
 namespace OwnPass::Storage {
 	using namespace std;
@@ -25,7 +28,14 @@ namespace OwnPass::Storage {
 	{
 		boost::json::array group_data;
 		for (auto& group : objs) {
-			auto group_datum = serialize(group);
+			boost::json::object group_datum;
+			if (typeid(group) == typeid(Site)) {
+				SiteSerializer site_serializer;
+				auto site = dynamic_cast<const Site&>(group);
+				std::cout << "SiteName: " << site.get_name() << std::endl;
+				group_datum = site_serializer.serialize(site);
+			} else
+				group_datum = serialize(group);
 			group_data.push_back(group_datum);
 		}
 		return group_data;
@@ -44,8 +54,15 @@ namespace OwnPass::Storage {
 	std::list<Group> GroupSerializer::deserialize(boost::json::array& objs)
 	{
 		std::list<Group> groups;
-		for (auto obj : objs) {
-			groups.push_back(deserialize(obj.as_object()));
+		for (auto val : objs) {
+			boost::json::object obj = val.as_object();
+			if (obj.contains("type")) {
+				if (obj["type"].as_string() == SiteSerializer::GroupType) {
+					SiteSerializer site_serializer;
+					groups.push_back(site_serializer.deserialize(obj));
+				}
+			} else
+				groups.push_back(deserialize(obj));
 		}
 		return groups;
 	}

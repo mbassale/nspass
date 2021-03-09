@@ -46,7 +46,7 @@ namespace OwnPass {
 			this->name = std::move(name);
 			this->passwords = std::move(passwords);
 		}
-		~Group() = default;
+		virtual ~Group() = default;
 
 		Group& operator=(const Group& other)
 		{
