@@ -7,8 +7,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(SOURCE_FILES
         src/Group.cpp src/Group.h
         src/Password.cpp src/Password.h
-        src/Site.cpp src/Site.h
-        src/Application.cpp src/Application.h
         src/Category.cpp src/Category.h
         src/IdGenerator.h src/IdGenerator.cpp
         src/storage/Storage.cpp src/storage/Storage.h
@@ -17,8 +15,7 @@ set(SOURCE_FILES
         src/storage/JsonWriter.h src/storage/JsonWriter.cpp
         src/storage/JsonSerializer.h src/storage/JsonSerializer.cpp
         src/storage/CategorySerializer.h src/storage/CategorySerializer.cpp
-        src/storage/GroupSerializer.h src/storage/GroupSerializer.cpp
-        src/storage/SiteSerializer.h src/storage/SiteSerializer.cpp)
+        src/storage/GroupSerializer.h src/storage/GroupSerializer.cpp)
 
 # Password Manager
 add_executable(ownpass src/main.cpp ${SOURCE_FILES})

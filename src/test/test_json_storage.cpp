@@ -8,7 +8,7 @@
 #include <list>
 #include <sstream>
 #include "../storage/Storage.h"
-#include "../Site.h"
+#include "../Group.h"
 
 using namespace std;
 using namespace std::string_literals;
@@ -35,14 +35,14 @@ protected:
 
 	void save_group(Category& category, const string& name)
 	{
-		Group group{ name };
+		Group group = GroupFactory::make_group(name);
 		category.add_group(group);
 		db->save_category(category);
 	}
 
 	void save_site(Category& category, const string& name, const string& url)
 	{
-		Site site{ name, url };
+		Group site = GroupFactory::make_site(name, url);
 		category.add_group(site);
 		db->save_category(category);
 	}
@@ -54,17 +54,17 @@ protected:
 	}
 
 	tuple<shared_ptr<OwnPass::Storage::Storage>, list<Category>&, Category&> initialize_db_with_category() {
-		shared_ptr<OwnPass::Storage::Storage> db = StorageFactory::make();
+		shared_ptr<OwnPass::Storage::Storage> db2 = StorageFactory::make();
 		{
-			db->purge();
+			db2->purge();
 			Category category;
-			db->save_category(category);
-			db->flush();
-			db->reload();
+			db2->save_category(category);
+			db2->flush();
+			db2->reload();
 		}
-		auto& categories = db->list_categories();
+		auto& categories = db2->list_categories();
 		auto& first_category = categories.front();
-		return tuple<shared_ptr<OwnPass::Storage::Storage>, list<Category>&, Category&>(db, categories, first_category);
+		return tuple<shared_ptr<OwnPass::Storage::Storage>, list<Category>&, Category&>(db2, categories, first_category);
 	}
 };
 

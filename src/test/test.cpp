@@ -6,8 +6,7 @@
 #include <string>
 #include <algorithm>
 #include "../Category.h"
-#include "../Site.h"
-#include "../Application.h"
+#include "../Group.h"
 
 using namespace std;
 using namespace OwnPass;
@@ -34,7 +33,7 @@ TEST_CASE("Create passwords")
 
 	SECTION("in a site") {
 		auto site_name = "test.com";
-		Site site{ site_name };
+		Group site = GroupFactory::make_site(site_name);
 		REQUIRE(site.get_name() == site_name);
 		Password password{ site, username_s, password_s, description };
 		REQUIRE(password.get_username() == username_s);
@@ -45,7 +44,7 @@ TEST_CASE("Create passwords")
 
 	SECTION("in an application") {
 		auto app_name = "myawesomeapp";
-		Application app{ app_name };
+		Group app = GroupFactory::make_application(app_name);
 		REQUIRE(app.get_name() == app_name);
 		Password password{ app, username_s, password_s, description };
 		REQUIRE(password.get_username() == username_s);
@@ -69,7 +68,7 @@ TEST_CASE("Categories")
 		for (auto i = 0; i < 100; i++) {
 			ostringstream group_name;
 			group_name << "Group #" << i;
-			Group group{ group_name.str() };
+			Group group = GroupFactory::make_group(group_name.str());
 			category.add_group(group);
 		}
 
@@ -107,14 +106,14 @@ TEST_CASE("Groups")
 {
 	SECTION("Create Sites") {
 		auto site_name = "Site 0";
-		Site site{ site_name };
+		Group site = GroupFactory::make_site(site_name);
 		REQUIRE(site.get_name() == site_name);
 		REQUIRE(site.get_passwords().empty());
 	}
 
 	SECTION("Create Applications") {
 		auto app_name = "App 0";
-		Application app{ app_name };
+		Group app = GroupFactory::make_application(app_name);
 		REQUIRE(app.get_name() == app_name);
 		REQUIRE(app.get_passwords().empty());
 	}
