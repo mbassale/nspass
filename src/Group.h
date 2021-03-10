@@ -33,8 +33,10 @@ namespace OwnPass {
 				:id{ other.id }, type{ other.type }, name{ other.name }, passwords{ other.passwords }, url{ other.url },
 				 description{ other.description } { }
 		Group(Group&& other) noexcept { *this = std::move(other); }
-		Group(GroupType type, boost::uuids::uuid& id, const std::string& name, const std::list<Password>& passwords, const std::string& url, const std::string& description)
-				:type{ type }, id{ id }, name{ name }, passwords{ passwords }, url{ url }, description{ description } { }
+		Group(GroupType type, boost::uuids::uuid& id, const std::string& name, const std::list<Password>& passwords,
+				const std::string& url, const std::string& description)
+				:type{ type }, id{ id }, name{ name }, passwords{ passwords }, url{ url },
+				 description{ description } { }
 		virtual ~Group() = default;
 
 		Group& operator=(const Group& other)
@@ -61,6 +63,8 @@ namespace OwnPass {
 		}
 
 		[[nodiscard]] const boost::uuids::uuid get_id() const { return id; }
+
+		[[nodiscard]] const GroupType get_type() const { return type; }
 
 		[[nodiscard]] const std::string& get_name() const { return name; }
 		Group& set_name(const std::string& new_name)
@@ -126,7 +130,17 @@ namespace OwnPass {
 		{
 			boost::uuids::uuid id = IdGenerator::make();
 			const auto passwords = std::list<Password>();
-			Group group{ GroupType::Site, id, name, passwords , url, description };
+			Group group{ GroupType::Site, id, name, passwords, url, description };
+			return group;
+		}
+
+		static Group make_site(boost::uuids::uuid& id,
+				const std::string& name,
+				const std::list<Password>& passwords,
+				const std::string& url = std::string(),
+				const std::string& description = std::string())
+		{
+			Group group{ GroupType::Site, id, name, passwords, url, description };
 			return group;
 		}
 
@@ -136,7 +150,17 @@ namespace OwnPass {
 		{
 			boost::uuids::uuid id = IdGenerator::make();
 			const auto passwords = std::list<Password>();
-			Group group{ GroupType::Application, id, name, passwords , url, description };
+			Group group{ GroupType::Application, id, name, passwords, url, description };
+			return group;
+		}
+
+		static Group make_application(boost::uuids::uuid& id,
+				const std::string& name,
+				const std::list<Password>& passwords,
+				const std::string& url = std::string(),
+				const std::string& description = std::string())
+		{
+			Group group{ GroupType::Application, id, name, passwords, url, description };
 			return group;
 		}
 	};
