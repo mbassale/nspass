@@ -33,18 +33,28 @@ protected:
 		db->save_category(category);
 	}
 
-	void save_group(Category& category, const string& name)
+	Group save_group(Category& category, const string& name, const string& url, const string& description)
 	{
-		Group group = GroupFactory::make_group(name);
+		Group group = GroupFactory::make_group(name, url, description);
 		category.add_group(group);
 		db->save_category(category);
+		return group;
 	}
 
-	void save_site(Category& category, const string& name, const string& url)
+	Group save_site(Category& category, const string& name, const string& url, const string& description)
 	{
-		Group site = GroupFactory::make_site(name, url);
+		Group site = GroupFactory::make_site(name, url, description);
 		category.add_group(site);
 		db->save_category(category);
+		return site;
+	}
+
+	Group save_application(Category& category, const string& name, const string& url, const string& description)
+	{
+		Group application = GroupFactory::make_application(name, url, description);
+		category.add_group(application);
+		db->save_category(category);
+		return application;
 	}
 
 	void flush_and_reload()
@@ -112,11 +122,21 @@ TEST_CASE_METHOD(JsonStorageFixture, "groups")
 		REQUIRE(first_category.get_groups().empty());
 	}
 
-	SECTION("add group to existing category") {
-		save_group(first_category, "Group #1");
+	SECTION("add group to existing category")
+	{
+		auto group_name = "Group #1";
+		auto group_url = "https://test.com";
+		auto group_description = "lorem ipsum dolor senet";
+		auto original_group = save_group(first_category, group_name, group_url, group_description);
 		flush_and_reload();
 		auto& first_category2 = db->list_categories().front();
 		REQUIRE_FALSE(first_category2.get_groups().empty());
+		auto& group = first_category2.get_groups().front();
+		REQUIRE(group.get_id() == original_group.get_id());
+		REQUIRE(group.get_type() == GroupType::Group);
+		REQUIRE(group.get_name() == group_name);
+		REQUIRE(group.get_url() == group_url);
+		REQUIRE(group.get_description() == group_description);
 
 		SECTION("modify a copy of existing category and group and then save it") {
 			Category first_category_copy = db->list_categories().front();
@@ -132,18 +152,20 @@ TEST_CASE_METHOD(JsonStorageFixture, "groups")
 	}
 
 	SECTION("remove group from existing category") {
-		save_group(first_category, "Group #1");
+		auto first_group = save_group(first_category, "Group #1", "https://test.com", "lorem ipsum dolor senet");
+		flush_and_reload();
+		auto second_group = save_group(first_category, "Group #2", "https://test2.com", "senet dolor ipsum lorem");
 		flush_and_reload();
 
 		auto& first_category2 = db->list_categories().front();
-		REQUIRE_FALSE(first_category2.get_groups().empty());
-		auto& groups = first_category2.get_groups();
-		groups.clear();
-		REQUIRE(groups.empty());
+		REQUIRE(first_category2.get_groups().size() == 2);
+		first_category2.remove_group(first_group);
 		flush_and_reload();
 
 		auto& first_category3 = db->list_categories().front();
-		REQUIRE(first_category3.get_groups().empty());
+		REQUIRE(first_category3.get_groups().size() == 1);
+		auto existing_group = first_category3.get_groups().front();
+		REQUIRE(second_group.get_id() == existing_group.get_id());
 	}
 }
 
@@ -151,9 +173,39 @@ TEST_CASE_METHOD(JsonStorageFixture, "sites") {
 	auto [db, categories, first_category] = initialize_db_with_category();
 
 	SECTION("add site to existing category") {
-		save_site(first_category, "Site #1", "https://www.site.com");
+		auto site_name = "Site #1";
+		auto site_url = "https://www.site.com";
+		auto site_description = "lorem ipsum dolor senet";
+		auto original_site = save_site(first_category, site_name, site_url, site_description);
 		flush_and_reload();
 		auto& first_category2 = db->list_categories().front();
 		REQUIRE_FALSE(first_category2.get_groups().empty());
+		auto& site = first_category2.get_groups().front();
+		REQUIRE(site.get_id() == original_site.get_id());
+		REQUIRE(GroupType::Site == site.get_type());
+		REQUIRE(site.get_type() == GroupType::Site);
+		REQUIRE(site.get_name() == site_name);
+		REQUIRE(site.get_url() == site_url);
+		REQUIRE(site.get_description() == site_description);
+	}
+}
+
+TEST_CASE_METHOD(JsonStorageFixture, "applications") {
+	auto [db, categories, first_category] = initialize_db_with_category();
+
+	SECTION("add application to existing category") {
+		auto app_name = "App #1";
+		auto app_url = "https://www.app.com";
+		auto app_description = "lorem ipsum dolor senet";
+		auto original_app = save_application(first_category, app_name, app_url, app_description);
+		flush_and_reload();
+		auto& first_category2 = db->list_categories().front();
+		REQUIRE_FALSE(first_category2.get_groups().empty());
+		auto& site = first_category2.get_groups().front();
+		REQUIRE(original_app.get_id() == site.get_id());
+		REQUIRE(GroupType::Application == site.get_type());
+		REQUIRE(app_name == site.get_name());
+		REQUIRE(app_url == site.get_url());
+		REQUIRE(app_description == site.get_description());
 	}
 }
