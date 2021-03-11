@@ -80,6 +80,11 @@ namespace OwnPass {
 			passwords.push_back(password);
 			return *this;
 		}
+		Group& remove_password(Password& password)
+		{
+			passwords.remove(password);
+			return *this;
+		}
 
 		const std::string& get_url() const { return url; }
 		Group& set_url(const std::string& new_url)
@@ -94,6 +99,8 @@ namespace OwnPass {
 			description = new_description;
 			return *this;
 		}
+
+		bool operator==(const Group& other) const { return id == other.id; }
 
 	protected:
 		boost::uuids::uuid id;

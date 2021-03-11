@@ -85,6 +85,8 @@ namespace OwnPass {
 
 		[[nodiscard]] const Group& get_group() const { return group; }
 
+		bool operator==(const Password& other) const { return id == other.id; }
+
 	private:
 		const Group& group;
 		boost::uuids::uuid id;

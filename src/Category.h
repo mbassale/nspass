@@ -74,6 +74,8 @@ namespace OwnPass {
 
 		std::list<std::reference_wrapper<Group>> find_groups(const std::string& search);
 
+		Category& save_group(Group& group);
+
 		Category& remove_group(Group& group);
 
 		Category& remove_group(const std::string& group_name);

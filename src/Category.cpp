@@ -44,6 +44,18 @@ namespace OwnPass {
 		return results;
 	}
 
+	Category& Category::save_group(Group& group)
+	{
+		auto it = find(groups.begin(), groups.end(), group);
+		if (it == groups.end()) {
+			groups.push_back(group);
+		}
+		else {
+			*it = group;
+		}
+		return *this;
+	}
+
 	Category& Category::remove_group(Group& group)
 	{
 		groups.remove_if([&group](const Group& other) {

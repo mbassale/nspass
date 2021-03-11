@@ -7,6 +7,7 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/string_generator.hpp>
 #include "../Group.h"
+#include "PasswordSerializer.h"
 #include "GroupSerializer.h"
 
 namespace OwnPass::Storage {
@@ -14,12 +15,14 @@ namespace OwnPass::Storage {
 
 	boost::json::object GroupSerializer::serialize(const Group& obj)
 	{
+		PasswordSerializer password_serializer{ obj };
 		return {
 				{ "id", boost::uuids::to_string(obj.get_id()) },
 				{ "type", static_cast<int64_t>(obj.get_type()) },
 				{ "name", obj.get_name() },
 				{ "url", obj.get_url() },
-				{ "description", obj.get_description() }
+				{ "description", obj.get_description() },
+				{ "passwords", password_serializer.serialize(obj.get_passwords()) }
 		};
 	}
 
@@ -33,7 +36,7 @@ namespace OwnPass::Storage {
 		return group_data;
 	}
 
-	OwnPass::Group GroupSerializer::deserialize(boost::json::object& obj)
+	Group GroupSerializer::deserialize(boost::json::object& obj)
 	{
 		auto& id_str = obj["id"].as_string();
 		boost::uuids::string_generator gen;
@@ -42,18 +45,29 @@ namespace OwnPass::Storage {
 		auto& group_name = obj["name"].as_string();
 		auto& group_url = obj["url"].as_string();
 		auto& group_description = obj["description"].as_string();
-		const auto passwords = std::list<Password>();
+		Group group;
 		switch (group_type) {
 		case GroupType::Site:
-			return GroupFactory::make_site(group_id, group_name.c_str(), passwords, group_url.c_str(),
+			group = GroupFactory::make_site(group_id, group_name.c_str(), std::list<Password>(), group_url.c_str(),
 					group_description.c_str());
+			break;
 		case GroupType::Application:
-			return GroupFactory::make_application(group_id, group_name.c_str(), passwords, group_url.c_str(),
-					group_description.c_str());
+			group = GroupFactory::make_application(group_id, group_name.c_str(), std::list<Password>(),
+					group_url.c_str(), group_description.c_str());
+			break;
 		default:
-			return GroupFactory::make_group(group_id, group_name.c_str(), passwords, group_url.c_str(),
+			group = GroupFactory::make_group(group_id, group_name.c_str(), std::list<Password>(), group_url.c_str(),
 					group_description.c_str());
+			break;
 		}
+
+		PasswordSerializer password_serializer{ group };
+		auto& group_passwords = obj["passwords"].as_array();
+		auto passwords = password_serializer.deserialize(group_passwords);
+		for (auto& password : passwords) {
+			group.add_password(password);
+		}
+		return group;
 	}
 
 	std::list<Group> GroupSerializer::deserialize(boost::json::array& objs)

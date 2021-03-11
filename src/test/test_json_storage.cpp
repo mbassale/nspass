@@ -57,13 +57,20 @@ protected:
 		return application;
 	}
 
+	void save_category_and_group(const shared_ptr<OwnPass::Storage::Storage>& storage, Category& category, Group& group)
+	{
+		category.save_group(group);
+		storage->save_category(category);
+	}
+
 	void flush_and_reload()
 	{
 		db->flush();
 		db->reload();
 	}
 
-	tuple<shared_ptr<OwnPass::Storage::Storage>, list<Category>&, Category&> initialize_db_with_category() {
+	tuple<shared_ptr<OwnPass::Storage::Storage>, list<Category>&, Category&> initialize_db_with_category()
+	{
 		shared_ptr<OwnPass::Storage::Storage> db2 = StorageFactory::make();
 		{
 			db2->purge();
@@ -74,7 +81,25 @@ protected:
 		}
 		auto& categories = db2->list_categories();
 		auto& first_category = categories.front();
-		return tuple<shared_ptr<OwnPass::Storage::Storage>, list<Category>&, Category&>(db2, categories, first_category);
+		return tuple<shared_ptr<OwnPass::Storage::Storage>, list<Category>&, Category&>(db2, categories,
+				first_category);
+	}
+
+	tuple<Category&, Group&> get_first_category_and_group(const shared_ptr<OwnPass::Storage::Storage>& db)
+	{
+		auto& first_category = db->list_categories().front();
+		REQUIRE_FALSE(first_category.get_groups().empty());
+		auto& first_group = first_category.get_groups().front();
+		return tuple<Category&, Group&>(first_category, first_group);
+	}
+
+	void assert_equals(const Password& password1, const Password& password2)
+	{
+		REQUIRE(password1.get_id() == password2.get_id());
+		REQUIRE(password1.get_username() == password2.get_username());
+		REQUIRE(password1.get_password() == password2.get_password());
+		REQUIRE(password1.get_url() == password2.get_url());
+		REQUIRE(password1.get_description() == password2.get_description());
 	}
 };
 
@@ -116,7 +141,7 @@ TEST_CASE_METHOD(JsonStorageFixture, "categories")
 
 TEST_CASE_METHOD(JsonStorageFixture, "groups")
 {
-	auto [db, categories, first_category] = initialize_db_with_category();
+	auto[db, categories, first_category] = initialize_db_with_category();
 
 	SECTION("new category with no group") {
 		REQUIRE(first_category.get_groups().empty());
@@ -169,8 +194,9 @@ TEST_CASE_METHOD(JsonStorageFixture, "groups")
 	}
 }
 
-TEST_CASE_METHOD(JsonStorageFixture, "sites") {
-	auto [db, categories, first_category] = initialize_db_with_category();
+TEST_CASE_METHOD(JsonStorageFixture, "sites")
+{
+	auto[db, categories, first_category] = initialize_db_with_category();
 
 	SECTION("add site to existing category") {
 		auto site_name = "Site #1";
@@ -190,8 +216,9 @@ TEST_CASE_METHOD(JsonStorageFixture, "sites") {
 	}
 }
 
-TEST_CASE_METHOD(JsonStorageFixture, "applications") {
-	auto [db, categories, first_category] = initialize_db_with_category();
+TEST_CASE_METHOD(JsonStorageFixture, "applications")
+{
+	auto[db, categories, first_category] = initialize_db_with_category();
 
 	SECTION("add application to existing category") {
 		auto app_name = "App #1";
@@ -207,5 +234,61 @@ TEST_CASE_METHOD(JsonStorageFixture, "applications") {
 		REQUIRE(app_name == site.get_name());
 		REQUIRE(app_url == site.get_url());
 		REQUIRE(app_description == site.get_description());
+	}
+}
+
+#include <iostream>
+
+TEST_CASE_METHOD(JsonStorageFixture, "passwords")
+{
+	auto[db, categories, first_category] = initialize_db_with_category();
+	auto group = save_group(first_category, "Group #1", "https://www.group.com", "lorem ipsum dolor senet");
+
+	SECTION("add password to existing group") {
+		auto password_username = "user@site.com";
+		auto password_pass = "test1234";
+		auto password_url = "https://site.com/login";
+		auto password_description = "lorem ipsum dolor senet";
+		Password password = PasswordFactory::make(group, password_username, password_pass, password_url,
+				password_description);
+		group.add_password(password);
+		save_category_and_group(db, first_category, group);
+		flush_and_reload();
+
+		auto [first_category2, group2] = get_first_category_and_group(db);
+		REQUIRE_FALSE(group2.get_passwords().empty());
+		auto& saved_password = group2.get_passwords().front();
+		assert_equals(password, saved_password);
+		std::cout << "username: " << saved_password.get_username() << " password: " << saved_password.get_password()
+				  << std::endl;
+
+		SECTION("add second password to existing group") {
+			auto password2_username = "user2@site.com";
+			auto password2_pass = "test1234";
+			auto password2_url = "https://site.com/register";
+			auto password2_description = "senet dolor ipsum lorem";
+			Password password2 = PasswordFactory::make(group2, password2_username, password2_pass, password2_url,
+					password2_description);
+			group2.add_password(password2);
+			save_category_and_group(db, first_category2, group2);
+			flush_and_reload();
+
+			auto [first_category3, group3] = get_first_category_and_group(db);
+			REQUIRE(group3.get_passwords().size() == 2);
+			auto it = group3.get_passwords().begin();
+			assert_equals(password, *it); // first password
+			assert_equals(password2, *(++it)); // second password
+
+			SECTION("remove first password on existing group") {
+				group3.remove_password(password);
+				save_category_and_group(db, first_category3, group3);
+				flush_and_reload();
+
+				auto [first_category4, group4] = get_first_category_and_group(db);
+				REQUIRE(group4.get_passwords().size() == 1);
+				auto it = group4.get_passwords().begin();
+				assert_equals(password2, *it);
+			}
+		}
 	}
 }
