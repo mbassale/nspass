@@ -21,21 +21,26 @@ TEST_CASE("Create passwords")
 {
 	auto username_s = "test@test.com";
 	auto password_s = "test1234";
+	auto url = "https://site.com";
 	auto description = "lorem_ipsum";
-	SECTION("in default group") {
-		Group& group = Group::get_default();
-		Password password{ group, username_s, password_s, description };
+	SECTION("in a group") {
+		auto group_name = "Group #1";
+		Group group = GroupFactory::make_group(group_name);
+		Password password = PasswordFactory::make(group, username_s, password_s, url, description);
+		REQUIRE_FALSE(password.get_id().is_nil());
 		REQUIRE(password.get_username() == username_s);
 		REQUIRE(password.get_password() == password_s);
+		REQUIRE(password.get_url() == url);
 		REQUIRE(password.get_description() == description);
-		REQUIRE(password.get_group().get_name() == Group::DefaultGroupName);
+		REQUIRE(password.get_group().get_name() == group_name);
 	}
 
 	SECTION("in a site") {
 		auto site_name = "test.com";
 		Group site = GroupFactory::make_site(site_name);
 		REQUIRE(site.get_name() == site_name);
-		Password password{ site, username_s, password_s, description };
+		Password password = PasswordFactory::make(site, username_s, password_s, url, description);
+		REQUIRE_FALSE(password.get_id().is_nil());
 		REQUIRE(password.get_username() == username_s);
 		REQUIRE(password.get_password() == password_s);
 		REQUIRE(password.get_description() == description);
@@ -46,7 +51,7 @@ TEST_CASE("Create passwords")
 		auto app_name = "myawesomeapp";
 		Group app = GroupFactory::make_application(app_name);
 		REQUIRE(app.get_name() == app_name);
-		Password password{ app, username_s, password_s, description };
+		Password password = PasswordFactory::make(app, username_s, password_s, url, description);
 		REQUIRE(password.get_username() == username_s);
 		REQUIRE(password.get_password() == password_s);
 		REQUIRE(password.get_description() == description);
