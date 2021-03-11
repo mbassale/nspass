@@ -106,15 +106,23 @@ TEST_CASE("Groups")
 {
 	SECTION("Create Sites") {
 		auto site_name = "Site 0";
-		Group site = GroupFactory::make_site(site_name);
+		auto site_url = "https://www.site.com";
+		auto site_description = "lorem ipsum dolor senet";
+		Group site = GroupFactory::make_site(site_name, site_url, site_description);
 		REQUIRE(site.get_name() == site_name);
+		REQUIRE(site.get_url() == site_url);
+		REQUIRE(site.get_description() == site_description);
 		REQUIRE(site.get_passwords().empty());
 	}
 
 	SECTION("Create Applications") {
 		auto app_name = "App 0";
-		Group app = GroupFactory::make_application(app_name);
+		auto app_url = "https://www.app.com";
+		auto app_description = "lorem ipsum dolor senet";
+		Group app = GroupFactory::make_application(app_name, app_url, app_description);
 		REQUIRE(app.get_name() == app_name);
+		REQUIRE(app.get_url() == app_url);
+		REQUIRE(app.get_description() == app_description);
 		REQUIRE(app.get_passwords().empty());
 	}
 }
