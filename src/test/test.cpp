@@ -11,12 +11,6 @@
 using namespace std;
 using namespace OwnPass;
 
-TEST_CASE("Default Group")
-{
-	auto group = Group::get_default();
-	REQUIRE(group.get_name() == Group::DefaultGroupName);
-}
-
 TEST_CASE("Create passwords")
 {
 	auto username_s = "test@test.com";

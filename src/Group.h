@@ -75,7 +75,11 @@ namespace OwnPass {
 
 		[[nodiscard]] const std::list<Password>& get_passwords() const { return passwords; }
 		[[nodiscard]] std::list<Password>& get_passwords() { return passwords; }
-		Group& add_password(const Password& password);
+		Group& add_password(const Password& password)
+		{
+			passwords.push_back(password);
+			return *this;
+		}
 
 		const std::string& get_url() const { return url; }
 		Group& set_url(const std::string& new_url)
@@ -91,7 +95,6 @@ namespace OwnPass {
 			return *this;
 		}
 
-		static Group& get_default();
 	protected:
 		boost::uuids::uuid id;
 		GroupType type;
