@@ -237,8 +237,6 @@ TEST_CASE_METHOD(JsonStorageFixture, "applications")
 	}
 }
 
-#include <iostream>
-
 TEST_CASE_METHOD(JsonStorageFixture, "passwords")
 {
 	auto[db, categories, first_category] = initialize_db_with_category();
@@ -259,8 +257,6 @@ TEST_CASE_METHOD(JsonStorageFixture, "passwords")
 		REQUIRE_FALSE(group2.get_passwords().empty());
 		auto& saved_password = group2.get_passwords().front();
 		assert_equals(password, saved_password);
-		std::cout << "username: " << saved_password.get_username() << " password: " << saved_password.get_password()
-				  << std::endl;
 
 		SECTION("add second password to existing group") {
 			auto password2_username = "user2@site.com";
