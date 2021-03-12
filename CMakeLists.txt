@@ -19,13 +19,20 @@ set(SOURCE_FILES
         src/storage/CategorySerializer.h src/storage/CategorySerializer.cpp
         src/storage/GroupSerializer.h src/storage/GroupSerializer.cpp
         src/storage/PasswordSerializer.h src/storage/PasswordSerializer.cpp
-        src/crypto/StringCrypto.h src/crypto/StringCrypto.cpp)
+        src/crypto/StringCrypto.h src/crypto/StringCrypto.cpp
+        src/crypto/InitializationVector.h src/crypto/InitializationVector.cpp)
+
+set(TEST_FILES
+        src/test/test.cpp
+        src/test/test_json_storage.cpp
+        src/test/crypto/test_string_crypto.cpp
+        src/test/crypto/test_initialization_vector.cpp)
 
 # Password Manager
 add_executable(ownpass src/main.cpp ${SOURCE_FILES})
 
 # Test Suites
-add_executable(tests src/test/test.cpp src/test/test_json_storage.cpp src/test/test_string_crypto.cpp ${SOURCE_FILES})
+add_executable(tests ${TEST_FILES} ${SOURCE_FILES})
 
 target_link_libraries(ownpass Boost::headers Boost::json ${LIBGCRYPT_LIBRARIES})
 

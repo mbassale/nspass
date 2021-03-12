@@ -1,8 +1,8 @@
 //
 // Created by Marco Bassaletti on 11-03-21.
 //
-#include "catch.hpp"
-#include "../crypto/StringCrypto.h"
+#include "../catch.hpp"
+#include "../../crypto/StringCrypto.h"
 #include <iostream>
 
 using namespace std;
