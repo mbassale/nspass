@@ -20,13 +20,16 @@ set(SOURCE_FILES
         src/storage/GroupSerializer.h src/storage/GroupSerializer.cpp
         src/storage/PasswordSerializer.h src/storage/PasswordSerializer.cpp
         src/crypto/BlockCrypto.h src/crypto/BlockCrypto.cpp
+        src/crypto/StringCrypto.h src/crypto/StringCrypto.cpp
+        src/crypto/Base64Encoder.h src/crypto/Base64Encoder.cpp
         src/crypto/InitializationVector.h src/crypto/InitializationVector.cpp)
 
 set(TEST_FILES
         src/test/test.cpp
         src/test/test_json_storage.cpp
         src/test/crypto/test_block_crypto.cpp
-        src/test/crypto/test_initialization_vector.cpp)
+        src/test/crypto/test_initialization_vector.cpp
+        src/test/crypto/test_base64_encoder.cpp)
 
 # Password Manager
 add_executable(ownpass src/main.cpp ${SOURCE_FILES})
