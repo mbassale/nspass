@@ -38,8 +38,8 @@ protected:
 
 TEST_CASE_METHOD(BlockCryptoFixture, "constructor")
 {
-	REQUIRE_THROWS_AS(BlockCrypto{ "" }, std::runtime_error);
-	REQUIRE_THROWS_AS(BlockCrypto{ "test1234" }, std::runtime_error);
+	REQUIRE_THROWS_AS(BlockCrypto{ "" }, KeyLengthError);
+	REQUIRE_THROWS_AS(BlockCrypto{ "test1234" }, KeyLengthError);
 	REQUIRE_NOTHROW(BlockCrypto{ "one test AES key" });
 	REQUIRE_NOTHROW(BlockCrypto{ "one test AES keyone test AES key" });
 }

@@ -50,9 +50,7 @@ namespace OwnPass::Crypto {
 
 		blk_length = gcry_cipher_get_algo_blklen(GCRY_CIPHER);
 		if (shared_key.size() < blk_length || shared_key.size() % blk_length != 0) {
-			std::ostringstream error_message;
-			error_message << "Shared key size=" << shared_key.size() << " is not multiple of block length " << blk_length;
-			throw std::runtime_error(error_message.str());
+			throw KeyLengthError{ shared_key.size(), blk_length };
 		}
 
 		init_vector = InitializationVectorFactory::make(blk_length);

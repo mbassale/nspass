@@ -7,13 +7,27 @@
 
 #include <vector>
 #include <string>
+#include <sstream>
 #include <utility>
 #include <gcrypt.h>
 
 namespace OwnPass::Crypto {
+
+	class KeyLengthError : public std::runtime_error {
+	public:
+		KeyLengthError(size_t key_length, size_t block_length) : std::runtime_error("") {
+			std::ostringstream oss;
+			oss << "Shared key size=" << key_length << " is not multiple of block length " << block_length;
+			error_message = oss.str();
+		}
+
+		[[nodiscard]] const char * what() const noexcept override { return error_message.c_str(); }
+	private:
+		std::string error_message;
+	};
+
 	class BlockCrypto {
 	public:
-		// TODO: support keys of less than 16 bytes
 		explicit BlockCrypto(const std::string& shared_key);
 		~BlockCrypto();
 
