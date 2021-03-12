@@ -11,21 +11,14 @@
 #include <gcrypt.h>
 
 namespace OwnPass::Crypto {
-
-	struct EncryptedBuffer {
-		std::shared_ptr<uint8_t> data;
-		const size_t size;
-		EncryptedBuffer(std::shared_ptr<uint8_t>& data, const size_t size) : data{ data }, size{ size } {}
-	};
-
 	class StringCrypto {
 	public:
 		// TODO: support keys of less than 16 bytes
 		explicit StringCrypto(const std::string& shared_key);
 		~StringCrypto();
 
-		EncryptedBuffer encrypt(const std::string& plain_text);
-		std::string decrypt(const EncryptedBuffer& buffer);
+		std::vector<uint8_t> encrypt(const std::string& plain_text);
+		std::string decrypt(const std::vector<uint8_t>& cipher_text);
 
 	private:
 		// TODO: generate random initialization vector

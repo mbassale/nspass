@@ -71,13 +71,13 @@ namespace OwnPass::Crypto {
 		gcry_cipher_close(cipher_hd);
 	}
 
-	EncryptedBuffer StringCrypto::encrypt(const std::string& plain_text)
+	std::vector<uint8_t> StringCrypto::encrypt(const std::string& plain_text)
 	{
 		size_t number_of_blocks = std::ceil(static_cast<float>(plain_text.size()) / static_cast<float>(blk_length));
 		size_t buffer_size = number_of_blocks * blk_length;
-		std::shared_ptr<uint8_t> output_buffer{ new uint8_t[buffer_size] };
+		std::vector<uint8_t> output_buffer;
+		output_buffer.resize(buffer_size, 0);
 		boost::scoped_ptr<uint8_t> input_buffer{ new uint8_t[buffer_size] };
-		memset(output_buffer.get(), 0, buffer_size);
 		memset(input_buffer.get(), 0, buffer_size);
 		memcpy(input_buffer.get(), plain_text.c_str(), plain_text.size());
 
@@ -86,7 +86,7 @@ namespace OwnPass::Crypto {
 
 		gcry_error_t gcry_ret = gcry_cipher_encrypt(
 				cipher_hd,         // gcry_cipher_hd_t h
-				output_buffer.get(),      // unsigned char *out
+				output_buffer.data(),      // unsigned char *out
 				buffer_size,   // size_t outsize
 				input_buffer.get(),          // const unsigned char *in
 				buffer_size);  // size_t inlen
@@ -97,20 +97,20 @@ namespace OwnPass::Crypto {
 			throw std::runtime_error(error_message.str());
 		}
 
-		return EncryptedBuffer{ output_buffer, buffer_size };
+		return output_buffer;
 	}
 
-	std::string StringCrypto::decrypt(const EncryptedBuffer& buffer)
+	std::string StringCrypto::decrypt(const std::vector<uint8_t>& cipher_text)
 	{
-		boost::scoped_ptr<uint8_t> output_buffer{ new uint8_t[buffer.size + 1] };
-		memset(output_buffer.get(), 0, buffer.size + 1);
+		boost::scoped_ptr<uint8_t> output_buffer{ new uint8_t[cipher_text.size()+1] };
+		memset(output_buffer.get(), 0, cipher_text.size()+1);
 
 		gcry_error_t gcry_ret = gcry_cipher_decrypt(
 				cipher_hd,          // gcry_cipher_hd_t h
 				output_buffer.get(),      // unsigned char *out
-				buffer.size,    // size_t outsize
-				buffer.data.get(),       // const unsigned char *in
-				buffer.size);   // size_t inlen
+				cipher_text.size(),    // size_t outsize
+				cipher_text.data(),       // const unsigned char *in
+				cipher_text.size());   // size_t inlen
 		if (gcry_ret) {
 			std::ostringstream error_message;
 			error_message << "gcry_cipher_encrypt failed: " << gcry_strsource(gcry_ret) << " "
