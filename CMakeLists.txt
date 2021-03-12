@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.17)
 project(ownpass)
 
 find_package(Boost REQUIRED COMPONENTS Json)
+find_library(LIBGCRYPT_LIBRARIES gcrypt)
+
 
 set(CMAKE_CXX_STANDARD 17)
 set(SOURCE_FILES
@@ -16,14 +18,15 @@ set(SOURCE_FILES
         src/storage/JsonSerializer.h src/storage/JsonSerializer.cpp
         src/storage/CategorySerializer.h src/storage/CategorySerializer.cpp
         src/storage/GroupSerializer.h src/storage/GroupSerializer.cpp
-        src/storage/PasswordSerializer.h src/storage/PasswordSerializer.cpp)
+        src/storage/PasswordSerializer.h src/storage/PasswordSerializer.cpp
+        src/storage/StringCrypto.h src/storage/StringCrypto.cpp)
 
 # Password Manager
 add_executable(ownpass src/main.cpp ${SOURCE_FILES})
 
 # Test Suites
-add_executable(tests src/test/test.cpp src/test/test_json_storage.cpp ${SOURCE_FILES})
+add_executable(tests src/test/test.cpp src/test/test_json_storage.cpp src/test/test_string_crypto.cpp ${SOURCE_FILES})
 
-target_link_libraries(ownpass Boost::headers Boost::json)
+target_link_libraries(ownpass Boost::headers Boost::json ${LIBGCRYPT_LIBRARIES})
 
-target_link_libraries(tests Boost::headers Boost::json)
+target_link_libraries(tests Boost::headers Boost::json ${LIBGCRYPT_LIBRARIES})
