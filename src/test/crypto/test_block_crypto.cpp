@@ -38,7 +38,10 @@ protected:
 
 TEST_CASE_METHOD(BlockCryptoFixture, "constructor")
 {
-	BlockCrypto string_crypto{ "one test AES key" };
+	REQUIRE_THROWS_AS(BlockCrypto{ "" }, std::runtime_error);
+	REQUIRE_THROWS_AS(BlockCrypto{ "test1234" }, std::runtime_error);
+	REQUIRE_NOTHROW(BlockCrypto{ "one test AES key" });
+	REQUIRE_NOTHROW(BlockCrypto{ "one test AES keyone test AES key" });
 }
 
 TEST_CASE_METHOD(BlockCryptoFixture, "encrypt and decrypt")
