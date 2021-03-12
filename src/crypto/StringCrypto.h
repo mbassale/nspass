@@ -5,6 +5,7 @@
 #ifndef OWNPASS_STRINGCRYPTO_H
 #define OWNPASS_STRINGCRYPTO_H
 
+#include <vector>
 #include <string>
 #include <utility>
 #include <gcrypt.h>
@@ -28,7 +29,7 @@ namespace OwnPass::Crypto {
 
 	private:
 		// TODO: generate random initialization vector
-		const char* init_vector = "a test ini value";
+		std::vector<uint8_t> init_vector;
 		const std::string& shared_key;
 		gcry_cipher_hd_t cipher_hd;
 		size_t key_length;

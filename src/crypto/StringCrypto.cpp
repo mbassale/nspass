@@ -9,6 +9,7 @@
 #include <sstream>
 #include <iostream>
 #include <boost/scoped_ptr.hpp>
+#include "InitializationVector.h"
 #include "StringCrypto.h"
 
 #define GCRY_CIPHER GCRY_CIPHER_AES256
@@ -53,8 +54,11 @@ namespace OwnPass::Crypto {
 
 		blk_length = gcry_cipher_get_algo_blklen(GCRY_CIPHER);
 		std::cout << "blk_length = " << blk_length << std::endl;
-		std::cout << "init_vector = " << init_vector << " strlen = " << strlen(init_vector) << std::endl;
-		gcry_ret = gcry_cipher_setiv(cipher_hd, init_vector, blk_length);
+
+		init_vector = InitializationVectorFactory::make(blk_length);
+
+		std::cout << "init_vector size = " << init_vector.size() << std::endl;
+		gcry_ret = gcry_cipher_setiv(cipher_hd, init_vector.data(), init_vector.size());
 		if (gcry_ret) {
 			std::ostringstream error_message;
 			error_message << "gcry_cipher_setiv failed: " << gcry_strsource(gcry_ret) << gcry_strerror(gcry_ret);
