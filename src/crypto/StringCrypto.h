@@ -9,7 +9,7 @@
 #include <utility>
 #include <gcrypt.h>
 
-namespace OwnPass::Storage {
+namespace OwnPass::Crypto {
 
 	struct EncryptedBuffer {
 		std::shared_ptr<uint8_t> data;

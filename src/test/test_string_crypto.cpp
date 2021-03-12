@@ -2,11 +2,11 @@
 // Created by Marco Bassaletti on 11-03-21.
 //
 #include "catch.hpp"
-#include "../storage/StringCrypto.h"
+#include "../crypto/StringCrypto.h"
 #include <iostream>
 
 using namespace std;
-using namespace OwnPass::Storage;
+using namespace OwnPass::Crypto;
 
 class StringCryptoFixture {
 public:

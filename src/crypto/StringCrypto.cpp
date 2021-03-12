@@ -13,7 +13,7 @@
 
 #define GCRY_CIPHER GCRY_CIPHER_AES256
 
-namespace OwnPass::Storage {
+namespace OwnPass::Crypto {
 
 	StringCrypto::StringCrypto(const std::string& shared_key)
 			:shared_key{ shared_key }

@@ -19,7 +19,7 @@ set(SOURCE_FILES
         src/storage/CategorySerializer.h src/storage/CategorySerializer.cpp
         src/storage/GroupSerializer.h src/storage/GroupSerializer.cpp
         src/storage/PasswordSerializer.h src/storage/PasswordSerializer.cpp
-        src/storage/StringCrypto.h src/storage/StringCrypto.cpp)
+        src/crypto/StringCrypto.h src/crypto/StringCrypto.cpp)
 
 # Password Manager
 add_executable(ownpass src/main.cpp ${SOURCE_FILES})
