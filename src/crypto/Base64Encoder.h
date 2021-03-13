@@ -6,12 +6,13 @@
 #define OWNPASS_BASE64ENCODER_H
 
 #include <string>
+#include <vector>
 
 namespace OwnPass::Crypto {
 	class Base64Encoder {
 	public:
-		static std::string encode(const std::string& plain_str);
-		static std::string decode(const std::string& encoded_str);
+		static std::string encode(const std::vector<uint8_t>& plain_buffer);
+		static std::vector<uint8_t> decode(const std::string& encoded_str);
 	};
 }
 

@@ -176,15 +176,15 @@ unsigned char* base64_decode(unsigned char* buf, size_t* len, int strict,
 
 namespace OwnPass::Crypto {
 
-	std::string Base64Encoder::encode(const std::string& plain_str)
+	std::string Base64Encoder::encode(const std::vector<uint8_t>& plain_buffer)
 	{
-		auto encoded_c_str = ::base64_encode((unsigned char*)plain_str.c_str(), plain_str.size(), 0);
+		auto encoded_c_str = ::base64_encode((unsigned char*)plain_buffer.data(), plain_buffer.size(), 0);
 		std::string encoded_str{ reinterpret_cast<const char*>(encoded_c_str) };
 		free(encoded_c_str);
 		return encoded_str;
 	}
 
-	std::string Base64Encoder::decode(const std::string& encoded_str)
+	std::vector<uint8_t> Base64Encoder::decode(const std::string& encoded_str)
 	{
 		int decode_error = 0;
 		size_t decode_length = 0;
@@ -193,9 +193,12 @@ namespace OwnPass::Crypto {
 			if (decoded_c_str) free(decoded_c_str);
 			throw std::runtime_error("base64 decode error");
 		}
-		std::string decoded_str{ reinterpret_cast<const char*>(decoded_c_str), decode_length };
+		std::vector<uint8_t> decoded_buffer;
+		decoded_buffer.reserve(decode_length);
+		for (auto i = 0; i < decode_length; i++)
+			decoded_buffer.push_back(decoded_c_str[i]);
 		free(decoded_c_str);
-		return decoded_str;
+		return decoded_buffer;
 	}
 
 }

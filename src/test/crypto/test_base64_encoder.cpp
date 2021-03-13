@@ -31,19 +31,30 @@ public:
 
 	}
 protected:
+	vector<uint8_t> string2buffer(const std::string& str)
+	{
+		vector<uint8_t> buffer;
+		buffer.reserve(str.size());
+		for (char i : str)
+			buffer.push_back(i);
+		return buffer;
+	}
+
 	void assert_decode(const std::string& str)
 	{
-		REQUIRE(Base64Encoder::decode(Base64Encoder::encode(str)) == str);
+		auto encoded_string = Base64Encoder::encode(string2buffer(str));
+		auto decoded_buffer = Base64Encoder::decode(encoded_string);
+		REQUIRE(decoded_buffer == string2buffer(str));
 	}
 };
 
 TEST_CASE_METHOD(Base64EncoderFixture, "encode")
 {
-	REQUIRE(Base64Encoder::encode("").empty());
-	REQUIRE(Base64Encoder::encode(" ") == "IA==");
-	REQUIRE(Base64Encoder::encode("    ") == "ICAgIA==");
-	REQUIRE(Base64Encoder::encode("1234567890") == "MTIzNDU2Nzg5MA==");
-	REQUIRE(Base64Encoder::encode(LoremIpsumText) == LoremIpsumEncodedText);
+	REQUIRE(Base64Encoder::encode(string2buffer("")).empty());
+	REQUIRE(Base64Encoder::encode(string2buffer(" ")) == "IA==");
+	REQUIRE(Base64Encoder::encode(string2buffer("    ")) == "ICAgIA==");
+	REQUIRE(Base64Encoder::encode(string2buffer("1234567890")) == "MTIzNDU2Nzg5MA==");
+	REQUIRE(Base64Encoder::encode(string2buffer(LoremIpsumText)) == LoremIpsumEncodedText);
 }
 
 TEST_CASE_METHOD(Base64EncoderFixture, "decode")
