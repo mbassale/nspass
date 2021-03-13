@@ -7,6 +7,7 @@ find_library(LIBGCRYPT_LIBRARIES gcrypt)
 
 set(CMAKE_CXX_STANDARD 17)
 set(SOURCE_FILES
+        src/Vault.h src/Vault.cpp
         src/Group.cpp src/Group.h
         src/Password.cpp src/Password.h
         src/Category.cpp src/Category.h
@@ -26,6 +27,7 @@ set(SOURCE_FILES
 
 set(TEST_FILES
         src/test/test.cpp
+        src/test/test_vault.cpp
         src/test/test_json_storage.cpp
         src/test/crypto/test_initialization_vector.cpp
         src/test/crypto/test_base64_encoder.cpp
