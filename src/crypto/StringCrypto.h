@@ -1,33 +1,28 @@
 //
-// Created by Marco Bassaletti on 11-03-21.
+// Created by Marco Bassaletti on 12-03-21.
 //
 
 #ifndef OWNPASS_STRINGCRYPTO_H
 #define OWNPASS_STRINGCRYPTO_H
 
-#include <vector>
 #include <string>
-#include <utility>
-#include <gcrypt.h>
+#include <vector>
 
 namespace OwnPass::Crypto {
+
 	class StringCrypto {
 	public:
-		// TODO: support keys of less than 16 bytes
 		explicit StringCrypto(const std::string& shared_key);
-		~StringCrypto();
 
-		std::vector<uint8_t> encrypt(const std::string& plain_text);
-		std::string decrypt(const std::vector<uint8_t>& cipher_text);
+		std::string encrypt(const std::string& plain_text);
+		std::string decrypt(const std::string& cipher_text);
 
-	private:
-		// TODO: generate random initialization vector
-		std::vector<uint8_t> init_vector;
+	protected:
 		const std::string& shared_key;
-		gcry_cipher_hd_t cipher_hd;
-		size_t key_length;
-		size_t blk_length;
+		std::string padded_shared_key;
+		void pad_shared_key(size_t key_length);
 	};
+
 }
 
 #endif //OWNPASS_STRINGCRYPTO_H

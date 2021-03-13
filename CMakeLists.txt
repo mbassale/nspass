@@ -27,9 +27,10 @@ set(SOURCE_FILES
 set(TEST_FILES
         src/test/test.cpp
         src/test/test_json_storage.cpp
-        src/test/crypto/test_block_crypto.cpp
         src/test/crypto/test_initialization_vector.cpp
-        src/test/crypto/test_base64_encoder.cpp)
+        src/test/crypto/test_base64_encoder.cpp
+        src/test/crypto/test_block_crypto.cpp
+        src/test/crypto/test_string_crypto.cpp)
 
 # Password Manager
 add_executable(ownpass src/main.cpp ${SOURCE_FILES})
