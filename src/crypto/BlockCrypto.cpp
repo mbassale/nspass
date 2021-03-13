@@ -10,14 +10,12 @@
 #include "InitializationVector.h"
 #include "BlockCrypto.h"
 
-#define GCRY_CIPHER GCRY_CIPHER_AES256
-
 namespace OwnPass::Crypto {
 
-	BlockCrypto::BlockCrypto(const std::string& shared_key)
-			:shared_key{ shared_key }
+	BlockCrypto::BlockCrypto(const std::string& shared_key, const std::vector<uint8_t>& init_vector)
+			:shared_key{ shared_key }, init_vector{ init_vector }
 	{
-		int gcry_mode = GCRY_CIPHER_MODE_ECB;
+		int gcry_mode = GCRY_CIPHER_MODE_CBC;
 		gcry_error_t gcry_ret;
 
 		/* http://lists.gnupg.org/pipermail/gcrypt-devel/2003-August/000458.html
@@ -39,26 +37,15 @@ namespace OwnPass::Crypto {
 			throw std::runtime_error(error_message.str());
 		}
 
-		key_length = gcry_cipher_get_algo_keylen(GCRY_CIPHER);
-		const char* sym_key = shared_key.c_str(); // larger than 16 bytes
-		gcry_ret = gcry_cipher_setkey(cipher_hd, sym_key, key_length);
+		block_length = get_block_length();
+		if (shared_key.size() < block_length || shared_key.size() % block_length != 0) {
+			throw KeyLengthError{ shared_key.size(), block_length };
+		}
+
+		gcry_ret = gcry_cipher_setkey(cipher_hd, shared_key.c_str(), shared_key.size());
 		if (gcry_ret) {
 			std::ostringstream error_message;
 			error_message << "gcry_cipher_setkey failed: " << gcry_strsource(gcry_ret) << gcry_strerror(gcry_ret);
-			throw std::runtime_error(error_message.str());
-		}
-
-		blk_length = gcry_cipher_get_algo_blklen(GCRY_CIPHER);
-		if (shared_key.size() < blk_length || shared_key.size() % blk_length != 0) {
-			throw KeyLengthError{ shared_key.size(), blk_length };
-		}
-
-		init_vector = InitializationVectorFactory::make(blk_length);
-
-		gcry_ret = gcry_cipher_setiv(cipher_hd, init_vector.data(), init_vector.size());
-		if (gcry_ret) {
-			std::ostringstream error_message;
-			error_message << "gcry_cipher_setiv failed: " << gcry_strsource(gcry_ret) << gcry_strerror(gcry_ret);
 			throw std::runtime_error(error_message.str());
 		}
 	}
@@ -70,6 +57,13 @@ namespace OwnPass::Crypto {
 
 	std::vector<uint8_t> BlockCrypto::encrypt(const std::vector<uint8_t>& plain_text)
 	{
+		gcry_error_t gcry_ret = gcry_cipher_setiv(cipher_hd, init_vector.data(), init_vector.size());
+		if (gcry_ret) {
+			std::ostringstream error_message;
+			error_message << "gcry_cipher_setiv failed: " << gcry_strsource(gcry_ret) << gcry_strerror(gcry_ret);
+			throw std::runtime_error(error_message.str());
+		}
+
 		size_t buffer_size = pad_length(plain_text.size());
 		std::vector<uint8_t> output_buffer;
 		output_buffer.resize(buffer_size, 0);
@@ -77,7 +71,7 @@ namespace OwnPass::Crypto {
 		input_buffer.resize(buffer_size, 0);
 		memcpy(input_buffer.data(), plain_text.data(), plain_text.size());
 
-		gcry_error_t gcry_ret = gcry_cipher_encrypt(
+		gcry_ret = gcry_cipher_encrypt(
 				cipher_hd, // gcry_cipher_hd_t h
 				output_buffer.data(), // unsigned char *out
 				buffer_size, // size_t outsize
@@ -95,10 +89,17 @@ namespace OwnPass::Crypto {
 
 	std::vector<uint8_t> BlockCrypto::decrypt(const std::vector<uint8_t>& cipher_text)
 	{
+		gcry_error_t gcry_ret = gcry_cipher_setiv(cipher_hd, init_vector.data(), init_vector.size());
+		if (gcry_ret) {
+			std::ostringstream error_message;
+			error_message << "gcry_cipher_setiv failed: " << gcry_strsource(gcry_ret) << gcry_strerror(gcry_ret);
+			throw std::runtime_error(error_message.str());
+		}
+
 		std::vector<uint8_t> output_buffer;
 		output_buffer.resize(cipher_text.size(), 0);
 
-		gcry_error_t gcry_ret = gcry_cipher_decrypt(
+		gcry_ret = gcry_cipher_decrypt(
 				cipher_hd, // gcry_cipher_hd_t h
 				output_buffer.data(), // unsigned char *out
 				cipher_text.size(), // size_t outsize
@@ -116,7 +117,7 @@ namespace OwnPass::Crypto {
 
 	size_t BlockCrypto::pad_length(size_t length) const
 	{
-		size_t number_of_blocks = std::ceil(static_cast<float>(length) / static_cast<float>(blk_length));
-		return number_of_blocks * blk_length;
+		size_t number_of_blocks = std::ceil(static_cast<float>(length) / static_cast<float>(block_length));
+		return number_of_blocks * block_length;
 	}
 }

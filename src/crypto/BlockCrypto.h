@@ -11,6 +11,8 @@
 #include <utility>
 #include <gcrypt.h>
 
+#define GCRY_CIPHER GCRY_CIPHER_AES256
+
 namespace OwnPass::Crypto {
 
 	class KeyLengthError : public std::runtime_error {
@@ -28,21 +30,21 @@ namespace OwnPass::Crypto {
 
 	class BlockCrypto {
 	public:
-		explicit BlockCrypto(const std::string& shared_key);
+		BlockCrypto(const std::string& shared_key, const std::vector<uint8_t>& init_vector);
 		~BlockCrypto();
 
-		[[nodiscard]] size_t get_block_length() const { return blk_length; }
+		static size_t get_block_length() { return gcry_cipher_get_algo_blklen(GCRY_CIPHER); }
+		static size_t get_key_length() { return gcry_cipher_get_algo_keylen(GCRY_CIPHER); }
 		[[nodiscard]] size_t pad_length(size_t length) const;
 
 		std::vector<uint8_t> encrypt(const std::vector<uint8_t>& plain_text);
 		std::vector<uint8_t> decrypt(const std::vector<uint8_t>& cipher_text);
 
 	private:
-		std::vector<uint8_t> init_vector;
 		const std::string& shared_key;
-		gcry_cipher_hd_t cipher_hd;
-		size_t key_length;
-		size_t blk_length;
+		const std::vector<uint8_t>& init_vector;
+		gcry_cipher_hd_t cipher_hd{};
+		size_t block_length;
 	};
 }
 

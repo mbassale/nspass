@@ -6,6 +6,7 @@
 #include <vector>
 #include "../catch.hpp"
 #include "../../crypto/BlockCrypto.h"
+#include "../../crypto/InitializationVector.h"
 
 using namespace std;
 using namespace OwnPass::Crypto;
@@ -38,15 +39,17 @@ protected:
 
 TEST_CASE_METHOD(BlockCryptoFixture, "constructor")
 {
-	REQUIRE_THROWS_AS(BlockCrypto{ "" }, KeyLengthError);
-	REQUIRE_THROWS_AS(BlockCrypto{ "test1234" }, KeyLengthError);
-	REQUIRE_NOTHROW(BlockCrypto{ "one test AES key" });
-	REQUIRE_NOTHROW(BlockCrypto{ "one test AES keyone test AES key" });
+	vector<uint8_t> init_vector = InitializationVectorFactory::make(BlockCrypto::get_block_length());
+	REQUIRE_THROWS_AS((BlockCrypto{ "", init_vector }), KeyLengthError);
+	REQUIRE_THROWS_AS((BlockCrypto{ "test1234", init_vector }), KeyLengthError);
+	REQUIRE_NOTHROW((BlockCrypto{ "one test AES key", init_vector }));
+	REQUIRE_NOTHROW((BlockCrypto{ "one test AES keyone test AES key", init_vector }));
 }
 
 TEST_CASE_METHOD(BlockCryptoFixture, "encrypt and decrypt")
 {
-	BlockCrypto string_crypto{ "two test AES key" };
+	vector<uint8_t> init_vector = InitializationVectorFactory::make(BlockCrypto::get_block_length());
+	BlockCrypto string_crypto{ "two test AES key", init_vector };
 	assert_encrypt(string_crypto, "", "");
 	assert_encrypt(string_crypto, " ", " ");
 	assert_encrypt(string_crypto, "a", "a");
