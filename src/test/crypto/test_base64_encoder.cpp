@@ -34,7 +34,7 @@ protected:
 	vector<uint8_t> string2buffer(const std::string& str)
 	{
 		vector<uint8_t> buffer;
-		buffer.reserve(str.size());
+		buffer.reserve(str.length());
 		for (char i : str)
 			buffer.push_back(i);
 		return buffer;
@@ -48,16 +48,7 @@ protected:
 	}
 };
 
-TEST_CASE_METHOD(Base64EncoderFixture, "encode")
-{
-	REQUIRE(Base64Encoder::encode(string2buffer("")).empty());
-	REQUIRE(Base64Encoder::encode(string2buffer(" ")) == "IA==");
-	REQUIRE(Base64Encoder::encode(string2buffer("    ")) == "ICAgIA==");
-	REQUIRE(Base64Encoder::encode(string2buffer("1234567890")) == "MTIzNDU2Nzg5MA==");
-	REQUIRE(Base64Encoder::encode(string2buffer(LoremIpsumText)) == LoremIpsumEncodedText);
-}
-
-TEST_CASE_METHOD(Base64EncoderFixture, "decode")
+TEST_CASE_METHOD(Base64EncoderFixture, "base64 encode/decode")
 {
 	assert_decode("");
 	assert_decode(" ");
