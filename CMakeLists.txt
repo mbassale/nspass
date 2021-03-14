@@ -23,7 +23,8 @@ set(SOURCE_FILES
         src/crypto/BlockCrypto.h src/crypto/BlockCrypto.cpp
         src/crypto/StringCrypto.h src/crypto/StringCrypto.cpp
         src/crypto/Base64Encoder.h src/crypto/Base64Encoder.cpp
-        src/crypto/InitializationVector.h src/crypto/InitializationVector.cpp)
+        src/crypto/InitializationVector.h src/crypto/InitializationVector.cpp
+        src/crypto/SecureString.h src/crypto/SecureString.cpp)
 
 set(TEST_FILES
         src/test/test.cpp
@@ -32,7 +33,8 @@ set(TEST_FILES
         src/test/crypto/test_initialization_vector.cpp
         src/test/crypto/test_base64_encoder.cpp
         src/test/crypto/test_block_crypto.cpp
-        src/test/crypto/test_string_crypto.cpp)
+        src/test/crypto/test_string_crypto.cpp
+        src/test/crypto/test_secure_string.cpp)
 
 # Password Manager
 add_executable(ownpass src/main.cpp ${SOURCE_FILES})
