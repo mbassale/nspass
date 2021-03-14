@@ -12,7 +12,7 @@
 
 namespace OwnPass::Crypto {
 
-	BlockCrypto::BlockCrypto(const std::string& shared_key, const std::vector<uint8_t>& init_vector)
+	BlockCrypto::BlockCrypto(std::string_view shared_key, const std::vector<uint8_t>& init_vector)
 			:shared_key{ shared_key }, init_vector{ init_vector }
 	{
 		int gcry_mode = GCRY_CIPHER_MODE_CBC;
@@ -42,7 +42,7 @@ namespace OwnPass::Crypto {
 			throw KeyLengthError{ shared_key.size(), block_length };
 		}
 
-		gcry_ret = gcry_cipher_setkey(cipher_hd, shared_key.c_str(), shared_key.size());
+		gcry_ret = gcry_cipher_setkey(cipher_hd, shared_key.data(), shared_key.size());
 		if (gcry_ret) {
 			std::ostringstream error_message;
 			error_message << "gcry_cipher_setkey failed: " << gcry_strsource(gcry_ret) << gcry_strerror(gcry_ret);

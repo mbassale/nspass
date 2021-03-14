@@ -12,13 +12,13 @@ namespace OwnPass::Crypto {
 
 	class StringCrypto {
 	public:
-		explicit StringCrypto(const std::string& shared_key);
+		explicit StringCrypto(std::string_view shared_key);
 
-		std::string encrypt(const std::string& plain_text);
-		std::string decrypt(const std::string& cipher_text);
+		std::string encrypt(std::string_view plain_text);
+		std::string decrypt(std::string_view cipher_text);
 
 	protected:
-		const std::string& shared_key;
+		std::string_view shared_key;
 		std::string padded_shared_key;
 		void pad_shared_key(size_t key_length);
 	};

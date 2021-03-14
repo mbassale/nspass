@@ -13,13 +13,13 @@
 namespace OwnPass::Crypto {
 	using namespace std;
 
-	StringCrypto::StringCrypto(const std::string& shared_key)
+	StringCrypto::StringCrypto(std::string_view shared_key)
 			:shared_key{ shared_key }
 	{
 		pad_shared_key(BlockCrypto::get_key_length());
 	}
 
-	std::string StringCrypto::encrypt(const std::string& plain_text)
+	std::string StringCrypto::encrypt(std::string_view plain_text)
 	{
 		vector<uint8_t> init_vector = InitializationVectorFactory::make(BlockCrypto::get_block_length());
 		BlockCrypto block_crypto{ padded_shared_key, init_vector };
@@ -36,7 +36,7 @@ namespace OwnPass::Crypto {
 		return Base64Encoder::encode(cipher_block_with_iv);
 	}
 
-	std::string StringCrypto::decrypt(const std::string& cipher_text)
+	std::string StringCrypto::decrypt(std::string_view cipher_text)
 	{
 		vector<uint8_t> cipher_buffer_with_iv = Base64Encoder::decode(cipher_text);
 		vector<uint8_t> init_vector;

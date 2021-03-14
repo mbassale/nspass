@@ -17,7 +17,7 @@ namespace OwnPass {
 		return *this;
 	}
 
-	optional<Group> Category::find_group(const string& group_name)
+	optional<Group> Category::find_group(string_view group_name)
 	{
 		const auto match_group = [group_name](const Group& group) {
 			return boost::iequals(group.get_name(), group_name);
@@ -28,7 +28,7 @@ namespace OwnPass {
 		return *filtered_iterator_begin;
 	}
 
-	list<reference_wrapper<Group>> Category::find_groups(const string& search)
+	list<reference_wrapper<Group>> Category::find_groups(string_view search)
 	{
 		list<reference_wrapper<Group>> results;
 		const auto match_group = [search](const Group& group) {
@@ -64,7 +64,7 @@ namespace OwnPass {
 		return *this;
 	}
 
-	Category& Category::remove_group(const string& group_name)
+	Category& Category::remove_group(string_view group_name)
 	{
 		groups.remove_if([group_name](const Group& group) {
 			return group.get_name() == group_name;

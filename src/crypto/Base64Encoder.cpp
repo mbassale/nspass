@@ -184,11 +184,11 @@ namespace OwnPass::Crypto {
 		return encoded_str;
 	}
 
-	std::vector<uint8_t> Base64Encoder::decode(const std::string& encoded_str)
+	std::vector<uint8_t> Base64Encoder::decode(std::string_view encoded_str)
 	{
 		int decode_error = 0;
 		size_t decoded_length = 0;
-		auto decoded_c_str = ::base64_decode((unsigned char*)encoded_str.c_str(), &decoded_length, 1, &decode_error);
+		auto decoded_c_str = ::base64_decode((unsigned char*)encoded_str.data(), &decoded_length, 1, &decode_error);
 		if (decode_error) {
 			if (decoded_c_str) free(decoded_c_str);
 			throw std::runtime_error("base64 decode error");

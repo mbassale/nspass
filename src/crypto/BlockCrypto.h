@@ -30,7 +30,7 @@ namespace OwnPass::Crypto {
 
 	class BlockCrypto {
 	public:
-		BlockCrypto(const std::string& shared_key, const std::vector<uint8_t>& init_vector);
+		BlockCrypto(std::string_view shared_key, const std::vector<uint8_t>& init_vector);
 		~BlockCrypto();
 
 		static size_t get_block_length() { return gcry_cipher_get_algo_blklen(GCRY_CIPHER); }
@@ -41,7 +41,7 @@ namespace OwnPass::Crypto {
 		std::vector<uint8_t> decrypt(const std::vector<uint8_t>& cipher_text);
 
 	private:
-		const std::string& shared_key;
+		std::string_view shared_key;
 		const std::vector<uint8_t>& init_vector;
 		gcry_cipher_hd_t cipher_hd{};
 		size_t block_length;

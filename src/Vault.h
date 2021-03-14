@@ -27,8 +27,8 @@ namespace OwnPass {
 		Vault(Vault const&) = delete;
 		void operator=(Vault const&) = delete;
 
-		[[nodiscard]] const std::string& get_master_password() const { return master_password; }
-		Vault& set_master_password(const std::string& new_master_password)
+		[[nodiscard]] std::string_view get_master_password() const { return master_password; }
+		Vault& set_master_password(std::string_view new_master_password)
 		{
 			master_password = new_master_password;
 			return *this;
