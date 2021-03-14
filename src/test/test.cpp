@@ -5,6 +5,7 @@
 #include "catch.hpp"
 #include <string>
 #include <algorithm>
+#include "../crypto/SecureString.h"
 #include "../Category.h"
 #include "../Group.h"
 
@@ -14,7 +15,7 @@ using namespace OwnPass;
 TEST_CASE("Create passwords")
 {
 	auto username_s = "test@test.com";
-	auto password_s = "test1234";
+	auto password_s = SecureString::FromPlainText("test1234", "test1234");
 	auto url = "https://site.com";
 	auto description = "lorem_ipsum";
 	SECTION("in a group") {

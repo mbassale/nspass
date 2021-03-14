@@ -7,6 +7,7 @@
 #include <boost/algorithm/string.hpp>
 #include <list>
 #include <sstream>
+#include "../crypto/SecureString.h"
 #include "../storage/Storage.h"
 #include "../Group.h"
 
@@ -244,7 +245,7 @@ TEST_CASE_METHOD(JsonStorageFixture, "passwords")
 
 	SECTION("add password to existing group") {
 		auto password_username = "user@site.com";
-		auto password_pass = "test1234";
+		auto password_pass = SecureString::FromPlainText("test1234", "test1234");
 		auto password_url = "https://site.com/login";
 		auto password_description = "lorem ipsum dolor senet";
 		Password password = PasswordFactory::make(group, password_username, password_pass, password_url,
@@ -260,7 +261,7 @@ TEST_CASE_METHOD(JsonStorageFixture, "passwords")
 
 		SECTION("add second password to existing group") {
 			auto password2_username = "user2@site.com";
-			auto password2_pass = "test1234";
+			auto password2_pass = SecureString::FromPlainText("test1234", "test1234");
 			auto password2_url = "https://site.com/register";
 			auto password2_description = "senet dolor ipsum lorem";
 			Password password2 = PasswordFactory::make(group2, password2_username, password2_pass, password2_url,

@@ -7,9 +7,11 @@
 
 #include <boost/uuid/uuid.hpp>
 #include "IdGenerator.h"
+#include "./crypto/SecureString.h"
 #include "Group.h"
 
 namespace OwnPass {
+	using OwnPass::Crypto::SecureString;
 	class Group;
 
 	class Password {
@@ -21,7 +23,7 @@ namespace OwnPass {
 		Password(Password&& other)
 				:group{ other.group } { *this = std::move(other); }
 
-		Password(const Group& group, const boost::uuids::uuid& id, std::string_view username, std::string_view password,
+		Password(const Group& group, const boost::uuids::uuid& id, std::string_view username, SecureString password,
 				std::string_view url, std::string_view description)
 				:group{ group }, id{ id }, username{ username }, password{ password }, url{ url },
 				 description{ description } { }
@@ -59,9 +61,9 @@ namespace OwnPass {
 			return *this;
 		}
 
-		[[nodiscard]] std::string_view get_password() const { return password; }
+		[[nodiscard]] const SecureString& get_password() const { return password; }
 
-		Password& set_password(std::string_view new_password)
+		Password& set_password(const SecureString& new_password)
 		{
 			password = new_password;
 			return *this;
@@ -91,7 +93,7 @@ namespace OwnPass {
 		const Group& group;
 		boost::uuids::uuid id;
 		std::string username;
-		std::string password;
+		SecureString password;
 		std::string url;
 		std::string description;
 	};
@@ -101,7 +103,7 @@ namespace OwnPass {
 		PasswordFactory() = default;
 		~PasswordFactory() = default;
 	public:
-		static Password make(const Group& group, std::string_view username, std::string_view pass,
+		static Password make(const Group& group, std::string_view username, const SecureString& pass,
 				std::string_view url = std::string(), std::string_view description = std::string())
 		{
 			boost::uuids::uuid password_id = IdGenerator::make();
@@ -109,7 +111,7 @@ namespace OwnPass {
 		}
 
 		static Password make(const Group& group, const boost::uuids::uuid& id, std::string_view username,
-				std::string_view pass, std::string_view url = std::string(),
+				const SecureString& pass, std::string_view url = std::string(),
 				std::string_view description = std::string())
 		{
 			return (Password){ group, id, username, pass, url, description };
