@@ -19,9 +19,13 @@ namespace OwnPass::Storage {
 		Storage() = default;
 		virtual ~Storage() = 0;
 
+		virtual void open(std::string_view master_password) = 0;
+		virtual void close() = 0;
 		virtual void flush() = 0;
 		virtual void reload() = 0;
 		virtual void purge() = 0;
+
+		[[nodiscard]] virtual bool is_open() const = 0;
 
 		virtual std::list<OwnPass::Category>& list_categories() = 0;
 		virtual Category& save_category(Category& category) = 0;

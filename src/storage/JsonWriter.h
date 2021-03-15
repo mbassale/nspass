@@ -10,8 +10,8 @@
 namespace OwnPass::Storage {
 	class JsonWriter {
 	public:
-		JsonWriter(boost::json::value& root, const char* filename);
-		void save();
+		explicit JsonWriter(boost::json::value& root);
+		std::string save();
 	private:
 		boost::json::value& root;
 		const char* filename;

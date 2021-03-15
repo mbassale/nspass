@@ -5,19 +5,20 @@
 #ifndef OWNPASS_JSONPARSER_H
 #define OWNPASS_JSONPARSER_H
 
+#include <sstream>
 #include <boost/json.hpp>
 
 namespace OwnPass::Storage {
 	class JsonParser {
 	public:
-		explicit JsonParser(const char* filename);
+		explicit JsonParser(std::string_view contents);
 		void load();
 		void parse();
 		void create_empty();
 
 		[[nodiscard]] boost::json::value get_root() noexcept { return root; }
 	private:
-		const char* filename;
+		std::string_view contents;
 		boost::json::value root;
 	};
 }

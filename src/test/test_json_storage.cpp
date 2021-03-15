@@ -24,6 +24,7 @@ public:
 	}
 
 protected:
+	std::string_view master_password = "test1234";
 	OwnPass::Storage::Storage& db;
 
 	void save_category(const string& prefix, int index = 0)
@@ -103,6 +104,12 @@ protected:
 TEST_CASE_METHOD(JsonStorageFixture, "make instance")
 {
 	REQUIRE_NOTHROW(StorageFactory::make());
+}
+
+
+TEST_CASE_METHOD(JsonStorageFixture, "open storage")
+{
+	db.open(master_password);
 }
 
 TEST_CASE_METHOD(JsonStorageFixture, "categories")

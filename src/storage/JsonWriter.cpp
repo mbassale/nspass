@@ -9,19 +9,14 @@
 namespace OwnPass::Storage {
 	using namespace std;
 
-	JsonWriter::JsonWriter(boost::json::value& root, const char* filename)
-			:root{ root }, filename{ filename }
+	JsonWriter::JsonWriter(boost::json::value& root) : root{ root }
 	{
 	}
 
-	void JsonWriter::save()
+	std::string JsonWriter::save()
 	{
-		ofstream os{ filename, ios::out };
-		if (!os.is_open()) {
-			ostringstream error_message;
-			error_message << "Cannot open file: " << filename;
-			throw std::runtime_error(error_message.str());
-		}
+		ostringstream os;
 		os << root;
+		return os.str();
 	}
 }
