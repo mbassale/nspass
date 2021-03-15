@@ -15,7 +15,7 @@ namespace OwnPass {
 	private:
 		Vault() = default;
 		std::string master_password;
-		std::shared_ptr<OwnPass::Storage::Storage> storage;
+		OwnPass::Storage::Storage* storage;
 
 	public:
 		static Vault& instance()
@@ -36,7 +36,7 @@ namespace OwnPass {
 
 		OwnPass::Storage::Storage& get_storage() {
 			if (!storage) {
-				storage = Storage::StorageFactory::make();
+				storage = &(Storage::StorageFactory::make());
 			}
 			return *storage;
 		}

@@ -9,9 +9,10 @@ namespace OwnPass::Storage {
 	using namespace OwnPass;
 	using namespace std;
 
-	std::shared_ptr<Storage> StorageFactory::make()
+	Storage& StorageFactory::make()
 	{
-		return std::make_shared<JsonStorage>();
+		static JsonStorage INSTANCE{};
+		return INSTANCE;
 	}
 
 	Storage::~Storage() = default;

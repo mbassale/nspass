@@ -30,7 +30,7 @@ namespace OwnPass::Storage {
 
 	class StorageFactory {
 	public:
-		static std::shared_ptr<Storage> make();
+		static Storage& make();
 	private:
 		StorageFactory() = default;
 	};
