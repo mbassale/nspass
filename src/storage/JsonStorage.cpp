@@ -45,7 +45,6 @@ namespace OwnPass::Storage {
 	{
 		categories.clear();
 		std::filesystem::remove(StorageFile);
-		save();
 	}
 
 	list<Category>& JsonStorage::list_categories()
