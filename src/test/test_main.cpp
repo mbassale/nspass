@@ -3,20 +3,25 @@
 //
 #define CATCH_CONFIG_RUNNER
 #include "catch.hpp"
-#include <gcrypt.h>
+#include <iostream>
+#include "../Application.h"
+
+using OwnPass::Application;
 
 int main( int argc, char* argv[] ) {
-	/* http://lists.gnupg.org/pipermail/gcrypt-devel/2003-August/000458.html
-		 * Because you can't know in a library whether another library has
-		 * already initialized the library
-		 */
-	if (!gcry_control(GCRYCTL_ANY_INITIALIZATION_P)) {
-		gcry_check_version(NULL); /* before calling any other functions */
-	}
+	auto& app = Application::instance();
+
+	// global initialization
+	std::cout << "Initializing... " << std::flush;
+	app.init();
+	std::cout << "Done." << std::endl;
 
 	int result = Catch::Session().run( argc, argv );
 
-	// global clean-up...
+	// global clean-up
+	std::cout << "Cleanup... " << std::flush;
+	app.cleanup();
+	std::cout << "Done." << std::endl;
 
 	return result;
 }

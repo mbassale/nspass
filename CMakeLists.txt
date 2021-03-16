@@ -7,6 +7,7 @@ find_library(LIBGCRYPT_LIBRARIES gcrypt)
 
 set(CMAKE_CXX_STANDARD 17)
 set(SOURCE_FILES
+        src/Application.h src/Application.cpp
         src/Vault.h src/Vault.cpp
         src/Group.cpp src/Group.h
         src/Password.cpp src/Password.h
@@ -20,6 +21,7 @@ set(SOURCE_FILES
         src/storage/CategorySerializer.h src/storage/CategorySerializer.cpp
         src/storage/GroupSerializer.h src/storage/GroupSerializer.cpp
         src/storage/PasswordSerializer.h src/storage/PasswordSerializer.cpp
+        src/crypto/InitCrypto.h src/crypto/InitCrypto.cpp
         src/crypto/BlockCrypto.h src/crypto/BlockCrypto.cpp
         src/crypto/StringCrypto.h src/crypto/StringCrypto.cpp
         src/crypto/Base64Encoder.h src/crypto/Base64Encoder.cpp
