@@ -18,14 +18,6 @@ namespace OwnPass::Crypto {
 		int gcry_mode = GCRY_CIPHER_MODE_CBC;
 		gcry_error_t gcry_ret;
 
-		/* http://lists.gnupg.org/pipermail/gcrypt-devel/2003-August/000458.html
-		 * Because you can't know in a library whether another library has
-		 * already initialized the library
-		 */
-		if (!gcry_control(GCRYCTL_ANY_INITIALIZATION_P)) {
-			gcry_check_version(NULL); /* before calling any other functions */
-		}
-
 		gcry_ret = gcry_cipher_open(
 				&cipher_hd,    // gcry_cipher_hd_t *hd
 				GCRY_CIPHER,   // int algo

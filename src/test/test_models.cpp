@@ -1,13 +1,12 @@
 //
 // Created by Marco Bassaletti on 22-02-21.
 //
-#define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include <string>
 #include <algorithm>
+#include <sstream>
 #include "../crypto/SecureString.h"
 #include "../Category.h"
-#include "../Group.h"
 
 using namespace std;
 using namespace OwnPass;

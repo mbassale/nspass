@@ -28,7 +28,8 @@ set(SOURCE_FILES
         src/crypto/EncryptedFile.h src/crypto/EncryptedFile.cpp)
 
 set(TEST_FILES
-        src/test/test.cpp
+        src/test/test_main.cpp
+        src/test/test_models.cpp
         src/test/test_vault.cpp
         src/test/test_json_storage.cpp
         src/test/crypto/test_initialization_vector.cpp
