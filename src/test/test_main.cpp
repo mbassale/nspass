@@ -10,18 +10,15 @@ using OwnPass::Application;
 
 int main( int argc, char* argv[] ) {
 	auto& app = Application::instance();
+	app.config(Application::LogMode::VERBOSE);
 
 	// global initialization
-	std::cout << "Initializing... " << std::flush;
 	app.init();
-	std::cout << "Done." << std::endl;
 
 	int result = Catch::Session().run( argc, argv );
 
 	// global clean-up
-	std::cout << "Cleanup... " << std::flush;
 	app.cleanup();
-	std::cout << "Done." << std::endl;
 
 	return result;
 }

@@ -1,8 +1,18 @@
-#include <iostream>
 #include <boost/program_options.hpp>
+#include "Application.h"
+
+using OwnPass::Application;
 
 int main()
 {
-	std::cout << "Hello, World!" << std::endl;
+	auto& app = Application::instance();
+	app.config(Application::LogMode::NORMAL);
+
+	// global initialization
+	app.init();
+
+	// global clean-up
+	app.cleanup();
+
 	return 0;
 }
