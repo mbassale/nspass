@@ -4,11 +4,14 @@
 
 #include <vector>
 #include <iostream>
+#include <boost/log/trivial.hpp>
 #include <boost/program_options.hpp>
 #include "Application.h"
 #include "CommandLine.h"
+#include "./commands/CommandRunner.h"
 
 using OwnPass::Application;
+using OwnPass::Commands::CommandRunner;
 namespace po = boost::program_options;
 using namespace std;
 
@@ -17,12 +20,12 @@ namespace OwnPass {
 	CommandLine::CommandLine(int argc, char** argv)
 			:argc{ argc }, argv{ argv }
 	{
+		create_options();
+		parse_options();
 	}
 
 	int CommandLine::run()
 	{
-		create_options();
-		parse_options();
 		if (should_show_help()) {
 			std::cout << opt_descriptions << std::endl;
 			return 1;
@@ -65,9 +68,25 @@ namespace OwnPass {
 		// global initialization
 		app.init();
 
-		// global clean-up
-		app.cleanup();
+		auto call_cleanup = [&app]{ app.cleanup(); };
 
+		try {
+			CommandRunner command_runner{ app, vm };
+			command_runner.run();
+			executed_commands = command_runner.get_executed_commands();
+		} catch (std::runtime_error &err) {
+			BOOST_LOG_TRIVIAL(fatal) << "Runtime Error: " << err.what() << std::endl;
+			call_cleanup();
+			return 1;
+		}
+		catch (std::exception& ex) {
+			BOOST_LOG_TRIVIAL(fatal) << "Error: " << ex.what() << std::endl;
+			call_cleanup();
+			return 1;
+		}
+
+		// global clean-up
+		call_cleanup();
 		return 0;
 	}
 }

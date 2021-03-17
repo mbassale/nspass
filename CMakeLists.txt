@@ -16,6 +16,9 @@ set(SOURCE_FILES
         src/Category.cpp src/Category.h
         src/IdGenerator.h src/IdGenerator.cpp
         src/CommandLine.h src/CommandLine.cpp
+        src/commands/CommandRunner.h src/commands/CommandRunner.cpp
+        src/commands/Command.h src/commands/Command.cpp
+        src/commands/VersionCommand.h src/commands/VersionCommand.cpp
         src/storage/Storage.cpp src/storage/Storage.h
         src/storage/JsonStorage.h src/storage/JsonStorage.cpp
         src/storage/JsonParser.h src/storage/JsonParser.cpp
@@ -37,12 +40,14 @@ set(TEST_FILES
         src/test/test_models.cpp
         src/test/test_vault.cpp
         src/test/test_json_storage.cpp
+        src/test/test_command_line.cpp
         src/test/crypto/test_initialization_vector.cpp
         src/test/crypto/test_base64_encoder.cpp
         src/test/crypto/test_block_crypto.cpp
         src/test/crypto/test_string_crypto.cpp
         src/test/crypto/test_secure_string.cpp
-        src/test/crypto/test_encrypted_file.cpp)
+        src/test/crypto/test_encrypted_file.cpp
+        src/test/commands/test_command_runner.cpp)
 
 include_directories(${Boost_INCLUDE_DIRS})
 
