@@ -1,18 +1,23 @@
-#include <boost/program_options.hpp>
-#include "Application.h"
+#include <stdexcept>
+#include <boost/log/trivial.hpp>
+#include "CommandLine.h"
 
-using OwnPass::Application;
+using OwnPass::CommandLine;
 
-int main()
+int main(int argc, char* argv[])
 {
-	auto& app = Application::instance();
-	app.config(Application::LogMode::NORMAL);
-
-	// global initialization
-	app.init();
-
-	// global clean-up
-	app.cleanup();
-
-	return 0;
+	try {
+		CommandLine command_line{ argc, argv };
+		return command_line.run();
+	}
+	catch (std::runtime_error& err) {
+		BOOST_LOG_TRIVIAL(fatal) << "Runtime Error: " << err.what() << std::endl;
+	}
+	catch (std::exception& ex) {
+		BOOST_LOG_TRIVIAL(fatal) << "Error: " << ex.what() << std::endl;
+	}
+	catch (...) {
+		BOOST_LOG_TRIVIAL(fatal) << "Unknown failure occurred." << std::endl;
+	}
+	return -1;
 }

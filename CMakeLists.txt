@@ -3,7 +3,7 @@ project(ownpass)
 
 #SET(Boost_USE_STATIC_LIBS ON)
 find_package(ICU REQUIRED COMPONENTS data)
-find_package(Boost REQUIRED COMPONENTS json log)
+find_package(Boost REQUIRED COMPONENTS json log program_options)
 find_library(LIBGCRYPT_LIBRARIES gcrypt)
 
 
@@ -15,6 +15,7 @@ set(SOURCE_FILES
         src/Password.cpp src/Password.h
         src/Category.cpp src/Category.h
         src/IdGenerator.h src/IdGenerator.cpp
+        src/CommandLine.h src/CommandLine.cpp
         src/storage/Storage.cpp src/storage/Storage.h
         src/storage/JsonStorage.h src/storage/JsonStorage.cpp
         src/storage/JsonParser.h src/storage/JsonParser.cpp
