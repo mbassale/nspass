@@ -11,14 +11,14 @@
 namespace OwnPass::Commands {
 	class Command {
 	public:
-		explicit Command(const OwnPass::Application& app) : app{ app } {};
+		explicit Command(OwnPass::Application& app) : app{ app } {};
 		virtual ~Command() = default;
 
 		virtual std::string_view get_name() = 0;
 		virtual void execute() = 0;
 		virtual void undo() = 0;
 	protected:
-		const OwnPass::Application& app;
+		Application& app;
 	};
 }
 

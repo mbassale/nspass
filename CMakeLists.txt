@@ -15,10 +15,14 @@ set(SOURCE_FILES
         src/Password.cpp src/Password.h
         src/Category.cpp src/Category.h
         src/IdGenerator.h src/IdGenerator.cpp
-        src/CommandLine.h src/CommandLine.cpp
+        src/cli/CommandLine.h src/cli/CommandLine.cpp
+        src/cli/CommandParser.h src/cli/CommandParser.cpp
         src/commands/CommandRunner.h src/commands/CommandRunner.cpp
         src/commands/Command.h src/commands/Command.cpp
+        src/commands/HelpCommand.h src/commands/HelpCommand.cpp
+        src/commands/VerboseCommand.h src/commands/VerboseCommand.cpp
         src/commands/VersionCommand.h src/commands/VersionCommand.cpp
+        src/commands/CreateCommand.h src/commands/CreateCommand.cpp
         src/storage/Storage.cpp src/storage/Storage.h
         src/storage/JsonStorage.h src/storage/JsonStorage.cpp
         src/storage/JsonParser.h src/storage/JsonParser.cpp
@@ -47,6 +51,7 @@ set(TEST_FILES
         src/test/crypto/test_string_crypto.cpp
         src/test/crypto/test_secure_string.cpp
         src/test/crypto/test_encrypted_file.cpp
+        src/test/commands/test_command_parser.cpp
         src/test/commands/test_command_runner.cpp)
 
 include_directories(${Boost_INCLUDE_DIRS})
