@@ -9,11 +9,13 @@
 #include "../commands/HelpCommand.h"
 #include "../commands/VerboseCommand.h"
 #include "../commands/VersionCommand.h"
+#include "./parsers/CreateCommandParser.h"
 #include "CommandParser.h"
 
 using namespace std;
 namespace po = boost::program_options;
 using namespace OwnPass::Commands;
+using namespace OwnPass::CLI::Parsers;
 
 namespace OwnPass::CLI {
 
@@ -46,6 +48,16 @@ namespace OwnPass::CLI {
 
 		if (vm.count("command")) {
 			string command_name = vm["command"].as<string>();
+
+			CommandTable command_table[] = {
+					CommandTable{ "create", CreateCommandParser{ app, parsed, vm }}
+			};
+
+			for (auto& command_row : command_table) {
+				if (command_row.name == command_name) {
+					commands.push_back(command_row.command_creator());
+				}
+			}
 		}
 	}
 

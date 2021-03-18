@@ -17,6 +17,9 @@ set(SOURCE_FILES
         src/IdGenerator.h src/IdGenerator.cpp
         src/cli/CommandLine.h src/cli/CommandLine.cpp
         src/cli/CommandParser.h src/cli/CommandParser.cpp
+        src/cli/InvalidCommandSyntaxException.h src/cli/InvalidCommandSyntaxException.cpp
+        src/cli/parsers/Parser.h src/cli/parsers/Parser.cpp
+        src/cli/parsers/CreateCommandParser.h src/cli/parsers/CreateCommandParser.cpp
         src/commands/CommandRunner.h src/commands/CommandRunner.cpp
         src/commands/Command.h src/commands/Command.cpp
         src/commands/HelpCommand.h src/commands/HelpCommand.cpp
@@ -51,7 +54,8 @@ set(TEST_FILES
         src/test/crypto/test_string_crypto.cpp
         src/test/crypto/test_secure_string.cpp
         src/test/crypto/test_encrypted_file.cpp
-        src/test/commands/test_command_parser.cpp
+        src/test/cli/test_command_parser.cpp
+        src/test/cli/parsers/test_create_command_parser.cpp
         src/test/commands/test_command_runner.cpp)
 
 include_directories(${Boost_INCLUDE_DIRS})

@@ -14,15 +14,15 @@
 namespace OwnPass::Commands {
 	class CommandRunner {
 	public:
-		explicit CommandRunner(const std::vector<std::shared_ptr<OwnPass::Commands::Command>>& commands)
+		explicit CommandRunner(const std::vector<CommandPtr>& commands)
 				:commands{ commands } { }
 
 		void run();
-		[[nodiscard]] const std::vector<std::shared_ptr<OwnPass::Commands::Command>>& get_executed_commands() const { return executed_commands; }
+		[[nodiscard]] const std::vector<CommandPtr>& get_executed_commands() const { return executed_commands; }
 
 	protected:
-		const std::vector<std::shared_ptr<OwnPass::Commands::Command>>& commands;
-		std::vector<std::shared_ptr<OwnPass::Commands::Command>> executed_commands;
+		const std::vector<CommandPtr>& commands;
+		std::vector<CommandPtr> executed_commands;
 	};
 }
 

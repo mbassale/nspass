@@ -5,10 +5,12 @@
 #ifndef OWNPASS_COMMAND_H
 #define OWNPASS_COMMAND_H
 
+#include <memory>
 #include <string>
 #include "../Application.h"
 
 namespace OwnPass::Commands {
+
 	class Command {
 	public:
 		explicit Command(OwnPass::Application& app) : app{ app } {};
@@ -20,6 +22,8 @@ namespace OwnPass::Commands {
 	protected:
 		Application& app;
 	};
+
+	typedef std::shared_ptr<Command> CommandPtr;
 }
 
 #endif //OWNPASS_COMMAND_H

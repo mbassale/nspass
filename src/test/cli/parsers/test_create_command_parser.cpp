@@ -1,0 +1,42 @@
+//
+// Created by Marco Bassaletti on 18-03-21.
+//
+
+#include "../../catch.hpp"
+#include "../../../Application.h"
+#include "../../../cli/CommandParser.h"
+#include "../../../commands/CreateCommand.h"
+
+using namespace std;
+using OwnPass::Application;
+using OwnPass::CLI::CommandParser;
+using OwnPass::Commands::CreateCommand;
+
+class CreateCommandParserFixture {
+public:
+	CreateCommandParserFixture() : app{ Application::instance() } { }
+protected:
+	Application& app;
+};
+
+TEST_CASE_METHOD(CreateCommandParserFixture, "CreateCommandParser - constructor")
+{
+	const char* argv[] = {
+			"ownpass",
+			"create",
+			"--category=Retail",
+			"--site=Test.com",
+			"--username=test@test.com",
+   			"--password=test1234",
+   			"--url=test.com",
+   			"--description=\"lorem ipsum dolor senet",
+			nullptr
+	};
+	int argc = 8;
+	CommandParser command_parser{ app, argc, const_cast<char**>(argv) };
+	REQUIRE_FALSE(command_parser.get_commands().empty());
+	auto command_ptr = command_parser.get_commands().front().get();
+	auto create_command_ptr = dynamic_cast<CreateCommand*>(command_ptr);
+	REQUIRE(create_command_ptr);
+	REQUIRE(create_command_ptr->get_name() == CreateCommand::Name);
+}
