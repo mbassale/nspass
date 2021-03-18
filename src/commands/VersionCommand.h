@@ -13,7 +13,7 @@ namespace OwnPass::Commands {
 	class VersionCommand : public Command {
 	public:
 		static constexpr auto Name = "version";
-		explicit VersionCommand(const OwnPass::Application& app) : Command(app) {};
+		explicit VersionCommand(OwnPass::Application& app) : Command(app) {};
 		~VersionCommand() override = default;
 
 		std::string_view get_name() override { return Name; }

@@ -9,15 +9,9 @@ namespace OwnPass::Commands {
 
 	void CommandRunner::run()
 	{
-		if (vm.count("version")) {
-			run_version_command();
+		for (auto& command_ptr : commands) {
+			command_ptr->execute();
+			executed_commands.push_back(command_ptr);
 		}
-	}
-
-	void CommandRunner::run_version_command()
-	{
-		VersionCommand version_command{ app };
-		version_command.execute();
-		executed_commands.push_back(version_command.get_name());
 	}
 }

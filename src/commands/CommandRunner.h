@@ -5,26 +5,24 @@
 #ifndef OWNPASS_COMMANDRUNNER_H
 #define OWNPASS_COMMANDRUNNER_H
 
+#include <memory>
 #include <string>
 #include <vector>
 #include "../Application.h"
-#include <boost/program_options.hpp>
+#include "../commands/Command.h"
 
 namespace OwnPass::Commands {
 	class CommandRunner {
 	public:
-		explicit CommandRunner(const OwnPass::Application& app, const boost::program_options::variables_map& vm)
-				:app{ app }, vm{ vm } { }
+		explicit CommandRunner(const std::vector<std::shared_ptr<OwnPass::Commands::Command>>& commands)
+				:commands{ commands } { }
 
 		void run();
-		[[nodiscard]] const std::vector<std::string_view>& get_executed_commands() const { return executed_commands; }
+		[[nodiscard]] const std::vector<std::shared_ptr<OwnPass::Commands::Command>>& get_executed_commands() const { return executed_commands; }
 
 	protected:
-		const OwnPass::Application app;
-		const boost::program_options::variables_map& vm;
-		std::vector<std::string_view> executed_commands;
-
-		void run_version_command();
+		const std::vector<std::shared_ptr<OwnPass::Commands::Command>>& commands;
+		std::vector<std::shared_ptr<OwnPass::Commands::Command>> executed_commands;
 	};
 }
 
