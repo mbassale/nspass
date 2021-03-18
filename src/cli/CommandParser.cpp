@@ -51,7 +51,7 @@ namespace OwnPass::CLI {
 
 	void CommandParser::create_commands()
 	{
-		if (vm.count("help")) {
+		if (vm.empty() || vm.count("help")) {
 			commands.emplace_back(new HelpCommand{ app, opt_descriptions });
 		}
 		if (vm.count("verbose")) {
