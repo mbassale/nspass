@@ -3,12 +3,10 @@
 //
 #include "catch.hpp"
 #include "../Application.h"
-#include "../CommandLine.h"
-#include "../commands/VersionCommand.h"
+#include "../cli/CommandLine.h"
 
 using OwnPass::Application;
-using OwnPass::CommandLine;
-using OwnPass::Commands::VersionCommand;
+using OwnPass::CLI::CommandLine;
 
 class CommandLineFixture {
 public:
@@ -29,14 +27,12 @@ TEST_CASE_METHOD(CommandLineFixture, "CommandLine - run command", "[command line
 {
 	const char* argv[] = {
 			"ownpass",
+			"--help",
+			"--verbose",
 			"--version",
 			nullptr
 	};
-	int argc = 2;
+	int argc = 4;
 	CommandLine command_line{ argc, const_cast<char**>(argv) };
-	REQUIRE_FALSE(command_line.get_variables_map().empty());
-	REQUIRE(command_line.get_variables_map().count("version") > 0);
 	REQUIRE_NOTHROW(command_line.run());
-	REQUIRE(command_line.get_executed_commands().size() == 1);
-	REQUIRE(command_line.get_executed_commands().front() == VersionCommand::Name);
 }

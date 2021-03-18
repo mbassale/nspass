@@ -1,8 +1,8 @@
 #include <stdexcept>
 #include <boost/log/trivial.hpp>
-#include "CommandLine.h"
+#include "./cli/CommandLine.h"
 
-using OwnPass::CommandLine;
+using OwnPass::CLI::CommandLine;
 
 int main(int argc, char* argv[])
 {
