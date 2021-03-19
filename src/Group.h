@@ -5,6 +5,7 @@
 #ifndef OWNPASS_GROUP_H
 #define OWNPASS_GROUP_H
 
+#include <memory>
 #include <string>
 #include <list>
 #include <boost/uuid/uuid.hpp>
@@ -110,6 +111,8 @@ namespace OwnPass {
 		std::string url;
 		std::string description;
 	};
+
+	typedef std::reference_wrapper<Group> GroupRef;
 
 	class GroupFactory {
 	public:

@@ -68,9 +68,9 @@ namespace OwnPass {
 
 		Category& add_group(Group& group);
 
-		std::optional<Group> find_group(std::string_view group_name);
+		std::optional<GroupRef> find_group(std::string_view group_name);
 
-		std::list<std::reference_wrapper<Group>> find_groups(std::string_view search);
+		std::list<GroupRef> find_groups(std::string_view search);
 
 		Category& save_group(Group& group);
 

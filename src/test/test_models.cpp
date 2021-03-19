@@ -72,9 +72,10 @@ TEST_CASE("Categories")
 		}
 
 		auto group_name = "Group #5";
-		auto group = category.find_group(group_name);
-		REQUIRE(group.has_value());
-		REQUIRE(group.value().get_name() == group_name);
+		auto group_opt = category.find_group(group_name);
+		REQUIRE(group_opt.has_value());
+		auto& group = group_opt.value().get();
+		REQUIRE(group.get_name() == group_name);
 		auto group_name2 = "Group #1000";
 		auto group2 = category.find_group(group_name2);
 		REQUIRE_FALSE(group2.has_value());
@@ -89,7 +90,7 @@ TEST_CASE("Categories")
 		results.clear();
 
 		// remove Group #5 by reference
-		category.remove_group(group.value());
+		category.remove_group(group);
 		REQUIRE(category.get_groups().size() == 99);
 
 		// remove Group #2 by name
