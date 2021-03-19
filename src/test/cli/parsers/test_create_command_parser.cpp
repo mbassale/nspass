@@ -29,7 +29,7 @@ TEST_CASE_METHOD(CreateCommandParserFixture, "CreateCommandParser - constructor"
 			"--username=test@test.com",
    			"--password=test1234",
    			"--url=test.com",
-   			"--description=\"lorem ipsum dolor senet",
+   			"--description=\"lorem ipsum dolor senet\"",
 			nullptr
 	};
 	int argc = 8;
@@ -39,4 +39,10 @@ TEST_CASE_METHOD(CreateCommandParserFixture, "CreateCommandParser - constructor"
 	auto create_command_ptr = dynamic_cast<CreateCommand*>(command_ptr);
 	REQUIRE(create_command_ptr);
 	REQUIRE(create_command_ptr->get_name() == CreateCommand::Name);
+	REQUIRE(create_command_ptr->get_category() == "Retail");
+	REQUIRE(create_command_ptr->get_site() == "Test.com");
+	REQUIRE(create_command_ptr->get_username() == "test@test.com");
+	REQUIRE(create_command_ptr->get_password() == "test1234");
+	REQUIRE(create_command_ptr->get_url() == "test.com");
+	REQUIRE(create_command_ptr->get_description() == "\"lorem ipsum dolor senet\"");
 }
