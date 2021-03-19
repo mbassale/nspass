@@ -18,10 +18,12 @@ using namespace OwnPass::Storage;
 class JsonStorageFixture {
 public:
 	JsonStorageFixture()
-			:db{ StorageFactory::make() }
+			:storage{ StorageFactory::make() }, db{ *storage }
 	{
 		db.purge();
 	}
+private:
+	std::unique_ptr<OwnPass::Storage::Storage> storage{};
 
 protected:
 	std::string_view master_password = "test1234";

@@ -34,7 +34,7 @@ namespace OwnPass::Storage {
 
 	class StorageFactory {
 	public:
-		static Storage& make();
+		static std::unique_ptr<Storage> make();
 	private:
 		StorageFactory() = default;
 	};

@@ -10,6 +10,8 @@
 #include "./storage/Storage.h"
 
 namespace OwnPass {
+	using Storage::StorageFactory;
+	using BaseStorage = Storage::Storage;
 
 	class Vault {
 	public:
@@ -24,16 +26,20 @@ namespace OwnPass {
 			master_password = new_master_password;
 			return *this;
 		}
-		OwnPass::Storage::Storage& get_storage() {
+
+		BaseStorage& get_storage() {
 			if (!storage) {
-				storage = &(Storage::StorageFactory::make());
+				storage = StorageFactory::make();
+				if (!master_password.empty() && !storage->is_open()) {
+					storage->open(master_password);
+				}
 			}
 			return *storage;
 		}
 
 	private:
 		std::string master_password;
-		OwnPass::Storage::Storage* storage{};
+		std::unique_ptr<BaseStorage> storage{};
 	};
 }
 
