@@ -2,6 +2,7 @@
 // Created by Marco Bassaletti on 15-03-21.
 //
 
+#include <memory>
 #include <iomanip>
 #include <boost/log/core.hpp>
 #include <boost/log/trivial.hpp>
@@ -18,6 +19,7 @@ namespace OwnPass {
 	Application::Application()
 	{
 		init_logging();
+		init_vault();
 	}
 
 	Application::~Application()
@@ -58,5 +60,16 @@ namespace OwnPass {
 			logging::core::get()->set_filter(logging::trivial::severity >= logging::trivial::trace);
 			break;
 		}
+	}
+
+	void Application::init_vault()
+	{
+		vault = std::make_unique<Vault>();
+	}
+
+	Vault& Application::get_vault() const
+	{
+		if (vault) return *vault;
+		throw ApplicationException{ "Vault not initialized." };
 	}
 }

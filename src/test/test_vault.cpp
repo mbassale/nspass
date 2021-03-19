@@ -4,6 +4,7 @@
 
 #include "catch.hpp"
 #include <string>
+#include "../Application.h"
 #include "../Vault.h"
 
 using namespace std;
@@ -23,12 +24,12 @@ protected:
 
 TEST_CASE_METHOD(VaultFixture, "get vault instance")
 {
-	REQUIRE_NOTHROW(Vault::instance());
+	REQUIRE_NOTHROW(Application::instance().get_vault());
 }
 
 TEST_CASE_METHOD(VaultFixture, "get/set password")
 {
-	auto& vault = Vault::instance();
+	auto& vault = Application::instance().get_vault();
 	REQUIRE(vault.get_master_password().empty());
 	assert_master_password(vault, "");
 	assert_master_password(vault, " ");
@@ -39,7 +40,7 @@ TEST_CASE_METHOD(VaultFixture, "get/set password")
 
 TEST_CASE_METHOD(VaultFixture, "get storage reference")
 {
-	Vault& vault = Vault::instance();
+	auto& vault = Application::instance().get_vault();
 	REQUIRE_NOTHROW(vault.get_storage());
 	auto& storage = vault.get_storage();
 	REQUIRE_NOTHROW(storage.list_categories());

@@ -10,6 +10,7 @@ find_library(LIBGCRYPT_LIBRARIES gcrypt)
 set(CMAKE_CXX_STANDARD 17)
 set(SOURCE_FILES
         src/Application.h src/Application.cpp
+        src/ApplicationException.h src/ApplicationException.cpp
         src/Vault.h src/Vault.cpp
         src/Group.cpp src/Group.h
         src/Password.cpp src/Password.h
