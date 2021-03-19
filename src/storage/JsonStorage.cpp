@@ -75,12 +75,12 @@ namespace OwnPass::Storage {
 		return category;
 	}
 
-	Category& JsonStorage::find_category(string_view search)
+	std::optional<CategoryRef> JsonStorage::find_category(std::string_view search)
 	{
 		auto it = find_if(categories.begin(), categories.end(), [&search](Category& category) {
 			return boost::algorithm::icontains(category.get_name(), search);
 		});
-		if (it == categories.end()) throw std::runtime_error("Not found");
+		if (it == categories.end()) return std::nullopt;
 		return *it;
 	}
 

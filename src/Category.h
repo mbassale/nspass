@@ -5,11 +5,12 @@
 #ifndef OWNPASS_CATEGORY_H
 #define OWNPASS_CATEGORY_H
 
-#include "Group.h"
+#include <memory>
 #include <list>
 #include <optional>
 #include <boost/uuid/uuid.hpp>
 #include "IdGenerator.h"
+#include "Group.h"
 
 namespace OwnPass {
 	class Category {
@@ -25,7 +26,7 @@ namespace OwnPass {
 		Category(Category&& other) noexcept
 				:id{} { *this = std::move(other); }
 
-		Category(std::string_view name)
+		explicit Category(std::string_view name)
 				:id{ IdGenerator::make() }, name{ name } { }
 
 		Category(boost::uuids::uuid& id, std::string_view name, std::list<Group>& groups)
@@ -84,6 +85,8 @@ namespace OwnPass {
 		std::string name;
 		std::list<Group> groups;
 	};
+
+	typedef std::reference_wrapper<Category> CategoryRef;
 }
 
 #endif //OWNPASS_CATEGORY_H

@@ -137,10 +137,14 @@ TEST_CASE_METHOD(JsonStorageFixture, "categories")
 			save_category("Category #", i);
 		}
 		auto category_name = "Category #5";
-		auto category = db.find_category(category_name);
+		auto category_opt = db.find_category(category_name);
+		REQUIRE(category_opt.has_value());
+		auto& category = category_opt.value().get();
 		REQUIRE(category.get_name() == category_name);
 		auto category_name2 = "category #5";
-		auto category2 = db.find_category(category_name2);
+		auto category2_opt = db.find_category(category_name2);
+		REQUIRE(category2_opt.has_value());
+		auto& category2 = category2_opt.value().get();
 		REQUIRE(boost::algorithm::icontains(category2.get_name(), category_name2));
 	}
 }
