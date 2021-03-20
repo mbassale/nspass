@@ -21,6 +21,9 @@ set(SOURCE_FILES
         src/cli/InvalidCommandSyntaxException.h src/cli/InvalidCommandSyntaxException.cpp
         src/cli/parsers/Parser.h src/cli/parsers/Parser.cpp
         src/cli/parsers/CreateCommandParser.h src/cli/parsers/CreateCommandParser.cpp
+        src/cli/input/SecretInput.h
+        src/cli/input/StringSecretInput.h src/cli/input/StringSecretInput.cpp
+        src/cli/input/PromptSecretInput.h src/cli/input/PromptSecretInput.cpp
         src/commands/CommandRunner.h src/commands/CommandRunner.cpp
         src/commands/Command.h src/commands/Command.cpp
         src/commands/HelpCommand.h src/commands/HelpCommand.cpp
@@ -57,6 +60,8 @@ set(TEST_FILES
         src/test/crypto/test_encrypted_file.cpp
         src/test/cli/test_command_parser.cpp
         src/test/cli/parsers/test_create_command_parser.cpp
+        src/test/cli/input/test_string_secret_input.cpp
+        src/test/cli/input/test_prompt_secret_input.cpp
         src/test/commands/test_command_runner.cpp)
 
 include_directories(${Boost_INCLUDE_DIRS})
