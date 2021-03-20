@@ -7,8 +7,8 @@
 #include <boost/algorithm/string.hpp>
 #include <list>
 #include <sstream>
-#include "../crypto/SecureString.h"
-#include "../storage/Storage.h"
+#include "../src/crypto/SecureString.h"
+#include "../src/storage/Storage.h"
 
 using namespace std;
 using namespace std::string_literals;

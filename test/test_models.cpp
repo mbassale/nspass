@@ -5,8 +5,8 @@
 #include <string>
 #include <algorithm>
 #include <sstream>
-#include "../crypto/SecureString.h"
-#include "../Category.h"
+#include "../src/crypto/SecureString.h"
+#include "../src/Category.h"
 
 using namespace std;
 using namespace OwnPass;

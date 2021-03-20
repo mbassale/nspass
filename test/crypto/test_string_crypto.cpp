@@ -4,8 +4,7 @@
 
 #include <string>
 #include "../catch.hpp"
-#include "../../crypto/StringCrypto.h"
-#include <iostream>
+#include "../../src/crypto/StringCrypto.h"
 
 using namespace std;
 using namespace OwnPass::Crypto;

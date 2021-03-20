@@ -4,8 +4,7 @@
 
 #include "catch.hpp"
 #include <string>
-#include "../Application.h"
-#include "../Vault.h"
+#include "../src/Application.h"
 
 using namespace std;
 using namespace OwnPass;

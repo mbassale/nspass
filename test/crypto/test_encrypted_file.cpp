@@ -6,8 +6,8 @@
 #include <fstream>
 #include <filesystem>
 #include "../catch.hpp"
-#include "../../crypto/StringCrypto.h"
-#include "../../crypto/EncryptedFile.h"
+#include "../../src/crypto/StringCrypto.h"
+#include "../../src/crypto/EncryptedFile.h"
 
 using namespace std;
 using namespace OwnPass::Crypto;

@@ -4,11 +4,11 @@
 #include "../catch.hpp"
 
 #include <typeinfo>
-#include "../../Application.h"
-#include "../../cli/CommandParser.h"
-#include "../../commands/HelpCommand.h"
-#include "../../commands/VerboseCommand.h"
-#include "../../commands/VersionCommand.h"
+#include "../../src/Application.h"
+#include "../../src/cli/CommandParser.h"
+#include "../../src/commands/HelpCommand.h"
+#include "../../src/commands/VerboseCommand.h"
+#include "../../src/commands/VersionCommand.h"
 
 using OwnPass::Application;
 using OwnPass::CLI::CommandParser;

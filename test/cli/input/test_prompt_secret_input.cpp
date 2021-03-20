@@ -3,7 +3,7 @@
 //
 
 #include "../../catch.hpp"
-#include "../../../cli/input/PromptSecretInput.h"
+#include "../../../src/cli/input/PromptSecretInput.h"
 
 using OwnPass::CLI::Input::PromptSecretInput;
 

@@ -4,7 +4,7 @@
 #define CATCH_CONFIG_RUNNER
 #include "catch.hpp"
 #include <iostream>
-#include "../Application.h"
+#include "../src/Application.h"
 
 using OwnPass::Application;
 

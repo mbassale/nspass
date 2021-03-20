@@ -47,22 +47,22 @@ set(SOURCE_FILES
         src/crypto/EncryptedFile.h src/crypto/EncryptedFile.cpp)
 
 set(TEST_FILES
-        src/test/test_main.cpp
-        src/test/test_models.cpp
-        src/test/test_vault.cpp
-        src/test/test_json_storage.cpp
-        src/test/test_command_line.cpp
-        src/test/crypto/test_initialization_vector.cpp
-        src/test/crypto/test_base64_encoder.cpp
-        src/test/crypto/test_block_crypto.cpp
-        src/test/crypto/test_string_crypto.cpp
-        src/test/crypto/test_secure_string.cpp
-        src/test/crypto/test_encrypted_file.cpp
-        src/test/cli/test_command_parser.cpp
-        src/test/cli/parsers/test_create_command_parser.cpp
-        src/test/cli/input/test_string_secret_input.cpp
-        src/test/cli/input/test_prompt_secret_input.cpp
-        src/test/commands/test_command_runner.cpp)
+        test/test_main.cpp
+        test/test_models.cpp
+        test/test_vault.cpp
+        test/test_json_storage.cpp
+        test/test_command_line.cpp
+        test/crypto/test_initialization_vector.cpp
+        test/crypto/test_base64_encoder.cpp
+        test/crypto/test_block_crypto.cpp
+        test/crypto/test_string_crypto.cpp
+        test/crypto/test_secure_string.cpp
+        test/crypto/test_encrypted_file.cpp
+        test/cli/test_command_parser.cpp
+        test/cli/parsers/test_create_command_parser.cpp
+        test/cli/input/test_string_secret_input.cpp
+        test/cli/input/test_prompt_secret_input.cpp
+        test/commands/test_command_runner.cpp)
 
 include_directories(${Boost_INCLUDE_DIRS})
 

@@ -4,9 +4,9 @@
 
 #include "../catch.hpp"
 #include <memory>
-#include "../../Application.h"
-#include "../../cli/CommandParser.h"
-#include "../../commands/CommandRunner.h"
+#include "../../src/Application.h"
+#include "../../src/cli/CommandParser.h"
+#include "../../src/commands/CommandRunner.h"
 
 using namespace std;
 using OwnPass::Application;

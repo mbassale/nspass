@@ -2,9 +2,9 @@
 // Created by Marco Bassaletti on 17-03-21.
 //
 #include "catch.hpp"
-#include "../Application.h"
-#include "../cli/CommandLine.h"
-#include "../cli/input/StringSecretInput.h"
+#include "../src/Application.h"
+#include "../src/cli/CommandLine.h"
+#include "../src/cli/input/StringSecretInput.h"
 
 using OwnPass::Application;
 using OwnPass::CLI::CommandLine;

@@ -3,8 +3,7 @@
 //
 
 #include "../catch.hpp"
-#include "../../crypto/Base64Encoder.h"
-#include <iostream>
+#include "../../src/crypto/Base64Encoder.h"
 
 using namespace std;
 using namespace OwnPass::Crypto;

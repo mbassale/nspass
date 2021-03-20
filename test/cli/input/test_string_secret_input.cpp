@@ -4,7 +4,7 @@
 
 #include <string>
 #include "../../catch.hpp"
-#include "../../../cli/input/StringSecretInput.h"
+#include "../../../src/cli/input/StringSecretInput.h"
 
 using namespace std;
 using OwnPass::CLI::Input::StringSecretInput;

@@ -3,9 +3,9 @@
 //
 
 #include "../../catch.hpp"
-#include "../../../Application.h"
-#include "../../../cli/CommandParser.h"
-#include "../../../commands/CreateCommand.h"
+#include "../../../src/Application.h"
+#include "../../../src/cli/CommandParser.h"
+#include "../../../src/commands/CreateCommand.h"
 
 using namespace std;
 using OwnPass::Application;

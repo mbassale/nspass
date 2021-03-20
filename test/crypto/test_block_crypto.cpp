@@ -5,8 +5,8 @@
 #include <string>
 #include <vector>
 #include "../catch.hpp"
-#include "../../crypto/BlockCrypto.h"
-#include "../../crypto/InitializationVector.h"
+#include "../../src/crypto/BlockCrypto.h"
+#include "../../src/crypto/InitializationVector.h"
 
 using namespace std;
 using namespace OwnPass::Crypto;
