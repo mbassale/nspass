@@ -41,7 +41,9 @@ namespace OwnPass::Commands {
 		std::string password;
 		std::string url;
 		std::string description;
-		Category find_or_create_category(BaseStorage& storage) const;
+
+		Category find_or_create_category();
+		Group find_or_create_group(Category& category_obj);
 	};
 }
 

@@ -14,8 +14,8 @@ using namespace std;
 
 namespace OwnPass::CLI {
 
-	CommandLine::CommandLine(int argc, char** argv)
-			:argc{ argc }, argv{ argv }
+	CommandLine::CommandLine(int argc, char** argv, OwnPass::CLI::Input::SecretInput& secret_input)
+			:argc{ argc }, argv{ argv }, secret_input{ secret_input }
 	{
 	}
 
@@ -31,6 +31,7 @@ namespace OwnPass::CLI {
 		try {
 			CommandParser command_parser{ app, argc, argv };
 			auto& commands = command_parser.get_commands();
+			initialize_master_password(commands);
 			CommandRunner command_runner{ commands };
 			command_runner.run();
 		}
@@ -48,5 +49,17 @@ namespace OwnPass::CLI {
 		// global clean-up
 		call_cleanup();
 		return 0;
+	}
+
+	void CommandLine::initialize_master_password(const std::vector<Commands::CommandPtr>& commands)
+	{
+		for (auto& command_ptr : commands) {
+			if (command_ptr->requires_master_password()) {
+				auto master_password = secret_input.request();
+				auto& app = Application::instance();
+				app.get_vault().set_master_password(master_password);
+				return;
+			}
+		}
 	}
 }
