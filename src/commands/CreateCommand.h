@@ -20,6 +20,7 @@ namespace OwnPass::Commands {
 		~CreateCommand() override = default;
 
 		std::string_view get_name() override { return Name; }
+		bool requires_master_password() override { return true; }
 
 		[[nodiscard]] std::string_view get_category() const { return category; }
 		[[nodiscard]] std::string_view get_application() const { return application; }

@@ -17,6 +17,7 @@ namespace OwnPass::Commands {
 		~HelpCommand() override = default;
 
 		std::string_view get_name() override { return Name; }
+		bool requires_master_password() override { return false; }
 		void execute() override;
 		void undo() override;
 	private:
