@@ -1,7 +1,7 @@
 # ownpass: My Own Password Manager
 ![GitHub top language](https://img.shields.io/github/languages/top/mbassale/ownpass) [![GitHub license](https://img.shields.io/github/license/mbassale/ownpass)](https://github.com/mbassale/ownpass/blob/main/LICENSE) 
 
-This is my own personal password manager to replace paid password services.  
+This is my personal password manager to replace paid password services.  
 Currently is a desktop application with an encrypted key-value database to store my passwords.  
 Then I'll create a swift mobile app to have my passwords on the go.  
 I'm programming it on C++ because I want an small app to store my passwords and other secret information.
