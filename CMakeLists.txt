@@ -22,6 +22,7 @@ set(SOURCE_FILES
         src/cli/InvalidCommandSyntaxException.h src/cli/InvalidCommandSyntaxException.cpp
         src/cli/parsers/Parser.h src/cli/parsers/Parser.cpp
         src/cli/parsers/CreatePasswordCommandParser.h src/cli/parsers/CreatePasswordCommandParser.cpp
+        src/cli/parsers/PurgeStorageCommandParser.h src/cli/parsers/PurgeStorageCommandParser.cpp
         src/cli/input/SecretInput.h
         src/cli/input/StringSecretInput.h src/cli/input/StringSecretInput.cpp
         src/cli/input/PromptSecretInput.h src/cli/input/PromptSecretInput.cpp
@@ -31,6 +32,7 @@ set(SOURCE_FILES
         src/commands/VerboseCommand.h src/commands/VerboseCommand.cpp
         src/commands/VersionCommand.h src/commands/VersionCommand.cpp
         src/commands/CreatePasswordCommand.h src/commands/CreatePasswordCommand.cpp
+        src/commands/PurgeStorageCommand.h src/commands/PurgeStorageCommand.cpp
         src/storage/Storage.cpp src/storage/Storage.h
         src/storage/JsonStorage.h src/storage/JsonStorage.cpp
         src/storage/JsonParser.h src/storage/JsonParser.cpp
@@ -62,7 +64,8 @@ set(TEST_FILES
         test/crypto/test_secure_string.cpp
         test/crypto/test_encrypted_file.cpp
         test/cli/test_command_parser.cpp
-        test/cli/parsers/test_create_command_parser.cpp
+        test/cli/parsers/test_create_password_command_parser.cpp
+        test/cli/parsers/test_purge_storage_command_parser.cpp
         test/cli/input/test_string_secret_input.cpp
         test/cli/input/test_prompt_secret_input.cpp
         test/commands/test_command_runner.cpp)

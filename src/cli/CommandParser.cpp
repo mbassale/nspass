@@ -10,6 +10,7 @@
 #include "../commands/VerboseCommand.h"
 #include "../commands/VersionCommand.h"
 #include "./parsers/CreatePasswordCommandParser.h"
+#include "./parsers/PurgeStorageCommandParser.h"
 #include "CommandParser.h"
 #include <iostream>
 
@@ -62,7 +63,8 @@ Command can be one of:
 			string command_name = vm["command"].as<string>();
 
 			CommandTable command_table[] = {
-					CommandTable{ "create", CreatePasswordCommandParser{ app, parsed, vm }}
+					CommandTable{ "create", CreatePasswordCommandParser{ app, parsed, vm }},
+					CommandTable{ "purge", PurgeStorageCommandParser{ app, parsed, vm }}
 			};
 
 			for (auto& command_row : command_table) {

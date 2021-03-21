@@ -18,6 +18,7 @@ namespace OwnPass::Commands {
 
 		virtual std::string_view get_name() = 0;
 		virtual bool requires_master_password() = 0;
+		virtual bool requires_confirmation() { return false; };
 		virtual void execute() = 0;
 		virtual void undo() = 0;
 	protected:

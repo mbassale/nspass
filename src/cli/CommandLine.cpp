@@ -32,8 +32,10 @@ namespace OwnPass::CLI {
 			CommandParser command_parser{ app, argc, argv };
 			auto& commands = command_parser.get_commands();
 			initialize_master_password(commands);
-			CommandRunner command_runner{ commands };
-			command_runner.run();
+			if (confirm(commands)) {
+				CommandRunner command_runner{ commands };
+				command_runner.run();
+			}
 		}
 		catch (std::runtime_error& err) {
 			BOOST_LOG_TRIVIAL(fatal) << "Runtime Error: " << err.what() << std::endl;
@@ -61,5 +63,11 @@ namespace OwnPass::CLI {
 				return;
 			}
 		}
+	}
+
+	bool CommandLine::confirm(const vector<OwnPass::Commands::CommandPtr>& commands)
+	{
+
+		return true;
 	}
 }

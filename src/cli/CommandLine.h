@@ -21,6 +21,7 @@ namespace OwnPass::CLI {
 		OwnPass::CLI::Input::SecretInput& secret_input;
 
 		void initialize_master_password(const std::vector<OwnPass::Commands::CommandPtr>& commands);
+		bool confirm(const std::vector<OwnPass::Commands::CommandPtr>& commands);
 	};
 }
 
