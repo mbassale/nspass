@@ -5,8 +5,7 @@
 #ifndef OWNPASS_COMMANDLINE_H
 #define OWNPASS_COMMANDLINE_H
 
-#include <string>
-#include <vector>
+#include "../OwnPass.h"
 #include <boost/program_options.hpp>
 #include "./input/SecretInput.h"
 #include "../commands/Command.h"

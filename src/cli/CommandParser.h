@@ -5,10 +5,7 @@
 #ifndef OWNPASS_COMMANDPARSER_H
 #define OWNPASS_COMMANDPARSER_H
 
-#include <memory>
-#include <string>
-#include <utility>
-#include <vector>
+#include "../OwnPass.h"
 #include <boost/program_options.hpp>
 #include "../commands/Command.h"
 
@@ -43,7 +40,7 @@ Allowed Options)";
 
 		void create_options();
 		void parse_options();
-		void create_commands();
+		bool is_help_command(Commands::Command& command);
 	};
 }
 

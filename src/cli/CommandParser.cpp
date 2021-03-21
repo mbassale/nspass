@@ -11,6 +11,7 @@
 #include "../commands/VersionCommand.h"
 #include "./parsers/CreatePasswordCommandParser.h"
 #include "CommandParser.h"
+#include <iostream>
 
 using namespace std;
 namespace po = boost::program_options;
@@ -24,17 +25,20 @@ namespace OwnPass::CLI {
 	{
 		create_options();
 		parse_options();
-		create_commands();
 	}
 
 	void CommandParser::create_options()
 	{
+		static constexpr auto CommandHelp = R"(command to execute.
+Command can be one of:
+    create: Creates a password.
+)";
 		opt_descriptions.add_options()
-				("help,h", "show this help")
-				("verbose,v", "enable verbose output")
-				("version", "show program version")
-				("command", po::value<string>(), "command to execute")
-				("args", po::value<vector<string>>(), "command arguments");
+				("help,h", "show this help.")
+				("verbose,v", "enable verbose output.")
+				("version", "show program version.")
+				("command", po::value<string>(), CommandHelp)
+				("args", po::value<vector<string>>(), "command arguments.");
 
 		positional_opt_descriptions.add("command", 1).add("args", -1);
 	}
@@ -46,6 +50,14 @@ namespace OwnPass::CLI {
 		po::store(parsed, vm);
 		po::notify(vm);
 
+		if (vm.count("verbose")) {
+			commands.emplace_back(new VerboseCommand{ app });
+		}
+		if (vm.count("version")) {
+			commands.emplace_back(new VersionCommand{ app });
+		}
+
+		bool has_help_command = false;
 		if (vm.count("command")) {
 			string command_name = vm["command"].as<string>();
 
@@ -55,22 +67,20 @@ namespace OwnPass::CLI {
 
 			for (auto& command_row : command_table) {
 				if (command_row.name == command_name) {
-					commands.push_back(command_row.command_creator());
+					auto command_ptr = command_row.command_creator();
+					if (is_help_command(*command_ptr))
+						has_help_command = true;
+					commands.push_back(command_ptr);
 				}
 			}
 		}
-	}
-
-	void CommandParser::create_commands()
-	{
-		if (vm.empty() || vm.count("help")) {
+		if (!has_help_command && (vm.empty() || vm.count("help"))) {
 			commands.emplace_back(new HelpCommand{ app, opt_descriptions });
 		}
-		if (vm.count("verbose")) {
-			commands.emplace_back(new VerboseCommand{ app });
-		}
-		if (vm.count("version")) {
-			commands.emplace_back(new VersionCommand{ app });
-		}
+	}
+
+	bool CommandParser::is_help_command(Command& command)
+	{
+		return command.get_name() == HelpCommand::Name;
 	}
 }

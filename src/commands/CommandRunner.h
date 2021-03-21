@@ -5,9 +5,7 @@
 #ifndef OWNPASS_COMMANDRUNNER_H
 #define OWNPASS_COMMANDRUNNER_H
 
-#include <memory>
-#include <string>
-#include <vector>
+#include "../OwnPass.h"
 #include "../Application.h"
 #include "../commands/Command.h"
 
