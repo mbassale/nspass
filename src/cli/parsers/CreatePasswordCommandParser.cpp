@@ -36,7 +36,8 @@ namespace OwnPass::CLI::Parsers {
 			// Collect all the unrecognized options from the first pass. This will include the
 			// (positional) command name, so we need to erase that.
 			vector<string> opts = po::collect_unrecognized(parsed.options, po::include_positional);
-			opts.erase(opts.begin());
+			if (!opts.empty())
+				opts.erase(opts.begin());
 			// Parse again...
 			po::store(po::command_line_parser(opts).options(create_desc).run(), vm);
 			po::notify(vm);
