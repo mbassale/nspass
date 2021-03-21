@@ -42,8 +42,8 @@ namespace OwnPass::Commands {
 		std::string url;
 		std::string description;
 
-		CategoryPtr find_or_create_category();
-		Group find_or_create_group(CategoryPtr& category_obj);
+		Category find_or_create_category();
+		Group find_or_create_group(Category& category_obj);
 	};
 }
 

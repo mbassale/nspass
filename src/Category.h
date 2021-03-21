@@ -87,7 +87,6 @@ namespace OwnPass {
 	};
 
 	typedef std::reference_wrapper<Category> CategoryRef;
-	typedef std::shared_ptr<Category> CategoryPtr;
 }
 
 #endif //OWNPASS_CATEGORY_H

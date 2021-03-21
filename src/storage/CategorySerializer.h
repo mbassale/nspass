@@ -11,18 +11,18 @@
 #include <boost/json.hpp>
 
 namespace OwnPass::Storage {
-	class CategorySerializer : public JsonSerializer<CategoryPtr> {
+	class CategorySerializer : public JsonSerializer<Category> {
 	public:
 		CategorySerializer() = default;
 		~CategorySerializer() = default;
 
-		boost::json::object serialize(const CategoryPtr& obj) override;
-		boost::json::array serialize(const std::list<CategoryPtr>& objs) override;
+		boost::json::object serialize(const Category& obj) override;
+		boost::json::array serialize(const std::list<Category>& objs) override;
 
-		CategoryPtr deserialize(boost::json::object& obj) override;
-		std::list<CategoryPtr> deserialize(boost::json::array& objs) override;
+		Category deserialize(boost::json::object& obj) override;
+		std::list<Category> deserialize(boost::json::array& objs) override;
 	private:
-		std::list<CategoryPtr> make_default();
+		std::list<Category> make_default();
 	};
 }
 

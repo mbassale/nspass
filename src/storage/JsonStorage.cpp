@@ -58,23 +58,27 @@ namespace OwnPass::Storage {
 		std::filesystem::remove(StorageFile);
 	}
 
-	list<CategoryPtr>& JsonStorage::list_categories()
+	list<Category>& JsonStorage::list_categories()
 	{
 		return categories;
 	}
 
-	void JsonStorage::save_category(CategoryPtr& category)
+	Category& JsonStorage::save_category(Category& category)
 	{
 		auto it = find(categories.begin(), categories.end(), category);
 		if (it == categories.end()) {
 			categories.push_back(category);
 		}
+		else {
+			*it = category;
+		}
+		return category;
 	}
 
-	std::optional<CategoryPtr> JsonStorage::find_category(std::string_view search)
+	std::optional<CategoryRef> JsonStorage::find_category(std::string_view search)
 	{
-		auto it = find_if(categories.begin(), categories.end(), [&search](CategoryPtr& category) {
-			return boost::algorithm::icontains(category->get_name(), search);
+		auto it = find_if(categories.begin(), categories.end(), [&search](Category& category) {
+			return boost::algorithm::icontains(category.get_name(), search);
 		});
 		if (it == categories.end()) return std::nullopt;
 		return *it;
@@ -82,7 +86,7 @@ namespace OwnPass::Storage {
 
 	void JsonStorage::create_storage_file()
 	{
-		categories = std::list<CategoryPtr>();
+		categories = std::list<Category>();
 		save();
 	}
 
