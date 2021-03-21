@@ -6,6 +6,7 @@
 #include "../../../src/Application.h"
 #include "../../../src/cli/CommandParser.h"
 #include "../../../src/cli/InvalidCommandSyntaxException.h"
+#include "../../../src/commands/HelpCommand.h"
 #include "../../../src/commands/CreatePasswordCommand.h"
 
 using namespace std;
@@ -13,6 +14,7 @@ using OwnPass::Application;
 using OwnPass::Category;
 using OwnPass::CLI::CommandParser;
 using OwnPass::CLI::InvalidCommandSyntaxException;
+using OwnPass::Commands::HelpCommand;
 using OwnPass::Commands::CreatePasswordCommand;
 
 class CreateCommandParserFixture {
@@ -24,8 +26,7 @@ protected:
 	Application& app;
 };
 
-TEST_CASE_METHOD(CreateCommandParserFixture, "CreateCommandParser - invalid command",
-		CreateCommandParserFixture::Tag)
+TEST_CASE_METHOD(CreateCommandParserFixture, "CreateCommandParser - invalid command", CreateCommandParserFixture::Tag)
 {
 	const char* argv[] = {
 			"ownpass",
@@ -34,6 +35,24 @@ TEST_CASE_METHOD(CreateCommandParserFixture, "CreateCommandParser - invalid comm
 	};
 	int argc = TestUtility::get_argc(argv);
 	REQUIRE_THROWS_AS((CommandParser{ app, argc, const_cast<char**>(argv) }), InvalidCommandSyntaxException);
+}
+
+TEST_CASE_METHOD(CreateCommandParserFixture, "CreateCommandParser - help", CreateCommandParserFixture::Tag)
+{
+	const char* argv[] = {
+			"ownpass",
+			"create",
+			"-h",
+			nullptr
+	};
+	int argc = TestUtility::get_argc(argv);
+	CommandParser command_parser{ app, argc, const_cast<char**>(argv) };
+	auto& commands = command_parser.get_commands();
+	REQUIRE_FALSE(commands.empty());
+	auto command_ptr = command_parser.get_commands().front().get();
+	auto help_command_ptr = dynamic_cast<HelpCommand*>(command_ptr);
+	REQUIRE(help_command_ptr);
+	REQUIRE_NOTHROW(help_command_ptr->execute());
 }
 
 TEST_CASE_METHOD(CreateCommandParserFixture, "CreateCommandParser - create password with full arguments",

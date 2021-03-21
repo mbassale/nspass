@@ -5,14 +5,16 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "../../commands/HelpCommand.h"
 #include "../../commands/CreatePasswordCommand.h"
 #include "../InvalidCommandSyntaxException.h"
-#include "CreatePasswordCommandParser.h"
 #include "Parser.h"
+#include "CreatePasswordCommandParser.h"
 
 namespace OwnPass::CLI::Parsers {
 	using namespace std;
 	using OwnPass::Commands::CommandPtr;
+	using OwnPass::Commands::HelpCommand;
 	using OwnPass::Commands::CreatePasswordCommand;
 	using OwnPass::CLI::InvalidCommandSyntaxException;
 	namespace po = boost::program_options;
@@ -21,13 +23,14 @@ namespace OwnPass::CLI::Parsers {
 	{
 		po::options_description create_desc{ "Create command options" };
 		create_desc.add_options()
-				("category", po::value<string>()->default_value("Default"), "Password Category")
-				("application", po::value<string>(), "Application name")
-				("site", po::value<string>(), "Site name")
+				("help,h", "This help")
+				("category,c", po::value<string>()->default_value("Default"), "Password Category")
+				("application,a", po::value<string>(), "Application name")
+				("site,s", po::value<string>(), "Site name")
 				("url", po::value<string>()->default_value(""), "Site url")
 				("description", po::value<string>()->default_value(""), "Description")
-				("username", po::value<string>()->required(), "Username")
-				("password", po::value<string>()->required(), "Password");
+				("username,u", po::value<string>(), "Username")
+				("password,p", po::value<string>(), "Password");
 
 		try {
 			// Collect all the unrecognized options from the first pass. This will include the
@@ -42,8 +45,16 @@ namespace OwnPass::CLI::Parsers {
 			throw InvalidCommandSyntaxException(format_error(err.what(), create_desc));
 		}
 
-		if (vm.count("application") == 0 && vm.count("site") == 0)
+		if (vm.empty() || vm.count("help")) {
+			return CommandPtr{ new HelpCommand{ app, create_desc } };
+		}
+
+		if (vm.count("username") == 0 || vm.count("password") == 0) {
+			throw InvalidCommandSyntaxException(format_error("Missing required username and password.", create_desc));
+		}
+		if (vm.count("application") == 0 && vm.count("site") == 0) {
 			throw InvalidCommandSyntaxException(format_error("Missing application or site.", create_desc));
+		}
 
 		auto category = vm["category"].as<string>();
 		auto application = vm.count("application") ? vm["application"].as<string>() : "";
