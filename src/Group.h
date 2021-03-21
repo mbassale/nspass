@@ -113,68 +113,63 @@ namespace OwnPass {
 	};
 
 	typedef std::reference_wrapper<Group> GroupRef;
+	typedef std::shared_ptr<Group> GroupPtr;
 
 	class GroupFactory {
 	public:
 
-		static Group make_group(std::string_view name = std::string(),
+		static GroupPtr make_group(std::string_view name = std::string(),
 				std::string_view url = std::string(),
 				std::string_view description = std::string())
 		{
 			boost::uuids::uuid id = IdGenerator::make();
 			const auto passwords = std::list<Password>();
-			Group group{ GroupType::Group, id, name, passwords, url, description };
-			return group;
+			return std::make_shared<Group>(GroupType::Group, id, name, passwords, url, description);
 		}
 
-		static Group make_group(boost::uuids::uuid& id,
+		static GroupPtr make_group(boost::uuids::uuid& id,
 				std::string_view name,
 				const std::list<Password>& passwords,
 				std::string_view url = std::string(),
 				std::string_view description = std::string())
 		{
-			Group group{ GroupType::Group, id, name, passwords, url, description };
-			return group;
+			return std::make_shared<Group>(GroupType::Group, id, name, passwords, url, description);
 		}
 
-		static Group make_site(std::string_view name = std::string(),
+		static GroupPtr make_site(std::string_view name = std::string(),
 				std::string_view url = std::string(),
 				std::string_view description = std::string())
 		{
 			boost::uuids::uuid id = IdGenerator::make();
 			const auto passwords = std::list<Password>();
-			Group group{ GroupType::Site, id, name, passwords, url, description };
-			return group;
+			return std::make_shared<Group>(GroupType::Site, id, name, passwords, url, description);
 		}
 
-		static Group make_site(boost::uuids::uuid& id,
+		static GroupPtr make_site(boost::uuids::uuid& id,
 				std::string_view name,
 				const std::list<Password>& passwords,
 				std::string_view url = std::string(),
 				std::string_view description = std::string())
 		{
-			Group group{ GroupType::Site, id, name, passwords, url, description };
-			return group;
+			return std::make_shared<Group>(GroupType::Site, id, name, passwords, url, description);
 		}
 
-		static Group make_application(std::string_view name = std::string(),
+		static GroupPtr make_application(std::string_view name = std::string(),
 				std::string_view url = std::string(),
 				std::string_view description = std::string())
 		{
 			boost::uuids::uuid id = IdGenerator::make();
 			const auto passwords = std::list<Password>();
-			Group group{ GroupType::Application, id, name, passwords, url, description };
-			return group;
+			return std::make_shared<Group>(GroupType::Application, id, name, passwords, url, description);
 		}
 
-		static Group make_application(boost::uuids::uuid& id,
+		static GroupPtr make_application(boost::uuids::uuid& id,
 				std::string_view name,
 				const std::list<Password>& passwords,
 				std::string_view url = std::string(),
 				std::string_view description = std::string())
 		{
-			Group group{ GroupType::Application, id, name, passwords, url, description };
-			return group;
+			return std::make_shared<Group>(GroupType::Application, id, name, passwords, url, description);
 		}
 	};
 }

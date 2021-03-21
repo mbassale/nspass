@@ -12,9 +12,9 @@ namespace OwnPass::Commands {
 	{
 		auto category_ptr = find_or_create_category();
 		auto group_obj = find_or_create_group(category_ptr);
-		auto password_obj = PasswordFactory::make(group_obj, username,
+		auto password_obj = PasswordFactory::make(*group_obj, username,
 				SecureString::FromPlainText(username, password), url, description);
-		group_obj.add_password(password_obj);
+		group_obj->add_password(password_obj);
 		category_ptr->save_group(group_obj);
 		app.get_vault().get_storage().save_category(category_ptr);
 	}
@@ -33,19 +33,19 @@ namespace OwnPass::Commands {
 		return std::make_shared<Category>(category);
 	}
 
-	Group CreateCommand::find_or_create_group(CategoryPtr& category_obj)
+	GroupPtr CreateCommand::find_or_create_group(CategoryPtr& category_obj)
 	{
-		optional<GroupRef> group_opt;
+		GroupPtr group_ptr;
 		if (site.length() > 0) {
-			group_opt = category_obj->find_group(site);
-			if (group_opt.has_value())
-				return group_opt->get();
+			group_ptr = category_obj->find_group(site);
+			if (group_ptr)
+				return group_ptr;
 			return GroupFactory::make_site(site);
 		}
 		else if (application.length() > 0) {
-			group_opt = category_obj->find_group(application);
-			if (group_opt.has_value())
-				return group_opt->get();
+			group_ptr = category_obj->find_group(application);
+			if (group_ptr)
+				return group_ptr;
 			return GroupFactory::make_application(application);
 		}
 		throw ApplicationException{ "Attempt to store password without associated site or application." };

@@ -40,7 +40,7 @@ namespace OwnPass::Storage {
 		auto& category_name = obj["name"].as_string();
 		auto& groups_data = obj["groups"].as_array();
 		GroupSerializer group_serializer;
-		std::list<Group> groups = group_serializer.deserialize(groups_data);
+		std::list<GroupPtr> groups = group_serializer.deserialize(groups_data);
 		return std::make_shared<Category>(category_id, category_name.c_str(), groups);
 	}
 
