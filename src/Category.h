@@ -11,7 +11,7 @@
 namespace OwnPass {
 	class Category {
 	public:
-		const char* DefaultName = "Default";
+		static constexpr auto DefaultName = "Default";
 
 		Category()
 				:id{ boost::uuids::random_generator()() }, name{ DefaultName } { }
