@@ -4,7 +4,6 @@
 
 #include "Category.h"
 #include "Group.h"
-#include <algorithm>
 #include <boost/algorithm/string.hpp>
 #include <boost/iterator/filter_iterator.hpp>
 
@@ -15,6 +14,17 @@ namespace OwnPass {
 	{
 		groups.push_back(group);
 		return *this;
+	}
+
+	std::optional<GroupRef> Category::find_group(ObjectId group_id)
+	{
+		auto match_group = [group_id](const Group& group) {
+			return group_id == group.get_id();
+		};
+		auto filtered_iterator_begin = boost::make_filter_iterator(match_group, groups.begin(), groups.end());
+		auto filtered_iterator_end = boost::make_filter_iterator(match_group, groups.end(), groups.end());
+		if (filtered_iterator_begin == filtered_iterator_end) return nullopt;
+		return *filtered_iterator_begin;
 	}
 
 	optional<GroupRef> Category::find_group(string_view group_name)

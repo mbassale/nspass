@@ -5,11 +5,7 @@
 #ifndef OWNPASS_CATEGORY_H
 #define OWNPASS_CATEGORY_H
 
-#include <memory>
-#include <list>
-#include <optional>
-#include <boost/uuid/uuid.hpp>
-#include "IdGenerator.h"
+#include "OwnPass.h"
 #include "Group.h"
 
 namespace OwnPass {
@@ -29,7 +25,7 @@ namespace OwnPass {
 		explicit Category(std::string_view name)
 				:id{ IdGenerator::make() }, name{ name } { }
 
-		Category(boost::uuids::uuid& id, std::string_view name, std::list<Group>& groups)
+		Category(ObjectId id, std::string_view name, std::list<Group>& groups)
 				:id{ id }, name{ name }, groups{ groups } { }
 
 		~Category() = default;
@@ -52,7 +48,7 @@ namespace OwnPass {
 			return *this;
 		}
 
-		[[nodiscard]] const boost::uuids::uuid& get_id() const { return id; }
+		[[nodiscard]] ObjectId get_id() const { return id; }
 
 		[[nodiscard]] std::string_view get_name() const { return name; }
 
@@ -68,6 +64,7 @@ namespace OwnPass {
 
 		Category& add_group(Group& group);
 
+		std::optional<GroupRef> find_group(ObjectId group_id);
 		std::optional<GroupRef> find_group(std::string_view group_name);
 
 		std::list<GroupRef> find_groups(std::string_view search);
@@ -81,7 +78,7 @@ namespace OwnPass {
 		bool operator==(const Category& other) const { return id == other.id; }
 
 	private:
-		boost::uuids::uuid id;
+		ObjectId id;
 		std::string name;
 		std::list<Group> groups;
 	};

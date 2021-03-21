@@ -64,13 +64,24 @@ TEST_CASE("Categories")
 	SECTION("add/find/remove groups") {
 		auto category_name = "Category #0";
 		Category category{ category_name };
+		vector<ObjectId> group_ids;
 		for (auto i = 0; i < 100; i++) {
 			ostringstream group_name;
 			group_name << "Group #" << i;
 			Group group = GroupFactory::make_group(group_name.str());
 			category.add_group(group);
+			group_ids.push_back(group.get_id());
 		}
 
+		// find group by id
+		for (auto group_id : group_ids) {
+			auto group_opt = category.find_group(group_id);
+			REQUIRE(group_opt.has_value());
+			auto& group = group_opt.value().get();
+			REQUIRE(group.get_id() == group_id);
+		}
+
+		// find group by name
 		auto group_name = "Group #5";
 		auto group_opt = category.find_group(group_name);
 		REQUIRE(group_opt.has_value());
