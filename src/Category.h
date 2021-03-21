@@ -29,7 +29,7 @@ namespace OwnPass {
 		explicit Category(std::string_view name)
 				:id{ IdGenerator::make() }, name{ name } { }
 
-		Category(boost::uuids::uuid& id, std::string_view name, std::list<GroupPtr>& groups)
+		Category(boost::uuids::uuid& id, std::string_view name, std::list<Group>& groups)
 				:id{ id }, name{ name }, groups{ groups } { }
 
 		~Category() = default;
@@ -62,19 +62,19 @@ namespace OwnPass {
 			return *this;
 		}
 
-		[[nodiscard]] const std::list<GroupPtr>& get_groups() const { return groups; }
+		[[nodiscard]] const std::list<Group>& get_groups() const { return groups; }
 
-		[[nodiscard]] std::list<GroupPtr>& get_groups() { return groups; }
+		[[nodiscard]] std::list<Group>& get_groups() { return groups; }
 
-		Category& add_group(GroupPtr& group);
+		Category& add_group(Group& group);
 
-		GroupPtr find_group(std::string_view group_name);
+		std::optional<GroupRef> find_group(std::string_view group_name);
 
-		std::list<GroupPtr> find_groups(std::string_view search);
+		std::list<GroupRef> find_groups(std::string_view search);
 
-		Category& save_group(GroupPtr& group);
+		Category& save_group(Group& group);
 
-		Category& remove_group(GroupPtr& group);
+		Category& remove_group(Group& group);
 
 		Category& remove_group(std::string_view group_name);
 
@@ -83,7 +83,7 @@ namespace OwnPass {
 	private:
 		boost::uuids::uuid id;
 		std::string name;
-		std::list<GroupPtr> groups;
+		std::list<Group> groups;
 	};
 
 	typedef std::reference_wrapper<Category> CategoryRef;

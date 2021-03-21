@@ -13,20 +13,20 @@
 namespace OwnPass::Storage {
 	using namespace std;
 
-	boost::json::object GroupSerializer::serialize(const GroupPtr& obj)
+	boost::json::object GroupSerializer::serialize(const Group& obj)
 	{
-		PasswordSerializer password_serializer{ *obj };
+		PasswordSerializer password_serializer{ obj };
 		return {
-				{ "id", boost::uuids::to_string(obj->get_id()) },
-				{ "type", static_cast<int64_t>(obj->get_type()) },
-				{ "name", obj->get_name() },
-				{ "url", obj->get_url() },
-				{ "description", obj->get_description() },
-				{ "passwords", password_serializer.serialize(obj->get_passwords()) }
+				{ "id", boost::uuids::to_string(obj.get_id()) },
+				{ "type", static_cast<int64_t>(obj.get_type()) },
+				{ "name", obj.get_name() },
+				{ "url", obj.get_url() },
+				{ "description", obj.get_description() },
+				{ "passwords", password_serializer.serialize(obj.get_passwords()) }
 		};
 	}
 
-	boost::json::array GroupSerializer::serialize(const list<GroupPtr>& objs)
+	boost::json::array GroupSerializer::serialize(const list<Group>& objs)
 	{
 		boost::json::array group_data;
 		for (auto& group : objs) {
@@ -36,7 +36,7 @@ namespace OwnPass::Storage {
 		return group_data;
 	}
 
-	GroupPtr GroupSerializer::deserialize(boost::json::object& obj)
+	Group GroupSerializer::deserialize(boost::json::object& obj)
 	{
 		auto& id_str = obj["id"].as_string();
 		boost::uuids::string_generator gen;
@@ -45,7 +45,7 @@ namespace OwnPass::Storage {
 		auto& group_name = obj["name"].as_string();
 		auto& group_url = obj["url"].as_string();
 		auto& group_description = obj["description"].as_string();
-		GroupPtr group;
+		Group group;
 		switch (group_type) {
 		case GroupType::Site:
 			group = GroupFactory::make_site(group_id, group_name.c_str(), std::list<Password>(), group_url.c_str(),
@@ -61,18 +61,18 @@ namespace OwnPass::Storage {
 			break;
 		}
 
-		PasswordSerializer password_serializer{ *group };
+		PasswordSerializer password_serializer{ group };
 		auto& group_passwords = obj["passwords"].as_array();
 		auto passwords = password_serializer.deserialize(group_passwords);
 		for (auto& password : passwords) {
-			group->add_password(password);
+			group.add_password(password);
 		}
 		return group;
 	}
 
-	std::list<GroupPtr> GroupSerializer::deserialize(boost::json::array& objs)
+	std::list<Group> GroupSerializer::deserialize(boost::json::array& objs)
 	{
-		std::list<GroupPtr> groups;
+		std::list<Group> groups;
 		for (auto val : objs) {
 			boost::json::object obj = val.as_object();
 			groups.push_back(deserialize(obj));
