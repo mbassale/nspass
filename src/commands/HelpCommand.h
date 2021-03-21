@@ -7,13 +7,14 @@
 
 #include "Command.h"
 #include <boost/program_options.hpp>
+#include <utility>
 
 namespace OwnPass::Commands {
 	class HelpCommand : public Command {
 	public:
 		static constexpr auto Name = "help";
-		explicit HelpCommand(OwnPass::Application& app, const boost::program_options::options_description& opt_desc)
-				:Command(app), opt_desc{ opt_desc } { };
+		explicit HelpCommand(OwnPass::Application& app, boost::program_options::options_description opt_desc)
+				:Command(app), opt_desc{ std::move(opt_desc) } { };
 		~HelpCommand() override = default;
 
 		std::string_view get_name() override { return Name; }
@@ -21,7 +22,7 @@ namespace OwnPass::Commands {
 		void execute() override;
 		void undo() override;
 	private:
-		const boost::program_options::options_description& opt_desc;
+		boost::program_options::options_description opt_desc;
 	};
 }
 
