@@ -27,14 +27,16 @@ namespace OwnPass::Storage {
 
 		[[nodiscard]] virtual bool is_open() const = 0;
 
-		virtual std::list<OwnPass::Category>& list_categories() = 0;
-		virtual Category& save_category(Category& category) = 0;
-		virtual std::optional<CategoryRef> find_category(std::string_view search) = 0;
+		virtual std::list<CategoryPtr>& list_categories() = 0;
+		virtual void save_category(CategoryPtr& category) = 0;
+		virtual std::optional<CategoryPtr> find_category(std::string_view search) = 0;
 	};
+
+	typedef std::unique_ptr<Storage> StoragePtr;
 
 	class StorageFactory {
 	public:
-		static std::unique_ptr<Storage> make();
+		static StoragePtr make();
 	private:
 		StorageFactory() = default;
 	};

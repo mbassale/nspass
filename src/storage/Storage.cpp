@@ -10,7 +10,7 @@ namespace OwnPass::Storage {
 	using namespace OwnPass;
 	using namespace std;
 
-	std::unique_ptr<Storage> StorageFactory::make()
+	StoragePtr StorageFactory::make()
 	{
 		return std::make_unique<JsonStorage>();
 	}

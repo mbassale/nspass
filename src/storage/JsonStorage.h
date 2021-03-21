@@ -24,15 +24,15 @@ namespace OwnPass::Storage {
 
 		[[nodiscard]] bool is_open() const override { return is_opened; }
 
-		std::list<OwnPass::Category>& list_categories() override;
-		Category& save_category(Category& category) override;
-		std::optional<CategoryRef> find_category(std::string_view search) override;
+		std::list<CategoryPtr>& list_categories() override;
+		void save_category(CategoryPtr& category) override;
+		std::optional<CategoryPtr> find_category(std::string_view search) override;
 
 	private:
 		static constexpr const char* StorageFile = "ownpass.dat";
 		bool is_opened{ false };
 		std::string_view master_password;
-		std::list<Category> categories;
+		std::list<CategoryPtr> categories;
 
 		void load();
 		void save();

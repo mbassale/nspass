@@ -4,9 +4,9 @@
 #include "catch.hpp"
 #include <string>
 #include <algorithm>
-#include <boost/algorithm/string.hpp>
 #include <list>
 #include <sstream>
+#include <boost/algorithm/string.hpp>
 #include "../src/crypto/SecureString.h"
 #include "../src/storage/Storage.h"
 
@@ -23,7 +23,7 @@ public:
 		db.purge();
 	}
 private:
-	std::unique_ptr<OwnPass::Storage::Storage> storage{};
+	StoragePtr storage{};
 
 protected:
 	std::string_view master_password = "test1234";
@@ -33,38 +33,34 @@ protected:
 	{
 		stringstream category_name;
 		category_name << prefix << index;
-		Category category{ category_name.str() };
+		auto category = std::make_shared<Category>(category_name.str());
 		db.save_category(category);
 	}
 
-	Group save_group(Category& category, const string& name, const string& url, const string& description)
+	Group save_group(CategoryPtr& category, const string& name, const string& url, const string& description)
 	{
 		Group group = GroupFactory::make_group(name, url, description);
-		category.add_group(group);
-		db.save_category(category);
+		category->add_group(group);
 		return group;
 	}
 
-	Group save_site(Category& category, const string& name, const string& url, const string& description)
+	Group save_site(CategoryPtr& category, const string& name, const string& url, const string& description)
 	{
 		Group site = GroupFactory::make_site(name, url, description);
-		category.add_group(site);
-		db.save_category(category);
+		category->add_group(site);
 		return site;
 	}
 
-	Group save_application(Category& category, const string& name, const string& url, const string& description)
+	Group save_application(CategoryPtr& category, const string& name, const string& url, const string& description)
 	{
 		Group application = GroupFactory::make_application(name, url, description);
-		category.add_group(application);
-		db.save_category(category);
+		category->add_group(application);
 		return application;
 	}
 
-	void save_category_and_group(Category& category, Group& group)
+	void save_category_and_group(CategoryPtr& category, Group& group)
 	{
-		category.save_group(group);
-		db.save_category(category);
+		category->save_group(group);
 	}
 
 	void flush_and_reload()
@@ -73,24 +69,24 @@ protected:
 		db.reload();
 	}
 
-	tuple<list<Category>&, Category&> initialize_db_with_category()
+	tuple<list<CategoryPtr>&, CategoryPtr> initialize_db_with_category()
 	{
 		db.purge();
-		Category category;
+		auto category = std::make_shared<Category>();
 		db.save_category(category);
 		db.flush();
 		db.reload();
 		auto& categories = db.list_categories();
 		auto& first_category = categories.front();
-		return tuple<list<Category>&, Category&>(categories, first_category);
+		return tuple<list<CategoryPtr>&, CategoryPtr>(categories, first_category);
 	}
 
-	tuple<Category&, Group&> get_first_category_and_group()
+	tuple<CategoryPtr&, Group&> get_first_category_and_group()
 	{
 		auto& first_category = db.list_categories().front();
-		REQUIRE_FALSE(first_category.get_groups().empty());
-		auto& first_group = first_category.get_groups().front();
-		return tuple<Category&, Group&>(first_category, first_group);
+		REQUIRE_FALSE(first_category->get_groups().empty());
+		auto& first_group = first_category->get_groups().front();
+		return tuple<CategoryPtr&, Group&>(first_category, first_group);
 	}
 
 	void assert_equals(const Password& password1, const Password& password2)
@@ -108,7 +104,6 @@ TEST_CASE_METHOD(JsonStorageFixture, "make instance")
 	REQUIRE_NOTHROW(StorageFactory::make());
 }
 
-
 TEST_CASE_METHOD(JsonStorageFixture, "open storage")
 {
 	db.open(master_password);
@@ -117,7 +112,7 @@ TEST_CASE_METHOD(JsonStorageFixture, "open storage")
 TEST_CASE_METHOD(JsonStorageFixture, "categories")
 {
 	SECTION("empty") {
-		list<Category> categories = db.list_categories();
+		list<CategoryPtr> categories = db.list_categories();
 		REQUIRE(categories.empty());
 	}
 
@@ -125,10 +120,10 @@ TEST_CASE_METHOD(JsonStorageFixture, "categories")
 		for (auto i = 0; i < 10; i++) {
 			save_category("Category #", i);
 		}
-		list<Category> categories = db.list_categories();
+		list<CategoryPtr> categories = db.list_categories();
 		REQUIRE(categories.size() == 10);
 		for (auto& category : categories) {
-			REQUIRE(category.get_name().find("Category #") != string::npos);
+			REQUIRE(category->get_name().find("Category #") != string::npos);
 		}
 	}
 
@@ -139,13 +134,13 @@ TEST_CASE_METHOD(JsonStorageFixture, "categories")
 		auto category_name = "Category #5";
 		auto category_opt = db.find_category(category_name);
 		REQUIRE(category_opt.has_value());
-		auto& category = category_opt.value().get();
-		REQUIRE(category.get_name() == category_name);
+		auto category = category_opt.value();
+		REQUIRE(category->get_name() == category_name);
 		auto category_name2 = "category #5";
 		auto category2_opt = db.find_category(category_name2);
 		REQUIRE(category2_opt.has_value());
-		auto& category2 = category2_opt.value().get();
-		REQUIRE(boost::algorithm::icontains(category2.get_name(), category_name2));
+		auto category2 = category2_opt.value();
+		REQUIRE(boost::algorithm::icontains(category2->get_name(), category_name2));
 	}
 }
 
@@ -154,7 +149,7 @@ TEST_CASE_METHOD(JsonStorageFixture, "groups")
 	auto[categories, first_category] = initialize_db_with_category();
 
 	SECTION("new category with no group") {
-		REQUIRE(first_category.get_groups().empty());
+		REQUIRE(first_category->get_groups().empty());
 	}
 
 	SECTION("add group to existing category")
@@ -165,8 +160,8 @@ TEST_CASE_METHOD(JsonStorageFixture, "groups")
 		auto original_group = save_group(first_category, group_name, group_url, group_description);
 		flush_and_reload();
 		auto& first_category2 = db.list_categories().front();
-		REQUIRE_FALSE(first_category2.get_groups().empty());
-		auto& group = first_category2.get_groups().front();
+		REQUIRE_FALSE(first_category2->get_groups().empty());
+		auto& group = first_category2->get_groups().front();
 		REQUIRE(group.get_id() == original_group.get_id());
 		REQUIRE(group.get_type() == GroupType::Group);
 		REQUIRE(group.get_name() == group_name);
@@ -174,14 +169,14 @@ TEST_CASE_METHOD(JsonStorageFixture, "groups")
 		REQUIRE(group.get_description() == group_description);
 
 		SECTION("modify a copy of existing category and group and then save it") {
-			Category first_category_copy = db.list_categories().front();
-			first_category_copy.set_name("Updated Category");
-			first_category_copy.get_groups().front().set_name("Updated Group");
+			auto first_category_copy = db.list_categories().front();
+			first_category_copy->set_name("Updated Category");
+			first_category_copy->get_groups().front().set_name("Updated Group");
 			db.save_category(first_category_copy);
 			flush_and_reload();
-			auto& updated_category = db.list_categories().front();
-			REQUIRE(updated_category.get_name() == "Updated Category");
-			auto& updated_group = updated_category.get_groups().front();
+			auto updated_category = db.list_categories().front();
+			REQUIRE(updated_category->get_name() == "Updated Category");
+			auto& updated_group = updated_category->get_groups().front();
 			REQUIRE(updated_group.get_name() == "Updated Group");
 		}
 	}
@@ -191,14 +186,14 @@ TEST_CASE_METHOD(JsonStorageFixture, "groups")
 		auto second_group = save_group(first_category, "Group #2", "https://test2.com", "senet dolor ipsum lorem");
 		flush_and_reload();
 
-		auto& first_category2 = db.list_categories().front();
-		REQUIRE(first_category2.get_groups().size() == 2);
-		first_category2.remove_group(first_group);
+		auto first_category2 = db.list_categories().front();
+		REQUIRE(first_category2->get_groups().size() == 2);
+		first_category2->remove_group(first_group);
 		flush_and_reload();
 
-		auto& first_category3 = db.list_categories().front();
-		REQUIRE(first_category3.get_groups().size() == 1);
-		auto existing_group = first_category3.get_groups().front();
+		auto first_category3 = db.list_categories().front();
+		REQUIRE(first_category3->get_groups().size() == 1);
+		auto existing_group = first_category3->get_groups().front();
 		REQUIRE(second_group.get_id() == existing_group.get_id());
 	}
 }
@@ -213,9 +208,9 @@ TEST_CASE_METHOD(JsonStorageFixture, "sites")
 		auto site_description = "lorem ipsum dolor senet";
 		auto original_site = save_site(first_category, site_name, site_url, site_description);
 		flush_and_reload();
-		auto& first_category2 = db.list_categories().front();
-		REQUIRE_FALSE(first_category2.get_groups().empty());
-		auto& site = first_category2.get_groups().front();
+		auto first_category2 = db.list_categories().front();
+		REQUIRE_FALSE(first_category2->get_groups().empty());
+		auto& site = first_category2->get_groups().front();
 		REQUIRE(site.get_id() == original_site.get_id());
 		REQUIRE(GroupType::Site == site.get_type());
 		REQUIRE(site.get_type() == GroupType::Site);
@@ -235,9 +230,9 @@ TEST_CASE_METHOD(JsonStorageFixture, "applications")
 		auto app_description = "lorem ipsum dolor senet";
 		auto original_app = save_application(first_category, app_name, app_url, app_description);
 		flush_and_reload();
-		auto& first_category2 = db.list_categories().front();
-		REQUIRE_FALSE(first_category2.get_groups().empty());
-		auto& site = first_category2.get_groups().front();
+		auto first_category2 = db.list_categories().front();
+		REQUIRE_FALSE(first_category2->get_groups().empty());
+		auto& site = first_category2->get_groups().front();
 		REQUIRE(original_app.get_id() == site.get_id());
 		REQUIRE(GroupType::Application == site.get_type());
 		REQUIRE(app_name == site.get_name());
