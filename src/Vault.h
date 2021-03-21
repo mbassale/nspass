@@ -5,8 +5,7 @@
 #ifndef OWNPASS_VAULT_H
 #define OWNPASS_VAULT_H
 
-#include <memory>
-#include <string>
+#include "OwnPass.h"
 #include "./storage/Storage.h"
 
 namespace OwnPass {

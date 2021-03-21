@@ -15,7 +15,7 @@ namespace OwnPass::Storage {
 
 	boost::json::object GroupSerializer::serialize(const Group& obj)
 	{
-		PasswordSerializer password_serializer{ obj };
+		PasswordSerializer password_serializer{};
 		return {
 				{ "id", boost::uuids::to_string(obj.get_id()) },
 				{ "type", static_cast<int64_t>(obj.get_type()) },
@@ -61,7 +61,7 @@ namespace OwnPass::Storage {
 			break;
 		}
 
-		PasswordSerializer password_serializer{ group };
+		PasswordSerializer password_serializer{};
 		auto& group_passwords = obj["passwords"].as_array();
 		auto passwords = password_serializer.deserialize(group_passwords);
 		for (auto& password : passwords) {

@@ -11,16 +11,13 @@
 namespace OwnPass::Storage {
 	class PasswordSerializer : public JsonSerializer<Password> {
 	public:
-		explicit PasswordSerializer(const Group& group) : group{ group } {}
+		PasswordSerializer() = default;
 		~PasswordSerializer() = default;
 
 		boost::json::object serialize(const Password& obj) override;
 		boost::json::array serialize(const std::list<Password>& objs) override;
 		Password deserialize(boost::json::object& obj) override;
 		std::list<Password> deserialize(boost::json::array& objs) override;
-
-	private:
-		const Group& group;
 	};
 }
 

@@ -5,6 +5,8 @@
 #ifndef OWNPASS_GROUP_H
 #define OWNPASS_GROUP_H
 
+#include <utility>
+
 #include "OwnPass.h"
 #include "Password.h"
 
@@ -26,13 +28,11 @@ namespace OwnPass {
 
 		Group()
 				:id{ IdGenerator::make() }, type{ GroupType::Group }, name(DefaultGroupName) { }
-		Group(const Group& other)
-				:id{ other.id }, type{ other.type }, name{ other.name }, passwords{ other.passwords }, url{ other.url },
-				 description{ other.description } { }
+		Group(const Group& other) = default;
 		Group(Group&& other) noexcept { *this = std::move(other); }
-		Group(GroupType type, ObjectId id, std::string_view name, const std::list<Password>& passwords,
+		Group(GroupType type, ObjectId id, std::string_view name, std::list<Password> passwords,
 				std::string_view url, std::string_view description)
-				:type{ type }, id{ id }, name{ name }, passwords{ passwords }, url{ url },
+				:type{ type }, id{ id }, name{ name }, passwords{ std::move(passwords) }, url{ url },
 				 description{ description } { }
 		virtual ~Group() = default;
 
@@ -61,7 +61,7 @@ namespace OwnPass {
 
 		[[nodiscard]] ObjectId get_id() const { return id; }
 
-		[[nodiscard]] const GroupType get_type() const { return type; }
+		[[nodiscard]] GroupType get_type() const { return type; }
 
 		[[nodiscard]] std::string_view get_name() const { return name; }
 		Group& set_name(std::string_view new_name)
@@ -69,6 +69,9 @@ namespace OwnPass {
 			name = new_name;
 			return *this;
 		}
+
+		std::optional<PasswordRef> find_password(ObjectId password_id);
+		std::optional<PasswordRef> find_password(std::string_view username);
 
 		[[nodiscard]] const std::list<Password>& get_passwords() const { return passwords; }
 		[[nodiscard]] std::list<Password>& get_passwords() { return passwords; }
@@ -83,14 +86,14 @@ namespace OwnPass {
 			return *this;
 		}
 
-		std::string_view get_url() const { return url; }
+		[[nodiscard]] std::string_view get_url() const { return url; }
 		Group& set_url(std::string_view new_url)
 		{
 			url = new_url;
 			return *this;
 		}
 
-		std::string_view get_description() const { return description; };
+		[[nodiscard]] std::string_view get_description() const { return description; };
 		Group& set_description(std::string_view new_description)
 		{
 			description = new_description;
@@ -100,8 +103,8 @@ namespace OwnPass {
 		bool operator==(const Group& other) const { return id == other.id; }
 
 	protected:
-		ObjectId id;
-		GroupType type;
+		ObjectId id{};
+		GroupType type{};
 		std::string name;
 		std::list<Password> passwords;
 		std::string url;

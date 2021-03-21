@@ -5,27 +5,22 @@
 #ifndef OWNPASS_PASSWORD_H
 #define OWNPASS_PASSWORD_H
 
-#include <boost/uuid/uuid.hpp>
-#include "IdGenerator.h"
+#include <utility>
+
+#include "OwnPass.h"
 #include "./crypto/SecureString.h"
-#include "Group.h"
 
 namespace OwnPass {
 	using OwnPass::Crypto::SecureString;
-	class Group;
 
 	class Password {
 	public:
-		Password(const Password& other)
-				:group{ other.group }, id{ other.id }, username{ other.username }, password{ other.password },
-				 url{ other.url }, description{ other.description } { }
+		Password(const Password& other) = default;
+		Password(Password&& other) noexcept { *this = std::move(other); }
 
-		Password(Password&& other)
-				:group{ other.group } { *this = std::move(other); }
-
-		Password(const Group& group, const boost::uuids::uuid& id, std::string_view username, SecureString password,
+		Password(ObjectId id, std::string_view username, SecureString password,
 				std::string_view url, std::string_view description)
-				:group{ group }, id{ id }, username{ username }, password{ password }, url{ url },
+				:id{ id }, username{ username }, password{ std::move(password) }, url{ url },
 				 description{ description } { }
 
 		~Password() = default;
@@ -41,8 +36,7 @@ namespace OwnPass {
 			return *this;
 		}
 
-		Password& operator=(Password&& other)
-		{
+		Password& operator=(Password&& other) noexcept {
 			id = other.id;
 			username = std::move(other.username);
 			password = std::move(other.password);
@@ -51,7 +45,7 @@ namespace OwnPass {
 			return *this;
 		}
 
-		[[nodiscard]] const boost::uuids::uuid get_id() const { return id; }
+		[[nodiscard]] ObjectId get_id() const { return id; }
 
 		[[nodiscard]] std::string_view get_username() const { return username; }
 
@@ -85,36 +79,35 @@ namespace OwnPass {
 			return *this;
 		}
 
-		[[nodiscard]] const Group& get_group() const { return group; }
-
 		bool operator==(const Password& other) const { return id == other.id; }
 
 	private:
-		const Group& group;
-		boost::uuids::uuid id;
+		ObjectId id{};
 		std::string username;
 		SecureString password;
 		std::string url;
 		std::string description;
 	};
 
+	typedef std::reference_wrapper<Password> PasswordRef;
+
 	class PasswordFactory {
-	private:
-		PasswordFactory() = default;
-		~PasswordFactory() = default;
 	public:
-		static Password make(const Group& group, std::string_view username, const SecureString& pass,
+		PasswordFactory() = delete;
+		~PasswordFactory() = delete;
+
+		static Password make(std::string_view username, const SecureString& pass,
 				std::string_view url = std::string(), std::string_view description = std::string())
 		{
-			boost::uuids::uuid password_id = IdGenerator::make();
-			return (Password){ group, password_id, username, pass, url, description };
+			ObjectId password_id = IdGenerator::make();
+			return (Password){ password_id, username, pass, url, description };
 		}
 
-		static Password make(const Group& group, const boost::uuids::uuid& id, std::string_view username,
+		static Password make(ObjectId id, std::string_view username,
 				const SecureString& pass, std::string_view url = std::string(),
 				std::string_view description = std::string())
 		{
-			return (Password){ group, id, username, pass, url, description };
+			return (Password){ id, username, pass, url, description };
 		}
 	};
 }

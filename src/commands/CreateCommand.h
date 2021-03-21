@@ -5,6 +5,7 @@
 #ifndef OWNPASS_CREATECOMMAND_H
 #define OWNPASS_CREATECOMMAND_H
 
+#include "../OwnPass.h"
 #include "Command.h"
 
 namespace OwnPass::Commands {
@@ -34,9 +35,12 @@ namespace OwnPass::Commands {
 		void undo() override;
 
 	protected:
+		ObjectId category_id;
 		std::string category;
+		ObjectId group_id;
 		std::string application;
 		std::string site;
+		ObjectId password_id;
 		std::string username;
 		std::string password;
 		std::string url;

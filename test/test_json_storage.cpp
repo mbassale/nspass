@@ -271,7 +271,7 @@ TEST_CASE_METHOD(JsonStorageFixture, "passwords")
 		auto password_pass = SecureString::FromPlainText("test1234", "test1234");
 		auto password_url = "https://site.com/login";
 		auto password_description = "lorem ipsum dolor senet";
-		Password password = PasswordFactory::make(group, password_username, password_pass, password_url,
+		Password password = PasswordFactory::make(password_username, password_pass, password_url,
 				password_description);
 		group.add_password(password);
 		save_category_and_group(first_category, group);
@@ -287,7 +287,7 @@ TEST_CASE_METHOD(JsonStorageFixture, "passwords")
 			auto password2_pass = SecureString::FromPlainText("test1234", "test1234");
 			auto password2_url = "https://site.com/register";
 			auto password2_description = "senet dolor ipsum lorem";
-			Password password2 = PasswordFactory::make(group2, password2_username, password2_pass, password2_url,
+			Password password2 = PasswordFactory::make(password2_username, password2_pass, password2_url,
 					password2_description);
 			group2.add_password(password2);
 			save_category_and_group(first_category2, group2);

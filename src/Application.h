@@ -5,10 +5,8 @@
 #ifndef OWNPASS_APPLICATION_H
 #define OWNPASS_APPLICATION_H
 
-#include <list>
-#include <functional>
+#include "OwnPass.h"
 #include "Vault.h"
-#include "ApplicationException.h"
 
 namespace OwnPass {
 
