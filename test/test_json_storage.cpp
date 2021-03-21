@@ -29,12 +29,13 @@ protected:
 	std::string_view master_password = "test1234";
 	OwnPass::Storage::Storage& db;
 
-	void save_category(const string& prefix, int index = 0)
+	Category save_category(const string& prefix, int index = 0)
 	{
 		stringstream category_name;
 		category_name << prefix << index;
 		Category category{ category_name.str() };
 		db.save_category(category);
+		return category;
 	}
 
 	Group save_group(Category& category, const string& name, const string& url, const string& description)
@@ -132,7 +133,21 @@ TEST_CASE_METHOD(JsonStorageFixture, "categories")
 		}
 	}
 
-	SECTION("search for specific string") {
+	SECTION("find_category by id") {
+		vector<ObjectId> category_ids;
+		category_ids.reserve(10);
+		for (auto i = 0; i < 10; i++) {
+			category_ids.push_back(save_category("Category #", i).get_id());
+		}
+		for (ObjectId category_id : category_ids) {
+			auto category_opt = db.find_category(category_id);
+			REQUIRE(category_opt.has_value());
+			auto& category = category_opt->get();
+			REQUIRE(category.get_id() == category_id);
+		}
+	}
+
+	SECTION("find_category by string") {
 		for (auto i = 0; i < 10; i++) {
 			save_category("Category #", i);
 		}

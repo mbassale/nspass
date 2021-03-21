@@ -75,6 +75,15 @@ namespace OwnPass::Storage {
 		return category;
 	}
 
+	std::optional<CategoryRef> JsonStorage::find_category(ObjectId category_id)
+	{
+		auto it = find_if(categories.begin(), categories.end(), [&category_id](Category& category) {
+			return category_id == category.get_id();
+		});
+		if (it == categories.end()) return std::nullopt;
+		return *it;
+	}
+
 	std::optional<CategoryRef> JsonStorage::find_category(std::string_view search)
 	{
 		auto it = find_if(categories.begin(), categories.end(), [&search](Category& category) {
@@ -110,7 +119,6 @@ namespace OwnPass::Storage {
 		EncryptedFile encrypted_file{ StorageFile, master_password };
 		encrypted_file.encrypt(contents);
 	}
-
 	void JsonStorage::save_and_close()
 	{
 		save();

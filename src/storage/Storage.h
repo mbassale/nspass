@@ -5,9 +5,7 @@
 #ifndef OWNPASS_STORAGE_H
 #define OWNPASS_STORAGE_H
 
-#include <memory>
-#include <string>
-#include <list>
+#include "../OwnPass.h"
 #include "../Category.h"
 #include "../Group.h"
 #include "../Password.h"
@@ -29,6 +27,7 @@ namespace OwnPass::Storage {
 
 		virtual std::list<OwnPass::Category>& list_categories() = 0;
 		virtual Category& save_category(Category& category) = 0;
+		virtual std::optional<CategoryRef> find_category(ObjectId category_id) = 0;
 		virtual std::optional<CategoryRef> find_category(std::string_view search) = 0;
 	};
 

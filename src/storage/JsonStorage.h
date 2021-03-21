@@ -26,6 +26,7 @@ namespace OwnPass::Storage {
 
 		std::list<OwnPass::Category>& list_categories() override;
 		Category& save_category(Category& category) override;
+		std::optional<CategoryRef> find_category(ObjectId category_id) override;
 		std::optional<CategoryRef> find_category(std::string_view search) override;
 
 	private:
