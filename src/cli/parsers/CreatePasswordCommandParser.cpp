@@ -4,19 +4,19 @@
 
 #include <string>
 #include <sstream>
-#include "../../commands/CreateCommand.h"
+#include "../../commands/CreatePasswordCommand.h"
 #include "../InvalidCommandSyntaxException.h"
-#include "CreateCommandParser.h"
+#include "CreatePasswordCommandParser.h"
 #include "Parser.h"
 
 namespace OwnPass::CLI::Parsers {
 	using namespace std;
 	using OwnPass::Commands::CommandPtr;
-	using OwnPass::Commands::CreateCommand;
+	using OwnPass::Commands::CreatePasswordCommand;
 	using OwnPass::CLI::InvalidCommandSyntaxException;
 	namespace po = boost::program_options;
 
-	CommandPtr OwnPass::CLI::Parsers::CreateCommandParser::operator()()
+	CommandPtr OwnPass::CLI::Parsers::CreatePasswordCommandParser::operator()()
 	{
 		po::options_description create_desc{ "Create command options" };
 		create_desc.add_options()
@@ -49,7 +49,7 @@ namespace OwnPass::CLI::Parsers {
 		auto description = vm["description"].as<string>();
 
 		return CommandPtr{
-				new CreateCommand{ app, category, application, site, username, password, url, description }};
+				new CreatePasswordCommand{ app, category, application, site, username, password, url, description }};
 	}
 
 }

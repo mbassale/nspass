@@ -9,7 +9,7 @@
 #include "../commands/HelpCommand.h"
 #include "../commands/VerboseCommand.h"
 #include "../commands/VersionCommand.h"
-#include "./parsers/CreateCommandParser.h"
+#include "./parsers/CreatePasswordCommandParser.h"
 #include "CommandParser.h"
 
 using namespace std;
@@ -50,7 +50,7 @@ namespace OwnPass::CLI {
 			string command_name = vm["command"].as<string>();
 
 			CommandTable command_table[] = {
-					CommandTable{ "create", CreateCommandParser{ app, parsed, vm }}
+					CommandTable{ "create", CreatePasswordCommandParser{ app, parsed, vm }}
 			};
 
 			for (auto& command_row : command_table) {

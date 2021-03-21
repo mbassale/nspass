@@ -2,23 +2,23 @@
 // Created by Marco Bassaletti on 17-03-21.
 //
 
-#ifndef OWNPASS_CREATECOMMAND_H
-#define OWNPASS_CREATECOMMAND_H
+#ifndef OWNPASS_CREATEPASSWORDCOMMAND_H
+#define OWNPASS_CREATEPASSWORDCOMMAND_H
 
 #include "../OwnPass.h"
 #include "Command.h"
 
 namespace OwnPass::Commands {
-	class CreateCommand : public Command {
+	class CreatePasswordCommand : public Command {
 	public:
 		static constexpr auto Name = "create";
 
-		explicit CreateCommand(Application& app, std::string_view category, std::string_view application,
+		CreatePasswordCommand(Application& app, std::string_view category, std::string_view application,
 				std::string_view site, std::string_view username, std::string_view password, std::string_view url,
 				std::string_view description)
 				:Command(app), category{ category }, application{ application }, site{ site }, username{ username },
 				 password{ password }, url{ url }, description{ description } { }
-		~CreateCommand() override = default;
+		~CreatePasswordCommand() override = default;
 
 		std::string_view get_name() override { return Name; }
 		bool requires_master_password() override { return true; }
@@ -35,12 +35,12 @@ namespace OwnPass::Commands {
 		void undo() override;
 
 	protected:
-		ObjectId category_id;
+		ObjectId category_id{};
+		ObjectId group_id{};
+		ObjectId password_id{};
 		std::string category;
-		ObjectId group_id;
 		std::string application;
 		std::string site;
-		ObjectId password_id;
 		std::string username;
 		std::string password;
 		std::string url;
@@ -51,4 +51,4 @@ namespace OwnPass::Commands {
 	};
 }
 
-#endif //OWNPASS_CREATECOMMAND_H
+#endif //OWNPASS_CREATEPASSWORDCOMMAND_H

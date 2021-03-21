@@ -3,12 +3,12 @@
 //
 
 #include <optional>
-#include "CreateCommand.h"
+#include "CreatePasswordCommand.h"
 
 namespace OwnPass::Commands {
 	using namespace std;
 
-	void CreateCommand::execute()
+	void CreatePasswordCommand::execute()
 	{
 		auto category_obj = find_or_create_category();
 		auto group_obj = find_or_create_group(category_obj);
@@ -23,16 +23,24 @@ namespace OwnPass::Commands {
 		group_id = group_obj.get_id();
 	}
 
-	void CreateCommand::undo()
+	void CreatePasswordCommand::undo()
 	{
 		if (category_id.is_nil() || group_id.is_nil() || password_id.is_nil()) return;
 		auto category_opt = get_storage().find_category(category_id);
 		if (category_opt.has_value()) {
 			auto group_opt = category_opt.value().get().find_group(group_id);
+			if (group_opt.has_value()) {
+				auto& group_obj = group_opt.value().get();
+				auto password_opt = group_obj.find_password(password_id);
+				if (password_opt.has_value()) {
+					auto& password_obj = password_opt.value().get();
+					group_obj.remove_password(password_obj);
+				}
+			}
 		}
 	}
 
-	Category CreateCommand::find_or_create_category()
+	Category CreatePasswordCommand::find_or_create_category()
 	{
 		auto category_opt = get_storage().find_category(category);
 		if (category_opt.has_value())
@@ -40,7 +48,7 @@ namespace OwnPass::Commands {
 		return Category{ category };
 	}
 
-	Group CreateCommand::find_or_create_group(Category& category_obj)
+	Group CreatePasswordCommand::find_or_create_group(Category& category_obj)
 	{
 		optional<GroupRef> group_opt;
 		if (site.length() > 0) {

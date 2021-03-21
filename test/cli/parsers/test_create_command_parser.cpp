@@ -5,12 +5,12 @@
 #include "../../catch.hpp"
 #include "../../../src/Application.h"
 #include "../../../src/cli/CommandParser.h"
-#include "../../../src/commands/CreateCommand.h"
+#include "../../../src/commands/CreatePasswordCommand.h"
 
 using namespace std;
 using OwnPass::Application;
 using OwnPass::CLI::CommandParser;
-using OwnPass::Commands::CreateCommand;
+using OwnPass::Commands::CreatePasswordCommand;
 
 class CreateCommandParserFixture {
 public:
@@ -36,9 +36,9 @@ TEST_CASE_METHOD(CreateCommandParserFixture, "CreateCommandParser - constructor"
 	CommandParser command_parser{ app, argc, const_cast<char**>(argv) };
 	REQUIRE_FALSE(command_parser.get_commands().empty());
 	auto command_ptr = command_parser.get_commands().front().get();
-	auto create_command_ptr = dynamic_cast<CreateCommand*>(command_ptr);
+	auto create_command_ptr = dynamic_cast<CreatePasswordCommand*>(command_ptr);
 	REQUIRE(create_command_ptr);
-	REQUIRE(create_command_ptr->get_name() == CreateCommand::Name);
+	REQUIRE(create_command_ptr->get_name() == CreatePasswordCommand::Name);
 	REQUIRE(create_command_ptr->get_category() == "Retail");
 	REQUIRE(create_command_ptr->get_site() == "Test.com");
 	REQUIRE(create_command_ptr->get_username() == "test@test.com");
