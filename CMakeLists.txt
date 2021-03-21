@@ -48,6 +48,8 @@ set(SOURCE_FILES
         src/crypto/EncryptedFile.h src/crypto/EncryptedFile.cpp)
 
 set(TEST_FILES
+        test/TestUtility.h
+        test/TestUtility.cpp
         test/test_main.cpp
         test/test_models.cpp
         test/test_vault.cpp

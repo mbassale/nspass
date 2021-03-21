@@ -1,9 +1,8 @@
 //
 // Created by Marco Bassaletti on 18-03-21.
 //
-#include "../catch.hpp"
 
-#include <typeinfo>
+#include "../TestUtility.h"
 #include "../../src/Application.h"
 #include "../../src/cli/CommandParser.h"
 #include "../../src/commands/HelpCommand.h"
@@ -35,7 +34,7 @@ TEST_CASE_METHOD(CommandParserFixture, "CommandParser - constructor", "[command 
 			"ownpass",
 			nullptr
 	};
-	int argc = 1;
+	int argc = TestUtility::get_argc(argv);
 	REQUIRE_NOTHROW(CommandParser{ app, argc, const_cast<char**>(argv) });
 }
 
@@ -46,7 +45,7 @@ TEST_CASE_METHOD(CommandParserFixture, "CommandParser - help command", "[command
 			"--help",
 			nullptr
 	};
-	int argc = 2;
+	int argc = TestUtility::get_argc(argv);
 	REQUIRE_NOTHROW(CommandParser{ app, argc, const_cast<char**>(argv) });
 	CommandParser command_parser{ app, argc, const_cast<char**>(argv) };
 	auto& commands = command_parser.get_commands();
@@ -61,7 +60,7 @@ TEST_CASE_METHOD(CommandParserFixture, "CommandParser - verbose command", "[comm
 			"--verbose",
 			nullptr
 	};
-	int argc = 2;
+	int argc = TestUtility::get_argc(argv);
 	REQUIRE_NOTHROW(CommandParser{ app, argc, const_cast<char**>(argv) });
 	CommandParser command_parser{ app, argc, const_cast<char**>(argv) };
 	auto& commands = command_parser.get_commands();
@@ -76,7 +75,7 @@ TEST_CASE_METHOD(CommandParserFixture, "CommandParser - version command", "[comm
 			"--version",
 			nullptr
 	};
-	int argc = 2;
+	int argc = TestUtility::get_argc(argv);
 	REQUIRE_NOTHROW(CommandParser{ app, argc, const_cast<char**>(argv) });
 	CommandParser command_parser{ app, argc, const_cast<char**>(argv) };
 	auto& commands = command_parser.get_commands();
