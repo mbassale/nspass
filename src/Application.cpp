@@ -51,7 +51,6 @@ namespace OwnPass {
 
 	void Application::init_logging()
 	{
-		logging::add_file_log("ownpass.log");
 		switch (log_mode) {
 		case LogMode::NORMAL:
 			logging::core::get()->set_filter(logging::trivial::severity >= logging::trivial::info);
