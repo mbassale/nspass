@@ -5,16 +5,19 @@
 #include "../src/Application.h"
 #include "../src/cli/CommandLine.h"
 #include "../src/cli/input/StringSecretInput.h"
+#include "../src/cli/input/BoolConfirmInput.h"
 
 using OwnPass::Application;
 using OwnPass::CLI::CommandLine;
 using OwnPass::CLI::Input::StringSecretInput;
+using OwnPass::CLI::Input::BoolConfirmInput;
 
 class CommandLineFixture {
 public:
 	CommandLineFixture() = default;
 protected:
 	StringSecretInput string_secret_input{ "test1234" };
+	BoolConfirmInput bool_confirm_input{ true };
 };
 
 TEST_CASE_METHOD(CommandLineFixture, "CommandLine - construct", "[command line]")
@@ -25,7 +28,7 @@ TEST_CASE_METHOD(CommandLineFixture, "CommandLine - construct", "[command line]"
 	};
 	int argc = 1;
 
-	REQUIRE_NOTHROW(CommandLine{ argc, const_cast<char**>(argv), string_secret_input });
+	REQUIRE_NOTHROW(CommandLine{ argc, const_cast<char**>(argv), string_secret_input, bool_confirm_input });
 }
 
 TEST_CASE_METHOD(CommandLineFixture, "CommandLine - run command", "[command line]")
@@ -38,6 +41,6 @@ TEST_CASE_METHOD(CommandLineFixture, "CommandLine - run command", "[command line
 			nullptr
 	};
 	int argc = 4;
-	CommandLine command_line{ argc, const_cast<char**>(argv), string_secret_input };
+	CommandLine command_line{ argc, const_cast<char**>(argv), string_secret_input, bool_confirm_input };
 	REQUIRE_NOTHROW(command_line.run());
 }

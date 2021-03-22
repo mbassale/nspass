@@ -8,17 +8,19 @@
 #include "../OwnPass.h"
 #include <boost/program_options.hpp>
 #include "./input/SecretInput.h"
+#include "./input/ConfirmInput.h"
 #include "../commands/Command.h"
 
 namespace OwnPass::CLI {
 	class CommandLine {
 	public:
-		CommandLine(int argc, char** argv, OwnPass::CLI::Input::SecretInput& secret_input);
+		CommandLine(int argc, char** argv, Input::SecretInput& secret_input, Input::ConfirmInput& confirm_input);
 		int run();
 	private:
 		int argc;
 		char** argv;
-		OwnPass::CLI::Input::SecretInput& secret_input;
+		Input::SecretInput& secret_input;
+		Input::ConfirmInput& confirm_input;
 
 		void initialize_master_password(const std::vector<OwnPass::Commands::CommandPtr>& commands);
 		bool confirm(const std::vector<OwnPass::Commands::CommandPtr>& commands);

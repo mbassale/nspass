@@ -2,15 +2,18 @@
 #include <boost/log/trivial.hpp>
 #include "./cli/CommandLine.h"
 #include "./cli/input/PromptSecretInput.h"
+#include "./cli/input/PromptConfirmInput.h"
 
 using OwnPass::CLI::CommandLine;
 using OwnPass::CLI::Input::PromptSecretInput;
+using OwnPass::CLI::Input::PromptConfirmInput;
 
 int main(int argc, char* argv[])
 {
 	try {
 		PromptSecretInput prompt_secret_input{};
-		CommandLine command_line{ argc, argv, prompt_secret_input };
+		PromptConfirmInput prompt_confirm_input{};
+		CommandLine command_line{ argc, argv, prompt_secret_input, prompt_confirm_input };
 		return command_line.run();
 	}
 	catch (std::runtime_error& err) {

@@ -14,8 +14,9 @@ using namespace std;
 
 namespace OwnPass::CLI {
 
-	CommandLine::CommandLine(int argc, char** argv, OwnPass::CLI::Input::SecretInput& secret_input)
-			:argc{ argc }, argv{ argv }, secret_input{ secret_input }
+	CommandLine::CommandLine(int argc, char** argv, Input::SecretInput& secret_input,
+			Input::ConfirmInput& confirm_input)
+			:argc{ argc }, argv{ argv }, secret_input{ secret_input }, confirm_input{ confirm_input }
 	{
 	}
 
@@ -67,7 +68,11 @@ namespace OwnPass::CLI {
 
 	bool CommandLine::confirm(const vector<OwnPass::Commands::CommandPtr>& commands)
 	{
-
+		for (auto& command_ptr : commands) {
+			if (command_ptr->requires_confirmation()) {
+				return confirm_input.request();
+			}
+		}
 		return true;
 	}
 }
