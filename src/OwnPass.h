@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <stdexcept>
 #include <boost/uuid/uuid.hpp>
+#include <boost/algorithm/string.hpp>
 #include "IdGenerator.h"
 #include "ApplicationException.h"
 
