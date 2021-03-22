@@ -26,6 +26,10 @@ set(SOURCE_FILES
         src/cli/input/SecretInput.h
         src/cli/input/StringSecretInput.h src/cli/input/StringSecretInput.cpp
         src/cli/input/PromptSecretInput.h src/cli/input/PromptSecretInput.cpp
+        src/cli/input/UserInput.cpp src/cli/input/UserInput.h
+        src/cli/input/ConfirmInput.cpp src/cli/input/ConfirmInput.h
+        src/cli/input/PromptConfirmInput.cpp src/cli/input/PromptConfirmInput.h
+        src/cli/input/BoolConfirmInput.cpp src/cli/input/BoolConfirmInput.h
         src/commands/CommandRunner.h src/commands/CommandRunner.cpp
         src/commands/Command.h src/commands/Command.cpp
         src/commands/HelpCommand.h src/commands/HelpCommand.cpp
@@ -68,6 +72,8 @@ set(TEST_FILES
         test/cli/parsers/test_purge_storage_command_parser.cpp
         test/cli/input/test_string_secret_input.cpp
         test/cli/input/test_prompt_secret_input.cpp
+        test/cli/input/test_prompt_confirm_input.cpp
+        test/cli/input/test_bool_confirm_input.cpp
         test/commands/test_command_runner.cpp)
 
 include_directories(${Boost_INCLUDE_DIRS})

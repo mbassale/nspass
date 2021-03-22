@@ -5,15 +5,11 @@
 #ifndef OWNPASS_SECRETINPUT_H
 #define OWNPASS_SECRETINPUT_H
 
-#include <string>
+#include "../../OwnPass.h"
+#include "UserInput.h"
 
 namespace OwnPass::CLI::Input {
-	class SecretInput {
-	public:
-		SecretInput() = default;
-		virtual ~SecretInput() = default;
-
-		virtual std::string request() = 0;
+	class SecretInput : public UserInput<std::string> {
 	};
 }
 
