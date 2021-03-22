@@ -48,6 +48,7 @@ namespace OwnPass::CLI::Input {
 		string secret;
 		std::getline(cin, secret);
 		SetStdinEcho(true);
+		cout << endl;
 		return secret;
 	}
 }
