@@ -39,6 +39,8 @@ set(SOURCE_FILES
         src/commands/PurgeStorageCommand.h src/commands/PurgeStorageCommand.cpp
         src/storage/Storage.cpp src/storage/Storage.h
         src/storage/StorageHeader.cpp src/storage/StorageHeader.h
+        src/storage/StorageException.cpp src/storage/StorageException.h
+        src/storage/InvalidStorageException.cpp src/storage/InvalidStorageException.h
         src/storage/JsonStorage.h src/storage/JsonStorage.cpp
         src/storage/JsonParser.h src/storage/JsonParser.cpp
         src/storage/JsonWriter.h src/storage/JsonWriter.cpp
@@ -46,6 +48,7 @@ set(SOURCE_FILES
         src/storage/serializer/CategorySerializer.h src/storage/serializer/CategorySerializer.cpp
         src/storage/serializer/GroupSerializer.h src/storage/serializer/GroupSerializer.cpp
         src/storage/serializer/PasswordSerializer.h src/storage/serializer/PasswordSerializer.cpp
+        src/storage/serializer/StorageHeaderSerializer.cpp src/storage/serializer/StorageHeaderSerializer.h
         src/crypto/InitCrypto.h src/crypto/InitCrypto.cpp
         src/crypto/BlockCrypto.h src/crypto/BlockCrypto.cpp
         src/crypto/StringCrypto.h src/crypto/StringCrypto.cpp
@@ -76,7 +79,8 @@ set(TEST_FILES
         test/cli/input/test_prompt_confirm_input.cpp
         test/cli/input/test_bool_confirm_input.cpp
         test/commands/test_command_runner.cpp
-        test/storage/test_storage_header.cpp)
+        test/storage/test_storage_header.cpp
+        test/storage/serializers/test_storage_header_serializer.cpp)
 
 include_directories(${Boost_INCLUDE_DIRS})
 
