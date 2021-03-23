@@ -7,11 +7,11 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/string_generator.hpp>
-#include "../crypto/SecureString.h"
-#include "../Password.h"
+#include "../../crypto/SecureString.h"
+#include "../../Password.h"
 #include "PasswordSerializer.h"
 
-namespace OwnPass::Storage {
+namespace OwnPass::Storage::Serializer {
 	using namespace std;
 	using namespace OwnPass;
 	using namespace OwnPass::Crypto;

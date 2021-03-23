@@ -6,11 +6,11 @@
 #define OWNPASS_CATEGORYSERIALIZER_H
 
 #include "JsonSerializer.h"
-#include "../Category.h"
+#include "../../Category.h"
 #include <list>
 #include <boost/json.hpp>
 
-namespace OwnPass::Storage {
+namespace OwnPass::Storage::Serializer {
 	class CategorySerializer : public JsonSerializer<Category> {
 	public:
 		CategorySerializer() = default;

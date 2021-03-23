@@ -6,10 +6,10 @@
 #define OWNPASS_GROUPSERIALIZER_H
 
 #include <list>
-#include "../Group.h"
+#include "../../Group.h"
 #include "JsonSerializer.h"
 
-namespace OwnPass::Storage {
+namespace OwnPass::Storage::Serializer {
 	class GroupSerializer : public JsonSerializer<Group> {
 	public:
 		GroupSerializer() = default;

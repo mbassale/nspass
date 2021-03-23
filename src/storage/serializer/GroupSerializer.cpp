@@ -6,11 +6,11 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/string_generator.hpp>
-#include "../Group.h"
+#include "../../Group.h"
 #include "PasswordSerializer.h"
 #include "GroupSerializer.h"
 
-namespace OwnPass::Storage {
+namespace OwnPass::Storage::Serializer {
 	using namespace std;
 
 	boost::json::object GroupSerializer::serialize(const Group& obj)

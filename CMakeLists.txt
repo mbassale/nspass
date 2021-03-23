@@ -42,10 +42,10 @@ set(SOURCE_FILES
         src/storage/JsonStorage.h src/storage/JsonStorage.cpp
         src/storage/JsonParser.h src/storage/JsonParser.cpp
         src/storage/JsonWriter.h src/storage/JsonWriter.cpp
-        src/storage/JsonSerializer.h src/storage/JsonSerializer.cpp
-        src/storage/CategorySerializer.h src/storage/CategorySerializer.cpp
-        src/storage/GroupSerializer.h src/storage/GroupSerializer.cpp
-        src/storage/PasswordSerializer.h src/storage/PasswordSerializer.cpp
+        src/storage/serializer/JsonSerializer.h src/storage/serializer/JsonSerializer.cpp
+        src/storage/serializer/CategorySerializer.h src/storage/serializer/CategorySerializer.cpp
+        src/storage/serializer/GroupSerializer.h src/storage/serializer/GroupSerializer.cpp
+        src/storage/serializer/PasswordSerializer.h src/storage/serializer/PasswordSerializer.cpp
         src/crypto/InitCrypto.h src/crypto/InitCrypto.cpp
         src/crypto/BlockCrypto.h src/crypto/BlockCrypto.cpp
         src/crypto/StringCrypto.h src/crypto/StringCrypto.cpp

@@ -9,7 +9,7 @@
 #include <boost/json.hpp>
 #include "JsonParser.h"
 #include "JsonWriter.h"
-#include "CategorySerializer.h"
+#include "serializer/CategorySerializer.h"
 #include "../crypto/EncryptedFile.h"
 #include "JsonStorage.h"
 
@@ -17,6 +17,7 @@ namespace OwnPass::Storage {
 	using namespace std;
 	using namespace OwnPass;
 	using namespace OwnPass::Crypto;
+	using namespace OwnPass::Storage::Serializer;
 
 	JsonStorage::~JsonStorage()
 	{

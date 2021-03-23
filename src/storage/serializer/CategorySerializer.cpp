@@ -2,14 +2,13 @@
 // Created by Marco Bassaletti on 07-03-21.
 //
 
-#include <iostream>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/string_generator.hpp>
 #include "GroupSerializer.h"
 #include "CategorySerializer.h"
 
-namespace OwnPass::Storage {
+namespace OwnPass::Storage::Serializer {
 
 	boost::json::object CategorySerializer::serialize(const Category& obj)
 	{

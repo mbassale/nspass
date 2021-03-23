@@ -5,10 +5,10 @@
 #ifndef OWNPASS_PASSWORDSERIALIZER_H
 #define OWNPASS_PASSWORDSERIALIZER_H
 
-#include "../Password.h"
+#include "../../Password.h"
 #include "JsonSerializer.h"
 
-namespace OwnPass::Storage {
+namespace OwnPass::Storage::Serializer {
 	class PasswordSerializer : public JsonSerializer<Password> {
 	public:
 		PasswordSerializer() = default;
