@@ -38,6 +38,7 @@ set(SOURCE_FILES
         src/commands/CreatePasswordCommand.h src/commands/CreatePasswordCommand.cpp
         src/commands/PurgeStorageCommand.h src/commands/PurgeStorageCommand.cpp
         src/storage/Storage.cpp src/storage/Storage.h
+        src/storage/StorageHeader.cpp src/storage/StorageHeader.h
         src/storage/JsonStorage.h src/storage/JsonStorage.cpp
         src/storage/JsonParser.h src/storage/JsonParser.cpp
         src/storage/JsonWriter.h src/storage/JsonWriter.cpp
@@ -74,7 +75,8 @@ set(TEST_FILES
         test/cli/input/test_prompt_secret_input.cpp
         test/cli/input/test_prompt_confirm_input.cpp
         test/cli/input/test_bool_confirm_input.cpp
-        test/commands/test_command_runner.cpp)
+        test/commands/test_command_runner.cpp
+        test/storage/test_storage_header.cpp)
 
 include_directories(${Boost_INCLUDE_DIRS})
 

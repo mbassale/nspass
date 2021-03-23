@@ -5,6 +5,8 @@
 #ifndef OWNPASS_OWNPASS_H
 #define OWNPASS_OWNPASS_H
 
+#include <ctime>
+#include <chrono>
 #include <memory>
 #include <string>
 #include <string_view>
