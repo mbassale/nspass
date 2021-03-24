@@ -9,7 +9,7 @@
 #include <boost/json.hpp>
 #include "JsonParser.h"
 #include "JsonWriter.h"
-#include "serializer/CategorySerializer.h"
+#include "serializer/StorageSerializer.h"
 #include "../crypto/EncryptedFile.h"
 #include "JsonStorage.h"
 
@@ -59,6 +59,11 @@ namespace OwnPass::Storage {
 		std::filesystem::remove(StorageFile);
 	}
 
+	StorageHeader& JsonStorage::get_header()
+	{
+		return storage_header;
+	}
+
 	list<Category>& JsonStorage::list_categories()
 	{
 		return categories;
@@ -104,24 +109,38 @@ namespace OwnPass::Storage {
 	{
 		EncryptedFile encrypted_file{ StorageFile, master_password };
 		auto contents = encrypted_file.decrypt();
-		JsonParser json_parser{ contents };
-		boost::json::value root = json_parser.get_root();
-		CategorySerializer categories_serializer;
-		categories = categories_serializer.deserialize(root.as_array());
+		deserialize(contents);
 	}
 
 	void JsonStorage::save()
 	{
-		CategorySerializer categories_serializer;
-		boost::json::array root = categories_serializer.serialize(categories);
-		boost::json::value root_value = root;
+		serialize();
+	}
+
+	void JsonStorage::save_and_close()
+	{
+		save();
+	}
+
+	void JsonStorage::serialize()
+	{
+		StorageSerializer storage_serializer{};
+		boost::json::object root_obj = storage_serializer.serialize(StorageTuple{ storage_header, categories });
+		boost::json::value root_value = root_obj;
 		JsonWriter json_writer{ root_value };
 		auto contents = json_writer.save();
 		EncryptedFile encrypted_file{ StorageFile, master_password };
 		encrypted_file.encrypt(contents);
 	}
-	void JsonStorage::save_and_close()
+
+	void JsonStorage::deserialize(std::string_view contents)
 	{
-		save();
+		JsonParser json_parser{ contents };
+		boost::json::value root = json_parser.get_root();
+		auto root_obj = root.as_object();
+		StorageSerializer storage_serializer{};
+		StorageTuple storage_tuple = storage_serializer.deserialize(root_obj);
+		storage_header = std::get<StorageHeader>(storage_tuple);
+		categories = std::get<std::list<Category>>(storage_tuple);
 	}
 }

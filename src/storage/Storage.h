@@ -9,6 +9,7 @@
 #include "../Category.h"
 #include "../Group.h"
 #include "../Password.h"
+#include "StorageHeader.h"
 
 namespace OwnPass::Storage {
 
@@ -25,6 +26,7 @@ namespace OwnPass::Storage {
 
 		[[nodiscard]] virtual bool is_open() const = 0;
 
+		virtual StorageHeader& get_header() = 0;
 		virtual std::list<OwnPass::Category>& list_categories() = 0;
 		virtual Category& save_category(Category& category) = 0;
 		virtual std::optional<CategoryRef> find_category(ObjectId category_id) = 0;

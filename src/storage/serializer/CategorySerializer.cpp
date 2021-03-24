@@ -37,8 +37,11 @@ namespace OwnPass::Storage::Serializer {
 		boost::uuids::uuid category_id = gen(id_str.c_str());
 		auto& category_name = obj["name"].as_string();
 		auto& groups_data = obj["groups"].as_array();
-		GroupSerializer group_serializer;
-		std::list<Group> groups = group_serializer.deserialize(groups_data);
+		std::list<Group> groups;
+		if (!groups_data.empty()) {
+			GroupSerializer group_serializer;
+			groups = group_serializer.deserialize(groups_data);
+		}
 		Category category{ category_id, category_name.c_str(), groups };
 		return category;
 	}

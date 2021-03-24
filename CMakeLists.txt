@@ -49,6 +49,7 @@ set(SOURCE_FILES
         src/storage/serializer/GroupSerializer.h src/storage/serializer/GroupSerializer.cpp
         src/storage/serializer/PasswordSerializer.h src/storage/serializer/PasswordSerializer.cpp
         src/storage/serializer/StorageHeaderSerializer.cpp src/storage/serializer/StorageHeaderSerializer.h
+        src/storage/serializer/StorageSerializer.cpp src/storage/serializer/StorageSerializer.h
         src/crypto/InitCrypto.h src/crypto/InitCrypto.cpp
         src/crypto/BlockCrypto.h src/crypto/BlockCrypto.cpp
         src/crypto/StringCrypto.h src/crypto/StringCrypto.cpp
@@ -80,7 +81,8 @@ set(TEST_FILES
         test/cli/input/test_bool_confirm_input.cpp
         test/commands/test_command_runner.cpp
         test/storage/test_storage_header.cpp
-        test/storage/serializers/test_storage_header_serializer.cpp)
+        test/storage/serializers/test_storage_header_serializer.cpp
+        test/storage/serializers/test_storage_serializer.cpp)
 
 include_directories(${Boost_INCLUDE_DIRS})
 

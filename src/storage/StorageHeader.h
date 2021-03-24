@@ -10,6 +10,9 @@
 namespace OwnPass::Storage {
 	class StorageHeader {
 	public:
+		StorageHeader()
+				:id{ IdGenerator::make() }, email{}, created_at{ std::time(nullptr) },
+				 updated_at{ std::time(nullptr) } { }
 		explicit StorageHeader(ObjectId id, std::string_view email, std::time_t created_at, std::time_t updated_at)
 				:id{ id }, email{ email }, created_at{ created_at }, updated_at{ updated_at } { }
 
@@ -19,7 +22,7 @@ namespace OwnPass::Storage {
 		[[nodiscard]] time_t get_updated_at() const { return updated_at; }
 
 	protected:
-		ObjectId id;
+		ObjectId id{};
 		std::string email{};
 		std::time_t created_at{};
 		std::time_t updated_at{};
