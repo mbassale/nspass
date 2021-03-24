@@ -29,12 +29,12 @@ namespace OwnPass::Storage::Serializer {
 	StorageHeader StorageHeaderSerializer::deserialize(boost::json::object& obj)
 	{
 		check_magic(obj);
-		auto& id_str = obj["id"].as_string();
+		auto& id_str = obj["id"].get_string();
 		boost::uuids::string_generator gen;
 		ObjectId header_id = gen(id_str.c_str());
-		auto& header_email = obj["email"].as_string();
-		auto updated_at = static_cast<time_t>(obj["created_at"].as_int64());
-		auto created_at = static_cast<time_t>(obj["updated_at"].as_int64());
+		auto& header_email = obj["email"].get_string();
+		auto updated_at = obj["created_at"].to_number<time_t>();
+		auto created_at = obj["updated_at"].to_number<time_t>();
 		return StorageHeaderFactory::make(header_id, header_email.c_str(), created_at, updated_at);
 	}
 
