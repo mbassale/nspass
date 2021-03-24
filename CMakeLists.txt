@@ -9,7 +9,7 @@ find_library(LIBGCRYPT_LIBRARIES gcrypt)
 
 set(CMAKE_CXX_STANDARD 17)
 set(SOURCE_FILES
-        src/OwnPass.h
+        src/OwnPass.h src/OwnPass.cpp
         src/Application.h src/Application.cpp
         src/ApplicationException.h src/ApplicationException.cpp
         src/Vault.h src/Vault.cpp
@@ -21,6 +21,7 @@ set(SOURCE_FILES
         src/cli/CommandParser.h src/cli/CommandParser.cpp
         src/cli/InvalidCommandSyntaxException.h src/cli/InvalidCommandSyntaxException.cpp
         src/cli/parsers/Parser.h src/cli/parsers/Parser.cpp
+        src/cli/parsers/InspectStorageCommandParser.cpp src/cli/parsers/InspectStorageCommandParser.h
         src/cli/parsers/CreatePasswordCommandParser.h src/cli/parsers/CreatePasswordCommandParser.cpp
         src/cli/parsers/PurgeStorageCommandParser.h src/cli/parsers/PurgeStorageCommandParser.cpp
         src/cli/input/SecretInput.h
@@ -36,6 +37,7 @@ set(SOURCE_FILES
         src/commands/HelpCommand.h src/commands/HelpCommand.cpp
         src/commands/VerboseCommand.h src/commands/VerboseCommand.cpp
         src/commands/VersionCommand.h src/commands/VersionCommand.cpp
+        src/commands/InspectStorageCommand.cpp src/commands/InspectStorageCommand.h
         src/commands/CreatePasswordCommand.h src/commands/CreatePasswordCommand.cpp
         src/commands/PurgeStorageCommand.h src/commands/PurgeStorageCommand.cpp
         src/storage/Storage.cpp src/storage/Storage.h
@@ -74,6 +76,7 @@ set(TEST_FILES
         test/crypto/test_secure_string.cpp
         test/crypto/test_encrypted_file.cpp
         test/cli/test_command_parser.cpp
+        test/cli/parsers/test_inspect_storage_command_parser.cpp
         test/cli/parsers/test_create_password_command_parser.cpp
         test/cli/parsers/test_purge_storage_command_parser.cpp
         test/cli/input/test_string_secret_input.cpp

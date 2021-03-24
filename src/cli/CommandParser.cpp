@@ -2,17 +2,17 @@
 // Created by Marco Bassaletti on 18-03-21.
 //
 
-#include <vector>
+#include "../OwnPass.h"
 #include <boost/program_options.hpp>
 #include "../Application.h"
 #include "../commands/Command.h"
 #include "../commands/HelpCommand.h"
 #include "../commands/VerboseCommand.h"
 #include "../commands/VersionCommand.h"
+#include "./parsers/InspectStorageCommandParser.h"
 #include "./parsers/CreatePasswordCommandParser.h"
 #include "./parsers/PurgeStorageCommandParser.h"
 #include "CommandParser.h"
-#include <iostream>
 
 using namespace std;
 namespace po = boost::program_options;
@@ -63,6 +63,7 @@ Command can be one of:
 			string command_name = vm["command"].as<string>();
 
 			CommandTable command_table[] = {
+					CommandTable{ "inspect", InspectStorageCommandParser{ app, parsed, vm }},
 					CommandTable{ "create", CreatePasswordCommandParser{ app, parsed, vm }},
 					CommandTable{ "purge", PurgeStorageCommandParser{ app, parsed, vm }}
 			};
