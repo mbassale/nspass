@@ -30,6 +30,7 @@ set(SOURCE_FILES
         src/cli/input/ConfirmInput.cpp src/cli/input/ConfirmInput.h
         src/cli/input/PromptConfirmInput.cpp src/cli/input/PromptConfirmInput.h
         src/cli/input/BoolConfirmInput.cpp src/cli/input/BoolConfirmInput.h
+        src/commands/CannotUndoException.cpp src/commands/CannotUndoException.h
         src/commands/CommandRunner.h src/commands/CommandRunner.cpp
         src/commands/Command.h src/commands/Command.cpp
         src/commands/HelpCommand.h src/commands/HelpCommand.cpp

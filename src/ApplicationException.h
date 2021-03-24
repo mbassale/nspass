@@ -10,8 +10,10 @@
 namespace OwnPass {
 	class ApplicationException : public std::runtime_error {
 	public:
-		explicit ApplicationException(const std::string& string)
-				:runtime_error(string) { }
+		explicit ApplicationException(const char* message)
+				:std::runtime_error(message) { }
+		explicit ApplicationException(const std::string& message)
+				:runtime_error(message) { }
 	};
 }
 

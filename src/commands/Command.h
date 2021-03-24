@@ -7,6 +7,7 @@
 
 #include "../OwnPass.h"
 #include "../Application.h"
+#include "CannotUndoException.h"
 
 namespace OwnPass::Commands {
 
