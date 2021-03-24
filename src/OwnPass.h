@@ -23,6 +23,9 @@
 
 namespace OwnPass {
 	typedef boost::uuids::uuid ObjectId;
+
+	std::string object_id_to_string(ObjectId object_id);
+	std::string timestamp_to_string(time_t timestamp);
 }
 
 #endif //OWNPASS_OWNPASS_H
