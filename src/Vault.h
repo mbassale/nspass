@@ -6,37 +6,24 @@
 #define OWNPASS_VAULT_H
 
 #include "OwnPass.h"
+#include "./storage/StorageFactory.h"
 #include "./storage/Storage.h"
 
 namespace OwnPass {
-	using Storage::StorageFactory;
 	using BaseStorage = Storage::Storage;
 
 	class Vault {
 	public:
-		Vault() = default;
+		explicit Vault(OwnPass::Storage::StorageFactory& storage_factory) : storage_factory{ storage_factory } {}
 		Vault(Vault const&) = delete;
 		Vault(Vault&&) = delete;
 
 		[[nodiscard]] std::string_view get_master_password() const { return master_password; }
-
-		Vault& set_master_password(std::string_view new_master_password)
-		{
-			master_password = new_master_password;
-			return *this;
-		}
-
-		BaseStorage& get_storage() {
-			if (!storage) {
-				storage = StorageFactory::make();
-				if (!master_password.empty() && !storage->is_open()) {
-					storage->open(master_password);
-				}
-			}
-			return *storage;
-		}
+		Vault& set_master_password(std::string_view new_master_password);
+		BaseStorage& get_storage();
 
 	private:
+		OwnPass::Storage::StorageFactory& storage_factory;
 		std::string master_password;
 		std::unique_ptr<BaseStorage> storage{};
 	};

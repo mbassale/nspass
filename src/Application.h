@@ -6,6 +6,7 @@
 #define OWNPASS_APPLICATION_H
 
 #include "OwnPass.h"
+#include "storage/JsonStorageFactory.h"
 #include "Vault.h"
 
 namespace OwnPass {
@@ -49,6 +50,7 @@ namespace OwnPass {
 		}
 
 	private:
+		OwnPass::Storage::JsonStorageFactory storage_factory{};
 		LogMode log_mode = LogMode::NORMAL;
 		std::list<InitCallback> init_callbacks;
 		std::list<CleanupCallback> cleanup_callbacks;

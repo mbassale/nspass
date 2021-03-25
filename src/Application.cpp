@@ -22,9 +22,7 @@ namespace OwnPass {
 		init_vault();
 	}
 
-	Application::~Application()
-	{
-	}
+	Application::~Application() = default;
 
 	Application& Application::instance()
 	{
@@ -63,7 +61,7 @@ namespace OwnPass {
 
 	void Application::init_vault()
 	{
-		vault = std::make_unique<Vault>();
+		vault = std::make_unique<Vault>(storage_factory);
 	}
 
 	Vault& Application::get_vault() const

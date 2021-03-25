@@ -16,7 +16,7 @@ namespace OwnPass::Storage {
 	class Storage {
 	public:
 		Storage() = default;
-		virtual ~Storage() = 0;
+		virtual ~Storage() = default;
 
 		virtual void open(std::string_view master_password) = 0;
 		virtual void close() = 0;
@@ -31,13 +31,6 @@ namespace OwnPass::Storage {
 		virtual Category& save_category(Category& category) = 0;
 		virtual std::optional<CategoryRef> find_category(ObjectId category_id) = 0;
 		virtual std::optional<CategoryRef> find_category(std::string_view search) = 0;
-	};
-
-	class StorageFactory {
-	public:
-		static std::unique_ptr<Storage> make();
-	private:
-		StorageFactory() = default;
 	};
 }
 

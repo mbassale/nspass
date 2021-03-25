@@ -55,6 +55,7 @@ namespace OwnPass::Storage {
 
 	void JsonStorage::purge()
 	{
+		close();
 		storage_header = StorageHeader();
 		categories.clear();
 		std::filesystem::remove(StorageFile);
@@ -116,7 +117,8 @@ namespace OwnPass::Storage {
 
 	void JsonStorage::save()
 	{
-		serialize();
+		if (is_open())
+			serialize();
 	}
 
 	void JsonStorage::save_and_close()

@@ -15,6 +15,13 @@ public:
 	{
 	}
 protected:
+	Vault& get_vault()
+	{
+		auto& vault = Application::instance().get_vault();
+		vault.set_master_password("test1234");
+		return vault;
+	}
+
 	void assert_master_password(Vault& vault, const std::string& master_password)
 	{
 		REQUIRE(vault.set_master_password(master_password).get_master_password() == master_password);
@@ -28,8 +35,7 @@ TEST_CASE_METHOD(VaultFixture, "get vault instance")
 
 TEST_CASE_METHOD(VaultFixture, "get/set password")
 {
-	auto& vault = Application::instance().get_vault();
-	REQUIRE(vault.get_master_password().empty());
+	auto& vault = get_vault();
 	assert_master_password(vault, "");
 	assert_master_password(vault, " ");
 	assert_master_password(vault, "    ");
@@ -39,7 +45,7 @@ TEST_CASE_METHOD(VaultFixture, "get/set password")
 
 TEST_CASE_METHOD(VaultFixture, "get storage reference")
 {
-	auto& vault = Application::instance().get_vault();
+	auto& vault = get_vault();
 	REQUIRE_NOTHROW(vault.get_storage());
 	auto& storage = vault.get_storage();
 	REQUIRE_NOTHROW(storage.list_categories());
