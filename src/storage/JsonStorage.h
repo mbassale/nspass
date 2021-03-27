@@ -35,6 +35,7 @@ namespace OwnPass::Storage {
 		void create_storage_file();
 		void deserialize(std::string_view contents);
 		void serialize();
+		static void verify_file_header(std::string_view contents);
 	};
 }
 

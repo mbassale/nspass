@@ -7,10 +7,12 @@
 #include "../../src/storage/Storage.h"
 #include "../../src/storage/JsonStorage.h"
 #include "../../src/storage/JsonStorageFactory.h"
+#include "../../src/storage/InvalidStorageException.h"
 
 using namespace std;
 using OwnPass::Storage::JsonStorage;
 using OwnPass::Storage::JsonStorageFactory;
+using OwnPass::Storage::InvalidStorageException;
 
 class JsonStorageFixture {
 public:
@@ -32,6 +34,6 @@ TEST_CASE_METHOD(JsonStorageFixture, "JsonStorage - open with wrong password", J
 	auto storage_filename = TestUtility::get_random_filename();
 	REQUIRE_NOTHROW(storage_factory.make("test1234", storage_filename));
 	REQUIRE_NOTHROW(storage_factory.make("test1234", storage_filename));
-	REQUIRE_THROWS(storage_factory.make("test", storage_filename));
+	REQUIRE_THROWS_AS(storage_factory.make("test", storage_filename), InvalidStorageException);
 	std::filesystem::remove(storage_filename);
 }

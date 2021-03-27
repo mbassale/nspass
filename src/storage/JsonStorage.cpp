@@ -11,6 +11,7 @@
 #include "JsonWriter.h"
 #include "serializer/StorageSerializer.h"
 #include "../crypto/EncryptedFile.h"
+#include "InvalidStorageException.h"
 #include "JsonStorage.h"
 
 namespace OwnPass::Storage {
@@ -106,6 +107,7 @@ namespace OwnPass::Storage {
 	{
 		EncryptedFile encrypted_file{ storage_location, master_password };
 		auto contents = encrypted_file.decrypt();
+		verify_file_header(contents);
 		deserialize(contents);
 	}
 
@@ -134,5 +136,14 @@ namespace OwnPass::Storage {
 		StorageTuple storage_tuple = storage_serializer.deserialize(root_obj);
 		storage_header = std::get<StorageHeader>(storage_tuple);
 		categories = std::get<std::list<Category>>(storage_tuple);
+	}
+
+	void JsonStorage::verify_file_header(std::string_view contents)
+	{
+		const char* expected_header = R"({"header":{"MOPM":true,)";
+		size_t header_length = strlen(expected_header);
+		auto actual_header = contents.substr(0, header_length);
+		if (actual_header != expected_header)
+			throw InvalidStorageException("Invalid storage, possibly wrong master password.");
 	}
 }
