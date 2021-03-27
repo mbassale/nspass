@@ -88,7 +88,8 @@ set(TEST_FILES
         test/commands/test_command_runner.cpp
         test/storage/test_storage_header.cpp
         test/storage/serializers/test_storage_header_serializer.cpp
-        test/storage/serializers/test_storage_serializer.cpp)
+        test/storage/serializers/test_storage_serializer.cpp
+        test/storage/serializers/test_password_serializer.cpp)
 
 include_directories(${Boost_INCLUDE_DIRS})
 
