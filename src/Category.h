@@ -5,6 +5,8 @@
 #ifndef OWNPASS_CATEGORY_H
 #define OWNPASS_CATEGORY_H
 
+#include <utility>
+
 #include "OwnPass.h"
 #include "Group.h"
 
@@ -25,8 +27,8 @@ namespace OwnPass {
 		explicit Category(std::string_view name)
 				:id{ IdGenerator::make() }, name{ name } { }
 
-		Category(ObjectId id, std::string_view name, std::list<Group>& groups)
-				:id{ id }, name{ name }, groups{ groups } { }
+		Category(ObjectId id, std::string_view name, std::list<Group> groups)
+				:id{ id }, name{ name }, groups{ std::move(groups) } { }
 
 		~Category() = default;
 
@@ -84,6 +86,21 @@ namespace OwnPass {
 	};
 
 	typedef std::reference_wrapper<Category> CategoryRef;
+
+	class CategoryFactory {
+	public:
+		CategoryFactory() = delete;
+
+		static Category make(std::string_view name)
+		{
+			return Category{ name };
+		}
+
+		static Category make(std::string_view name, const std::list<Group>& groups)
+		{
+			return Category{ IdGenerator::make(), name, groups };
+		}
+	};
 }
 
 #endif //OWNPASS_CATEGORY_H

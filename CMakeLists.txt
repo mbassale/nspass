@@ -90,7 +90,8 @@ set(TEST_FILES
         test/storage/serializers/test_storage_header_serializer.cpp
         test/storage/serializers/test_storage_serializer.cpp
         test/storage/serializers/test_password_serializer.cpp
-        test/storage/serializers/test_group_serializer.cpp)
+        test/storage/serializers/test_group_serializer.cpp
+        test/storage/serializers/test_category_serializer.cpp)
 
 include_directories(${Boost_INCLUDE_DIRS})
 
