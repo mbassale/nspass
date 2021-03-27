@@ -12,7 +12,7 @@ namespace OwnPass::Storage {
 	public:
 		StorageFactory() = default;
 		virtual ~StorageFactory() = default;
-		virtual std::unique_ptr<Storage> make() = 0;
+		virtual std::unique_ptr<Storage> make(std::string_view master_password, std::string_view storage_location) = 0;
 	};
 }
 

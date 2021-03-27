@@ -19,28 +19,23 @@ namespace OwnPass::Storage {
 	using namespace OwnPass::Crypto;
 	using namespace OwnPass::Storage::Serializer;
 
-	JsonStorage::~JsonStorage()
+	JsonStorage::JsonStorage(std::string_view master_password, std::string_view storage_location)
+			:Storage(master_password, storage_location)
 	{
-		try {
-			save_and_close();
-		}
-		catch (std::runtime_error& e) {
-			std::cerr << "Error closing json file: " << StorageFile << " error: " << e.what() << std::endl;
-		}
-	}
-
-	void JsonStorage::open(std::string_view new_master_password)
-	{
-		master_password = new_master_password;
-		if (std::filesystem::exists(StorageFile))
+		if (std::filesystem::exists(storage_location))
 			load();
 		else
 			create_storage_file();
 	}
 
-	void JsonStorage::close()
+	JsonStorage::~JsonStorage()
 	{
-		save_and_close();
+		try {
+			save();
+		}
+		catch (std::runtime_error& e) {
+			std::cerr << "Error closing json file: " << storage_location << " error: " << e.what() << std::endl;
+		}
 	}
 
 	void JsonStorage::flush()
@@ -55,10 +50,9 @@ namespace OwnPass::Storage {
 
 	void JsonStorage::purge()
 	{
-		close();
 		storage_header = StorageHeader();
 		categories.clear();
-		std::filesystem::remove(StorageFile);
+		std::filesystem::remove(storage_location);
 	}
 
 	StorageHeader& JsonStorage::get_header()
@@ -110,20 +104,14 @@ namespace OwnPass::Storage {
 
 	void JsonStorage::load()
 	{
-		EncryptedFile encrypted_file{ StorageFile, master_password };
+		EncryptedFile encrypted_file{ storage_location, master_password };
 		auto contents = encrypted_file.decrypt();
 		deserialize(contents);
 	}
 
 	void JsonStorage::save()
 	{
-		if (is_open())
-			serialize();
-	}
-
-	void JsonStorage::save_and_close()
-	{
-		save();
+		serialize();
 	}
 
 	void JsonStorage::serialize()
@@ -133,7 +121,7 @@ namespace OwnPass::Storage {
 		boost::json::value root_value = root_obj;
 		JsonWriter json_writer{ root_value };
 		auto contents = json_writer.save();
-		EncryptedFile encrypted_file{ StorageFile, master_password };
+		EncryptedFile encrypted_file{ storage_location, master_password };
 		encrypted_file.encrypt(contents);
 	}
 

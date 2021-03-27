@@ -69,7 +69,6 @@ set(TEST_FILES
         test/test_main.cpp
         test/test_models.cpp
         test/test_vault.cpp
-        #test/test_json_storage.cpp
         test/test_command_line.cpp
         test/crypto/test_initialization_vector.cpp
         test/crypto/test_base64_encoder.cpp
@@ -91,7 +90,8 @@ set(TEST_FILES
         test/storage/serializers/test_storage_serializer.cpp
         test/storage/serializers/test_password_serializer.cpp
         test/storage/serializers/test_group_serializer.cpp
-        test/storage/serializers/test_category_serializer.cpp)
+        test/storage/serializers/test_category_serializer.cpp
+        test/storage/test_json_storage.cpp)
 
 include_directories(${Boost_INCLUDE_DIRS})
 

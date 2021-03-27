@@ -20,11 +20,16 @@ namespace OwnPass {
 
 		[[nodiscard]] std::string_view get_master_password() const { return master_password; }
 		Vault& set_master_password(std::string_view new_master_password);
+
+		[[nodiscard]] std::string_view get_storage_location() const { return storage_location; }
+		Vault& set_storage_location(std::string_view new_storage_location);
+
 		BaseStorage& get_storage();
 
 	private:
 		OwnPass::Storage::StorageFactory& storage_factory;
 		std::string master_password;
+		std::string storage_location;
 		std::unique_ptr<BaseStorage> storage{};
 	};
 }

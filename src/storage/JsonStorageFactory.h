@@ -13,7 +13,7 @@ namespace OwnPass::Storage {
 		JsonStorageFactory() = default;
 		~JsonStorageFactory() override = default;
 
-		std::unique_ptr<Storage> make() override;
+		std::unique_ptr<Storage> make(std::string_view master_password, std::string_view storage_filename) override;
 	};
 }
 

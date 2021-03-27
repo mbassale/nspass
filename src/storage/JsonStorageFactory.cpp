@@ -6,8 +6,8 @@
 #include "JsonStorageFactory.h"
 
 namespace OwnPass::Storage {
-	std::unique_ptr<Storage> JsonStorageFactory::make()
+	std::unique_ptr<Storage> JsonStorageFactory::make(std::string_view master_password, std::string_view storage_filename)
 	{
-		return std::make_unique<JsonStorage>();
+		return std::make_unique<JsonStorage>(master_password, storage_filename);
 	}
 }
