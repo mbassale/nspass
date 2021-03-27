@@ -23,6 +23,7 @@ namespace OwnPass::Storage {
 		virtual void flush() = 0;
 		virtual void reload() = 0;
 		virtual void purge() = 0;
+		virtual std::string dump() = 0;
 
 		virtual StorageHeader& get_header() = 0;
 		virtual std::list<OwnPass::Category>& list_categories() = 0;

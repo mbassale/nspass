@@ -116,6 +116,12 @@ namespace OwnPass::Storage {
 		serialize();
 	}
 
+	std::string JsonStorage::dump()
+	{
+		EncryptedFile encrypted_file{ storage_location, master_password };
+		return encrypted_file.decrypt();
+	}
+
 	void JsonStorage::serialize()
 	{
 		StorageSerializer storage_serializer{};

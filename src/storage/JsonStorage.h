@@ -5,8 +5,8 @@
 #ifndef OWNPASS_JSONSTORAGE_H
 #define OWNPASS_JSONSTORAGE_H
 
+#include "../OwnPass.h"
 #include "Storage.h"
-#include <list>
 #include "../Category.h"
 #include "../Group.h"
 
@@ -19,6 +19,7 @@ namespace OwnPass::Storage {
 		void flush() override;
 		void reload() override;
 		void purge() override;
+		std::string dump() override;
 
 		StorageHeader& get_header() override;
 		std::list<OwnPass::Category>& list_categories() override;

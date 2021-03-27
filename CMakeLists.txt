@@ -24,6 +24,7 @@ set(SOURCE_FILES
         src/cli/parsers/InspectStorageCommandParser.cpp src/cli/parsers/InspectStorageCommandParser.h
         src/cli/parsers/CreatePasswordCommandParser.h src/cli/parsers/CreatePasswordCommandParser.cpp
         src/cli/parsers/PurgeStorageCommandParser.h src/cli/parsers/PurgeStorageCommandParser.cpp
+        src/cli/parsers/DumpStorageCommandParser.cpp src/cli/parsers/DumpStorageCommandParser.h
         src/cli/input/SecretInput.h
         src/cli/input/StringSecretInput.h src/cli/input/StringSecretInput.cpp
         src/cli/input/PromptSecretInput.h src/cli/input/PromptSecretInput.cpp
@@ -41,6 +42,7 @@ set(SOURCE_FILES
         src/commands/CreatePasswordCommand.h src/commands/CreatePasswordCommand.cpp
         src/commands/PurgeStorageCommand.h src/commands/PurgeStorageCommand.cpp
         src/commands/SetStorageLocationCommand.cpp src/commands/SetStorageLocationCommand.h
+        src/commands/DumpStorageCommand.cpp src/commands/DumpStorageCommand.h
         src/storage/Storage.cpp src/storage/Storage.h
         src/storage/StorageFactory.cpp src/storage/StorageFactory.h
         src/storage/StorageHeader.cpp src/storage/StorageHeader.h
@@ -81,6 +83,7 @@ set(TEST_FILES
         test/cli/parsers/test_inspect_storage_command_parser.cpp
         test/cli/parsers/test_create_password_command_parser.cpp
         test/cli/parsers/test_purge_storage_command_parser.cpp
+        test/cli/parsers/test_dump_storage_command_parser.cpp
         test/cli/input/test_string_secret_input.cpp
         test/cli/input/test_prompt_secret_input.cpp
         test/cli/input/test_prompt_confirm_input.cpp
