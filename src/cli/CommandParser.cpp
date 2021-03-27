@@ -9,6 +9,7 @@
 #include "../commands/HelpCommand.h"
 #include "../commands/VerboseCommand.h"
 #include "../commands/VersionCommand.h"
+#include "../commands/SetStorageLocationCommand.h"
 #include "./parsers/InspectStorageCommandParser.h"
 #include "./parsers/CreatePasswordCommandParser.h"
 #include "./parsers/PurgeStorageCommandParser.h"
@@ -38,6 +39,7 @@ Command can be one of:
 				("help,h", "show this help.")
 				("verbose,v", "enable verbose output.")
 				("version", "show program version.")
+				("storage", po::value<string>(), "overrides default storage location (ownpass.db)")
 				("command", po::value<string>(), CommandHelp)
 				("args", po::value<vector<string>>(), "command arguments.");
 
@@ -56,6 +58,9 @@ Command can be one of:
 		}
 		if (vm.count("version")) {
 			commands.emplace_back(new VersionCommand{ app });
+		}
+		if (vm.count("storage")) {
+			commands.emplace_back(new SetStorageLocationCommand{ app, vm["storage"].as<string>() });
 		}
 
 		bool has_help_command = false;

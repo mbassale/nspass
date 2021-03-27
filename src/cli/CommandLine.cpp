@@ -26,6 +26,7 @@ namespace OwnPass::CLI {
 
 		// global initialization
 		app.init();
+		app.get_vault().set_storage_location(DefaultStorageLocation);
 
 		auto call_cleanup = [&app] { app.cleanup(); };
 

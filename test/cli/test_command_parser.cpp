@@ -8,6 +8,7 @@
 #include "../../src/commands/HelpCommand.h"
 #include "../../src/commands/VerboseCommand.h"
 #include "../../src/commands/VersionCommand.h"
+#include "../../src/commands/SetStorageLocationCommand.h"
 
 using OwnPass::Application;
 using OwnPass::CLI::CommandParser;
@@ -21,7 +22,7 @@ public:
 protected:
 	Application& app;
 
-	void require_type_id(const shared_ptr<Command>& command, const std::type_info& type)
+	static void require_type_id(const shared_ptr<Command>& command, const std::type_info& type)
 	{
 		auto command_ptr = command.get();
 		REQUIRE(typeid(*command_ptr) == type);
@@ -81,4 +82,18 @@ TEST_CASE_METHOD(CommandParserFixture, "CommandParser - version command", "[comm
 	auto& commands = command_parser.get_commands();
 	REQUIRE(commands.size() == 1);
 	require_type_id(command_parser.get_commands().front(), typeid(VersionCommand));
+}
+
+TEST_CASE_METHOD(CommandParserFixture, "CommandParser - storage command", "[command parser]") {
+	const char* argv[] = {
+			"ownpass",
+			"--storage=test.db",
+			nullptr
+	};
+	int argc = TestUtility::get_argc(argv);
+	REQUIRE_NOTHROW(CommandParser{ app, argc, const_cast<char**>(argv)});
+	CommandParser command_parser{ app, argc, const_cast<char**>(argv)};
+	auto& commands = command_parser.get_commands();
+	REQUIRE(commands.size() == 1);
+	require_type_id(command_parser.get_commands().front(), typeid(SetStorageLocationCommand));
 }

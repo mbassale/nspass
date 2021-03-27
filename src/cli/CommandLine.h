@@ -17,6 +17,7 @@ namespace OwnPass::CLI {
 		CommandLine(int argc, char** argv, Input::SecretInput& secret_input, Input::ConfirmInput& confirm_input);
 		int run();
 	private:
+		static constexpr auto DefaultStorageLocation = "ownpass.db";
 		int argc;
 		char** argv;
 		Input::SecretInput& secret_input;

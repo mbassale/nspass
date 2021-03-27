@@ -40,6 +40,7 @@ set(SOURCE_FILES
         src/commands/InspectStorageCommand.cpp src/commands/InspectStorageCommand.h
         src/commands/CreatePasswordCommand.h src/commands/CreatePasswordCommand.cpp
         src/commands/PurgeStorageCommand.h src/commands/PurgeStorageCommand.cpp
+        src/commands/SetStorageLocationCommand.cpp src/commands/SetStorageLocationCommand.h
         src/storage/Storage.cpp src/storage/Storage.h
         src/storage/StorageFactory.cpp src/storage/StorageFactory.h
         src/storage/StorageHeader.cpp src/storage/StorageHeader.h
