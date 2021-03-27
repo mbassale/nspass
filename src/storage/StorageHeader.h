@@ -35,6 +35,11 @@ namespace OwnPass::Storage {
 			return StorageHeader{ IdGenerator::make(), email, std::time(nullptr), std::time(nullptr) };
 		}
 
+		static StorageHeader make(std::string_view email, std::time_t created_at, std::time_t updated_at)
+		{
+			return StorageHeader{ IdGenerator::make(), email, created_at, updated_at };
+		}
+
 		static StorageHeader make(ObjectId id, std::string_view email, std::time_t created_at, std::time_t updated_at)
 		{
 			return StorageHeader{ id, email, created_at, updated_at };
