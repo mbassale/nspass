@@ -5,8 +5,7 @@
 #include "../../../src/Application.h"
 #include "../../../src/cli/CommandParser.h"
 #include "../../../src/commands/ListCategoriesCommand.h"
-#include "../../../src/commands/ListSitesCommand.h"
-#include "../../../src/commands/ListApplicationsCommand.h"
+#include "../../../src/commands/ListGroupsCommand.h"
 #include "../../../src/commands/ListPasswordsCommand.h"
 
 using namespace std;
@@ -14,8 +13,7 @@ using OwnPass::Application;
 using OwnPass::CLI::CommandParser;
 using OwnPass::Commands::CommandPtr;
 using OwnPass::Commands::ListCategoriesCommand;
-using OwnPass::Commands::ListSitesCommand;
-using OwnPass::Commands::ListApplicationsCommand;
+using OwnPass::Commands::ListGroupsCommand;
 using OwnPass::Commands::ListPasswordsCommand;
 
 class ListCommandParserFixture {
@@ -71,7 +69,7 @@ TEST_CASE_METHOD(ListCommandParserFixture, "ListCommandParser - Sites", ListComm
 	};
 	int argc = TestUtility::get_argc(argv);
 	REQUIRE_NOTHROW((CommandParser{ app, argc, const_cast<char**>(argv) }));
-	assertParseCommand(argc, const_cast<char**>(argv), ListSitesCommand::Name);
+	assertParseCommand(argc, const_cast<char**>(argv), ListGroupsCommand::Name);
 }
 
 TEST_CASE_METHOD(ListCommandParserFixture, "ListCommandParser - Applications", ListCommandParserFixture::Tag)
@@ -84,7 +82,7 @@ TEST_CASE_METHOD(ListCommandParserFixture, "ListCommandParser - Applications", L
 	};
 	int argc = TestUtility::get_argc(argv);
 	REQUIRE_NOTHROW((CommandParser{ app, argc, const_cast<char**>(argv) }));
-	assertParseCommand(argc, const_cast<char**>(argv), ListApplicationsCommand::Name);
+	assertParseCommand(argc, const_cast<char**>(argv), ListGroupsCommand::Name);
 }
 
 TEST_CASE_METHOD(ListCommandParserFixture, "ListCommandParser - Passwords", ListCommandParserFixture::Tag)

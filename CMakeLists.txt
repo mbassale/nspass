@@ -33,6 +33,7 @@ set(SOURCE_FILES
         src/cli/input/ConfirmInput.cpp src/cli/input/ConfirmInput.h
         src/cli/input/PromptConfirmInput.cpp src/cli/input/PromptConfirmInput.h
         src/cli/input/BoolConfirmInput.cpp src/cli/input/BoolConfirmInput.h
+        src/cli/output/TableOutput.cpp src/cli/output/TableOutput.h
         src/commands/CannotUndoException.cpp src/commands/CannotUndoException.h
         src/commands/CommandRunner.h src/commands/CommandRunner.cpp
         src/commands/Command.h src/commands/Command.cpp
@@ -45,8 +46,7 @@ set(SOURCE_FILES
         src/commands/SetStorageLocationCommand.cpp src/commands/SetStorageLocationCommand.h
         src/commands/DumpStorageCommand.cpp src/commands/DumpStorageCommand.h
         src/commands/ListCategoriesCommand.cpp src/commands/ListCategoriesCommand.h
-        src/commands/ListSitesCommand.cpp src/commands/ListSitesCommand.h
-        src/commands/ListApplicationsCommand.cpp src/commands/ListApplicationsCommand.h
+        src/commands/ListGroupsCommand.cpp src/commands/ListGroupsCommand.h
         src/commands/ListPasswordsCommand.cpp src/commands/ListPasswordsCommand.h
         src/storage/Storage.cpp src/storage/Storage.h
         src/storage/StorageFactory.cpp src/storage/StorageFactory.h

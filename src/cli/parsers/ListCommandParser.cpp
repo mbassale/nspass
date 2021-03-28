@@ -5,8 +5,7 @@
 #include "../../OwnPass.h"
 #include "../../commands/HelpCommand.h"
 #include "../../commands/ListCategoriesCommand.h"
-#include "../../commands/ListSitesCommand.h"
-#include "../../commands/ListApplicationsCommand.h"
+#include "../../commands/ListGroupsCommand.h"
 #include "../../commands/ListPasswordsCommand.h"
 #include "../InvalidCommandSyntaxException.h"
 #include "ListCommandParser.h"
@@ -16,8 +15,7 @@ namespace OwnPass::CLI::Parsers {
 	using OwnPass::Commands::CommandPtr;
 	using OwnPass::Commands::HelpCommand;
 	using OwnPass::Commands::ListCategoriesCommand;
-	using OwnPass::Commands::ListSitesCommand;
-	using OwnPass::Commands::ListApplicationsCommand;
+	using OwnPass::Commands::ListGroupsCommand;
 	using OwnPass::Commands::ListPasswordsCommand;
 	using OwnPass::CLI::InvalidCommandSyntaxException;
 	namespace po = boost::program_options;
@@ -49,10 +47,10 @@ namespace OwnPass::CLI::Parsers {
 			return CommandPtr{ new ListCategoriesCommand{ app }};
 		}
 		else if (vm.count("sites")) {
-			return CommandPtr{ new ListSitesCommand{ app }};
+			return CommandPtr{ new ListGroupsCommand{ app, GroupType::Site }};
 		}
 		else if (vm.count("applications")) {
-			return CommandPtr{ new ListApplicationsCommand{ app }};
+			return CommandPtr{ new ListGroupsCommand{ app, GroupType::Application }};
 		}
 		else if (vm.count("passwords")) {
 			return CommandPtr{ new ListPasswordsCommand{ app }};
