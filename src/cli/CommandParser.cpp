@@ -14,6 +14,7 @@
 #include "./parsers/CreatePasswordCommandParser.h"
 #include "./parsers/PurgeStorageCommandParser.h"
 #include "./parsers/DumpStorageCommandParser.h"
+#include "./parsers/ListCommandParser.h"
 #include "CommandParser.h"
 
 using namespace std;
@@ -73,6 +74,7 @@ Command can be one of:
 					CommandTable{ "create", CreatePasswordCommandParser{ app, parsed, vm }},
 					CommandTable{ "purge", PurgeStorageCommandParser{ app, parsed, vm }},
 					CommandTable{ "dump", DumpStorageCommandParser{ app, parsed, vm }},
+					CommandTable{ "list", ListCommandParser{ app, parsed, vm }},
 			};
 
 			for (auto& command_row : command_table) {
