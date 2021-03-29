@@ -5,9 +5,17 @@
 #include "TableOutputFactory.h"
 
 namespace OwnPass::CLI::Output {
-	StreamTableOutput TableOutputFactory::create(const StreamTableOutputOptions& options, const std::vector<std::string>& headers)
+	StreamTableOutput TableOutputFactory::create(const StreamTableOutputOptions& options,
+			const std::vector<std::string>& headers)
 	{
 		StreamTableOutput out{ options, headers };
+		return out;
+	}
+
+	CSVTableOutput TableOutputFactory::create(const CSVTableOutputOptions& options,
+			const std::vector<std::string>& headers)
+	{
+		CSVTableOutput out{ options, headers };
 		return out;
 	}
 }

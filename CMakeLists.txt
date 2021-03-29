@@ -97,6 +97,7 @@ set(TEST_FILES
         test/cli/input/test_prompt_secret_input.cpp
         test/cli/input/test_prompt_confirm_input.cpp
         test/cli/input/test_bool_confirm_input.cpp
+        test/cli/output/test_csv_table_output.cpp
         test/commands/test_command_runner.cpp
         test/storage/test_storage_header.cpp
         test/storage/serializers/test_storage_header_serializer.cpp
