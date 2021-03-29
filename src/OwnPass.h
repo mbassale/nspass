@@ -18,6 +18,8 @@
 #include <algorithm>
 #include <stdexcept>
 #include <filesystem>
+#include <iostream>
+#include <sstream>
 #include <boost/uuid/uuid.hpp>
 #include <boost/algorithm/string.hpp>
 #include "IdGenerator.h"
