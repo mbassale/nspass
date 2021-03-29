@@ -12,6 +12,7 @@ namespace OwnPass::Commands {
 	class ListGroupsCommand : public Command {
 	public:
 		static constexpr auto Name = "list-groups";
+		static constexpr auto ColumnWidth = 32;
 		explicit ListGroupsCommand(OwnPass::Application& app, GroupType group_type = GroupType::Site)
 				:Command(app), group_type{ group_type } { };
 		~ListGroupsCommand() override = default;
@@ -22,6 +23,7 @@ namespace OwnPass::Commands {
 		void undo() override;
 	protected:
 		GroupType group_type;
+		std::string get_group_column_header();
 	};
 }
 
