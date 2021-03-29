@@ -34,6 +34,9 @@ set(SOURCE_FILES
         src/cli/input/PromptConfirmInput.cpp src/cli/input/PromptConfirmInput.h
         src/cli/input/BoolConfirmInput.cpp src/cli/input/BoolConfirmInput.h
         src/cli/output/TableOutput.cpp src/cli/output/TableOutput.h
+        src/cli/output/TableOutputFactory.cpp src/cli/output/TableOutputFactory.h
+        src/cli/output/StreamTableOutput.cpp src/cli/output/StreamTableOutput.h
+        src/cli/output/CSVTableOutput.cpp src/cli/output/CSVTableOutput.h
         src/commands/CannotUndoException.cpp src/commands/CannotUndoException.h
         src/commands/CommandRunner.h src/commands/CommandRunner.cpp
         src/commands/Command.h src/commands/Command.cpp

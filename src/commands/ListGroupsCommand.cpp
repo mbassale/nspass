@@ -3,13 +3,13 @@
 //
 #include "../OwnPass.h"
 #include "../Group.h"
-#include "../cli/output/TableOutput.h"
+#include "../cli/output/TableOutputFactory.h"
 #include "CannotUndoException.h"
 #include "ListGroupsCommand.h"
 
 namespace OwnPass::Commands {
-	using OwnPass::CLI::Output::TableOutputOptions;
-	using OwnPass::CLI::Output::TableOutput;
+	using OwnPass::CLI::Output::StreamTableOutputOptions;
+	using OwnPass::CLI::Output::TableOutputFactory;
 
 	struct GroupItem {
 		ObjectId id;
@@ -31,9 +31,9 @@ namespace OwnPass::Commands {
 						group.get_passwords().size());
 			}
 		}
-		TableOutputOptions table_options{ std::cout, ColumnWidth, 0 };
+		StreamTableOutputOptions table_options{ std::cout, ColumnWidth, 0 };
 		std::vector<std::string> headers = { "Category", get_group_column_header(), "# Passwords" };
-		TableOutput out{ table_options, headers };
+		auto out = TableOutputFactory::create(table_options, headers);
 		out.print_headers();
 		for (auto& group_item : group_items) {
 			std::vector<std::string> row = { std::string{ group_item.category_name }, std::string{ group_item.name },
