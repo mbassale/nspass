@@ -4,6 +4,7 @@
 
 #include "../../OwnPass.h"
 #include "../../commands/HelpCommand.h"
+#include "../../commands/ListCommand.h"
 #include "../../commands/ListCategoriesCommand.h"
 #include "../../commands/ListGroupsCommand.h"
 #include "../../commands/ListPasswordsCommand.h"
@@ -14,6 +15,7 @@ namespace OwnPass::CLI::Parsers {
 	using namespace std;
 	using OwnPass::Commands::CommandPtr;
 	using OwnPass::Commands::HelpCommand;
+	using OwnPass::Commands::ListCommand;
 	using OwnPass::Commands::ListCategoriesCommand;
 	using OwnPass::Commands::ListGroupsCommand;
 	using OwnPass::Commands::ListPasswordsCommand;
@@ -29,7 +31,7 @@ namespace OwnPass::CLI::Parsers {
 				("sites,s", "List sites")
 				("applications,a", "List applications")
 				("passwords,p", "List passwords")
-				("format,f", po::value<string>(), "Format: stdout (default) or csv");
+				("format,f", po::value<string>(), "Output Format: stdout (default) or csv");
 
 		try {
 			vector<string> opts = po::collect_unrecognized(parsed.options, po::include_positional);
@@ -44,21 +46,28 @@ namespace OwnPass::CLI::Parsers {
 			return CommandPtr{ new HelpCommand{ app, list_desc }};
 		}
 
+		ListCommand::Format output_format = ListCommand::Format::STDOUT;
 		if (vm.count("format")) {
-
+			auto format = vm["format"].as<string>();
+			if (format == "stdout") {
+				output_format = ListCommand::Format::STDOUT;
+			}
+			else if (format == "csv") {
+				output_format = ListCommand::Format::CSV;
+			}
 		}
 
 		if (vm.count("categories")) {
-			return CommandPtr{ new ListCategoriesCommand{ app }};
+			return CommandPtr{ new ListCategoriesCommand{ app, output_format }};
 		}
 		else if (vm.count("sites")) {
-			return CommandPtr{ new ListGroupsCommand{ app, GroupType::Site }};
+			return CommandPtr{ new ListGroupsCommand{ app, GroupType::Site, output_format }};
 		}
 		else if (vm.count("applications")) {
-			return CommandPtr{ new ListGroupsCommand{ app, GroupType::Application }};
+			return CommandPtr{ new ListGroupsCommand{ app, GroupType::Application, output_format }};
 		}
 		else if (vm.count("passwords")) {
-			return CommandPtr{ new ListPasswordsCommand{ app }};
+			return CommandPtr{ new ListPasswordsCommand{ app, output_format }};
 		}
 		else {
 			throw InvalidCommandSyntaxException(format_error("Missing argument.", list_desc));

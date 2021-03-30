@@ -19,6 +19,8 @@ namespace OwnPass::Commands {
 		static constexpr auto MaxColumnWidth = 32;
 		explicit ListCommand(OwnPass::Application& app, Format format)
 				:Command{ app }, format{ format } { };
+
+		[[nodiscard]] Format get_format() { return format; }
 	protected:
 		Format format;
 
