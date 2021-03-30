@@ -24,6 +24,7 @@ SampleStorageFixture::SampleStorageFixture()
 SampleStorageFixture::~SampleStorageFixture()
 {
 	auto& vault = app.get_vault();
+	vault.get_storage().purge();
 	std::filesystem::remove(vault.get_storage_location());
 }
 

@@ -66,7 +66,7 @@ namespace OwnPass::Storage {
 		return categories;
 	}
 
-	Category& JsonStorage::save_category(Category& category)
+	Category& JsonStorage::save_category(const Category& category)
 	{
 		auto it = find(categories.begin(), categories.end(), category);
 		if (it == categories.end()) {
@@ -75,7 +75,8 @@ namespace OwnPass::Storage {
 		else {
 			*it = category;
 		}
-		return category;
+		auto category_opt = find_category(category.get_id());
+		return category_opt.value();
 	}
 
 	std::optional<CategoryRef> JsonStorage::find_category(ObjectId category_id)

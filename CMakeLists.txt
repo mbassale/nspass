@@ -21,6 +21,10 @@ set(SOURCE_FILES
         src/Password.cpp src/Password.h
         src/Category.cpp src/Category.h
         src/IdGenerator.h src/IdGenerator.cpp
+        src/query/Query.cpp src/query/Query.h
+        src/query/CategoryQuery.cpp src/query/CategoryQuery.h
+        src/query/GroupQuery.cpp src/query/GroupQuery.h
+        src/query/PasswordQuery.cpp src/query/PasswordQuery.h
         src/cli/CommandLine.h src/cli/CommandLine.cpp
         src/cli/CommandParser.h src/cli/CommandParser.cpp
         src/cli/InvalidCommandSyntaxException.h src/cli/InvalidCommandSyntaxException.cpp
@@ -56,6 +60,7 @@ set(SOURCE_FILES
         src/commands/ListCategoriesCommand.cpp src/commands/ListCategoriesCommand.h
         src/commands/ListGroupsCommand.cpp src/commands/ListGroupsCommand.h
         src/commands/ListPasswordsCommand.cpp src/commands/ListPasswordsCommand.h
+        src/commands/CopyPasswordCommand.cpp src/commands/CopyPasswordCommand.h
         src/storage/Storage.cpp src/storage/Storage.h
         src/storage/StorageFactory.cpp src/storage/StorageFactory.h
         src/storage/StorageHeader.cpp src/storage/StorageHeader.h
@@ -80,12 +85,15 @@ set(SOURCE_FILES
         src/crypto/EncryptedFile.h src/crypto/EncryptedFile.cpp)
 
 set(TEST_FILES
-        test/TestUtility.h
-        test/TestUtility.cpp
+        test/TestUtility.h test/TestUtility.cpp
+        test/SampleStorageFixture.cpp test/SampleStorageFixture.h
         test/test_main.cpp
         test/test_models.cpp
         test/test_vault.cpp
         test/test_command_line.cpp
+        test/query/test_category_query.cpp
+        test/query/test_group_query.cpp
+        test/query/test_password_query.cpp
         test/crypto/test_initialization_vector.cpp
         test/crypto/test_base64_encoder.cpp
         test/crypto/test_block_crypto.cpp
@@ -104,6 +112,7 @@ set(TEST_FILES
         test/cli/input/test_bool_confirm_input.cpp
         test/cli/output/test_csv_table_output.cpp
         test/commands/test_command_runner.cpp
+        test/commands/test_copy_password_command.cpp
         test/storage/test_storage_header.cpp
         test/storage/serializers/test_storage_header_serializer.cpp
         test/storage/serializers/test_storage_serializer.cpp

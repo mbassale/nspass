@@ -54,7 +54,7 @@ namespace OwnPass {
 		return results;
 	}
 
-	Category& Category::save_group(Group& group)
+	Category& Category::save_group(const Group& group)
 	{
 		auto it = find(groups.begin(), groups.end(), group);
 		if (it == groups.end()) {
