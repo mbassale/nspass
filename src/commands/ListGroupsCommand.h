@@ -12,7 +12,6 @@ namespace OwnPass::Commands {
 	class ListGroupsCommand : public ListCommand {
 	public:
 		static constexpr auto Name = "list-groups";
-		static constexpr auto ColumnWidth = 32;
 		explicit ListGroupsCommand(OwnPass::Application& app, GroupType group_type = GroupType::Site,
 				Format format = Format::STDOUT)
 				:ListCommand(app, format), group_type{ group_type } { };

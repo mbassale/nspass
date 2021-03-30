@@ -12,7 +12,6 @@ namespace OwnPass::Commands {
 	class ListCategoriesCommand : public ListCommand {
 	public:
 		static constexpr auto Name = "list-categories";
-		static constexpr auto ColumnWidth = 32;
 		explicit ListCategoriesCommand(OwnPass::Application& app, Format format = Format::STDOUT)
 				:ListCommand(app, format) { };
 		~ListCategoriesCommand() override = default;

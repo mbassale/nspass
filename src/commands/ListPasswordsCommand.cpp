@@ -3,14 +3,10 @@
 //
 #include "../OwnPass.h"
 #include "../Group.h"
-#include "../cli/output/TableOutputFactory.h"
 #include "CannotUndoException.h"
 #include "ListPasswordsCommand.h"
 
 namespace OwnPass::Commands {
-	using OwnPass::CLI::Output::StreamTableOutputOptions;
-	using OwnPass::CLI::Output::TableOutputFactory;
-
 	struct PasswordItem {
 		ObjectId id;
 		std::string_view category_name;
@@ -37,15 +33,14 @@ namespace OwnPass::Commands {
 				}
 			}
 		}
-		StreamTableOutputOptions table_options{ std::cout, ColumnWidth, 0 };
 		std::vector<std::string> headers = { "Category", "Site/App", "Username", "URL" };
-		auto out = TableOutputFactory::create(table_options, headers);
-		out.print_headers();
+		auto out = create_table_output(headers);
+		out->print_headers();
 		for (auto& password_item : password_items) {
 			std::vector<std::string> row = { std::string{ password_item.category_name },
 											 std::string{ password_item.group_name },
 											 std::string{ password_item.username }, std::string{ password_item.url }};
-			out.print_row(row);
+			out->print_row(row);
 		}
 	}
 

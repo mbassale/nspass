@@ -17,6 +17,8 @@ namespace OwnPass::CLI::Output {
 		virtual void print_headers() = 0;
 		virtual void print_row(const std::vector<std::string>& row) = 0;
 	};
+
+	typedef std::unique_ptr<TableOutput> TableOutputPtr;
 }
 
 #endif //OWNPASS_TABLEOUTPUT_H
