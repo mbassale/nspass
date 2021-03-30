@@ -6,14 +6,14 @@
 #define OWNPASS_LISTPASSWORDSCOMMAND_H
 
 #include "../OwnPass.h"
-#include "Command.h"
+#include "ListCommand.h"
 
 namespace OwnPass::Commands {
-	class ListPasswordsCommand : public Command {
+	class ListPasswordsCommand : public ListCommand {
 	public:
 		static constexpr auto Name = "list-passwords";
-		explicit ListPasswordsCommand(OwnPass::Application& app)
-				:Command(app) { };
+		explicit ListPasswordsCommand(OwnPass::Application& app, Format format = Format::STDOUT)
+				:ListCommand(app, format) { };
 		~ListPasswordsCommand() override = default;
 
 		std::string_view get_name() override { return Name; }

@@ -6,15 +6,16 @@
 #define OWNPASS_LISTGROUPSCOMMAND_H
 
 #include "../OwnPass.h"
-#include "Command.h"
+#include "ListCommand.h"
 
 namespace OwnPass::Commands {
-	class ListGroupsCommand : public Command {
+	class ListGroupsCommand : public ListCommand {
 	public:
 		static constexpr auto Name = "list-groups";
 		static constexpr auto ColumnWidth = 32;
-		explicit ListGroupsCommand(OwnPass::Application& app, GroupType group_type = GroupType::Site)
-				:Command(app), group_type{ group_type } { };
+		explicit ListGroupsCommand(OwnPass::Application& app, GroupType group_type = GroupType::Site,
+				Format format = Format::STDOUT)
+				:ListCommand(app, format), group_type{ group_type } { };
 		~ListGroupsCommand() override = default;
 
 		std::string_view get_name() override { return Name; }

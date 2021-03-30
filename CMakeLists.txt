@@ -72,7 +72,7 @@ set(SOURCE_FILES
         src/crypto/Base64Encoder.h src/crypto/Base64Encoder.cpp
         src/crypto/InitializationVector.h src/crypto/InitializationVector.cpp
         src/crypto/SecureString.h src/crypto/SecureString.cpp
-        src/crypto/EncryptedFile.h src/crypto/EncryptedFile.cpp)
+        src/crypto/EncryptedFile.h src/crypto/EncryptedFile.cpp src/commands/ListCommand.cpp src/commands/ListCommand.h)
 
 set(TEST_FILES
         test/TestUtility.h

@@ -28,7 +28,8 @@ namespace OwnPass::CLI::Parsers {
 				("categories,c", "List categories")
 				("sites,s", "List sites")
 				("applications,a", "List applications")
-				("passwords,p", "List passwords");
+				("passwords,p", "List passwords")
+				("format,f", po::value<string>(), "Format: stdout (default) or csv");
 
 		try {
 			vector<string> opts = po::collect_unrecognized(parsed.options, po::include_positional);
@@ -41,6 +42,10 @@ namespace OwnPass::CLI::Parsers {
 
 		if (vm.empty() || vm.count("help")) {
 			return CommandPtr{ new HelpCommand{ app, list_desc }};
+		}
+
+		if (vm.count("format")) {
+
 		}
 
 		if (vm.count("categories")) {

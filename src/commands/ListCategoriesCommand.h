@@ -6,15 +6,15 @@
 #define OWNPASS_LISTCATEGORIESCOMMAND_H
 
 #include "../OwnPass.h"
-#include "Command.h"
+#include "ListCommand.h"
 
 namespace OwnPass::Commands {
-	class ListCategoriesCommand : public Command {
+	class ListCategoriesCommand : public ListCommand {
 	public:
 		static constexpr auto Name = "list-categories";
 		static constexpr auto ColumnWidth = 32;
-		explicit ListCategoriesCommand(OwnPass::Application& app)
-				:Command(app) { };
+		explicit ListCategoriesCommand(OwnPass::Application& app, Format format = Format::STDOUT)
+				:ListCommand(app, format) { };
 		~ListCategoriesCommand() override = default;
 
 		std::string_view get_name() override { return Name; }
