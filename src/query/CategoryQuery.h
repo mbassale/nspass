@@ -9,8 +9,6 @@
 #include "../Category.h"
 #include "Query.h"
 
-#include <utility>
-
 namespace OwnPass::Query {
 	class CategoryQuery : public Query<OwnPass::CategoryRef> {
 	public:
