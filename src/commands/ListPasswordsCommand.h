@@ -12,6 +12,7 @@ namespace OwnPass::Commands {
 	class ListPasswordsCommand : public ListCommand {
 	public:
 		static constexpr auto Name = "list-passwords";
+		static constexpr auto ColumnWidth = 32;
 		explicit ListPasswordsCommand(OwnPass::Application& app, Format format = Format::STDOUT)
 				:ListCommand(app, format) { };
 		~ListPasswordsCommand() override = default;

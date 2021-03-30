@@ -48,6 +48,7 @@ set(SOURCE_FILES
         src/commands/PurgeStorageCommand.h src/commands/PurgeStorageCommand.cpp
         src/commands/SetStorageLocationCommand.cpp src/commands/SetStorageLocationCommand.h
         src/commands/DumpStorageCommand.cpp src/commands/DumpStorageCommand.h
+        src/commands/ListCommand.cpp src/commands/ListCommand.h
         src/commands/ListCategoriesCommand.cpp src/commands/ListCategoriesCommand.h
         src/commands/ListGroupsCommand.cpp src/commands/ListGroupsCommand.h
         src/commands/ListPasswordsCommand.cpp src/commands/ListPasswordsCommand.h
@@ -72,7 +73,7 @@ set(SOURCE_FILES
         src/crypto/Base64Encoder.h src/crypto/Base64Encoder.cpp
         src/crypto/InitializationVector.h src/crypto/InitializationVector.cpp
         src/crypto/SecureString.h src/crypto/SecureString.cpp
-        src/crypto/EncryptedFile.h src/crypto/EncryptedFile.cpp src/commands/ListCommand.cpp src/commands/ListCommand.h)
+        src/crypto/EncryptedFile.h src/crypto/EncryptedFile.cpp)
 
 set(TEST_FILES
         test/TestUtility.h
