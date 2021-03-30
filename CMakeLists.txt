@@ -6,6 +6,10 @@ find_package(ICU REQUIRED COMPONENTS data)
 find_package(Boost REQUIRED COMPONENTS json log program_options)
 find_library(LIBGCRYPT_LIBRARIES gcrypt)
 
+set(CLIP_EXAMPLES OFF CACHE BOOL "Compile clip examples")
+set(CLIP_TESTS OFF CACHE BOOL "Compile clip tests")
+set(CLIP_X11_WITH_PNG OFF CACHE BOOL "Compile with libpng to support copy/paste image in png format")
+add_subdirectory(clip)
 
 set(CMAKE_CXX_STANDARD 17)
 set(SOURCE_FILES
@@ -117,6 +121,6 @@ add_executable(ownpass src/main.cpp ${SOURCE_FILES})
 # Test Suites
 add_executable(tests ${TEST_FILES} ${SOURCE_FILES})
 
-target_link_libraries(ownpass ${Boost_LIBRARIES} ${LIBGCRYPT_LIBRARIES} ${ICU_LIBRARIES})
+target_link_libraries(ownpass clip ${Boost_LIBRARIES} ${LIBGCRYPT_LIBRARIES} ${ICU_LIBRARIES})
 
-target_link_libraries(tests ${Boost_LIBRARIES} ${LIBGCRYPT_LIBRARIES} ${ICU_LIBRARIES})
+target_link_libraries(tests clip ${Boost_LIBRARIES} ${LIBGCRYPT_LIBRARIES} ${ICU_LIBRARIES})
