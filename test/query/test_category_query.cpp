@@ -7,6 +7,7 @@
 #include "../../src/query/CategoryQuery.h"
 
 using OwnPass::Category;
+using OwnPass::CategoryPtr;
 using OwnPass::Query::CategoryQuery;
 
 class CategoryQueryFixture : public SampleStorageFixture {
@@ -31,13 +32,12 @@ TEST_CASE_METHOD(CategoryQueryFixture, "CategoryQuery - find all categories", Ca
 	REQUIRE_FALSE(results.empty());
 	auto& categories = get_storage().get_categories();
 	REQUIRE(results.size() == categories.size());
-	for (auto& category_ref : results) {
-		auto& category = category_ref.get();
-		auto it = std::find_if(categories.begin(), categories.end(), [&category](Category& category2){
-			return category.get_id() == category2.get_id();
+	for (const auto& category : results) {
+		auto it = std::find_if(categories.begin(), categories.end(), [&category](const CategoryPtr& category2){
+			return category->get_id() == category2->get_id();
 		});
 		REQUIRE(it != categories.end());
-		REQUIRE(it->get_id() == category.get_id());
+		REQUIRE((*it)->get_id() == category->get_id());
 	}
 }
 
@@ -48,7 +48,6 @@ TEST_CASE_METHOD(CategoryQueryFixture, "CategoryQuery - find one category", Cate
 	auto results = category_query.execute();
 	REQUIRE_FALSE(results.empty());
 	REQUIRE(results.size() == 1);
-	auto category_ref = results.front();
-	auto& category = category_ref.get();
-	REQUIRE(category.get_name() == "Category #5");
+	auto& category = results.front();
+	REQUIRE(category->get_name() == "Category #5");
 }

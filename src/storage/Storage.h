@@ -26,10 +26,10 @@ namespace OwnPass::Storage {
 		virtual std::string dump() = 0;
 
 		virtual StorageHeader& get_header() = 0;
-		virtual std::vector<OwnPass::Category>& get_categories() = 0;
-		virtual Category& save_category(const Category& category) = 0;
-		virtual std::optional<CategoryRef> find_category(ObjectId category_id) = 0;
-		virtual std::optional<CategoryRef> find_category(std::string_view search) = 0;
+		virtual std::vector<OwnPass::CategoryPtr>& get_categories() = 0;
+		virtual void save_category(const CategoryPtr& category) = 0;
+		virtual CategoryPtr find_category(ObjectId category_id) = 0;
+		virtual CategoryPtr find_category(std::string_view search) = 0;
 
 	protected:
 		std::string_view master_password;

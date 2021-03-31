@@ -54,7 +54,7 @@ void SampleStorageFixture::reset_sample_storage()
 			category->save_group(group);
 		}
 
-		storage.save_category(*category);
+		storage.save_category(category);
 	}
 	storage.flush();
 }

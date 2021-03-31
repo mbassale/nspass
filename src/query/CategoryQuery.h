@@ -10,11 +10,11 @@
 #include "Query.h"
 
 namespace OwnPass::Query {
-	class CategoryQuery : public Query<OwnPass::CategoryRef> {
+	class CategoryQuery : public Query<OwnPass::CategoryPtr> {
 	public:
 		CategoryQuery(Storage::Storage& storage, std::string_view search)
-				:Query<OwnPass::CategoryRef>(storage), search{ search } { }
-		std::list<OwnPass::CategoryRef> execute() override;
+				:Query<OwnPass::CategoryPtr>(storage), search{ search } { }
+		std::vector<OwnPass::CategoryPtr> execute() override;
 	protected:
 		std::string search;
 	};

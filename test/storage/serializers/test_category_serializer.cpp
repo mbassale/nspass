@@ -26,17 +26,17 @@ protected:
 	{
 		auto category1 = CategoryFactory::make(name, groups);
 		CategorySerializer category_serializer1;
-		auto category_json1 = category_serializer1.serialize(*category1);
+		auto category_json1 = category_serializer1.serialize(category1);
 		auto json_string = TestUtility::convert_json_to_string(category_json1);
 		auto category_json2 = TestUtility::convert_string_to_json(json_string);
 		CategorySerializer category_serializer2;
 		auto category2 = category_serializer2.deserialize(category_json2);
-		REQUIRE(category1->get_id() == category2.get_id());
-		REQUIRE(category1->get_name() == category2.get_name());
-		REQUIRE(category1->get_groups().size() == category2.get_groups().size());
+		REQUIRE(category1->get_id() == category2->get_id());
+		REQUIRE(category1->get_name() == category2->get_name());
+		REQUIRE(category1->get_groups().size() == category2->get_groups().size());
 		if (!groups.empty()) {
 			for (const auto& group : groups) {
-				auto group2 = category2.find_group(group->get_id());
+				auto group2 = category2->find_group(group->get_id());
 				REQUIRE(group2);
 				REQUIRE(group2->get_id() == group->get_id());
 			}

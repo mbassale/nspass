@@ -12,7 +12,7 @@
 
 namespace OwnPass::Storage::Serializer {
 
-	typedef std::tuple<OwnPass::Storage::StorageHeader, std::vector<OwnPass::Category>> StorageTuple;
+	typedef std::tuple<OwnPass::Storage::StorageHeader, std::vector<OwnPass::CategoryPtr>> StorageTuple;
 
 	class StorageSerializer : public JsonSerializer<StorageTuple> {
 	public:

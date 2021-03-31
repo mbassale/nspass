@@ -13,6 +13,8 @@ using namespace std;
 using OwnPass::Storage::StorageHeader;
 using OwnPass::Storage::StorageHeaderFactory;
 using OwnPass::Category;
+using OwnPass::CategoryPtr;
+using OwnPass::CategoryFactory;
 using OwnPass::Storage::Serializer::StorageTuple;
 using OwnPass::Storage::Serializer::StorageSerializer;
 
@@ -25,12 +27,12 @@ TEST_CASE_METHOD(StorageSerializerFixture, "StorageSerializer - serialize/deseri
 {
 	constexpr size_t categories_size = 10;
 	auto storage_header = StorageHeaderFactory::make("test@test.com");
-	vector<Category> categories;
+	vector<CategoryPtr> categories;
 	categories.reserve(categories_size);
 	for (auto i = 1; i <= categories_size; i++) {
 		stringstream ss;
 		ss << "Category #" << i;
-		categories.emplace_back(ss.str());
+		categories.push_back(CategoryFactory::make(ss.str()));
 	}
 
 	StorageSerializer storage_serializer{};
@@ -46,7 +48,7 @@ TEST_CASE_METHOD(StorageSerializerFixture, "StorageSerializer - serialize/deseri
 	while (it != categories2.end()) {
 		stringstream ss;
 		ss << "Category #" << index;
-		REQUIRE((*it).get_name() == ss.str());
+		REQUIRE((*it)->get_name() == ss.str());
 		index++;
 		it++;
 	}

@@ -21,10 +21,10 @@ namespace OwnPass::Query {
 
 		GroupQuery(Storage::Storage& storage, QueryArguments args)
 				:Query<OwnPass::GroupRef>(storage), args{ std::move(args) } { }
-		std::list<OwnPass::GroupRef> execute() override;
+		std::vector<OwnPass::GroupRef> execute() override;
 	protected:
 		QueryArguments args;
-		std::list<OwnPass::CategoryRef> categories;
+		std::vector<OwnPass::CategoryPtr> categories;
 		void find_categories();
 	};
 }

@@ -13,7 +13,7 @@ namespace OwnPass::Query {
 	class Query {
 	public:
 		explicit Query(OwnPass::Storage::Storage& storage) : storage{ storage } {}
-		virtual std::list<T> execute() = 0;
+		virtual std::vector<T> execute() = 0;
 	protected:
 		OwnPass::Storage::Storage& storage;
 	};

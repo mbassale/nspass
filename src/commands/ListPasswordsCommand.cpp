@@ -24,11 +24,11 @@ namespace OwnPass::Commands {
 		auto& categories = app.get_vault().get_storage().get_categories();
 		std::vector<PasswordItem> password_items;
 		for (auto& category : categories) {
-			auto& groups = category.get_groups();
+			auto& groups = category->get_groups();
 			for (auto& group : groups) {
 				auto& passwords = group->get_passwords();
 				for (auto& password : passwords) {
-					password_items.emplace_back(password->get_id(), category.get_name(), group->get_name(),
+					password_items.emplace_back(password->get_id(), category->get_name(), group->get_name(),
 							password->get_username(), password->get_url());
 				}
 			}

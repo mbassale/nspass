@@ -22,14 +22,14 @@ namespace OwnPass::Storage {
 		std::string dump() override;
 
 		StorageHeader& get_header() override;
-		std::vector<OwnPass::Category>& get_categories() override;
-		Category& save_category(const Category& category) override;
-		std::optional<CategoryRef> find_category(ObjectId category_id) override;
-		std::optional<CategoryRef> find_category(std::string_view search) override;
+		std::vector<OwnPass::CategoryPtr>& get_categories() override;
+		void save_category(const CategoryPtr& category) override;
+		CategoryPtr find_category(ObjectId category_id) override;
+		CategoryPtr find_category(std::string_view search) override;
 
 	protected:
 		StorageHeader storage_header;
-		std::vector<Category> categories;
+		std::vector<CategoryPtr> categories;
 
 		void load();
 		void save();

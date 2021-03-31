@@ -8,13 +8,13 @@
 namespace OwnPass::Query {
 	using OwnPass::CategoryRef;
 
-	std::list<CategoryRef> CategoryQuery::execute()
+	std::vector<CategoryPtr> CategoryQuery::execute()
 	{
 		boost::algorithm::trim(search);
-		std::list<CategoryRef> results;
+		std::vector<CategoryPtr> results;
 		auto& categories = storage.get_categories();
 		for (auto& category : categories) {
-			if (search.empty() || boost::algorithm::icontains(category.get_name(), search))
+			if (search.empty() || boost::algorithm::icontains(category->get_name(), search))
 				results.emplace_back(category);
 		}
 		return results;

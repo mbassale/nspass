@@ -22,9 +22,9 @@ namespace OwnPass::Commands {
 		auto& categories = app.get_vault().get_storage().get_categories();
 		std::vector<GroupItem> group_items;
 		for (auto& category : categories) {
-			auto& groups = category.get_groups();
+			auto& groups = category->get_groups();
 			for (auto& group : groups) {
-				group_items.emplace_back(group->get_id(), category.get_name(), group->get_name(),
+				group_items.emplace_back(group->get_id(), category->get_name(), group->get_name(),
 						group->get_passwords().size());
 			}
 		}

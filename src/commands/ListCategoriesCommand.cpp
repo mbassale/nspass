@@ -13,8 +13,8 @@ namespace OwnPass::Commands {
 		auto out = create_table_output(headers);
 		out->print_headers();
 		for (auto& category : categories) {
-			std::vector<std::string> row = { std::string(category.get_name()),
-											 std::to_string(category.get_groups().size()) };
+			std::vector<std::string> row = { std::string(category->get_name()),
+											 std::to_string(category->get_groups().size()) };
 			out->print_row(row);
 		}
 	}

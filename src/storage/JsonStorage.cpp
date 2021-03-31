@@ -1,11 +1,7 @@
 //
 // Created by Marco Bassaletti on 07-03-21.
 //
-#include <algorithm>
-#include <boost/algorithm/string.hpp>
-#include <filesystem>
-#include <iostream>
-#include <list>
+#include "../OwnPass.h"
 #include <boost/json.hpp>
 #include "JsonParser.h"
 #include "JsonWriter.h"
@@ -61,12 +57,12 @@ namespace OwnPass::Storage {
 		return storage_header;
 	}
 
-	vector<Category>& JsonStorage::get_categories()
+	vector<CategoryPtr>& JsonStorage::get_categories()
 	{
 		return categories;
 	}
 
-	Category& JsonStorage::save_category(const Category& category)
+	void JsonStorage::save_category(const CategoryPtr& category)
 	{
 		auto it = find(categories.begin(), categories.end(), category);
 		if (it == categories.end()) {
@@ -75,32 +71,30 @@ namespace OwnPass::Storage {
 		else {
 			*it = category;
 		}
-		auto category_opt = find_category(category.get_id());
-		return category_opt.value();
 	}
 
-	std::optional<CategoryRef> JsonStorage::find_category(ObjectId category_id)
+	CategoryPtr JsonStorage::find_category(ObjectId category_id)
 	{
-		auto it = find_if(categories.begin(), categories.end(), [&category_id](Category& category) {
-			return category_id == category.get_id();
+		auto it = find_if(categories.begin(), categories.end(), [&category_id](const CategoryPtr& category) {
+			return category_id == category->get_id();
 		});
-		if (it == categories.end()) return std::nullopt;
+		if (it == categories.end()) return nullptr;
 		return *it;
 	}
 
-	std::optional<CategoryRef> JsonStorage::find_category(std::string_view search)
+	CategoryPtr JsonStorage::find_category(std::string_view search)
 	{
-		auto it = find_if(categories.begin(), categories.end(), [&search](Category& category) {
-			return boost::algorithm::icontains(category.get_name(), search);
+		auto it = find_if(categories.begin(), categories.end(), [&search](const CategoryPtr& category) {
+			return boost::algorithm::icontains(category->get_name(), search);
 		});
-		if (it == categories.end()) return std::nullopt;
+		if (it == categories.end()) return nullptr;
 		return *it;
 	}
 
 	void JsonStorage::create_storage_file()
 	{
 		storage_header = StorageHeader();
-		categories = std::vector<Category>();
+		categories = std::vector<CategoryPtr>();
 		save();
 	}
 
@@ -142,7 +136,7 @@ namespace OwnPass::Storage {
 		StorageSerializer storage_serializer{};
 		StorageTuple storage_tuple = storage_serializer.deserialize(root_obj);
 		storage_header = std::get<StorageHeader>(storage_tuple);
-		categories = std::get<std::vector<Category>>(storage_tuple);
+		categories = std::get<std::vector<CategoryPtr>>(storage_tuple);
 	}
 
 	void JsonStorage::verify_file_header(std::string_view contents)

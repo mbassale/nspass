@@ -32,7 +32,7 @@ TEST_CASE_METHOD(GroupQueryFixture, "GroupQuery - find all groups", GroupQueryFi
 	auto results = group_query.execute();
 	REQUIRE_FALSE(results.empty());
 	auto& categories = get_storage().get_categories();
-	REQUIRE(results.size() == categories.size() * categories.front().get_groups().size());
+	REQUIRE(results.size() == categories.size() * categories.front()->get_groups().size());
 }
 
 TEST_CASE_METHOD(GroupQueryFixture, "GroupQuery - find one group", GroupQueryFixture::Tag)

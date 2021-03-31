@@ -10,11 +10,11 @@ namespace OwnPass::Query {
 	using OwnPass::Category;
 	using OwnPass::PasswordRef;
 
-	std::list<PasswordPtr> PasswordQuery::execute()
+	std::vector<PasswordPtr> PasswordQuery::execute()
 	{
 		find_categories();
 		find_groups();
-		std::list<PasswordPtr> results;
+		std::vector<PasswordPtr> results;
 		for (auto& category_ref : categories) {
 			for (auto& group_ref : groups) {
 				auto& group = group_ref.get();

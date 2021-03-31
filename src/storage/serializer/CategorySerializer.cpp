@@ -10,17 +10,17 @@
 
 namespace OwnPass::Storage::Serializer {
 
-	boost::json::object CategorySerializer::serialize(const Category& obj)
+	boost::json::object CategorySerializer::serialize(const CategoryPtr& obj)
 	{
 		GroupSerializer group_serializer;
 		return {
-				{ "id", boost::uuids::to_string(obj.get_id()) },
-				{ "name", obj.get_name() },
-				{ "groups", group_serializer.serialize(obj.get_groups()) }
+				{ "id", boost::uuids::to_string(obj->get_id()) },
+				{ "name", obj->get_name() },
+				{ "groups", group_serializer.serialize(obj->get_groups()) }
 		};
 	}
 
-	boost::json::array CategorySerializer::serialize(const std::vector<Category>& objs)
+	boost::json::array CategorySerializer::serialize(const std::vector<CategoryPtr>& objs)
 	{
 		boost::json::array category_data;
 		for (auto& category : objs) {
@@ -30,7 +30,7 @@ namespace OwnPass::Storage::Serializer {
 		return category_data;
 	}
 
-	Category CategorySerializer::deserialize(boost::json::object& obj)
+	CategoryPtr CategorySerializer::deserialize(boost::json::object& obj)
 	{
 		auto& id_str = obj["id"].as_string();
 		boost::uuids::string_generator gen;
@@ -42,13 +42,12 @@ namespace OwnPass::Storage::Serializer {
 			GroupSerializer group_serializer;
 			groups = group_serializer.deserialize(groups_data);
 		}
-		Category category{ category_id, category_name.c_str(), groups };
-		return category;
+		return std::make_shared<Category>(category_id, category_name.c_str(), groups);
 	}
 
-	std::vector<Category> CategorySerializer::deserialize(boost::json::array& objs)
+	std::vector<CategoryPtr> CategorySerializer::deserialize(boost::json::array& objs)
 	{
-		std::vector<Category> categories;
+		std::vector<CategoryPtr> categories;
 		categories.reserve(objs.size());
 		for (auto category_datum : objs) {
 			auto category_obj = category_datum.as_object();
@@ -59,9 +58,9 @@ namespace OwnPass::Storage::Serializer {
 		return categories;
 	}
 
-	std::vector<Category> CategorySerializer::make_default()
+	std::vector<CategoryPtr> CategorySerializer::make_default()
 	{
-		return std::vector<Category>();
+		return std::vector<CategoryPtr>();
 	}
 
 }
