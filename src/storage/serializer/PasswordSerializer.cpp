@@ -16,17 +16,18 @@ namespace OwnPass::Storage::Serializer {
 	using namespace OwnPass;
 	using namespace OwnPass::Crypto;
 
-	boost::json::object PasswordSerializer::serialize(const Password& obj)
+	boost::json::object PasswordSerializer::serialize(const PasswordPtr& obj)
 	{
 		return {
-				{ "id", boost::uuids::to_string(obj.get_id()) },
-				{ "username", obj.get_username() },
-				{ "password", obj.get_password().get_cipher_text() },
-				{ "url", obj.get_url() },
-				{ "description", obj.get_description() }
+				{ "id", boost::uuids::to_string(obj->get_id()) },
+				{ "username", obj->get_username() },
+				{ "password", obj->get_password().get_cipher_text() },
+				{ "url", obj->get_url() },
+				{ "description", obj->get_description() }
 		};
 	}
-	boost::json::array PasswordSerializer::serialize(const std::list<Password>& objs)
+
+	boost::json::array PasswordSerializer::serialize(const std::list<PasswordPtr>& objs)
 	{
 		boost::json::array password_data;
 		for (auto& password : objs) {
@@ -35,7 +36,8 @@ namespace OwnPass::Storage::Serializer {
 		}
 		return password_data;
 	}
-	Password PasswordSerializer::deserialize(boost::json::object& obj)
+
+	PasswordPtr PasswordSerializer::deserialize(boost::json::object& obj)
 	{
 		auto& id_str = obj["id"].as_string();
 		boost::uuids::string_generator gen;
@@ -47,9 +49,10 @@ namespace OwnPass::Storage::Serializer {
 		return PasswordFactory::make(id, username.c_str(), SecureString::FromCipherText(password_s.c_str()),
 				url.c_str(), description.c_str());
 	}
-	std::list<Password> PasswordSerializer::deserialize(boost::json::array& objs)
+
+	std::list<PasswordPtr> PasswordSerializer::deserialize(boost::json::array& objs)
 	{
-		std::list<Password> passwords;
+		std::list<PasswordPtr> passwords;
 		for (auto val : objs) {
 			boost::json::object obj = val.as_object();
 			passwords.push_back(deserialize(obj));

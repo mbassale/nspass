@@ -13,13 +13,13 @@ namespace OwnPass::Commands {
 		auto category_obj = find_or_create_category();
 		auto group_obj = find_or_create_group(category_obj);
 		// TODO: we should have a second master pass or pin to encrypt this password.
-		auto password_obj = PasswordFactory::make(username,
+		auto password_ptr = PasswordFactory::make(username,
 				SecureString::FromPlainText(username, password), url, description);
-		group_obj.add_password(password_obj);
+		group_obj.add_password(password_ptr);
 		category_obj.save_group(group_obj);
 		get_storage().save_category(category_obj);
 		category_id = category_obj.get_id();
-		password_id = password_obj.get_id();
+		password_id = password_ptr->get_id();
 		group_id = group_obj.get_id();
 	}
 
@@ -31,10 +31,9 @@ namespace OwnPass::Commands {
 			auto group_opt = category_opt.value().get().find_group(group_id);
 			if (group_opt.has_value()) {
 				auto& group_obj = group_opt.value().get();
-				auto password_opt = group_obj.find_password(password_id);
-				if (password_opt.has_value()) {
-					auto& password_obj = password_opt.value().get();
-					group_obj.remove_password(password_obj);
+				auto password_ptr = group_obj.find_password(password_id);
+				if (password_ptr) {
+					group_obj.remove_password(password_ptr);
 				}
 			}
 		}

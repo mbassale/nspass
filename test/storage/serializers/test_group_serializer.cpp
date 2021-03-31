@@ -11,6 +11,7 @@
 using namespace std;
 using OwnPass::IdGenerator;
 using OwnPass::Password;
+using OwnPass::PasswordPtr;
 using OwnPass::PasswordFactory;
 using OwnPass::Group;
 using OwnPass::GroupFactory;
@@ -22,7 +23,7 @@ public:
 	GroupSerializerFixture() = default;
 protected:
 	static void assert_group_serialization(string_view name, string_view url, string_view description,
-			const list<Password>& passwords = list<Password>())
+			const vector<PasswordPtr>& passwords = vector<PasswordPtr>())
 	{
 		auto group1 = GroupFactory::make_site(IdGenerator::make(), name, passwords, url, description);
 		GroupSerializer group_serializer;
@@ -38,10 +39,9 @@ protected:
 		REQUIRE(group1.get_passwords().size() == group2.get_passwords().size());
 		if (!passwords.empty()) {
 			for (const auto& password1 : passwords) {
-				auto password_opt = group2.find_password(password1.get_id());
-				REQUIRE(password_opt.has_value());
-				auto& password2 = password_opt.value().get();
-				REQUIRE(password1.get_id() == password2.get_id());
+				auto password2 = group2.find_password(password1->get_id());
+				REQUIRE(password2);
+				REQUIRE(password1->get_id() == password2->get_id());
 			}
 		}
 	}
@@ -57,7 +57,7 @@ TEST_CASE_METHOD(GroupSerializerFixture, "GroupSerializer - serialize/deserializ
 
 TEST_CASE_METHOD(GroupSerializerFixture, "GroupSerializer - serialize/deserialize with passwords", "[group serializer]")
 {
-	list<Password> passwords;
+	vector<PasswordPtr> passwords;
 	passwords.push_back(PasswordFactory::make("username",
 			SecureString::FromPlainText("username", "password"), "url", "description"));
 	assert_group_serialization("", "", "", passwords);

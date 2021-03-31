@@ -26,11 +26,11 @@ protected:
 		auto password_json2 = TestUtility::convert_string_to_json(json_str);
 		PasswordSerializer password_serializer2{};
 		auto password_obj2 = password_serializer2.deserialize(password_json2);
-		REQUIRE(password_obj.get_id() == password_obj2.get_id());
-		REQUIRE(password_obj.get_username() == password_obj2.get_username());
-		REQUIRE(password_obj.get_password() == password_obj2.get_password());
-		REQUIRE(password_obj.get_url() == password_obj2.get_url());
-		REQUIRE(password_obj.get_description() == password_obj2.get_description());
+		REQUIRE(password_obj->get_id() == password_obj2->get_id());
+		REQUIRE(password_obj->get_username() == password_obj2->get_username());
+		REQUIRE(password_obj->get_password() == password_obj2->get_password());
+		REQUIRE(password_obj->get_url() == password_obj2->get_url());
+		REQUIRE(password_obj->get_description() == password_obj2->get_description());
 	}
 };
 

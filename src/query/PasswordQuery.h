@@ -11,7 +11,7 @@
 
 namespace OwnPass::Query {
 
-	class PasswordQuery : public Query<OwnPass::PasswordRef> {
+	class PasswordQuery : public Query<OwnPass::PasswordPtr> {
 	public:
 		struct QueryArguments {
 			std::string category_search;
@@ -20,8 +20,8 @@ namespace OwnPass::Query {
 		};
 
 		PasswordQuery(Storage::Storage& storage, QueryArguments args)
-				:Query<OwnPass::PasswordRef>(storage), args{ std::move(args) } { }
-		std::list<OwnPass::PasswordRef> execute() override;
+				:Query<OwnPass::PasswordPtr>(storage), args{ std::move(args) } { }
+		std::list<OwnPass::PasswordPtr> execute() override;
 	protected:
 		QueryArguments args;
 		std::list<OwnPass::CategoryRef> categories;

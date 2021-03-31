@@ -20,33 +20,33 @@ TEST_CASE("Create passwords")
 	SECTION("in a group") {
 		auto group_name = "Group #1";
 		Group group = GroupFactory::make_group(group_name);
-		Password password = PasswordFactory::make(username_s, password_s, url, description);
-		REQUIRE_FALSE(password.get_id().is_nil());
-		REQUIRE(password.get_username() == username_s);
-		REQUIRE(password.get_password() == password_s);
-		REQUIRE(password.get_url() == url);
-		REQUIRE(password.get_description() == description);
+		auto password = PasswordFactory::make(username_s, password_s, url, description);
+		REQUIRE_FALSE(password->get_id().is_nil());
+		REQUIRE(password->get_username() == username_s);
+		REQUIRE(password->get_password() == password_s);
+		REQUIRE(password->get_url() == url);
+		REQUIRE(password->get_description() == description);
 	}
 
 	SECTION("in a site") {
 		auto site_name = "test.com";
 		Group site = GroupFactory::make_site(site_name);
 		REQUIRE(site.get_name() == site_name);
-		Password password = PasswordFactory::make(username_s, password_s, url, description);
-		REQUIRE_FALSE(password.get_id().is_nil());
-		REQUIRE(password.get_username() == username_s);
-		REQUIRE(password.get_password() == password_s);
-		REQUIRE(password.get_description() == description);
+		auto password = PasswordFactory::make(username_s, password_s, url, description);
+		REQUIRE_FALSE(password->get_id().is_nil());
+		REQUIRE(password->get_username() == username_s);
+		REQUIRE(password->get_password() == password_s);
+		REQUIRE(password->get_description() == description);
 	}
 
 	SECTION("in an application") {
 		auto app_name = "myawesomeapp";
 		Group app = GroupFactory::make_application(app_name);
 		REQUIRE(app.get_name() == app_name);
-		Password password = PasswordFactory::make(username_s, password_s, url, description);
-		REQUIRE(password.get_username() == username_s);
-		REQUIRE(password.get_password() == password_s);
-		REQUIRE(password.get_description() == description);
+		auto password = PasswordFactory::make(username_s, password_s, url, description);
+		REQUIRE(password->get_username() == username_s);
+		REQUIRE(password->get_password() == password_s);
+		REQUIRE(password->get_description() == description);
 	}
 }
 

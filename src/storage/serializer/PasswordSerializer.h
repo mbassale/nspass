@@ -9,15 +9,15 @@
 #include "JsonSerializer.h"
 
 namespace OwnPass::Storage::Serializer {
-	class PasswordSerializer : public JsonSerializer<Password> {
+	class PasswordSerializer : public JsonSerializer<PasswordPtr> {
 	public:
 		PasswordSerializer() = default;
 		~PasswordSerializer() = default;
 
-		boost::json::object serialize(const Password& obj) override;
-		boost::json::array serialize(const std::list<Password>& objs) override;
-		Password deserialize(boost::json::object& obj) override;
-		std::list<Password> deserialize(boost::json::array& objs) override;
+		boost::json::object serialize(const PasswordPtr& obj) override;
+		boost::json::array serialize(const std::list<PasswordPtr>& objs) override;
+		PasswordPtr deserialize(boost::json::object& obj) override;
+		std::list<PasswordPtr> deserialize(boost::json::array& objs) override;
 	};
 }
 

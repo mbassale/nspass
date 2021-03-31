@@ -28,8 +28,8 @@ namespace OwnPass::Commands {
 			for (auto& group : groups) {
 				auto& passwords = group.get_passwords();
 				for (auto& password : passwords) {
-					password_items.emplace_back(password.get_id(), category.get_name(), group.get_name(),
-							password.get_username(), password.get_url());
+					password_items.emplace_back(password->get_id(), category.get_name(), group.get_name(),
+							password->get_username(), password->get_url());
 				}
 			}
 		}

@@ -5,8 +5,6 @@
 #ifndef OWNPASS_GROUP_H
 #define OWNPASS_GROUP_H
 
-#include <utility>
-
 #include "OwnPass.h"
 #include "Password.h"
 
@@ -30,7 +28,7 @@ namespace OwnPass {
 				:id{ IdGenerator::make() }, type{ GroupType::Group }, name(DefaultGroupName) { }
 		Group(const Group& other) = default;
 		Group(Group&& other) noexcept { *this = std::move(other); }
-		Group(GroupType type, ObjectId id, std::string_view name, std::list<Password> passwords,
+		Group(GroupType type, ObjectId id, std::string_view name, std::vector<PasswordPtr> passwords,
 				std::string_view url, std::string_view description)
 				:type{ type }, id{ id }, name{ name }, passwords{ std::move(passwords) }, url{ url },
 				 description{ description } { }
@@ -70,19 +68,24 @@ namespace OwnPass {
 			return *this;
 		}
 
-		std::optional<PasswordRef> find_password(ObjectId password_id);
-		std::optional<PasswordRef> find_password(std::string_view username);
+		PasswordPtr find_password(ObjectId password_id);
+		PasswordPtr find_password(std::string_view username);
 
-		[[nodiscard]] const std::list<Password>& get_passwords() const { return passwords; }
-		[[nodiscard]] std::list<Password>& get_passwords() { return passwords; }
-		Group& add_password(const Password& password)
+		[[nodiscard]] const std::vector<PasswordPtr>& get_passwords() const { return passwords; }
+		[[nodiscard]] std::vector<PasswordPtr>& get_passwords() { return passwords; }
+		Group& add_password(const PasswordPtr& password)
 		{
 			passwords.push_back(password);
 			return *this;
 		}
-		Group& remove_password(Password& password)
+		Group& remove_password(PasswordPtr& password)
 		{
-			passwords.remove(password);
+			for (auto it = passwords.begin(); it != passwords.end(); it++) {
+				if ((*it)->get_id() == password->get_id()) {
+					passwords.erase(it);
+					break;
+				}
+			}
 			return *this;
 		}
 
@@ -106,7 +109,7 @@ namespace OwnPass {
 		ObjectId id{};
 		GroupType type{};
 		std::string name;
-		std::list<Password> passwords;
+		std::vector<PasswordPtr> passwords;
 		std::string url;
 		std::string description;
 	};
@@ -121,14 +124,14 @@ namespace OwnPass {
 				std::string_view description = std::string())
 		{
 			ObjectId id = IdGenerator::make();
-			const auto passwords = std::list<Password>();
+			const auto passwords = std::vector<PasswordPtr>();
 			Group group{ GroupType::Group, id, name, passwords, url, description };
 			return group;
 		}
 
 		static Group make_group(ObjectId id,
 				std::string_view name,
-				const std::list<Password>& passwords,
+				const std::vector<PasswordPtr>& passwords,
 				std::string_view url = std::string(),
 				std::string_view description = std::string())
 		{
@@ -141,14 +144,14 @@ namespace OwnPass {
 				std::string_view description = std::string())
 		{
 			ObjectId id = IdGenerator::make();
-			const auto passwords = std::list<Password>();
+			const auto passwords = std::vector<PasswordPtr>();
 			Group group{ GroupType::Site, id, name, passwords, url, description };
 			return group;
 		}
 
 		static Group make_site(ObjectId id,
 				std::string_view name,
-				const std::list<Password>& passwords,
+				const std::vector<PasswordPtr>& passwords,
 				std::string_view url = std::string(),
 				std::string_view description = std::string())
 		{
@@ -161,14 +164,14 @@ namespace OwnPass {
 				std::string_view description = std::string())
 		{
 			ObjectId id = IdGenerator::make();
-			const auto passwords = std::list<Password>();
+			const auto passwords = std::vector<PasswordPtr>();
 			Group group{ GroupType::Application, id, name, passwords, url, description };
 			return group;
 		}
 
 		static Group make_application(ObjectId id,
 				std::string_view name,
-				const std::list<Password>& passwords,
+				const std::vector<PasswordPtr>& passwords,
 				std::string_view url = std::string(),
 				std::string_view description = std::string())
 		{

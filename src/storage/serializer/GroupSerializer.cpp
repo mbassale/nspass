@@ -16,13 +16,14 @@ namespace OwnPass::Storage::Serializer {
 	boost::json::object GroupSerializer::serialize(const Group& obj)
 	{
 		PasswordSerializer password_serializer{};
+		std::list<PasswordPtr> passwords{ obj.get_passwords().begin(), obj.get_passwords().end() };
 		return {
 				{ "id", boost::uuids::to_string(obj.get_id()) },
 				{ "type", static_cast<int64_t>(obj.get_type()) },
 				{ "name", obj.get_name() },
 				{ "url", obj.get_url() },
 				{ "description", obj.get_description() },
-				{ "passwords", password_serializer.serialize(obj.get_passwords()) }
+				{ "passwords", password_serializer.serialize(passwords) }
 		};
 	}
 
@@ -48,15 +49,15 @@ namespace OwnPass::Storage::Serializer {
 		Group group;
 		switch (group_type) {
 		case GroupType::Site:
-			group = GroupFactory::make_site(group_id, group_name.c_str(), std::list<Password>(), group_url.c_str(),
+			group = GroupFactory::make_site(group_id, group_name.c_str(), std::vector<PasswordPtr>(), group_url.c_str(),
 					group_description.c_str());
 			break;
 		case GroupType::Application:
-			group = GroupFactory::make_application(group_id, group_name.c_str(), std::list<Password>(),
+			group = GroupFactory::make_application(group_id, group_name.c_str(), std::vector<PasswordPtr>(),
 					group_url.c_str(), group_description.c_str());
 			break;
 		default:
-			group = GroupFactory::make_group(group_id, group_name.c_str(), std::list<Password>(), group_url.c_str(),
+			group = GroupFactory::make_group(group_id, group_name.c_str(), std::vector<PasswordPtr>(), group_url.c_str(),
 					group_description.c_str());
 			break;
 		}

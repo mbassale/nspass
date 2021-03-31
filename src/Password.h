@@ -36,7 +36,8 @@ namespace OwnPass {
 			return *this;
 		}
 
-		Password& operator=(Password&& other) noexcept {
+		Password& operator=(Password&& other) noexcept
+		{
 			id = other.id;
 			username = std::move(other.username);
 			password = std::move(other.password);
@@ -91,24 +92,19 @@ namespace OwnPass {
 
 	typedef std::reference_wrapper<Password> PasswordRef;
 
+	typedef std::shared_ptr<Password> PasswordPtr;
+
 	class PasswordFactory {
 	public:
 		PasswordFactory() = delete;
 		~PasswordFactory() = delete;
 
-		static Password make(std::string_view username, const SecureString& pass,
-				std::string_view url = std::string(), std::string_view description = std::string())
-		{
-			ObjectId password_id = IdGenerator::make();
-			return (Password){ password_id, username, pass, url, description };
-		}
+		static PasswordPtr make(std::string_view username, const SecureString& pass,
+				std::string_view url = std::string(), std::string_view description = std::string());
 
-		static Password make(ObjectId id, std::string_view username,
+		static PasswordPtr make(ObjectId id, std::string_view username,
 				const SecureString& pass, std::string_view url = std::string(),
-				std::string_view description = std::string())
-		{
-			return (Password){ id, username, pass, url, description };
-		}
+				std::string_view description = std::string());
 	};
 }
 
