@@ -17,12 +17,12 @@ namespace OwnPass::Storage::Serializer {
 		~CategorySerializer() = default;
 
 		boost::json::object serialize(const Category& obj) override;
-		boost::json::array serialize(const std::list<Category>& objs) override;
+		boost::json::array serialize(const std::vector<Category>& objs) override;
 
 		Category deserialize(boost::json::object& obj) override;
-		std::list<Category> deserialize(boost::json::array& objs) override;
+		std::vector<Category> deserialize(boost::json::array& objs) override;
 	private:
-		std::list<Category> make_default();
+		static std::vector<Category> make_default();
 	};
 }
 

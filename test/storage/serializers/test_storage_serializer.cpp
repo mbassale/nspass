@@ -23,9 +23,11 @@ public:
 
 TEST_CASE_METHOD(StorageSerializerFixture, "StorageSerializer - serialize/deserialize", "[storage serializer]")
 {
+	constexpr size_t categories_size = 10;
 	auto storage_header = StorageHeaderFactory::make("test@test.com");
-	list<Category> categories;
-	for (auto i = 1; i <= 10; i++) {
+	vector<Category> categories;
+	categories.reserve(categories_size);
+	for (auto i = 1; i <= categories_size; i++) {
 		stringstream ss;
 		ss << "Category #" << i;
 		categories.emplace_back(ss.str());

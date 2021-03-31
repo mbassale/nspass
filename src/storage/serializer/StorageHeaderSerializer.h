@@ -18,12 +18,12 @@ namespace OwnPass::Storage::Serializer {
 		~StorageHeaderSerializer() = default;
 
 		boost::json::object serialize(const StorageHeader& obj) override;
-		boost::json::array serialize(const std::list<StorageHeader>& objs) override;
+		boost::json::array serialize(const std::vector<StorageHeader>& objs) override;
 
 		StorageHeader deserialize(boost::json::object& obj) override;
-		std::list<StorageHeader> deserialize(boost::json::array& objs) override;
+		std::vector<StorageHeader> deserialize(boost::json::array& objs) override;
 	protected:
-		void check_magic(boost::json::object& obj);
+		static void check_magic(boost::json::object& obj);
 	};
 }
 

@@ -27,7 +27,7 @@ namespace OwnPass::Storage::Serializer {
 		};
 	}
 
-	boost::json::array PasswordSerializer::serialize(const std::list<PasswordPtr>& objs)
+	boost::json::array PasswordSerializer::serialize(const std::vector<PasswordPtr>& objs)
 	{
 		boost::json::array password_data;
 		for (auto& password : objs) {
@@ -50,9 +50,10 @@ namespace OwnPass::Storage::Serializer {
 				url.c_str(), description.c_str());
 	}
 
-	std::list<PasswordPtr> PasswordSerializer::deserialize(boost::json::array& objs)
+	std::vector<PasswordPtr> PasswordSerializer::deserialize(boost::json::array& objs)
 	{
-		std::list<PasswordPtr> passwords;
+		std::vector<PasswordPtr> passwords;
+		passwords.reserve(objs.size());
 		for (auto val : objs) {
 			boost::json::object obj = val.as_object();
 			passwords.push_back(deserialize(obj));

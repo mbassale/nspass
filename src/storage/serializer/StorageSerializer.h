@@ -12,7 +12,7 @@
 
 namespace OwnPass::Storage::Serializer {
 
-	typedef std::tuple<OwnPass::Storage::StorageHeader, std::list<OwnPass::Category>> StorageTuple;
+	typedef std::tuple<OwnPass::Storage::StorageHeader, std::vector<OwnPass::Category>> StorageTuple;
 
 	class StorageSerializer : public JsonSerializer<StorageTuple> {
 	public:
@@ -20,10 +20,10 @@ namespace OwnPass::Storage::Serializer {
 		~StorageSerializer() = default;
 
 		boost::json::object serialize(const StorageTuple& obj) override;
-		boost::json::array serialize(const std::list<StorageTuple>& objs) override;
+		boost::json::array serialize(const std::vector<StorageTuple>& objs) override;
 
 		StorageTuple deserialize(boost::json::object& obj) override;
-		std::list<StorageTuple> deserialize(boost::json::array& objs) override;
+		std::vector<StorageTuple> deserialize(boost::json::array& objs) override;
 	};
 }
 

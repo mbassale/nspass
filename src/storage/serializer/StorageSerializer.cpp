@@ -21,7 +21,7 @@ namespace OwnPass::Storage::Serializer {
 		};
 	}
 
-	boost::json::array StorageSerializer::serialize(const std::list<StorageTuple>& objs)
+	boost::json::array StorageSerializer::serialize(const std::vector<StorageTuple>& objs)
 	{
 		throw InvalidStorageException("Multiple storage objects not allowed.");
 	}
@@ -41,7 +41,7 @@ namespace OwnPass::Storage::Serializer {
 		return StorageTuple{ storage_header, categories };
 	}
 
-	std::list<StorageTuple> StorageSerializer::deserialize(boost::json::array& objs)
+	std::vector<StorageTuple> StorageSerializer::deserialize(boost::json::array& objs)
 	{
 		throw InvalidStorageException("Multiple storage objects not allowed.");
 	}

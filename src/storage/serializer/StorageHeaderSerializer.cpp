@@ -21,7 +21,7 @@ namespace OwnPass::Storage::Serializer {
 		};
 	}
 
-	boost::json::array StorageHeaderSerializer::serialize(const std::list<StorageHeader>& objs)
+	boost::json::array StorageHeaderSerializer::serialize(const std::vector<StorageHeader>& objs)
 	{
 		throw InvalidStorageException("Multiple headers not allowed.");
 	}
@@ -38,7 +38,7 @@ namespace OwnPass::Storage::Serializer {
 		return StorageHeaderFactory::make(header_id, header_email.c_str(), created_at, updated_at);
 	}
 
-	std::list<StorageHeader> StorageHeaderSerializer::deserialize(boost::json::array& objs)
+	std::vector<StorageHeader> StorageHeaderSerializer::deserialize(boost::json::array& objs)
 	{
 		throw InvalidStorageException("Multiple headers not allowed.");
 	}

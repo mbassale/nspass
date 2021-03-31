@@ -15,9 +15,9 @@ namespace OwnPass::Storage::Serializer {
 		~PasswordSerializer() = default;
 
 		boost::json::object serialize(const PasswordPtr& obj) override;
-		boost::json::array serialize(const std::list<PasswordPtr>& objs) override;
+		boost::json::array serialize(const std::vector<PasswordPtr>& objs) override;
 		PasswordPtr deserialize(boost::json::object& obj) override;
-		std::list<PasswordPtr> deserialize(boost::json::array& objs) override;
+		std::vector<PasswordPtr> deserialize(boost::json::array& objs) override;
 	};
 }
 

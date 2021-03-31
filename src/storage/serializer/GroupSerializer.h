@@ -16,10 +16,10 @@ namespace OwnPass::Storage::Serializer {
 		~GroupSerializer() = default;
 
 		boost::json::object serialize(const GroupPtr& obj) override;
-		boost::json::array serialize(const std::list<GroupPtr>& objs) override;
+		boost::json::array serialize(const std::vector<GroupPtr>& objs) override;
 
 		GroupPtr deserialize(boost::json::object& obj) override;
-		std::list<GroupPtr> deserialize(boost::json::array& objs) override;
+		std::vector<GroupPtr> deserialize(boost::json::array& objs) override;
 	};
 }
 

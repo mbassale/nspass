@@ -61,7 +61,7 @@ namespace OwnPass::Storage {
 		return storage_header;
 	}
 
-	list<Category>& JsonStorage::list_categories()
+	vector<Category>& JsonStorage::list_categories()
 	{
 		return categories;
 	}
@@ -100,7 +100,7 @@ namespace OwnPass::Storage {
 	void JsonStorage::create_storage_file()
 	{
 		storage_header = StorageHeader();
-		categories = std::list<Category>();
+		categories = std::vector<Category>();
 		save();
 	}
 
@@ -142,7 +142,7 @@ namespace OwnPass::Storage {
 		StorageSerializer storage_serializer{};
 		StorageTuple storage_tuple = storage_serializer.deserialize(root_obj);
 		storage_header = std::get<StorageHeader>(storage_tuple);
-		categories = std::get<std::list<Category>>(storage_tuple);
+		categories = std::get<std::vector<Category>>(storage_tuple);
 	}
 
 	void JsonStorage::verify_file_header(std::string_view contents)

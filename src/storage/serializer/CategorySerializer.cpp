@@ -13,15 +13,14 @@ namespace OwnPass::Storage::Serializer {
 	boost::json::object CategorySerializer::serialize(const Category& obj)
 	{
 		GroupSerializer group_serializer;
-		std::list<GroupPtr> groups{ obj.get_groups().begin(), obj.get_groups().end() };
 		return {
 				{ "id", boost::uuids::to_string(obj.get_id()) },
 				{ "name", obj.get_name() },
-				{ "groups", group_serializer.serialize(groups) }
+				{ "groups", group_serializer.serialize(obj.get_groups()) }
 		};
 	}
 
-	boost::json::array CategorySerializer::serialize(const std::list<Category>& objs)
+	boost::json::array CategorySerializer::serialize(const std::vector<Category>& objs)
 	{
 		boost::json::array category_data;
 		for (auto& category : objs) {
@@ -38,19 +37,19 @@ namespace OwnPass::Storage::Serializer {
 		boost::uuids::uuid category_id = gen(id_str.c_str());
 		auto& category_name = obj["name"].as_string();
 		auto& groups_data = obj["groups"].as_array();
-		std::list<GroupPtr> groups;
+		std::vector<GroupPtr> groups;
 		if (!groups_data.empty()) {
 			GroupSerializer group_serializer;
 			groups = group_serializer.deserialize(groups_data);
 		}
-		std::vector<GroupPtr> groups2{ groups.begin(), groups.end() };
-		Category category{ category_id, category_name.c_str(), groups2 };
+		Category category{ category_id, category_name.c_str(), groups };
 		return category;
 	}
 
-	std::list<Category> CategorySerializer::deserialize(boost::json::array& objs)
+	std::vector<Category> CategorySerializer::deserialize(boost::json::array& objs)
 	{
-		std::list<Category> categories;
+		std::vector<Category> categories;
+		categories.reserve(objs.size());
 		for (auto category_datum : objs) {
 			auto category_obj = category_datum.as_object();
 			auto category = deserialize(category_obj);
@@ -60,9 +59,9 @@ namespace OwnPass::Storage::Serializer {
 		return categories;
 	}
 
-	std::list<Category> CategorySerializer::make_default()
+	std::vector<Category> CategorySerializer::make_default()
 	{
-		return std::list<Category>();
+		return std::vector<Category>();
 	}
 
 }
