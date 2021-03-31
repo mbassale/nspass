@@ -10,7 +10,7 @@
 
 using namespace std;
 using OwnPass::IdGenerator;
-using OwnPass::Group;
+using OwnPass::GroupPtr;
 using OwnPass::GroupFactory;
 using OwnPass::Category;
 using OwnPass::CategoryFactory;
@@ -22,7 +22,7 @@ public:
 	CategorySerializerFixture() = default;
 
 protected:
-	static void assert_category_serializer(string_view name, const list<Group>& groups = list<Group>())
+	static void assert_category_serializer(string_view name, const vector<GroupPtr>& groups = vector<GroupPtr>())
 	{
 		auto category1 = CategoryFactory::make(name, groups);
 		CategorySerializer category_serializer1;
@@ -36,9 +36,9 @@ protected:
 		REQUIRE(category1.get_groups().size() == category2.get_groups().size());
 		if (!groups.empty()) {
 			for (const auto& group : groups) {
-				auto group_opt = category2.find_group(group.get_id());
-				REQUIRE(group_opt.has_value());
-				REQUIRE(group_opt.value().get().get_id() == group.get_id());
+				auto group2 = category2.find_group(group->get_id());
+				REQUIRE(group2);
+				REQUIRE(group2->get_id() == group->get_id());
 			}
 		}
 	}
@@ -55,7 +55,7 @@ TEST_CASE_METHOD(CategorySerializerFixture, "CategorySerializer - serialize/dese
 TEST_CASE_METHOD(CategorySerializerFixture, "CategorySerializer - serialize/deserialize with groups",
 		"[category serializer]")
 {
-	list<Group> groups;
+	vector<GroupPtr> groups;
 	for (auto i = 0; i < 5; i++) {
 		stringstream ss;
 		ss << "Group #" << i;

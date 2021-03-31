@@ -10,16 +10,16 @@
 #include "JsonSerializer.h"
 
 namespace OwnPass::Storage::Serializer {
-	class GroupSerializer : public JsonSerializer<Group> {
+	class GroupSerializer : public JsonSerializer<GroupPtr> {
 	public:
 		GroupSerializer() = default;
 		~GroupSerializer() = default;
 
-		boost::json::object serialize(const Group& obj) override;
-		boost::json::array serialize(const std::list<Group>& objs) override;
+		boost::json::object serialize(const GroupPtr& obj) override;
+		boost::json::array serialize(const std::list<GroupPtr>& objs) override;
 
-		Group deserialize(boost::json::object& obj) override;
-		std::list<Group> deserialize(boost::json::array& objs) override;
+		GroupPtr deserialize(boost::json::object& obj) override;
+		std::list<GroupPtr> deserialize(boost::json::array& objs) override;
 	};
 }
 

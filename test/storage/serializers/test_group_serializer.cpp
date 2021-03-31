@@ -32,14 +32,14 @@ protected:
 		auto group_json2 = TestUtility::convert_string_to_json(json_string);
 		GroupSerializer group_serializer2;
 		auto group2 = group_serializer2.deserialize(group_json2);
-		REQUIRE(group1.get_id() == group2.get_id());
-		REQUIRE(group1.get_name() == group2.get_name());
-		REQUIRE(group1.get_url() == group2.get_url());
-		REQUIRE(group1.get_description() == group2.get_description());
-		REQUIRE(group1.get_passwords().size() == group2.get_passwords().size());
+		REQUIRE(group1->get_id() == group2->get_id());
+		REQUIRE(group1->get_name() == group2->get_name());
+		REQUIRE(group1->get_url() == group2->get_url());
+		REQUIRE(group1->get_description() == group2->get_description());
+		REQUIRE(group1->get_passwords().size() == group2->get_passwords().size());
 		if (!passwords.empty()) {
 			for (const auto& password1 : passwords) {
-				auto password2 = group2.find_password(password1->get_id());
+				auto password2 = group2->find_password(password1->get_id());
 				REQUIRE(password2);
 				REQUIRE(password1->get_id() == password2->get_id());
 			}

@@ -24,8 +24,8 @@ namespace OwnPass::Commands {
 		for (auto& category : categories) {
 			auto& groups = category.get_groups();
 			for (auto& group : groups) {
-				group_items.emplace_back(group.get_id(), category.get_name(), group.get_name(),
-						group.get_passwords().size());
+				group_items.emplace_back(group->get_id(), category.get_name(), group->get_name(),
+						group->get_passwords().size());
 			}
 		}
 		std::vector<std::string> headers = { "Category", get_group_column_header(), "# Passwords" };

@@ -16,13 +16,13 @@ namespace OwnPass::Query {
 			if (args.search.empty()) {
 				auto& groups = category.get_groups();
 				for (auto& group : groups) {
-					results.push_back(std::ref(group));
+					results.push_back(std::ref(*group));
 				}
 			}
 			else {
 				auto category_groups = category.find_groups(args.search);
 				for (auto group_ref : category_groups) {
-					results.push_back(group_ref);
+					results.push_back(*group_ref);
 				}
 			}
 		}

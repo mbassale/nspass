@@ -15,12 +15,12 @@ namespace OwnPass::Commands {
 		// TODO: we should have a second master pass or pin to encrypt this password.
 		auto password_ptr = PasswordFactory::make(username,
 				SecureString::FromPlainText(username, password), url, description);
-		group_obj.add_password(password_ptr);
+		group_obj->add_password(password_ptr);
 		category_obj.save_group(group_obj);
 		get_storage().save_category(category_obj);
 		category_id = category_obj.get_id();
 		password_id = password_ptr->get_id();
-		group_id = group_obj.get_id();
+		group_id = group_obj->get_id();
 	}
 
 	void CreatePasswordCommand::undo()
@@ -28,12 +28,11 @@ namespace OwnPass::Commands {
 		if (category_id.is_nil() || group_id.is_nil() || password_id.is_nil()) return;
 		auto category_opt = get_storage().find_category(category_id);
 		if (category_opt.has_value()) {
-			auto group_opt = category_opt.value().get().find_group(group_id);
-			if (group_opt.has_value()) {
-				auto& group_obj = group_opt.value().get();
-				auto password_ptr = group_obj.find_password(password_id);
+			auto group_obj = category_opt.value().get().find_group(group_id);
+			if (group_obj) {
+				auto password_ptr = group_obj->find_password(password_id);
 				if (password_ptr) {
-					group_obj.remove_password(password_ptr);
+					group_obj->remove_password(password_ptr);
 				}
 			}
 		}
@@ -47,20 +46,16 @@ namespace OwnPass::Commands {
 		return Category{ category };
 	}
 
-	Group CreatePasswordCommand::find_or_create_group(Category& category_obj)
+	GroupPtr CreatePasswordCommand::find_or_create_group(Category& category_obj)
 	{
-		optional<GroupRef> group_opt;
+		GroupPtr group_obj;
 		if (site.length() > 0) {
-			group_opt = category_obj.find_group(site);
-			if (group_opt.has_value())
-				return group_opt->get();
-			return GroupFactory::make_site(site);
+			group_obj = category_obj.find_group(site);
+			return group_obj ? group_obj : GroupFactory::make_site(site);
 		}
 		else if (application.length() > 0) {
-			group_opt = category_obj.find_group(application);
-			if (group_opt.has_value())
-				return group_opt->get();
-			return GroupFactory::make_application(application);
+			group_obj = category_obj.find_group(application);
+			return group_obj ? group_obj : GroupFactory::make_application(application);
 		}
 		throw ApplicationException{ "Attempt to store password without associated site or application." };
 	}

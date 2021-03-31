@@ -18,8 +18,7 @@ namespace OwnPass {
 		Category()
 				:id{ boost::uuids::random_generator()() }, name{ DefaultName } { }
 
-		Category(const Category& other)
-				:id{ other.id }, name{ other.name }, groups{ other.groups } { }
+		Category(const Category& other) = default;
 
 		Category(Category&& other) noexcept
 				:id{} { *this = std::move(other); }
@@ -27,7 +26,7 @@ namespace OwnPass {
 		explicit Category(std::string_view name)
 				:id{ IdGenerator::make() }, name{ name } { }
 
-		Category(ObjectId id, std::string_view name, std::list<Group> groups)
+		Category(ObjectId id, std::string_view name, std::vector<GroupPtr> groups)
 				:id{ id }, name{ name }, groups{ std::move(groups) } { }
 
 		~Category() = default;
@@ -60,20 +59,17 @@ namespace OwnPass {
 			return *this;
 		}
 
-		[[nodiscard]] const std::list<Group>& get_groups() const { return groups; }
+		[[nodiscard]] const std::vector<GroupPtr>& get_groups() const { return groups; }
 
-		[[nodiscard]] std::list<Group>& get_groups() { return groups; }
+		Category& add_group(const GroupPtr& group);
 
-		Category& add_group(Group& group);
+		GroupPtr find_group(ObjectId group_id);
+		GroupPtr find_group(std::string_view group_name);
+		std::list<GroupPtr> find_groups(std::string_view search);
 
-		std::optional<GroupRef> find_group(ObjectId group_id);
-		std::optional<GroupRef> find_group(std::string_view group_name);
+		Category& save_group(const GroupPtr& group);
 
-		std::list<GroupRef> find_groups(std::string_view search);
-
-		Category& save_group(const Group& group);
-
-		Category& remove_group(Group& group);
+		Category& remove_group(const GroupPtr& group);
 
 		Category& remove_group(std::string_view group_name);
 
@@ -82,7 +78,7 @@ namespace OwnPass {
 	private:
 		ObjectId id;
 		std::string name;
-		std::list<Group> groups;
+		std::vector<GroupPtr> groups;
 	};
 
 	typedef std::reference_wrapper<Category> CategoryRef;
@@ -96,7 +92,7 @@ namespace OwnPass {
 			return Category{ name };
 		}
 
-		static Category make(std::string_view name, const std::list<Group>& groups)
+		static Category make(std::string_view name, const std::vector<GroupPtr>& groups)
 		{
 			return Category{ IdGenerator::make(), name, groups };
 		}

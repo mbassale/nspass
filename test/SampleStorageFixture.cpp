@@ -49,7 +49,7 @@ void SampleStorageFixture::reset_sample_storage()
 				plain_pass << "test" << i << '_' << j << '_' << k;
 				auto secure_pass = SecureString::FromPlainText(username.str(), plain_pass.str());
 				auto password = PasswordFactory::make(username.str(), secure_pass);
-				group.add_password(password);
+				group->add_password(password);
 			}
 			category.save_group(group);
 		}

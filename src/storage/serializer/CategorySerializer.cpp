@@ -13,10 +13,11 @@ namespace OwnPass::Storage::Serializer {
 	boost::json::object CategorySerializer::serialize(const Category& obj)
 	{
 		GroupSerializer group_serializer;
+		std::list<GroupPtr> groups{ obj.get_groups().begin(), obj.get_groups().end() };
 		return {
 				{ "id", boost::uuids::to_string(obj.get_id()) },
 				{ "name", obj.get_name() },
-				{ "groups", group_serializer.serialize(obj.get_groups()) }
+				{ "groups", group_serializer.serialize(groups) }
 		};
 	}
 
@@ -37,12 +38,13 @@ namespace OwnPass::Storage::Serializer {
 		boost::uuids::uuid category_id = gen(id_str.c_str());
 		auto& category_name = obj["name"].as_string();
 		auto& groups_data = obj["groups"].as_array();
-		std::list<Group> groups;
+		std::list<GroupPtr> groups;
 		if (!groups_data.empty()) {
 			GroupSerializer group_serializer;
 			groups = group_serializer.deserialize(groups_data);
 		}
-		Category category{ category_id, category_name.c_str(), groups };
+		std::vector<GroupPtr> groups2{ groups.begin(), groups.end() };
+		Category category{ category_id, category_name.c_str(), groups2 };
 		return category;
 	}
 
