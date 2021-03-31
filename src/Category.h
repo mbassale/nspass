@@ -83,18 +83,20 @@ namespace OwnPass {
 
 	typedef std::reference_wrapper<Category> CategoryRef;
 
+	typedef std::shared_ptr<Category> CategoryPtr;
+
 	class CategoryFactory {
 	public:
 		CategoryFactory() = delete;
 
-		static Category make(std::string_view name)
+		static CategoryPtr make(std::string_view name)
 		{
-			return Category{ name };
+			return std::make_shared<Category>(name);
 		}
 
-		static Category make(std::string_view name, const std::vector<GroupPtr>& groups)
+		static CategoryPtr make(std::string_view name, const std::vector<GroupPtr>& groups)
 		{
-			return Category{ IdGenerator::make(), name, groups };
+			return std::make_shared<Category>(IdGenerator::make(), name, groups);
 		}
 	};
 }

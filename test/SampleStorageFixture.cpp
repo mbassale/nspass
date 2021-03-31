@@ -51,10 +51,10 @@ void SampleStorageFixture::reset_sample_storage()
 				auto password = PasswordFactory::make(username.str(), secure_pass);
 				group->add_password(password);
 			}
-			category.save_group(group);
+			category->save_group(group);
 		}
 
-		storage.save_category(category);
+		storage.save_category(*category);
 	}
 	storage.flush();
 }
