@@ -29,9 +29,9 @@ TEST_CASE_METHOD(GroupQueryFixture, "GroupQuery - find all groups", GroupQueryFi
 	reset_sample_storage();
 	GroupQuery::QueryArguments args;
 	GroupQuery group_query{ get_storage(), args };
-	auto results = group_query.execute();
+	const auto results = group_query.execute();
 	REQUIRE_FALSE(results.empty());
-	auto& categories = get_storage().get_categories();
+	const auto& categories = get_storage().get_categories();
 	REQUIRE(results.size() == categories.size() * categories.front()->get_groups().size());
 }
 
@@ -42,10 +42,9 @@ TEST_CASE_METHOD(GroupQueryFixture, "GroupQuery - find one group", GroupQueryFix
 	args.category_search = "category #5";
 	args.search = "_5";
 	GroupQuery group_query{ get_storage(), args };
-	auto results = group_query.execute();
+	const auto results = group_query.execute();
 	REQUIRE_FALSE(results.empty());
 	REQUIRE(results.size() == 1);
-	auto group_ref = results.front();
-	auto& group = group_ref.get();
-	REQUIRE(group.get_name() == "Group #5_5");
+	const auto& group = results.front();
+	REQUIRE(group->get_name() == "Group #5_5");
 }

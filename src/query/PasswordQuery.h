@@ -25,7 +25,7 @@ namespace OwnPass::Query {
 	protected:
 		QueryArguments args;
 		std::vector<OwnPass::CategoryPtr> categories;
-		std::vector<OwnPass::GroupRef> groups;
+		std::vector<OwnPass::GroupPtr> groups;
 
 		void find_categories();
 		void find_groups();

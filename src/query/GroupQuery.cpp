@@ -7,21 +7,21 @@
 
 namespace OwnPass::Query {
 
-	std::vector<OwnPass::GroupRef> GroupQuery::execute()
+	std::vector<OwnPass::GroupPtr> GroupQuery::execute()
 	{
 		find_categories();
-		std::vector<GroupRef> results;
-		for (auto& category : categories) {
+		std::vector<GroupPtr> results;
+		for (const auto& category : categories) {
 			if (args.search.empty()) {
-				auto& groups = category->get_groups();
-				for (auto& group : groups) {
-					results.push_back(std::ref(*group));
+				const auto& groups = category->get_groups();
+				for (const auto& group : groups) {
+					results.push_back(group);
 				}
 			}
 			else {
-				auto category_groups = category->find_groups(args.search);
-				for (auto group_ref : category_groups) {
-					results.push_back(*group_ref);
+				const auto category_groups = category->find_groups(args.search);
+				for (const auto& group : category_groups) {
+					results.push_back(group);
 				}
 			}
 		}
