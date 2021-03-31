@@ -7,6 +7,8 @@
 
 #include "../OwnPass.h"
 #include "Command.h"
+
+#include <utility>
 #include "../cli/output/TableOutput.h"
 
 namespace OwnPass::Commands {
@@ -17,12 +19,13 @@ namespace OwnPass::Commands {
 			CSV
 		};
 		static constexpr auto MaxColumnWidth = 32;
-		explicit ListCommand(OwnPass::Application& app, Format format)
-				:Command{ app }, format{ format } { };
+		explicit ListCommand(OwnPass::Application& app, Format format, std::string filter = std::string())
+				:Command{ app }, format{ format }, filter{ std::move(filter) } { };
 
 		[[nodiscard]] Format get_format() { return format; }
 	protected:
 		Format format;
+		std::string filter;
 
 		OwnPass::CLI::Output::TableOutputPtr create_table_output(const std::vector<std::string>& headers);
 	};

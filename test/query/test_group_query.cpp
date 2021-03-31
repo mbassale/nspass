@@ -45,6 +45,6 @@ TEST_CASE_METHOD(GroupQueryFixture, "GroupQuery - find one group", GroupQueryFix
 	const auto results = group_query.execute();
 	REQUIRE_FALSE(results.empty());
 	REQUIRE(results.size() == 1);
-	const auto& group = results.front();
-	REQUIRE(group->get_name() == "Group #5_5");
+	const auto& group_item = results.front();
+	REQUIRE(group_item.group->get_name() == "Group #5_5");
 }

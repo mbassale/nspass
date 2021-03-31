@@ -12,7 +12,14 @@
 #include <utility>
 
 namespace OwnPass::Query {
-	class GroupQuery : public Query<OwnPass::GroupPtr> {
+	struct GroupQueryItem {
+		CategoryPtr category;
+		GroupPtr group;
+		GroupQueryItem(CategoryPtr category, GroupPtr group)
+				:category{ std::move(category) }, group{ std::move(group) } { }
+	};
+
+	class GroupQuery : public Query<GroupQueryItem> {
 	public:
 		struct QueryArguments {
 			std::string category_search;
@@ -20,8 +27,8 @@ namespace OwnPass::Query {
 		};
 
 		GroupQuery(Storage::Storage& storage, QueryArguments args)
-				:Query<OwnPass::GroupPtr>(storage), args{ std::move(args) } { }
-		std::vector<OwnPass::GroupPtr> execute() override;
+				:Query<GroupQueryItem>(storage), args{ std::move(args) } { }
+		std::vector<GroupQueryItem> execute() override;
 	protected:
 		QueryArguments args;
 		std::vector<OwnPass::CategoryPtr> categories;

@@ -31,6 +31,7 @@ namespace OwnPass::CLI::Parsers {
 				("sites,s", "List sites")
 				("applications,a", "List applications")
 				("passwords,p", "List passwords")
+				("query,q", po::value<string>(), "Filter by query term")
 				("format,f", po::value<string>(), "Output Format: stdout (default) or csv");
 
 		try {
@@ -57,17 +58,19 @@ namespace OwnPass::CLI::Parsers {
 			}
 		}
 
+		auto filter = vm.count("query") ? vm["query"].as<string>() : std::string();
+
 		if (vm.count("categories")) {
-			return CommandPtr{ new ListCategoriesCommand{ app, output_format }};
+			return CommandPtr{ new ListCategoriesCommand{ app, output_format, filter }};
 		}
 		else if (vm.count("sites")) {
-			return CommandPtr{ new ListGroupsCommand{ app, GroupType::Site, output_format }};
+			return CommandPtr{ new ListGroupsCommand{ app, GroupType::Site, output_format, filter }};
 		}
 		else if (vm.count("applications")) {
-			return CommandPtr{ new ListGroupsCommand{ app, GroupType::Application, output_format }};
+			return CommandPtr{ new ListGroupsCommand{ app, GroupType::Application, output_format, filter }};
 		}
 		else if (vm.count("passwords")) {
-			return CommandPtr{ new ListPasswordsCommand{ app, output_format }};
+			return CommandPtr{ new ListPasswordsCommand{ app, output_format, filter }};
 		}
 		else {
 			throw InvalidCommandSyntaxException(format_error("Missing argument.", list_desc));

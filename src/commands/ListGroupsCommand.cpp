@@ -3,10 +3,12 @@
 //
 #include "../OwnPass.h"
 #include "../Group.h"
+#include "../query/GroupQuery.h"
 #include "CannotUndoException.h"
 #include "ListGroupsCommand.h"
 
 namespace OwnPass::Commands {
+	using OwnPass::Query::GroupQuery;
 
 	struct GroupItem {
 		ObjectId id;
@@ -19,14 +21,17 @@ namespace OwnPass::Commands {
 
 	void ListGroupsCommand::execute()
 	{
-		auto& categories = app.get_vault().get_storage().get_categories();
+		GroupQuery::QueryArguments args;
+		args.search = filter;
+		GroupQuery group_query{ app.get_vault().get_storage(), args };
+		const auto groups = group_query.execute();
 		std::vector<GroupItem> group_items;
-		for (auto& category : categories) {
-			auto& groups = category->get_groups();
-			for (auto& group : groups) {
-				group_items.emplace_back(group->get_id(), category->get_name(), group->get_name(),
-						group->get_passwords().size());
-			}
+		group_items.reserve(groups.size());
+		for (const auto& group_item : groups) {
+			const auto& category = group_item.category;
+			const auto& group = group_item.group;
+			group_items.emplace_back(group->get_id(), category->get_name(), group->get_name(),
+					group->get_passwords().size());
 		}
 		std::vector<std::string> headers = { "Category", get_group_column_header(), "# Passwords" };
 		auto out = create_table_output(headers);

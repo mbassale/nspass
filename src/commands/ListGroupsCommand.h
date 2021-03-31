@@ -13,8 +13,8 @@ namespace OwnPass::Commands {
 	public:
 		static constexpr auto Name = "list-groups";
 		explicit ListGroupsCommand(OwnPass::Application& app, GroupType group_type = GroupType::Site,
-				Format format = Format::STDOUT)
-				:ListCommand(app, format), group_type{ group_type } { };
+				Format format = Format::STDOUT, const std::string& filter = std::string())
+				:ListCommand(app, format, filter), group_type{ group_type } { };
 		~ListGroupsCommand() override = default;
 
 		std::string_view get_name() override { return Name; }

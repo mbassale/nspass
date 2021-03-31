@@ -12,8 +12,9 @@ namespace OwnPass::Commands {
 	class ListPasswordsCommand : public ListCommand {
 	public:
 		static constexpr auto Name = "list-passwords";
-		explicit ListPasswordsCommand(OwnPass::Application& app, Format format = Format::STDOUT)
-				:ListCommand(app, format) { };
+		explicit ListPasswordsCommand(OwnPass::Application& app, Format format = Format::STDOUT,
+				const std::string& filter = std::string())
+				:ListCommand(app, format, filter) { };
 		~ListPasswordsCommand() override = default;
 
 		std::string_view get_name() override { return Name; }

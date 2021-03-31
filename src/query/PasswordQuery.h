@@ -8,6 +8,7 @@
 #include "../OwnPass.h"
 #include "../Password.h"
 #include "Query.h"
+#include "GroupQuery.h"
 
 namespace OwnPass::Query {
 
@@ -25,7 +26,7 @@ namespace OwnPass::Query {
 	protected:
 		QueryArguments args;
 		std::vector<OwnPass::CategoryPtr> categories;
-		std::vector<OwnPass::GroupPtr> groups;
+		std::vector<OwnPass::Query::GroupQueryItem> groups;
 
 		void find_categories();
 		void find_groups();

@@ -5,6 +5,8 @@
 #ifndef OWNPASS_LISTCATEGORIESCOMMAND_H
 #define OWNPASS_LISTCATEGORIESCOMMAND_H
 
+#include <utility>
+
 #include "../OwnPass.h"
 #include "ListCommand.h"
 
@@ -12,8 +14,9 @@ namespace OwnPass::Commands {
 	class ListCategoriesCommand : public ListCommand {
 	public:
 		static constexpr auto Name = "list-categories";
-		explicit ListCategoriesCommand(OwnPass::Application& app, Format format = Format::STDOUT)
-				:ListCommand(app, format) { };
+		explicit ListCategoriesCommand(OwnPass::Application& app, Format format = Format::STDOUT,
+				const std::string& filter = std::string())
+				:ListCommand(app, format, filter) { };
 		~ListCategoriesCommand() override = default;
 
 		std::string_view get_name() override { return Name; }
