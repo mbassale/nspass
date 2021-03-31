@@ -35,6 +35,6 @@ TEST_CASE_METHOD(VaultFixture, "get storage reference")
 	auto& vault = get_vault(master_password, storage_location);
 	REQUIRE_NOTHROW(vault.get_storage());
 	auto& storage = vault.get_storage();
-	REQUIRE_NOTHROW(storage.list_categories());
+	REQUIRE_NOTHROW(storage.get_categories());
 	std::filesystem::remove(storage_location);
 }

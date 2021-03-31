@@ -19,7 +19,7 @@ namespace OwnPass::Commands {
 
 	void ListGroupsCommand::execute()
 	{
-		auto& categories = app.get_vault().get_storage().list_categories();
+		auto& categories = app.get_vault().get_storage().get_categories();
 		std::vector<GroupItem> group_items;
 		for (auto& category : categories) {
 			auto& groups = category.get_groups();

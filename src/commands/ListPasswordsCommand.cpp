@@ -21,7 +21,7 @@ namespace OwnPass::Commands {
 
 	void ListPasswordsCommand::execute()
 	{
-		auto& categories = app.get_vault().get_storage().list_categories();
+		auto& categories = app.get_vault().get_storage().get_categories();
 		std::vector<PasswordItem> password_items;
 		for (auto& category : categories) {
 			auto& groups = category.get_groups();

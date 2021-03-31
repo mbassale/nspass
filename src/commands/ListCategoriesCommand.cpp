@@ -8,7 +8,7 @@ namespace OwnPass::Commands {
 
 	void ListCategoriesCommand::execute()
 	{
-		auto& categories = app.get_vault().get_storage().list_categories();
+		auto& categories = app.get_vault().get_storage().get_categories();
 		std::vector<std::string> headers = { "Category", "# Sites,Apps" };
 		auto out = create_table_output(headers);
 		out->print_headers();

@@ -18,7 +18,7 @@ namespace OwnPass::Commands {
 		cout << "Email: " << header.get_email() << endl;
 		cout << "Created At: " << timestamp_to_string(header.get_created_at()) << endl;
 		cout << "Updated At: " << timestamp_to_string(header.get_updated_at()) << endl;
-		cout << "Categories Count: " << storage.list_categories().size() << endl;
+		cout << "Categories Count: " << storage.get_categories().size() << endl;
 		cout << endl;
 	}
 

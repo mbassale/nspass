@@ -61,7 +61,7 @@ namespace OwnPass::Storage {
 		return storage_header;
 	}
 
-	vector<Category>& JsonStorage::list_categories()
+	vector<Category>& JsonStorage::get_categories()
 	{
 		return categories;
 	}

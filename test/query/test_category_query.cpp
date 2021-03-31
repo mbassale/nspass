@@ -29,7 +29,7 @@ TEST_CASE_METHOD(CategoryQueryFixture, "CategoryQuery - find all categories", Ca
 	CategoryQuery category_query{ get_storage(), std::string() };
 	auto results = category_query.execute();
 	REQUIRE_FALSE(results.empty());
-	auto& categories = get_storage().list_categories();
+	auto& categories = get_storage().get_categories();
 	REQUIRE(results.size() == categories.size());
 	for (auto& category_ref : results) {
 		auto& category = category_ref.get();

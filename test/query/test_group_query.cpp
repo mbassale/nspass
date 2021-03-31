@@ -31,7 +31,7 @@ TEST_CASE_METHOD(GroupQueryFixture, "GroupQuery - find all groups", GroupQueryFi
 	GroupQuery group_query{ get_storage(), args };
 	auto results = group_query.execute();
 	REQUIRE_FALSE(results.empty());
-	auto& categories = get_storage().list_categories();
+	auto& categories = get_storage().get_categories();
 	REQUIRE(results.size() == categories.size() * categories.front().get_groups().size());
 }
 

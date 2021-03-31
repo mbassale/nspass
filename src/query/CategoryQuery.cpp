@@ -12,7 +12,7 @@ namespace OwnPass::Query {
 	{
 		boost::algorithm::trim(search);
 		std::list<CategoryRef> results;
-		auto& categories = storage.list_categories();
+		auto& categories = storage.get_categories();
 		for (auto& category : categories) {
 			if (search.empty() || boost::algorithm::icontains(category.get_name(), search))
 				results.emplace_back(category);
