@@ -26,6 +26,13 @@ TEST_CASE("Create passwords")
 		REQUIRE(password->get_password() == password_s);
 		REQUIRE(password->get_url() == url);
 		REQUIRE(password->get_description() == description);
+		group.add_password(password);
+
+		// test copy constructor
+		Group group2{ group };
+		REQUIRE(group2.get_passwords().size() == 1);
+		auto password2 = group2.get_passwords().front();
+		REQUIRE(password2->get_id() == password->get_id());
 	}
 
 	SECTION("in a site") {
@@ -37,6 +44,13 @@ TEST_CASE("Create passwords")
 		REQUIRE(password->get_username() == username_s);
 		REQUIRE(password->get_password() == password_s);
 		REQUIRE(password->get_description() == description);
+		site.add_password(password);
+
+		// test copy constructor
+		Group site2{ site };
+		REQUIRE(site2.get_passwords().size() == 1);
+		auto password2 = site2.get_passwords().front();
+		REQUIRE(password2->get_id() == password->get_id());
 	}
 
 	SECTION("in an application") {
@@ -47,6 +61,13 @@ TEST_CASE("Create passwords")
 		REQUIRE(password->get_username() == username_s);
 		REQUIRE(password->get_password() == password_s);
 		REQUIRE(password->get_description() == description);
+		app.add_password(password);
+
+		// test copy constructor
+		Group app2{ app };
+		REQUIRE(app2.get_passwords().size() == 1);
+		auto password2 = app2.get_passwords().front();
+		REQUIRE(password2->get_id() == password->get_id());
 	}
 }
 
