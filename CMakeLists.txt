@@ -32,6 +32,7 @@ set(SOURCE_FILES
         src/cli/parsers/ListCommandParser.cpp src/cli/parsers/ListCommandParser.h
         src/cli/parsers/CreatePasswordCommandParser.h src/cli/parsers/CreatePasswordCommandParser.cpp
         src/cli/parsers/CopyPasswordCommandParser.cpp src/cli/parsers/CopyPasswordCommandParser.h
+        src/cli/parsers/ImportCommandParser.cpp src/cli/parsers/ImportCommandParser.h
         src/cli/parsers/InspectStorageCommandParser.cpp src/cli/parsers/InspectStorageCommandParser.h
         src/cli/parsers/DumpStorageCommandParser.cpp src/cli/parsers/DumpStorageCommandParser.h
         src/cli/parsers/PurgeStorageCommandParser.h src/cli/parsers/PurgeStorageCommandParser.cpp
@@ -62,6 +63,7 @@ set(SOURCE_FILES
         src/commands/ListGroupsCommand.cpp src/commands/ListGroupsCommand.h
         src/commands/ListPasswordsCommand.cpp src/commands/ListPasswordsCommand.h
         src/commands/CopyPasswordCommand.cpp src/commands/CopyPasswordCommand.h
+        src/commands/ImportLastPassCommand.cpp src/commands/ImportLastPassCommand.h
         src/storage/Storage.cpp src/storage/Storage.h
         src/storage/StorageFactory.cpp src/storage/StorageFactory.h
         src/storage/StorageHeader.cpp src/storage/StorageHeader.h
@@ -103,6 +105,7 @@ set(TEST_FILES
         test/crypto/test_encrypted_file.cpp
         test/cli/test_command_parser.cpp
         test/cli/parsers/test_list_command_parser.cpp
+        test/cli/parsers/test_import_command_parser.cpp
         test/cli/parsers/test_create_password_command_parser.cpp
         test/cli/parsers/test_copy_password_command_parser.cpp
         test/cli/parsers/test_inspect_storage_command_parser.cpp
