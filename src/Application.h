@@ -8,6 +8,7 @@
 #include "OwnPass.h"
 #include "storage/JsonStorageFactory.h"
 #include "Vault.h"
+#include "storage/Storage.h"
 
 namespace OwnPass {
 
@@ -28,6 +29,7 @@ namespace OwnPass {
 		static Application& instance();
 
 		[[nodiscard]] Vault& get_vault() const;
+		[[nodiscard]] OwnPass::Storage::Storage& get_storage() const;
 		void init();
 		void cleanup();
 

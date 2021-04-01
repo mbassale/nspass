@@ -69,4 +69,9 @@ namespace OwnPass {
 		if (vault) return *vault;
 		throw ApplicationException{ "Vault not initialized." };
 	}
+
+	OwnPass::Storage::Storage& Application::get_storage() const
+	{
+		return get_vault().get_storage();
+	}
 }
