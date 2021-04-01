@@ -5,24 +5,36 @@
 #ifndef OWNPASS_COPYPASSWORDCOMMAND_H
 #define OWNPASS_COPYPASSWORDCOMMAND_H
 
+#include "../OwnPass.h"
 #include "Command.h"
 
 namespace OwnPass::Commands {
-	class CopyPasswordCommand : Command {
+	class CopyPasswordCommand : public Command {
 	public:
 		static constexpr auto Name = "copy-password";
-		explicit CopyPasswordCommand(OwnPass::Application& app)
-		:Command(app) { };
+		CopyPasswordCommand(OwnPass::Application& app, std::string category_filter, std::string group_filter,
+				std::string password_filter)
+				:Command(app), category_filter{ std::move(category_filter) }, group_filter{ std::move(group_filter) },
+				 password_filter{ std::move(password_filter) } { };
 		~CopyPasswordCommand() override = default;
 
 		std::string_view get_name() override { return Name; }
 		bool requires_master_password() override { return true; }
+
+		[[nodiscard]] std::string_view get_category_filter() const { return category_filter; }
+		[[nodiscard]] std::string_view get_group_filter() const { return group_filter; }
+		[[nodiscard]] std::string_view get_password_filter() const { return password_filter; }
+		[[nodiscard]] PasswordWeakPtr get_copied_password() const { return copied_password; }
+
 		void execute() override;
 		void undo() override;
 	protected:
-		std::string category;
-		std::string group;
-		std::string password_search;
+		std::string category_filter;
+		std::string group_filter;
+		std::string password_filter;
+		PasswordWeakPtr copied_password;
+
+		PasswordPtr find_first_password();
 	};
 }
 

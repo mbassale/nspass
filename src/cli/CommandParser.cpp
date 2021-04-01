@@ -12,6 +12,7 @@
 #include "../commands/SetStorageLocationCommand.h"
 #include "./parsers/InspectStorageCommandParser.h"
 #include "./parsers/CreatePasswordCommandParser.h"
+#include "./parsers/CopyPasswordCommandParser.h"
 #include "./parsers/PurgeStorageCommandParser.h"
 #include "./parsers/DumpStorageCommandParser.h"
 #include "./parsers/ListCommandParser.h"
@@ -70,8 +71,9 @@ Command can be one of:
 			string command_name = vm["command"].as<string>();
 
 			CommandTable command_table[] = {
-					CommandTable{ "inspect", InspectStorageCommandParser{ app, parsed, vm }},
 					CommandTable{ "create", CreatePasswordCommandParser{ app, parsed, vm }},
+					CommandTable{ "copy", CopyPasswordCommandParser{ app, parsed, vm }},
+					CommandTable{ "inspect", InspectStorageCommandParser{ app, parsed, vm }},
 					CommandTable{ "purge", PurgeStorageCommandParser{ app, parsed, vm }},
 					CommandTable{ "dump", DumpStorageCommandParser{ app, parsed, vm }},
 					CommandTable{ "list", ListCommandParser{ app, parsed, vm }},

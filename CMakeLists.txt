@@ -29,11 +29,12 @@ set(SOURCE_FILES
         src/cli/CommandParser.h src/cli/CommandParser.cpp
         src/cli/InvalidCommandSyntaxException.h src/cli/InvalidCommandSyntaxException.cpp
         src/cli/parsers/Parser.h src/cli/parsers/Parser.cpp
-        src/cli/parsers/InspectStorageCommandParser.cpp src/cli/parsers/InspectStorageCommandParser.h
-        src/cli/parsers/CreatePasswordCommandParser.h src/cli/parsers/CreatePasswordCommandParser.cpp
-        src/cli/parsers/PurgeStorageCommandParser.h src/cli/parsers/PurgeStorageCommandParser.cpp
-        src/cli/parsers/DumpStorageCommandParser.cpp src/cli/parsers/DumpStorageCommandParser.h
         src/cli/parsers/ListCommandParser.cpp src/cli/parsers/ListCommandParser.h
+        src/cli/parsers/CreatePasswordCommandParser.h src/cli/parsers/CreatePasswordCommandParser.cpp
+        src/cli/parsers/CopyPasswordCommandParser.cpp src/cli/parsers/CopyPasswordCommandParser.h
+        src/cli/parsers/InspectStorageCommandParser.cpp src/cli/parsers/InspectStorageCommandParser.h
+        src/cli/parsers/DumpStorageCommandParser.cpp src/cli/parsers/DumpStorageCommandParser.h
+        src/cli/parsers/PurgeStorageCommandParser.h src/cli/parsers/PurgeStorageCommandParser.cpp
         src/cli/input/SecretInput.h
         src/cli/input/StringSecretInput.h src/cli/input/StringSecretInput.cpp
         src/cli/input/PromptSecretInput.h src/cli/input/PromptSecretInput.cpp
@@ -101,11 +102,12 @@ set(TEST_FILES
         test/crypto/test_secure_string.cpp
         test/crypto/test_encrypted_file.cpp
         test/cli/test_command_parser.cpp
-        test/cli/parsers/test_inspect_storage_command_parser.cpp
+        test/cli/parsers/test_list_command_parser.cpp
         test/cli/parsers/test_create_password_command_parser.cpp
+        test/cli/parsers/test_copy_password_command_parser.cpp
+        test/cli/parsers/test_inspect_storage_command_parser.cpp
         test/cli/parsers/test_purge_storage_command_parser.cpp
         test/cli/parsers/test_dump_storage_command_parser.cpp
-        test/cli/parsers/test_list_command_parser.cpp
         test/cli/input/test_string_secret_input.cpp
         test/cli/input/test_prompt_secret_input.cpp
         test/cli/input/test_prompt_confirm_input.cpp

@@ -56,7 +56,7 @@ namespace OwnPass {
 			return *this;
 		}
 
-		[[nodiscard]] const SecureString& get_password() const { return password; }
+		[[nodiscard]] SecureString& get_password() { return password; }
 
 		Password& set_password(const SecureString& new_password)
 		{
@@ -93,6 +93,8 @@ namespace OwnPass {
 	typedef std::reference_wrapper<Password> PasswordRef;
 
 	typedef std::shared_ptr<Password> PasswordPtr;
+
+	typedef std::weak_ptr<Password> PasswordWeakPtr;
 
 	class PasswordFactory {
 	public:
