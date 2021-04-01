@@ -12,9 +12,9 @@ namespace OwnPass::Crypto {
 	class SecureString {
 	public:
 		SecureString()
-				:cipher_text{}, plain_text{} { }
+				:cipher_text{} { }
 		SecureString(const SecureString& other)
-				:cipher_text{ other.cipher_text }, plain_text{} { }
+				:cipher_text{ other.cipher_text } { }
 		SecureString(SecureString&& other) noexcept
 		{
 			*this = std::move(other);
@@ -26,21 +26,17 @@ namespace OwnPass::Crypto {
 		{
 			if (this == &other) return *this;
 			cipher_text = other.cipher_text;
-			plain_text = {};
 			return *this;
 		}
 
 		SecureString& operator=(SecureString&& other) noexcept
 		{
 			cipher_text = std::move(other.cipher_text);
-			plain_text = {};
-			other.plain_text.clear();
 			return *this;
 		}
 
 		[[nodiscard]] std::string_view get_cipher_text() const { return cipher_text; }
-		std::string_view get_plain_text(std::string_view shared_key);
-		void clear_plain_text() { plain_text.clear(); }
+		std::string get_plain_text(std::string_view shared_key);
 
 		bool operator==(const SecureString& other) const
 		{
@@ -65,7 +61,6 @@ namespace OwnPass::Crypto {
 
 	private:
 		std::string cipher_text;
-		std::string plain_text;
 	};
 }
 
