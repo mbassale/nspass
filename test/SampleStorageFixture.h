@@ -15,7 +15,7 @@ public:
 	~SampleStorageFixture();
 
 	void reset_sample_storage();
-	[[nodiscard]] OwnPass::Storage::Storage& get_storage() { return app.get_vault().get_storage(); }
+	[[nodiscard]] OwnPass::Storage::Storage& get_storage() { return app.get_storage(); }
 protected:
 	static constexpr auto DefaultMasterPassword = "test1234";
 	OwnPass::Application& app;

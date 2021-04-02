@@ -8,8 +8,10 @@
 #include <ctime>
 #include <chrono>
 #include <memory>
+#include <iterator>
 #include <string>
 #include <string_view>
+#include <regex>
 #include <array>
 #include <list>
 #include <vector>
