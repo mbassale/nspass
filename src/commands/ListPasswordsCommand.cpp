@@ -3,10 +3,13 @@
 //
 #include "../OwnPass.h"
 #include "../Group.h"
+#include "../query/PasswordQuery.h"
 #include "CannotUndoException.h"
 #include "ListPasswordsCommand.h"
 
 namespace OwnPass::Commands {
+	using OwnPass::Query::PasswordQuery;
+
 	struct PasswordItem {
 		ObjectId id;
 		std::string_view category_name;
@@ -21,17 +24,18 @@ namespace OwnPass::Commands {
 
 	void ListPasswordsCommand::execute()
 	{
-		auto& categories = app.get_vault().get_storage().get_categories();
+		PasswordQuery::QueryArguments args;
+		args.category_search = filter.category_filter;
+		args.group_search = filter.group_filter;
+		args.username = filter.password_filter;
+		PasswordQuery password_query{ get_storage(), args };
+		auto results = password_query.execute();
 		std::vector<PasswordItem> password_items;
-		for (auto& category : categories) {
-			auto& groups = category->get_groups();
-			for (auto& group : groups) {
-				auto& passwords = group->get_passwords();
-				for (auto& password : passwords) {
-					password_items.emplace_back(password->get_id(), category->get_name(), group->get_name(),
-							password->get_username(), password->get_url());
-				}
-			}
+		password_items.reserve(results.size());
+		for (auto& result_item : results) {
+			password_items.emplace_back(result_item.password->get_id(), result_item.category->get_name(),
+					result_item.group->get_name(), result_item.password->get_username(),
+					result_item.password->get_url());
 		}
 		std::vector<std::string> headers = { "Category", "Site/App", "Username", "URL" };
 		auto out = create_table_output(headers);

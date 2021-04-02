@@ -14,6 +14,8 @@ namespace OwnPass::Commands {
 	using OwnPass::CLI::Output::CSVTableOutputOptions;
 	using OwnPass::CLI::Output::CSVTableOutput;
 
+	const ListCommand::Filter ListCommand::EmptyFilter;
+
 	TableOutputPtr ListCommand::create_table_output(const std::vector<std::string>& headers)
 	{
 		switch (format) {

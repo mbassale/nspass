@@ -27,12 +27,11 @@ namespace OwnPass::CLI::Parsers {
 		po::options_description list_desc{ "List command options" };
 		list_desc.add_options()
 				("help,h", "This help")
-				("categories,c", "List categories")
-				("sites,s", "List sites")
-				("applications,a", "List applications")
-				("passwords,p", "List passwords")
-				("query,q", po::value<string>(), "Filter by query term")
-				("format,f", po::value<string>(), "Output Format: stdout (default) or csv");
+				("categories,c", po::value<string>()->implicit_value(""), "List categories")
+				("sites,s", po::value<string>()->implicit_value(""), "List sites")
+				("applications,a", po::value<string>()->implicit_value(""), "List applications")
+				("passwords,p", po::value<string>()->implicit_value(""), "List passwords")
+				("format,f", po::value<string>()->default_value("stdout"), "Output Format: stdout (default) or csv");
 
 		try {
 			vector<string> opts = po::collect_unrecognized(parsed.options, po::include_positional);
@@ -58,19 +57,33 @@ namespace OwnPass::CLI::Parsers {
 			}
 		}
 
-		auto filter = vm.count("query") ? vm["query"].as<string>() : std::string();
-
+		ListCommand::Filter filter = ListCommand::EmptyFilter;
 		if (vm.count("categories")) {
-			return CommandPtr{ new ListCategoriesCommand{ app, output_format, filter }};
+			filter.category_filter = vm["categories"].as<string>();
 		}
-		else if (vm.count("sites")) {
-			return CommandPtr{ new ListGroupsCommand{ app, GroupType::Site, output_format, filter }};
+		if (vm.count("sites")) {
+			filter.group_filter = vm["sites"].as<string>();
 		}
-		else if (vm.count("applications")) {
-			return CommandPtr{ new ListGroupsCommand{ app, GroupType::Application, output_format, filter }};
+		if (vm.count("applications")) {
+			filter.group_filter = vm["applications"].as<string>();
 		}
-		else if (vm.count("passwords")) {
+		if (vm.count("passwords")) {
+			filter.password_filter = vm["passwords"].as<string>();
+		}
+
+		if (vm.count("passwords")) {
 			return CommandPtr{ new ListPasswordsCommand{ app, output_format, filter }};
+		}
+		else if (vm.count("sites") || vm.count("applications")) {
+			if (vm.count("sites")) {
+				return CommandPtr{ new ListGroupsCommand{ app, GroupType::Site, output_format, filter }};
+			}
+			else {
+				return CommandPtr{ new ListGroupsCommand{ app, GroupType::Application, output_format, filter }};
+			}
+		}
+		else if (vm.count("categories")) {
+			return CommandPtr{ new ListCategoriesCommand{ app, output_format, filter }};
 		}
 		else {
 			throw InvalidCommandSyntaxException(format_error("Missing argument.", list_desc));

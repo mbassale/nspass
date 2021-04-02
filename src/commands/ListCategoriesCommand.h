@@ -15,7 +15,7 @@ namespace OwnPass::Commands {
 	public:
 		static constexpr auto Name = "list-categories";
 		explicit ListCategoriesCommand(OwnPass::Application& app, Format format = Format::STDOUT,
-				const std::string& filter = std::string())
+				const Filter& filter = EmptyFilter)
 				:ListCommand(app, format, filter) { };
 		~ListCategoriesCommand() override = default;
 

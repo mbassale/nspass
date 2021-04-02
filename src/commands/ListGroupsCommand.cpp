@@ -22,8 +22,9 @@ namespace OwnPass::Commands {
 	void ListGroupsCommand::execute()
 	{
 		GroupQuery::QueryArguments args;
-		args.search = filter;
-		GroupQuery group_query{ app.get_vault().get_storage(), args };
+		args.category_search = filter.category_filter;
+		args.search = filter.group_filter;
+		GroupQuery group_query{ get_storage(), args };
 		const auto groups = group_query.execute();
 		std::vector<GroupItem> group_items;
 		group_items.reserve(groups.size());

@@ -18,14 +18,21 @@ namespace OwnPass::Commands {
 			STDOUT = 1,
 			CSV
 		};
+		struct Filter {
+			std::string category_filter;
+			std::string group_filter;
+			std::string password_filter;
+		};
+		static const Filter EmptyFilter;
+
 		static constexpr auto MaxColumnWidth = 32;
-		explicit ListCommand(OwnPass::Application& app, Format format, std::string filter = std::string())
+		explicit ListCommand(OwnPass::Application& app, Format format, Filter filter = EmptyFilter)
 				:Command{ app }, format{ format }, filter{ std::move(filter) } { };
 
 		[[nodiscard]] Format get_format() { return format; }
 	protected:
 		Format format;
-		std::string filter;
+		Filter filter;
 
 		OwnPass::CLI::Output::TableOutputPtr create_table_output(const std::vector<std::string>& headers);
 	};
