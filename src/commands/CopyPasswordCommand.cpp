@@ -37,6 +37,6 @@ namespace OwnPass::Commands {
 			throw ApplicationException("Password not found.");
 		}
 
-		return passwords.front();
+		return passwords.front().password;
 	}
 }
