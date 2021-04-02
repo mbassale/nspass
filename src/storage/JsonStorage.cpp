@@ -85,10 +85,14 @@ namespace OwnPass::Storage {
 	CategoryPtr JsonStorage::find_category(std::string_view search)
 	{
 		auto it = find_if(categories.begin(), categories.end(), [&search](const CategoryPtr& category) {
+			return boost::algorithm::iequals(category->get_name(), search);
+		});
+		if (it != categories.end()) return *it;
+		it = find_if(categories.begin(), categories.end(), [&search](const CategoryPtr& category) {
 			return boost::algorithm::icontains(category->get_name(), search);
 		});
-		if (it == categories.end()) return nullptr;
-		return *it;
+		if (it != categories.end()) return *it;
+		return nullptr;
 	}
 
 	void JsonStorage::create_storage_file()
