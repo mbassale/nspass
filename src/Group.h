@@ -118,6 +118,8 @@ namespace OwnPass {
 
 	typedef std::shared_ptr<Group> GroupPtr;
 
+	typedef std::weak_ptr<Group> GroupWeakPtr;
+
 	class GroupFactory {
 	public:
 

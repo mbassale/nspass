@@ -85,6 +85,8 @@ namespace OwnPass {
 
 	typedef std::shared_ptr<Category> CategoryPtr;
 
+	typedef std::weak_ptr<Category> CategoryWeakPtr;
+
 	class CategoryFactory {
 	public:
 		CategoryFactory() = delete;
