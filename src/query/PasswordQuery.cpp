@@ -10,17 +10,17 @@ namespace OwnPass::Query {
 	using OwnPass::Category;
 	using OwnPass::PasswordRef;
 
-	std::vector<PasswordPtr> PasswordQuery::execute()
+	std::vector<PasswordQueryItem> PasswordQuery::execute()
 	{
 		find_categories();
 		find_groups();
-		std::vector<PasswordPtr> results;
+		std::vector<PasswordQueryItem> results;
 		for (const auto& category : categories) {
 			for (const auto& group_item : groups) {
 				const auto& passwords = group_item.group->get_passwords();
 				for (const auto& password : passwords) {
 					if (args.username.empty() || boost::algorithm::icontains(password->get_username(), args.username))
-						results.push_back(password);
+						results.emplace_back(category, group_item.group, password);
 				}
 			}
 		}

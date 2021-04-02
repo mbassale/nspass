@@ -8,11 +8,20 @@
 #include "../OwnPass.h"
 #include "../Password.h"
 #include "Query.h"
+
+#include <utility>
 #include "GroupQuery.h"
 
 namespace OwnPass::Query {
+	struct PasswordQueryItem {
+		CategoryPtr category;
+		GroupPtr group;
+		PasswordPtr password;
+		PasswordQueryItem(CategoryPtr category, GroupPtr group, PasswordPtr password)
+				:category{ std::move(category) }, group{ std::move(group) }, password{ std::move(password) } { }
+	};
 
-	class PasswordQuery : public Query<OwnPass::PasswordPtr> {
+	class PasswordQuery : public Query<PasswordQueryItem> {
 	public:
 		struct QueryArguments {
 			std::string category_search;
@@ -21,8 +30,8 @@ namespace OwnPass::Query {
 		};
 
 		PasswordQuery(Storage::Storage& storage, QueryArguments args)
-				:Query<OwnPass::PasswordPtr>(storage), args{ std::move(args) } { }
-		std::vector<OwnPass::PasswordPtr> execute() override;
+				:Query<PasswordQueryItem>(storage), args{ std::move(args) } { }
+		std::vector<PasswordQueryItem> execute() override;
 	protected:
 		QueryArguments args;
 		std::vector<OwnPass::CategoryPtr> categories;
