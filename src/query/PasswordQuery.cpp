@@ -12,25 +12,16 @@ namespace OwnPass::Query {
 
 	std::vector<PasswordQueryItem> PasswordQuery::execute()
 	{
-		find_categories();
 		find_groups();
 		std::vector<PasswordQueryItem> results;
-		for (const auto& category : categories) {
-			for (const auto& group_item : groups) {
-				const auto& passwords = group_item.group->get_passwords();
-				for (const auto& password : passwords) {
-					if (args.username.empty() || boost::algorithm::icontains(password->get_username(), args.username))
-						results.emplace_back(category, group_item.group, password);
-				}
+		for (const auto& group_item : groups) {
+			const auto& passwords = group_item.group->get_passwords();
+			for (const auto& password : passwords) {
+				if (args.username.empty() || boost::algorithm::icontains(password->get_username(), args.username))
+					results.emplace_back(group_item.category, group_item.group, password);
 			}
 		}
 		return results;
-	}
-
-	void PasswordQuery::find_categories()
-	{
-		CategoryQuery category_query{ storage, args.category_search };
-		categories = category_query.execute();
 	}
 
 	void PasswordQuery::find_groups()
