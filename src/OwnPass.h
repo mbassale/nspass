@@ -20,6 +20,7 @@
 #include <filesystem>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <utility>
 #include <boost/uuid/uuid.hpp>
 #include <boost/algorithm/string.hpp>
