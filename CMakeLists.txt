@@ -60,6 +60,7 @@ set(SOURCE_FILES
         src/commands/VersionCommand.h src/commands/VersionCommand.cpp
         src/commands/InspectStorageCommand.cpp src/commands/InspectStorageCommand.h
         src/commands/CreatePasswordCommand.h src/commands/CreatePasswordCommand.cpp
+        src/commands/UpdatePasswordCommand.cpp src/commands/UpdatePasswordCommand.h
         src/commands/PurgeStorageCommand.h src/commands/PurgeStorageCommand.cpp
         src/commands/SetStorageLocationCommand.cpp src/commands/SetStorageLocationCommand.h
         src/commands/DumpStorageCommand.cpp src/commands/DumpStorageCommand.h
