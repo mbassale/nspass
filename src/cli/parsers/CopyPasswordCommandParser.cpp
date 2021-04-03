@@ -42,7 +42,7 @@ namespace OwnPass::CLI::Parsers {
 			throw InvalidCommandSyntaxException(format_error("Missing required username.", opt_desc));
 		}
 
-		auto category = vm["category"].as<string>();
+		auto category = vm.count("category") ? vm["category"].as<string>() : "";
 		auto site = vm.count("site") ? vm["site"].as<string>() : "";
 		auto application = vm.count("application") ? vm["application"].as<string>() : "";
 		auto username = vm["username"].as<string>();

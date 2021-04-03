@@ -103,3 +103,27 @@ TEST_CASE_METHOD(CopyPasswordCommandParserFixture, "CopyPasswordCommandParser - 
 	REQUIRE(copy_password_command->get_group_filter() == "group #2");
 	REQUIRE(copy_password_command->get_password_filter() == "user5_2_4");
 }
+
+
+TEST_CASE_METHOD(CopyPasswordCommandParserFixture, "CopyPasswordCommandParser - only group and username",
+		CopyPasswordCommandParserFixture::Tag)
+{
+	const char* argv[] = {
+			"ownpass",
+			"copy",
+			"-sgroup #2",
+			"-uuser5_2_4",
+			nullptr
+	};
+	int argc = TestUtility::get_argc(argv);
+	CommandParser command_parser{ app, argc, const_cast<char**>(argv) };
+	auto& commands = command_parser.get_commands();
+	REQUIRE_FALSE(commands.empty());
+	auto command_ptr = command_parser.get_commands().front().get();
+	auto copy_password_command = dynamic_cast<CopyPasswordCommand*>(command_ptr);
+	REQUIRE(copy_password_command);
+	REQUIRE(copy_password_command->get_name() == CopyPasswordCommand::Name);
+	REQUIRE(copy_password_command->get_category_filter() == "");
+	REQUIRE(copy_password_command->get_group_filter() == "group #2");
+	REQUIRE(copy_password_command->get_password_filter() == "user5_2_4");
+}
