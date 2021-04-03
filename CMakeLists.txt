@@ -25,12 +25,17 @@ set(SOURCE_FILES
         src/query/CategoryQuery.cpp src/query/CategoryQuery.h
         src/query/GroupQuery.cpp src/query/GroupQuery.h
         src/query/PasswordQuery.cpp src/query/PasswordQuery.h
+        src/query/RecordNotFoundException.h
+        src/query/CategoryNotFoundException.h
+        src/query/GroupNotFoundException.h
+        src/query/PasswordNotFoundException.h
         src/cli/CommandLine.h src/cli/CommandLine.cpp
         src/cli/CommandParser.h src/cli/CommandParser.cpp
         src/cli/InvalidCommandSyntaxException.h src/cli/InvalidCommandSyntaxException.cpp
         src/cli/parsers/Parser.h src/cli/parsers/Parser.cpp
         src/cli/parsers/ListCommandParser.cpp src/cli/parsers/ListCommandParser.h
         src/cli/parsers/CreatePasswordCommandParser.h src/cli/parsers/CreatePasswordCommandParser.cpp
+        src/cli/parsers/UpdatePasswordCommandParser.cpp src/cli/parsers/UpdatePasswordCommandParser.h
         src/cli/parsers/CopyPasswordCommandParser.cpp src/cli/parsers/CopyPasswordCommandParser.h
         src/cli/parsers/ImportCommandParser.cpp src/cli/parsers/ImportCommandParser.h
         src/cli/parsers/InspectStorageCommandParser.cpp src/cli/parsers/InspectStorageCommandParser.h

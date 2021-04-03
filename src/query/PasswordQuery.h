@@ -31,11 +31,15 @@ namespace OwnPass::Query {
 
 		PasswordQuery(Storage::Storage& storage, QueryArguments args)
 				:Query<PasswordQueryItem>(storage), args{ std::move(args) } { }
-		std::vector<PasswordQueryItem> execute() override;
+		std::vector<PasswordQueryItem> find() override;
+		PasswordQueryItem find_first() override;
+		bool empty() override;
+		size_t size() override;
 	protected:
 		QueryArguments args;
 		std::vector<OwnPass::CategoryPtr> categories;
 		std::vector<OwnPass::Query::GroupQueryItem> groups;
+		std::vector<PasswordQueryItem> results;
 
 		void find_categories();
 		void find_groups();

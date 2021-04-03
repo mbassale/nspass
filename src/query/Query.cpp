@@ -3,3 +3,7 @@
 //
 
 #include "Query.h"
+
+namespace OwnPass::Query {
+
+}

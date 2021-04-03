@@ -28,10 +28,14 @@ namespace OwnPass::Query {
 
 		GroupQuery(Storage::Storage& storage, QueryArguments args)
 				:Query<GroupQueryItem>(storage), args{ std::move(args) } { }
-		std::vector<GroupQueryItem> execute() override;
+		std::vector<GroupQueryItem> find() override;
+		GroupQueryItem find_first() override;
+		bool empty() override;
+		size_t size() override;
 	protected:
 		QueryArguments args;
 		std::vector<OwnPass::CategoryPtr> categories;
+		std::vector<GroupQueryItem> results;
 		void find_categories();
 	};
 }

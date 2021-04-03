@@ -30,13 +30,7 @@ namespace OwnPass::Commands {
 		args.category_search = category_filter;
 		args.group_search = group_filter;
 		args.username = password_filter;
-
 		PasswordQuery password_query{ app.get_storage(), args };
-		auto passwords = password_query.execute();
-		if (passwords.empty()) {
-			throw ApplicationException("Password not found.");
-		}
-
-		return passwords.front().password;
+		return password_query.find_first().password;
 	}
 }

@@ -2,15 +2,16 @@
 // Created by Marco Bassaletti on 30-03-21.
 //
 
+#include "GroupNotFoundException.h"
 #include "CategoryQuery.h"
 #include "GroupQuery.h"
 
 namespace OwnPass::Query {
 
-	std::vector<GroupQueryItem> GroupQuery::execute()
+	std::vector<GroupQueryItem> GroupQuery::find()
 	{
 		find_categories();
-		std::vector<GroupQueryItem> results;
+		results.clear();
 		for (const auto& category : categories) {
 			if (args.search.empty()) {
 				const auto& groups = category->get_groups();
@@ -28,9 +29,44 @@ namespace OwnPass::Query {
 		return results;
 	}
 
+	GroupQueryItem GroupQuery::find_first()
+	{
+		find_categories();
+		results.clear();
+		for (const auto& category : categories) {
+			if (args.search.empty()) {
+				const auto& groups = category->get_groups();
+				for (const auto& group : groups) {
+					results.emplace_back(category, group);
+					return results.front();
+				}
+			}
+			else {
+				const auto category_groups = category->find_groups(args.search);
+				for (const auto& group : category_groups) {
+					results.emplace_back(category, group);
+					return results.front();
+				}
+			}
+		}
+		std::ostringstream error_message;
+		error_message << "Group not found: " << args.search;
+		throw GroupNotFoundException{ error_message.str() };
+	}
+
+	bool GroupQuery::empty()
+	{
+		return results.empty();
+	}
+
+	size_t GroupQuery::size()
+	{
+		return results.size();
+	}
+
 	void GroupQuery::find_categories()
 	{
 		CategoryQuery category_query{ storage, args.category_search };
-		categories = category_query.execute();
+		categories = category_query.find();
 	}
 }

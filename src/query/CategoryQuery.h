@@ -14,9 +14,13 @@ namespace OwnPass::Query {
 	public:
 		CategoryQuery(Storage::Storage& storage, std::string_view search)
 				:Query<OwnPass::CategoryPtr>(storage), search{ search } { }
-		std::vector<OwnPass::CategoryPtr> execute() override;
+		std::vector<OwnPass::CategoryPtr> find() override;
+		OwnPass::CategoryPtr find_first() override;
+		bool empty() override;
+		size_t size() override;
 	protected:
 		std::string search;
+		std::vector<OwnPass::CategoryPtr> results{};
 	};
 }
 
