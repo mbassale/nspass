@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.17)
 project(ownpass)
 
 #SET(Boost_USE_STATIC_LIBS ON)
-find_package(ICU REQUIRED COMPONENTS data)
 find_package(Boost REQUIRED COMPONENTS json log program_options)
 find_library(LIBGCRYPT_LIBRARIES gcrypt)
 
@@ -135,13 +134,11 @@ set(TEST_FILES
 
 include_directories(${Boost_INCLUDE_DIRS})
 
-link_directories(${ICU_LIBRARY_DIRS})
-
 # Password Manager
 add_executable(ownpass src/main.cpp ${SOURCE_FILES})
 # Test Suites
 add_executable(tests ${TEST_FILES} ${SOURCE_FILES})
 
-target_link_libraries(ownpass clip ${Boost_LIBRARIES} ${LIBGCRYPT_LIBRARIES} ${ICU_LIBRARIES})
+target_link_libraries(ownpass clip ${Boost_LIBRARIES} ${LIBGCRYPT_LIBRARIES})
 
-target_link_libraries(tests clip ${Boost_LIBRARIES} ${LIBGCRYPT_LIBRARIES} ${ICU_LIBRARIES})
+target_link_libraries(tests clip ${Boost_LIBRARIES} ${LIBGCRYPT_LIBRARIES})
