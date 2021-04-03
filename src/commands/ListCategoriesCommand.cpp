@@ -11,7 +11,7 @@ namespace OwnPass::Commands {
 	void ListCategoriesCommand::execute()
 	{
 		CategoryQuery category_query{ get_storage(), filter.category_filter };
-		const auto& categories = category_query.execute();
+		const auto& categories = category_query.find();
 		std::vector<std::string> headers = { "Category", "# Sites,Apps" };
 		const auto out = create_table_output(headers);
 		out->print_headers();

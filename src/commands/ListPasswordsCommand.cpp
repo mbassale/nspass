@@ -29,7 +29,7 @@ namespace OwnPass::Commands {
 		args.group_search = filter.group_filter;
 		args.username = filter.password_filter;
 		PasswordQuery password_query{ get_storage(), args };
-		auto results = password_query.execute();
+		auto results = password_query.find();
 		std::vector<PasswordItem> password_items;
 		password_items.reserve(results.size());
 		for (auto& result_item : results) {
