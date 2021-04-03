@@ -9,7 +9,7 @@
 #include "../Password.h"
 #include "Query.h"
 
-#include <utility>
+#include "PasswordNotFoundException.h"
 #include "GroupQuery.h"
 
 namespace OwnPass::Query {
@@ -41,7 +41,6 @@ namespace OwnPass::Query {
 		std::vector<OwnPass::Query::GroupQueryItem> groups;
 		std::vector<PasswordQueryItem> results;
 
-		void find_categories();
 		void find_groups();
 	};
 
