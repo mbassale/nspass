@@ -112,6 +112,7 @@ set(TEST_FILES
         test/cli/parsers/test_list_command_parser.cpp
         test/cli/parsers/test_import_command_parser.cpp
         test/cli/parsers/test_create_password_command_parser.cpp
+        test/cli/parsers/test_update_password_command_parser.cpp
         test/cli/parsers/test_copy_password_command_parser.cpp
         test/cli/parsers/test_inspect_storage_command_parser.cpp
         test/cli/parsers/test_purge_storage_command_parser.cpp

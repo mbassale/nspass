@@ -23,9 +23,22 @@ namespace OwnPass::Commands {
 
 		std::string_view get_name() override { return Name; }
 		bool requires_master_password() override { return true; }
+
+		[[nodiscard]] std::string_view get_category() const { return category; }
+		[[nodiscard]] std::string_view get_application() const { return application; }
+		[[nodiscard]] std::string_view get_site() const { return site; }
+		[[nodiscard]] std::string_view get_username() const { return username; }
+		[[nodiscard]] std::string_view get_password() const { return password; }
+		[[nodiscard]] std::string_view get_url() const { return url; }
+		[[nodiscard]] std::string_view get_description() const { return description; }
+
 		void execute() override;
 		void undo() override;
+
 	protected:
+		ObjectId category_id{};
+		ObjectId group_id{};
+		ObjectId password_id{};
 		std::string category;
 		std::string application;
 		std::string site;

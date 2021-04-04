@@ -21,11 +21,11 @@ namespace OwnPass::CLI::Parsers {
 		po::options_description create_desc{ "Update command options" };
 		create_desc.add_options()
 				("help,h", "This help")
-				("category,c", po::value<string>()->default_value("Default"), "Password Category")
+				("category,c", po::value<string>()->default_value("")->implicit_value(""), "Password Category")
 				("application,a", po::value<string>(), "Application name")
 				("site,s", po::value<string>(), "Site name")
-				("url", po::value<string>()->default_value(""), "Site url")
-				("description", po::value<string>()->default_value(""), "Description")
+				("url", po::value<string>()->default_value("")->implicit_value(""), "Site url")
+				("description", po::value<string>()->default_value("")->implicit_value(""), "Description")
 				("username,u", po::value<string>(), "Username")
 				("password,p", po::value<string>(), "Password");
 
