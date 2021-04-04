@@ -2,9 +2,9 @@
 // Created by Marco Bassaletti on 24-03-21.
 //
 #include <boost/uuid/uuid_io.hpp>
-#include "OwnPass.h"
+#include "NSPass.h"
 
-namespace OwnPass {
+namespace NSPass {
 
 	std::string object_id_to_string(ObjectId object_id)
 	{

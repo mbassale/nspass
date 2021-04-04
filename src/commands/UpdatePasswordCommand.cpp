@@ -5,8 +5,8 @@
 #include "../query/PasswordQuery.h"
 #include "UpdatePasswordCommand.h"
 
-namespace OwnPass::Commands {
-	using OwnPass::Query::PasswordQuery;
+namespace NSPass::Commands {
+	using NSPass::Query::PasswordQuery;
 
 	void UpdatePasswordCommand::execute()
 	{

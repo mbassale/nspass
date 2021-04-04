@@ -5,10 +5,10 @@
 #ifndef OWNPASS_CREATEPASSWORDCOMMAND_H
 #define OWNPASS_CREATEPASSWORDCOMMAND_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "Command.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	class CreatePasswordCommand : public Command {
 	public:
 		static constexpr auto Name = "create";

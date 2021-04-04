@@ -9,7 +9,7 @@
 #include "../../Group.h"
 #include "JsonSerializer.h"
 
-namespace OwnPass::Storage::Serializer {
+namespace NSPass::Storage::Serializer {
 	class GroupSerializer : public JsonSerializer<GroupPtr> {
 	public:
 		GroupSerializer() = default;

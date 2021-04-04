@@ -7,7 +7,7 @@
 #include <iomanip>
 #include <boost/log/trivial.hpp>
 
-namespace OwnPass::Crypto {
+namespace NSPass::Crypto {
 
 	InitCrypto init_crypto;
 

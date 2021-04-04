@@ -5,9 +5,9 @@
 #ifndef OWNPASS_STORAGEEXCEPTION_H
 #define OWNPASS_STORAGEEXCEPTION_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 
-namespace OwnPass::Storage {
+namespace NSPass::Storage {
 	class StorageException : public std::runtime_error {
 	public:
 		explicit StorageException(const std::string& message)

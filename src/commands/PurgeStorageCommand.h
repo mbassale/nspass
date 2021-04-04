@@ -5,10 +5,10 @@
 #ifndef OWNPASS_PURGESTORAGECOMMAND_H
 #define OWNPASS_PURGESTORAGECOMMAND_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "Command.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	class PurgeStorageCommand : public Command {
 	public:
 		static constexpr auto Name = "purge";

@@ -5,10 +5,10 @@
 #ifndef OWNPASS_PROMPTCONFIRMINPUT_H
 #define OWNPASS_PROMPTCONFIRMINPUT_H
 
-#include "../../OwnPass.h"
+#include "../../NSPass.h"
 #include "ConfirmInput.h"
 
-namespace OwnPass::CLI::Input {
+namespace NSPass::CLI::Input {
 	class PromptConfirmInput : public ConfirmInput {
 	public:
 		PromptConfirmInput() = default;

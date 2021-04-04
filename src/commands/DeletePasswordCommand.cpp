@@ -4,8 +4,8 @@
 #include "../query/PasswordQuery.h"
 #include "DeletePasswordCommand.h"
 
-namespace OwnPass::Commands {
-	using OwnPass::Query::PasswordQuery;
+namespace NSPass::Commands {
+	using NSPass::Query::PasswordQuery;
 
 	void DeletePasswordCommand::execute()
 	{

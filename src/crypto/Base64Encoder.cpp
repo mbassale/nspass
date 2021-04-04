@@ -174,7 +174,7 @@ unsigned char* base64_decode(unsigned char* buf, size_t* len, int strict,
 
 }
 
-namespace OwnPass::Crypto {
+namespace NSPass::Crypto {
 
 	std::string Base64Encoder::encode(const std::vector<uint8_t>& plain_buffer)
 	{

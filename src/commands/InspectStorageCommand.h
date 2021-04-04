@@ -5,14 +5,14 @@
 #ifndef OWNPASS_INSPECTSTORAGECOMMAND_H
 #define OWNPASS_INSPECTSTORAGECOMMAND_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "Command.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	class InspectStorageCommand : public Command {
 	public:
 		static constexpr auto Name = "inspect";
-		explicit InspectStorageCommand(OwnPass::Application& app)
+		explicit InspectStorageCommand(NSPass::Application& app)
 				:Command(app) { };
 		~InspectStorageCommand() override = default;
 

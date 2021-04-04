@@ -5,9 +5,9 @@
 #ifndef OWNPASS_TABLEOUTPUT_H
 #define OWNPASS_TABLEOUTPUT_H
 
-#include "../../OwnPass.h"
+#include "../../NSPass.h"
 
-namespace OwnPass::CLI::Output {
+namespace NSPass::CLI::Output {
 
 	class TableOutput {
 	public:

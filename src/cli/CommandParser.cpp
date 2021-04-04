@@ -2,7 +2,7 @@
 // Created by Marco Bassaletti on 18-03-21.
 //
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include <boost/program_options.hpp>
 #include "../Application.h"
 #include "../commands/Command.h"
@@ -23,12 +23,12 @@
 
 using namespace std;
 namespace po = boost::program_options;
-using namespace OwnPass::Commands;
-using namespace OwnPass::CLI::Parsers;
+using namespace NSPass::Commands;
+using namespace NSPass::CLI::Parsers;
 
-namespace OwnPass::CLI {
+namespace NSPass::CLI {
 
-	CommandParser::CommandParser(OwnPass::Application& app, int argc, char** argv)
+	CommandParser::CommandParser(NSPass::Application& app, int argc, char** argv)
 			:app{ app }, argc{ argc }, argv{ argv }
 	{
 		create_options();

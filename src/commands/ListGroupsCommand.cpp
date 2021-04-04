@@ -1,14 +1,14 @@
 //
 // Created by Marco Bassaletti on 27-03-21.
 //
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "../Group.h"
 #include "../query/GroupQuery.h"
 #include "CannotUndoException.h"
 #include "ListGroupsCommand.h"
 
-namespace OwnPass::Commands {
-	using OwnPass::Query::GroupQuery;
+namespace NSPass::Commands {
+	using NSPass::Query::GroupQuery;
 
 	struct GroupItem {
 		ObjectId id;

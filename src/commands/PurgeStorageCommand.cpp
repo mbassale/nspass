@@ -4,7 +4,7 @@
 
 #include "PurgeStorageCommand.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 
 	void PurgeStorageCommand::execute()
 	{

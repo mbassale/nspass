@@ -2,8 +2,8 @@
 // Created by Marco Bassaletti on 21-03-21.
 //
 
-#ifndef OWNPASS_OWNPASS_H
-#define OWNPASS_OWNPASS_H
+#ifndef OWNPASS_NSPASS_H
+#define OWNPASS_NSPASS_H
 
 #include <ctime>
 #include <chrono>
@@ -29,11 +29,11 @@
 #include "IdGenerator.h"
 #include "ApplicationException.h"
 
-namespace OwnPass {
+namespace NSPass {
 	typedef boost::uuids::uuid ObjectId;
 
 	std::string object_id_to_string(ObjectId object_id);
 	std::string timestamp_to_string(time_t timestamp);
 }
 
-#endif //OWNPASS_OWNPASS_H
+#endif //OWNPASS_NSPASS_H

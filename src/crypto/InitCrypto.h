@@ -7,7 +7,7 @@
 
 #include "../Application.h"
 
-namespace OwnPass::Crypto {
+namespace NSPass::Crypto {
 	class InitCrypto {
 	public:
 		InitCrypto();

@@ -8,8 +8,8 @@
 #include "../../../src/cli/output/CSVTableOutput.h"
 
 using namespace std;
-using OwnPass::CLI::Output::CSVTableOutputOptions;
-using OwnPass::CLI::Output::CSVTableOutput;
+using NSPass::CLI::Output::CSVTableOutputOptions;
+using NSPass::CLI::Output::CSVTableOutput;
 
 class CSVTableOutputFixture {
 public:

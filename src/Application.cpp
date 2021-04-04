@@ -13,7 +13,7 @@
 
 namespace logging = boost::log;
 
-namespace OwnPass {
+namespace NSPass {
 	Application app;
 
 	Application::Application()
@@ -70,7 +70,7 @@ namespace OwnPass {
 		throw ApplicationException{ "Vault not initialized." };
 	}
 
-	OwnPass::Storage::Storage& Application::get_storage() const
+	NSPass::Storage::Storage& Application::get_storage() const
 	{
 		return get_vault().get_storage();
 	}

@@ -5,7 +5,7 @@
 #include "../../catch.hpp"
 #include "../../../src/cli/input/PromptConfirmInput.h"
 
-using OwnPass::CLI::Input::PromptConfirmInput;
+using NSPass::CLI::Input::PromptConfirmInput;
 
 class PromptConfirmInputFixture {
 public:

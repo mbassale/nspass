@@ -4,7 +4,7 @@
 
 #include "VerboseCommand.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 
 	void VerboseCommand::execute()
 	{

@@ -38,7 +38,7 @@ void SetStdinEcho(bool enable = true)
 #endif
 }
 
-namespace OwnPass::CLI::Input {
+namespace NSPass::CLI::Input {
 	using namespace std;
 
 	std::string PromptSecretInput::request()

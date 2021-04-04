@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-namespace OwnPass::Crypto {
+namespace NSPass::Crypto {
 
 	class StringCrypto {
 	public:

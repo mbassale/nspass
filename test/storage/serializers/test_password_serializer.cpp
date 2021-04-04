@@ -3,15 +3,15 @@
 //
 #include "../../catch.hpp"
 #include "../../TestUtility.h"
-#include "../../../src/OwnPass.h"
+#include "../../../src/NSPass.h"
 #include "../../../src/Password.h"
 #include "../../../src/storage/serializer/PasswordSerializer.h"
 
 using namespace std;
-using OwnPass::Password;
-using OwnPass::PasswordFactory;
-using OwnPass::Crypto::SecureString;
-using OwnPass::Storage::Serializer::PasswordSerializer;
+using NSPass::Password;
+using NSPass::PasswordFactory;
+using NSPass::Crypto::SecureString;
+using NSPass::Storage::Serializer::PasswordSerializer;
 
 class PasswordSerializerFixture {
 public:

@@ -2,7 +2,7 @@
 // Created by Marco Bassaletti on 27-03-21.
 //
 
-#include "../../OwnPass.h"
+#include "../../NSPass.h"
 #include "../../commands/HelpCommand.h"
 #include "../../commands/ListCommand.h"
 #include "../../commands/ListCategoriesCommand.h"
@@ -11,15 +11,15 @@
 #include "../InvalidCommandSyntaxException.h"
 #include "ListCommandParser.h"
 
-namespace OwnPass::CLI::Parsers {
+namespace NSPass::CLI::Parsers {
 	using namespace std;
-	using OwnPass::Commands::CommandPtr;
-	using OwnPass::Commands::HelpCommand;
-	using OwnPass::Commands::ListCommand;
-	using OwnPass::Commands::ListCategoriesCommand;
-	using OwnPass::Commands::ListGroupsCommand;
-	using OwnPass::Commands::ListPasswordsCommand;
-	using OwnPass::CLI::InvalidCommandSyntaxException;
+	using NSPass::Commands::CommandPtr;
+	using NSPass::Commands::HelpCommand;
+	using NSPass::Commands::ListCommand;
+	using NSPass::Commands::ListCategoriesCommand;
+	using NSPass::Commands::ListGroupsCommand;
+	using NSPass::Commands::ListPasswordsCommand;
+	using NSPass::CLI::InvalidCommandSyntaxException;
 	namespace po = boost::program_options;
 
 	CommandPtr ListCommandParser::operator()()

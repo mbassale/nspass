@@ -4,7 +4,7 @@
 
 #include "Vault.h"
 
-namespace OwnPass {
+namespace NSPass {
 
 	Vault& Vault::set_master_password(std::string_view new_master_password)
 	{

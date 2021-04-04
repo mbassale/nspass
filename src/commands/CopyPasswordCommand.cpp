@@ -2,13 +2,13 @@
 // Created by Marco Bassaletti on 30-03-21.
 //
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "../../clip/clip.h"
 #include "../query/PasswordQuery.h"
 #include "CopyPasswordCommand.h"
 
-namespace OwnPass::Commands {
-	using OwnPass::Query::PasswordQuery;
+namespace NSPass::Commands {
+	using NSPass::Query::PasswordQuery;
 
 	void CopyPasswordCommand::execute()
 	{

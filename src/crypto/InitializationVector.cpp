@@ -6,7 +6,7 @@
 #include <vector>
 #include "InitializationVector.h"
 
-namespace OwnPass::Crypto {
+namespace NSPass::Crypto {
 
 	std::vector<uint8_t> InitializationVectorFactory::make(size_t block_size)
 	{

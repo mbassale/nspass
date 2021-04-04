@@ -1,18 +1,18 @@
 //
 // Created by Marco Bassaletti on 30-03-21.
 //
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "../cli/output/StreamTableOutput.h"
 #include "../cli/output/CSVTableOutput.h"
 #include "ListCommand.h"
 
-namespace OwnPass::Commands {
-	using OwnPass::CLI::Output::TableOutput;
-	using OwnPass::CLI::Output::TableOutputPtr;
-	using OwnPass::CLI::Output::StreamTableOutputOptions;
-	using OwnPass::CLI::Output::StreamTableOutput;
-	using OwnPass::CLI::Output::CSVTableOutputOptions;
-	using OwnPass::CLI::Output::CSVTableOutput;
+namespace NSPass::Commands {
+	using NSPass::CLI::Output::TableOutput;
+	using NSPass::CLI::Output::TableOutputPtr;
+	using NSPass::CLI::Output::StreamTableOutputOptions;
+	using NSPass::CLI::Output::StreamTableOutput;
+	using NSPass::CLI::Output::CSVTableOutputOptions;
+	using NSPass::CLI::Output::CSVTableOutput;
 
 	const ListCommand::Filter ListCommand::EmptyFilter;
 

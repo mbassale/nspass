@@ -5,11 +5,11 @@
 #ifndef OWNPASS_COMMANDPARSER_H
 #define OWNPASS_COMMANDPARSER_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include <boost/program_options.hpp>
 #include "../commands/Command.h"
 
-namespace OwnPass::CLI {
+namespace NSPass::CLI {
 
 	typedef std::function<Commands::CommandPtr()> CommandCreatorCallback;
 
@@ -22,15 +22,15 @@ namespace OwnPass::CLI {
 
 	class CommandParser {
 	public:
-		CommandParser(OwnPass::Application& app, int argc, char** argv);
+		CommandParser(NSPass::Application& app, int argc, char** argv);
 
 		[[nodiscard]] const std::vector<Commands::CommandPtr>& get_commands() const { return commands; }
 
 	private:
-		static constexpr auto ProgramCaption = R"(OwnPass v0.1 - © 2021, Marco Bassaletti <bassaletti@gmail.com>.
+		static constexpr auto ProgramCaption = R"(NSPass v0.1 - © 2021, Marco Bassaletti <bassaletti@gmail.com>.
 Simple commands-line password management program.
 Allowed Options)";
-		OwnPass::Application& app;
+		NSPass::Application& app;
 		int argc;
 		char** argv;
 		boost::program_options::options_description opt_descriptions{ ProgramCaption };

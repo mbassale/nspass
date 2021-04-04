@@ -5,7 +5,7 @@
 #include <iostream>
 #include "PromptConfirmInput.h"
 
-namespace OwnPass::CLI::Input {
+namespace NSPass::CLI::Input {
 
 	bool PromptConfirmInput::request()
 	{

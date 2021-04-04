@@ -8,7 +8,7 @@
 #include "../../src/crypto/SecureString.h"
 
 using namespace std;
-using namespace OwnPass::Crypto;
+using namespace NSPass::Crypto;
 
 class SecureStringFixture {
 public:

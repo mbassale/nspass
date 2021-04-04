@@ -7,10 +7,10 @@
 #include "../src/cli/input/StringSecretInput.h"
 #include "../src/cli/input/BoolConfirmInput.h"
 
-using OwnPass::Application;
-using OwnPass::CLI::CommandLine;
-using OwnPass::CLI::Input::StringSecretInput;
-using OwnPass::CLI::Input::BoolConfirmInput;
+using NSPass::Application;
+using NSPass::CLI::CommandLine;
+using NSPass::CLI::Input::StringSecretInput;
+using NSPass::CLI::Input::BoolConfirmInput;
 
 class CommandLineFixture {
 public:

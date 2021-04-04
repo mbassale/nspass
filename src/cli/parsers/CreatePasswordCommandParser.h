@@ -10,15 +10,15 @@
 #include "../../commands/Command.h"
 #include "Parser.h"
 
-namespace OwnPass::CLI::Parsers {
+namespace NSPass::CLI::Parsers {
 	class CreatePasswordCommandParser : public Parser {
 	public:
-		explicit CreatePasswordCommandParser(OwnPass::Application& app, boost::program_options::parsed_options& parsed,
+		explicit CreatePasswordCommandParser(NSPass::Application& app, boost::program_options::parsed_options& parsed,
 				boost::program_options::variables_map& vm)
 				:Parser(app, parsed, vm) { }
 		~CreatePasswordCommandParser() override = default;
 
-		OwnPass::Commands::CommandPtr operator()();
+		NSPass::Commands::CommandPtr operator()();
 	};
 }
 

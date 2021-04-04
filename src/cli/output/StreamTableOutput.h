@@ -5,10 +5,10 @@
 #ifndef OWNPASS_STREAMTABLEOUTPUT_H
 #define OWNPASS_STREAMTABLEOUTPUT_H
 
-#include "../../OwnPass.h"
+#include "../../NSPass.h"
 #include "TableOutput.h"
 
-namespace OwnPass::CLI::Output {
+namespace NSPass::CLI::Output {
 	struct StreamTableOutputOptions {
 	public:
 		size_t max_column_width = 0;

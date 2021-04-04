@@ -3,11 +3,11 @@
 //
 
 #include "../catch.hpp"
-#include "../../src/OwnPass.h"
+#include "../../src/NSPass.h"
 #include "../../src/storage/StorageHeader.h"
 
-using OwnPass::IdGenerator;
-using OwnPass::Storage::StorageHeaderFactory;
+using NSPass::IdGenerator;
+using NSPass::Storage::StorageHeaderFactory;
 
 class StorageHeaderFixture {
 public:

@@ -5,10 +5,10 @@
 #ifndef OWNPASS_DUMPSTORAGECOMMAND_H
 #define OWNPASS_DUMPSTORAGECOMMAND_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "Command.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	class DumpStorageCommand : public Command {
 	public:
 		static constexpr auto Name = "dump";

@@ -1,7 +1,7 @@
 //
 // Created by Marco Bassaletti on 07-03-21.
 //
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include <boost/json.hpp>
 #include "JsonParser.h"
 #include "JsonWriter.h"
@@ -10,11 +10,11 @@
 #include "InvalidStorageException.h"
 #include "JsonStorage.h"
 
-namespace OwnPass::Storage {
+namespace NSPass::Storage {
 	using namespace std;
-	using namespace OwnPass;
-	using namespace OwnPass::Crypto;
-	using namespace OwnPass::Storage::Serializer;
+	using namespace NSPass;
+	using namespace NSPass::Crypto;
+	using namespace NSPass::Storage::Serializer;
 
 	JsonStorage::JsonStorage(std::string_view master_password, std::string_view storage_location)
 			:Storage(master_password, storage_location)

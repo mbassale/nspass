@@ -6,7 +6,7 @@
 #include "CannotUndoException.h"
 #include "DumpStorageCommand.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	using namespace std;
 
 	void DumpStorageCommand::execute()

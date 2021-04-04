@@ -8,7 +8,7 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 
-namespace OwnPass {
+namespace NSPass {
 	class IdGenerator {
 	public:
 		static boost::uuids::uuid make() { return boost::uuids::random_generator()(); }

@@ -2,15 +2,15 @@
 // Created by Marco Bassaletti on 30-03-21.
 //
 #include "../catch.hpp"
-#include "../../src/OwnPass.h"
+#include "../../src/NSPass.h"
 #include "../SampleStorageFixture.h"
 #include "../TestUtility.h"
 #include "../../src/commands/CopyPasswordCommand.h"
 
 using namespace std;
-using OwnPass::Application;
-using OwnPass::ApplicationException;
-using OwnPass::Commands::CopyPasswordCommand;
+using NSPass::Application;
+using NSPass::ApplicationException;
+using NSPass::Commands::CopyPasswordCommand;
 
 class CopyPasswordCommandFixture : public SampleStorageFixture {
 public:

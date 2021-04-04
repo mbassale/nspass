@@ -5,12 +5,12 @@
 #ifndef OWNPASS_STORAGEHEADERSERIALIZER_H
 #define OWNPASS_STORAGEHEADERSERIALIZER_H
 
-#include "../../OwnPass.h"
+#include "../../NSPass.h"
 #include <boost/json.hpp>
 #include "../StorageHeader.h"
 #include "JsonSerializer.h"
 
-namespace OwnPass::Storage::Serializer {
+namespace NSPass::Storage::Serializer {
 	class StorageHeaderSerializer : public JsonSerializer<StorageHeader> {
 	public:
 		static constexpr auto Magic = "MOPM";

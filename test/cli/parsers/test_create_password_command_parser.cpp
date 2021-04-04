@@ -10,12 +10,12 @@
 #include "../../../src/commands/CreatePasswordCommand.h"
 
 using namespace std;
-using OwnPass::Application;
-using OwnPass::Category;
-using OwnPass::CLI::CommandParser;
-using OwnPass::CLI::InvalidCommandSyntaxException;
-using OwnPass::Commands::HelpCommand;
-using OwnPass::Commands::CreatePasswordCommand;
+using NSPass::Application;
+using NSPass::Category;
+using NSPass::CLI::CommandParser;
+using NSPass::CLI::InvalidCommandSyntaxException;
+using NSPass::Commands::HelpCommand;
+using NSPass::Commands::CreatePasswordCommand;
 
 class CreateCommandParserFixture {
 public:

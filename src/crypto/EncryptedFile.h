@@ -8,7 +8,7 @@
 #include <string>
 #include <sstream>
 
-namespace OwnPass::Crypto
+namespace NSPass::Crypto
 {
 	class EncryptedFile {
 	public:

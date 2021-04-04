@@ -1,5 +1,5 @@
-# ownpass: My Own Password Manager
-![GitHub top language](https://img.shields.io/github/languages/top/mbassale/ownpass) [![GitHub license](https://img.shields.io/github/license/mbassale/ownpass)](https://github.com/mbassale/ownpass/blob/main/LICENSE) 
+# NSPass: No Server Password Manager
+![GitHub top language](https://img.shields.io/github/languages/top/mbassale/nspass) [![GitHub license](https://img.shields.io/github/license/mbassale/nspass)](https://github.com/mbassale/nspass/blob/main/LICENSE) 
 
 This is my personal password manager to replace paid password services.  
 Currently is a desktop application with an encrypted key-value database to store my passwords.  
@@ -18,7 +18,7 @@ To compile and run this application just run cmake on the sources directory,
 there are two target executables, the executable ownpass, and the tests binary 
 that uses [Catch2](https://github.com/catchorg/Catch2) unit testing library.
 
-### Disclaimer.
+### Disclaimer
 
 This is a personal project, released under the MIT license, so obviously **don't
 expect any warranty or liability of any kind** when using this application to

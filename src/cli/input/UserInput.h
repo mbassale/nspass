@@ -5,9 +5,9 @@
 #ifndef OWNPASS_USERINPUT_H
 #define OWNPASS_USERINPUT_H
 
-#include "../../OwnPass.h"
+#include "../../NSPass.h"
 
-namespace OwnPass::CLI::Input {
+namespace NSPass::CLI::Input {
 
 	template<typename T>
 	class UserInput {

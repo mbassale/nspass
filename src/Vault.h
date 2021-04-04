@@ -5,16 +5,16 @@
 #ifndef OWNPASS_VAULT_H
 #define OWNPASS_VAULT_H
 
-#include "OwnPass.h"
+#include "NSPass.h"
 #include "./storage/StorageFactory.h"
 #include "./storage/Storage.h"
 
-namespace OwnPass {
+namespace NSPass {
 	using BaseStorage = Storage::Storage;
 
 	class Vault {
 	public:
-		explicit Vault(OwnPass::Storage::StorageFactory& storage_factory) : storage_factory{ storage_factory } {}
+		explicit Vault(NSPass::Storage::StorageFactory& storage_factory) : storage_factory{ storage_factory } {}
 		Vault(Vault const&) = delete;
 		Vault(Vault&&) = delete;
 
@@ -27,7 +27,7 @@ namespace OwnPass {
 		BaseStorage& get_storage();
 
 	private:
-		OwnPass::Storage::StorageFactory& storage_factory;
+		NSPass::Storage::StorageFactory& storage_factory;
 		std::string master_password;
 		std::string storage_location;
 		std::unique_ptr<BaseStorage> storage{};

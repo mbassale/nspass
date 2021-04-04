@@ -7,11 +7,11 @@
 
 #include "Command.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	class VerboseCommand : public Command {
 	public:
 		static constexpr auto Name = "verbose";
-		explicit VerboseCommand(OwnPass::Application& app) : Command(app) {};
+		explicit VerboseCommand(NSPass::Application& app) : Command(app) {};
 		~VerboseCommand() override = default;
 
 		std::string_view get_name() override { return Name; }

@@ -8,7 +8,7 @@
 #include <list>
 #include <boost/json.hpp>
 
-namespace OwnPass::Storage::Serializer {
+namespace NSPass::Storage::Serializer {
 	template<typename T>
 	class JsonSerializer {
 	public:

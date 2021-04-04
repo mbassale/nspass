@@ -5,10 +5,10 @@
 #ifndef OWNPASS_INVALIDSTORAGEEXCEPTION_H
 #define OWNPASS_INVALIDSTORAGEEXCEPTION_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "StorageException.h"
 
-namespace OwnPass::Storage {
+namespace NSPass::Storage {
 	class InvalidStorageException : public StorageException {
 	public:
 		explicit InvalidStorageException(const std::string& message)

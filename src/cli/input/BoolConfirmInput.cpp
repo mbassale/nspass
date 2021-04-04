@@ -4,7 +4,7 @@
 
 #include "BoolConfirmInput.h"
 
-namespace OwnPass::CLI::Input {
+namespace NSPass::CLI::Input {
 	bool BoolConfirmInput::request()
 	{
 		return confirm;

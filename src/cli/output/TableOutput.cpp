@@ -3,6 +3,6 @@
 //
 #include "TableOutput.h"
 
-namespace OwnPass::CLI::Output {
+namespace NSPass::CLI::Output {
 
 }

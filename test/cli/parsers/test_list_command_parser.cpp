@@ -10,13 +10,13 @@
 #include "../../../src/commands/ListPasswordsCommand.h"
 
 using namespace std;
-using OwnPass::Application;
-using OwnPass::CLI::CommandParser;
-using OwnPass::Commands::CommandPtr;
-using OwnPass::Commands::ListCommand;
-using OwnPass::Commands::ListCategoriesCommand;
-using OwnPass::Commands::ListGroupsCommand;
-using OwnPass::Commands::ListPasswordsCommand;
+using NSPass::Application;
+using NSPass::CLI::CommandParser;
+using NSPass::Commands::CommandPtr;
+using NSPass::Commands::ListCommand;
+using NSPass::Commands::ListCategoriesCommand;
+using NSPass::Commands::ListGroupsCommand;
+using NSPass::Commands::ListPasswordsCommand;
 
 class ListCommandParserFixture {
 public:

@@ -7,10 +7,10 @@
 #include "../../../src/commands/ImportLastPassCommand.h"
 
 using namespace std;
-using OwnPass::Application;
-using OwnPass::CLI::CommandParser;
-using OwnPass::Commands::CommandPtr;
-using OwnPass::Commands::ImportLastPassCommand;
+using NSPass::Application;
+using NSPass::CLI::CommandParser;
+using NSPass::Commands::CommandPtr;
+using NSPass::Commands::ImportLastPassCommand;
 
 class ImportCommandParserFixture {
 public:

@@ -5,10 +5,10 @@
 #ifndef OWNPASS_GROUP_H
 #define OWNPASS_GROUP_H
 
-#include "OwnPass.h"
+#include "NSPass.h"
 #include "Password.h"
 
-namespace OwnPass {
+namespace NSPass {
 	class Password;
 
 	enum class GroupType {

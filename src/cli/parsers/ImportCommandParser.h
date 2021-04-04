@@ -5,18 +5,18 @@
 #ifndef OWNPASS_IMPORTCOMMANDPARSER_H
 #define OWNPASS_IMPORTCOMMANDPARSER_H
 
-#include "../../OwnPass.h"
+#include "../../NSPass.h"
 #include "Parser.h"
 
-namespace OwnPass::CLI::Parsers {
+namespace NSPass::CLI::Parsers {
 	class ImportCommandParser : public Parser {
 	public:
-		explicit ImportCommandParser(OwnPass::Application& app, boost::program_options::parsed_options& parsed,
+		explicit ImportCommandParser(NSPass::Application& app, boost::program_options::parsed_options& parsed,
 				boost::program_options::variables_map& vm)
 				:Parser(app, parsed, vm) { }
 		~ImportCommandParser() override = default;
 
-		OwnPass::Commands::CommandPtr operator()();
+		NSPass::Commands::CommandPtr operator()();
 	};
 }
 

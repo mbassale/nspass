@@ -3,19 +3,19 @@
 //
 #include "../../catch.hpp"
 #include "../../TestUtility.h"
-#include "../../../src/OwnPass.h"
+#include "../../../src/NSPass.h"
 #include "../../../src/Group.h"
 #include "../../../src/Category.h"
 #include "../../../src/storage/serializer/CategorySerializer.h"
 
 using namespace std;
-using OwnPass::IdGenerator;
-using OwnPass::GroupPtr;
-using OwnPass::GroupFactory;
-using OwnPass::Category;
-using OwnPass::CategoryFactory;
-using OwnPass::Crypto::SecureString;
-using OwnPass::Storage::Serializer::CategorySerializer;
+using NSPass::IdGenerator;
+using NSPass::GroupPtr;
+using NSPass::GroupFactory;
+using NSPass::Category;
+using NSPass::CategoryFactory;
+using NSPass::Crypto::SecureString;
+using NSPass::Storage::Serializer::CategorySerializer;
 
 class CategorySerializerFixture {
 public:

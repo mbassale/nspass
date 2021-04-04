@@ -2,20 +2,20 @@
 // Created by Marco Bassaletti on 04-04-21.
 //
 
-#include "../../OwnPass.h"
+#include "../../NSPass.h"
 #include "../../commands/HelpCommand.h"
 #include "../../commands/DeletePasswordCommand.h"
 #include "../InvalidCommandSyntaxException.h"
 #include "DeletePasswordCommandParser.h"
 
-namespace OwnPass::CLI::Parsers {
-	using OwnPass::Commands::CommandPtr;
+namespace NSPass::CLI::Parsers {
+	using NSPass::Commands::CommandPtr;
 
 	using namespace std;
-	using OwnPass::Commands::CommandPtr;
-	using OwnPass::Commands::HelpCommand;
-	using OwnPass::Commands::DeletePasswordCommand;
-	using OwnPass::CLI::InvalidCommandSyntaxException;
+	using NSPass::Commands::CommandPtr;
+	using NSPass::Commands::HelpCommand;
+	using NSPass::Commands::DeletePasswordCommand;
+	using NSPass::CLI::InvalidCommandSyntaxException;
 	namespace po = boost::program_options;
 
 	CommandPtr DeletePasswordCommandParser::operator()()

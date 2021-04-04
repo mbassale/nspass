@@ -5,14 +5,14 @@
 #ifndef OWNPASS_LISTGROUPSCOMMAND_H
 #define OWNPASS_LISTGROUPSCOMMAND_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "ListCommand.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	class ListGroupsCommand : public ListCommand {
 	public:
 		static constexpr auto Name = "list-groups";
-		explicit ListGroupsCommand(OwnPass::Application& app, GroupType group_type = GroupType::Site,
+		explicit ListGroupsCommand(NSPass::Application& app, GroupType group_type = GroupType::Site,
 				Format format = Format::STDOUT, const Filter& filter = EmptyFilter)
 				:ListCommand(app, format, filter), group_type{ group_type } { };
 		~ListGroupsCommand() override = default;

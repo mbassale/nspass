@@ -6,7 +6,7 @@
 #define OWNPASS_SAMPLESTORAGEFIXTURE_H
 
 #include "catch.hpp"
-#include "../src/OwnPass.h"
+#include "../src/NSPass.h"
 #include "../src/Application.h"
 
 class SampleStorageFixture {
@@ -15,10 +15,10 @@ public:
 	~SampleStorageFixture();
 
 	void reset_sample_storage();
-	[[nodiscard]] OwnPass::Storage::Storage& get_storage() { return app.get_storage(); }
+	[[nodiscard]] NSPass::Storage::Storage& get_storage() { return app.get_storage(); }
 protected:
 	static constexpr auto DefaultMasterPassword = "test1234";
-	OwnPass::Application& app;
+	NSPass::Application& app;
 
 	static std::string get_master_password();
 	static std::string get_storage_location();

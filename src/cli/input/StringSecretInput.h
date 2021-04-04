@@ -8,7 +8,7 @@
 #include <string>
 #include "SecretInput.h"
 
-namespace OwnPass::CLI::Input {
+namespace NSPass::CLI::Input {
 	class StringSecretInput : public SecretInput {
 	public:
 		explicit StringSecretInput(std::string_view secret)

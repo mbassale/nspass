@@ -6,7 +6,7 @@
 #include <iostream>
 #include "../src/Application.h"
 
-using OwnPass::Application;
+using NSPass::Application;
 
 int main( int argc, char* argv[] ) {
 	auto& app = Application::instance();

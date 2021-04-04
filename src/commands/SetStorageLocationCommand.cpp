@@ -5,7 +5,7 @@
 #include "CannotUndoException.h"
 #include "SetStorageLocationCommand.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	void SetStorageLocationCommand::execute()
 	{
 		app.get_vault().set_storage_location(storage_location);

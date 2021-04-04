@@ -7,7 +7,7 @@
 #include "CategorySerializer.h"
 #include "StorageSerializer.h"
 
-namespace OwnPass::Storage::Serializer {
+namespace NSPass::Storage::Serializer {
 	boost::json::object StorageSerializer::serialize(const StorageTuple& obj)
 	{
 		const auto&[storage_header, categories] = obj;

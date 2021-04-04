@@ -6,7 +6,7 @@
 #include "StringCrypto.h"
 #include "SecureString.h"
 
-namespace OwnPass::Crypto {
+namespace NSPass::Crypto {
 	using namespace std;
 
 	string SecureString::get_plain_text(string_view shared_key)

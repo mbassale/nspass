@@ -8,7 +8,7 @@
 #include "GroupSerializer.h"
 #include "CategorySerializer.h"
 
-namespace OwnPass::Storage::Serializer {
+namespace NSPass::Storage::Serializer {
 
 	boost::json::object CategorySerializer::serialize(const CategoryPtr& obj)
 	{

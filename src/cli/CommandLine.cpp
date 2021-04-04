@@ -8,11 +8,11 @@
 #include "../commands/CommandRunner.h"
 #include "CommandLine.h"
 
-using OwnPass::Application;
-using OwnPass::Commands::CommandRunner;
+using NSPass::Application;
+using NSPass::Commands::CommandRunner;
 using namespace std;
 
-namespace OwnPass::CLI {
+namespace NSPass::CLI {
 
 	CommandLine::CommandLine(int argc, char** argv, Input::SecretInput& secret_input,
 			Input::ConfirmInput& confirm_input)
@@ -67,7 +67,7 @@ namespace OwnPass::CLI {
 		}
 	}
 
-	bool CommandLine::confirm(const vector<OwnPass::Commands::CommandPtr>& commands)
+	bool CommandLine::confirm(const vector<NSPass::Commands::CommandPtr>& commands)
 	{
 		for (auto& command_ptr : commands) {
 			if (command_ptr->requires_confirmation()) {

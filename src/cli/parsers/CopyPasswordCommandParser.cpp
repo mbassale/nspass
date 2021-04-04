@@ -1,18 +1,18 @@
 //
 // Created by Marco Bassaletti on 31-03-21.
 //
-#include "../../OwnPass.h"
+#include "../../NSPass.h"
 #include "../../commands/HelpCommand.h"
 #include "../../commands/CopyPasswordCommand.h"
 #include "../InvalidCommandSyntaxException.h"
 #include "CopyPasswordCommandParser.h"
 
-namespace OwnPass::CLI::Parsers {
+namespace NSPass::CLI::Parsers {
 	using namespace std;
-	using OwnPass::Commands::CommandPtr;
-	using OwnPass::Commands::HelpCommand;
-	using OwnPass::Commands::CopyPasswordCommand;
-	using OwnPass::CLI::InvalidCommandSyntaxException;
+	using NSPass::Commands::CommandPtr;
+	using NSPass::Commands::HelpCommand;
+	using NSPass::Commands::CopyPasswordCommand;
+	using NSPass::CLI::InvalidCommandSyntaxException;
 	namespace po = boost::program_options;
 
 	CommandPtr CopyPasswordCommandParser::operator()()

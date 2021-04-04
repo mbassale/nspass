@@ -7,7 +7,7 @@
 #include "../../src/crypto/InitializationVector.h"
 
 using namespace std;
-using namespace OwnPass::Crypto;
+using namespace NSPass::Crypto;
 
 class InitializationVectorFixture {
 public:

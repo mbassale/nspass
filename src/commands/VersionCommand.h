@@ -9,11 +9,11 @@
 #include "../Application.h"
 #include "Command.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	class VersionCommand : public Command {
 	public:
 		static constexpr auto Name = "version";
-		explicit VersionCommand(OwnPass::Application& app) : Command(app) {};
+		explicit VersionCommand(NSPass::Application& app) : Command(app) {};
 		~VersionCommand() override = default;
 
 		std::string_view get_name() override { return Name; }

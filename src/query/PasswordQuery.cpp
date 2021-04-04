@@ -6,9 +6,9 @@
 #include "GroupQuery.h"
 #include "PasswordQuery.h"
 
-namespace OwnPass::Query {
-	using OwnPass::Category;
-	using OwnPass::PasswordRef;
+namespace NSPass::Query {
+	using NSPass::Category;
+	using NSPass::PasswordRef;
 
 	std::vector<PasswordQueryItem> PasswordQuery::find()
 	{

@@ -4,6 +4,6 @@
 
 #include "StorageHeader.h"
 
-namespace OwnPass::Storage {
+namespace NSPass::Storage {
 	
 }

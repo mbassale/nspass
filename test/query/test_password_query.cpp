@@ -6,9 +6,9 @@
 #include "../../src/query/Query.h"
 #include "../../src/query/PasswordQuery.h"
 
-using OwnPass::Query::PasswordNotFoundException;
-using OwnPass::Query::PasswordQueryItem;
-using OwnPass::Query::PasswordQuery;
+using NSPass::Query::PasswordNotFoundException;
+using NSPass::Query::PasswordQueryItem;
+using NSPass::Query::PasswordQuery;
 
 class PasswordQueryFixture : public SampleStorageFixture {
 public:

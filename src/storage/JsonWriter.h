@@ -7,7 +7,7 @@
 
 #include <boost/json.hpp>
 
-namespace OwnPass::Storage {
+namespace NSPass::Storage {
 	class JsonWriter {
 	public:
 		explicit JsonWriter(boost::json::value& root);

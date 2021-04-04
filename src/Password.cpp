@@ -1,10 +1,10 @@
 //
 // Created by Marco Bassaletti on 22-02-21.
 //
-#include "OwnPass.h"
+#include "NSPass.h"
 #include "Password.h"
 
-namespace OwnPass {
+namespace NSPass {
 
 	PasswordPtr PasswordFactory::make(std::string_view username, const SecureString& pass, std::string_view url,
 			std::string_view description)

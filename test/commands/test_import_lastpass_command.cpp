@@ -2,14 +2,14 @@
 // Created by Marco Bassaletti on 01-04-21.
 //
 #include "../catch.hpp"
-#include "../../src/OwnPass.h"
+#include "../../src/NSPass.h"
 #include "../SampleStorageFixture.h"
 #include "../../src/commands/ImportLastPassCommand.h"
 
 using namespace std;
-using OwnPass::Application;
-using OwnPass::ApplicationException;
-using OwnPass::Commands::ImportLastPassCommand;
+using NSPass::Application;
+using NSPass::ApplicationException;
+using NSPass::Commands::ImportLastPassCommand;
 
 class ImportLastPassCommandFixture : public SampleStorageFixture {
 public:

@@ -7,14 +7,14 @@
 
 #include <utility>
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "ListCommand.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	class ListCategoriesCommand : public ListCommand {
 	public:
 		static constexpr auto Name = "list-categories";
-		explicit ListCategoriesCommand(OwnPass::Application& app, Format format = Format::STDOUT,
+		explicit ListCategoriesCommand(NSPass::Application& app, Format format = Format::STDOUT,
 				const Filter& filter = EmptyFilter)
 				:ListCommand(app, format, filter) { };
 		~ListCategoriesCommand() override = default;

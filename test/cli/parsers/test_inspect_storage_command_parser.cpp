@@ -7,10 +7,10 @@
 #include "../../../src/commands/InspectStorageCommand.h"
 
 using namespace std;
-using OwnPass::Application;
-using OwnPass::CLI::CommandParser;
-using OwnPass::Commands::CommandPtr;
-using OwnPass::Commands::InspectStorageCommand;
+using NSPass::Application;
+using NSPass::CLI::CommandParser;
+using NSPass::Commands::CommandPtr;
+using NSPass::Commands::InspectStorageCommand;
 
 class InspectStorageCommandParserFixture {
 public:

@@ -5,13 +5,13 @@
 #ifndef OWNPASS_COMMANDLINE_H
 #define OWNPASS_COMMANDLINE_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include <boost/program_options.hpp>
 #include "./input/SecretInput.h"
 #include "./input/ConfirmInput.h"
 #include "../commands/Command.h"
 
-namespace OwnPass::CLI {
+namespace NSPass::CLI {
 	class CommandLine {
 	public:
 		CommandLine(int argc, char** argv, Input::SecretInput& secret_input, Input::ConfirmInput& confirm_input);
@@ -23,8 +23,8 @@ namespace OwnPass::CLI {
 		Input::SecretInput& secret_input;
 		Input::ConfirmInput& confirm_input;
 
-		void initialize_master_password(const std::vector<OwnPass::Commands::CommandPtr>& commands);
-		bool confirm(const std::vector<OwnPass::Commands::CommandPtr>& commands);
+		void initialize_master_password(const std::vector<NSPass::Commands::CommandPtr>& commands);
+		bool confirm(const std::vector<NSPass::Commands::CommandPtr>& commands);
 	};
 }
 

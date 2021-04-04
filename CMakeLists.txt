@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(ownpass)
+project(nspass)
 
 #SET(Boost_USE_STATIC_LIBS ON)
 find_package(Boost REQUIRED COMPONENTS json log program_options)
@@ -12,7 +12,7 @@ add_subdirectory(clip)
 
 set(CMAKE_CXX_STANDARD 17)
 set(SOURCE_FILES
-        src/OwnPass.h src/OwnPass.cpp
+        src/NSPass.h src/NSPass.cpp
         src/Application.h src/Application.cpp
         src/ApplicationException.h src/ApplicationException.cpp
         src/Vault.h src/Vault.cpp
@@ -141,10 +141,10 @@ set(TEST_FILES
 include_directories(${Boost_INCLUDE_DIRS})
 
 # Password Manager
-add_executable(ownpass src/main.cpp ${SOURCE_FILES})
+add_executable(nspass src/main.cpp ${SOURCE_FILES})
 # Test Suites
 add_executable(tests ${TEST_FILES} ${SOURCE_FILES})
 
-target_link_libraries(ownpass clip ${Boost_LIBRARIES} ${LIBGCRYPT_LIBRARIES})
+target_link_libraries(nspass clip ${Boost_LIBRARIES} ${LIBGCRYPT_LIBRARIES})
 
 target_link_libraries(tests clip ${Boost_LIBRARIES} ${LIBGCRYPT_LIBRARIES})

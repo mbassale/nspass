@@ -6,7 +6,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/iterator/filter_iterator.hpp>
 
-namespace OwnPass {
+namespace NSPass {
 	using namespace std;
 
 	PasswordPtr Group::find_password(ObjectId password_id) {

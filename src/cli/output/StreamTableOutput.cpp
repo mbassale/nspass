@@ -4,7 +4,7 @@
 
 #include "StreamTableOutput.h"
 
-namespace OwnPass::CLI::Output {
+namespace NSPass::CLI::Output {
 	StreamTableOutput::StreamTableOutput(const StreamTableOutputOptions& options, std::vector<std::string>  headers)
 			:options{ options }, headers{std::move( headers )}
 	{

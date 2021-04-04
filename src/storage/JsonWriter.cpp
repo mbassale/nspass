@@ -6,7 +6,7 @@
 #include <boost/json.hpp>
 #include "JsonWriter.h"
 
-namespace OwnPass::Storage {
+namespace NSPass::Storage {
 	using namespace std;
 
 	JsonWriter::JsonWriter(boost::json::value& root) : root{ root }

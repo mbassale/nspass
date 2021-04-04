@@ -10,10 +10,10 @@
 #include "../../src/commands/VersionCommand.h"
 #include "../../src/commands/SetStorageLocationCommand.h"
 
-using OwnPass::Application;
-using OwnPass::CLI::CommandParser;
+using NSPass::Application;
+using NSPass::CLI::CommandParser;
 using namespace std;
-using namespace OwnPass::Commands;
+using namespace NSPass::Commands;
 
 class CommandParserFixture {
 public:

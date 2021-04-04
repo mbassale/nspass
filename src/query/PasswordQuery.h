@@ -5,14 +5,14 @@
 #ifndef OWNPASS_PASSWORDQUERY_H
 #define OWNPASS_PASSWORDQUERY_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "../Password.h"
 #include "Query.h"
 
 #include "PasswordNotFoundException.h"
 #include "GroupQuery.h"
 
-namespace OwnPass::Query {
+namespace NSPass::Query {
 	struct PasswordQueryItem {
 		CategoryPtr category;
 		GroupPtr group;
@@ -37,8 +37,8 @@ namespace OwnPass::Query {
 		size_t size() override;
 	protected:
 		QueryArguments args;
-		std::vector<OwnPass::CategoryPtr> categories;
-		std::vector<OwnPass::Query::GroupQueryItem> groups;
+		std::vector<NSPass::CategoryPtr> categories;
+		std::vector<NSPass::Query::GroupQueryItem> groups;
 		std::vector<PasswordQueryItem> results;
 
 		void find_groups();

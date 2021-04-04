@@ -6,7 +6,7 @@
 #include "CategoryQuery.h"
 #include "GroupQuery.h"
 
-namespace OwnPass::Query {
+namespace NSPass::Query {
 
 	std::vector<GroupQueryItem> GroupQuery::find()
 	{

@@ -7,7 +7,7 @@
 
 #include "StorageFactory.h"
 
-namespace OwnPass::Storage {
+namespace NSPass::Storage {
 	class JsonStorageFactory : public StorageFactory {
 	public:
 		JsonStorageFactory() = default;

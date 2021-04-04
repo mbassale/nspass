@@ -8,7 +8,7 @@
 #include "../InvalidStorageException.h"
 #include "StorageHeaderSerializer.h"
 
-namespace OwnPass::Storage::Serializer {
+namespace NSPass::Storage::Serializer {
 
 	boost::json::object StorageHeaderSerializer::serialize(const StorageHeader& obj)
 	{

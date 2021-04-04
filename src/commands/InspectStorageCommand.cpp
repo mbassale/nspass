@@ -5,7 +5,7 @@
 #include <iostream>
 #include "InspectStorageCommand.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	using namespace std;
 
 	void InspectStorageCommand::execute()

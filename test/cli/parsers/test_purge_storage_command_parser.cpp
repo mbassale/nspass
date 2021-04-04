@@ -8,10 +8,10 @@
 #include "../../../src/commands/PurgeStorageCommand.h"
 
 using namespace std;
-using OwnPass::Application;
-using OwnPass::CLI::CommandParser;
-using OwnPass::Commands::CommandPtr;
-using OwnPass::Commands::PurgeStorageCommand;
+using NSPass::Application;
+using NSPass::CLI::CommandParser;
+using NSPass::Commands::CommandPtr;
+using NSPass::Commands::PurgeStorageCommand;
 
 class PurgeStorageCommandParserFixture {
 public:

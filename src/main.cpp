@@ -4,9 +4,9 @@
 #include "./cli/input/PromptSecretInput.h"
 #include "./cli/input/PromptConfirmInput.h"
 
-using OwnPass::CLI::CommandLine;
-using OwnPass::CLI::Input::PromptSecretInput;
-using OwnPass::CLI::Input::PromptConfirmInput;
+using NSPass::CLI::CommandLine;
+using NSPass::CLI::Input::PromptSecretInput;
+using NSPass::CLI::Input::PromptConfirmInput;
 
 int main(int argc, char* argv[])
 {

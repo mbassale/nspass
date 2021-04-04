@@ -1,11 +1,11 @@
 //
 // Created by Marco Bassaletti on 01-04-21.
 //
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include <boost/tokenizer.hpp>
 #include "ImportLastPassCommand.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	using namespace std;
 
 	void ImportLastPassCommand::execute()

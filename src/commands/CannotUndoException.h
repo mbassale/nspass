@@ -7,7 +7,7 @@
 
 #include "../ApplicationException.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	class CannotUndoException : public ApplicationException {
 	public:
 		explicit CannotUndoException() : ApplicationException("Cannot undo this command.") {}

@@ -3,16 +3,16 @@
 //
 #include "../catch.hpp"
 #include "../TestUtility.h"
-#include "../../src/OwnPass.h"
+#include "../../src/NSPass.h"
 #include "../../src/storage/Storage.h"
 #include "../../src/storage/JsonStorage.h"
 #include "../../src/storage/JsonStorageFactory.h"
 #include "../../src/storage/InvalidStorageException.h"
 
 using namespace std;
-using OwnPass::Storage::JsonStorage;
-using OwnPass::Storage::JsonStorageFactory;
-using OwnPass::Storage::InvalidStorageException;
+using NSPass::Storage::JsonStorage;
+using NSPass::Storage::JsonStorageFactory;
+using NSPass::Storage::InvalidStorageException;
 
 class JsonStorageFixture {
 public:

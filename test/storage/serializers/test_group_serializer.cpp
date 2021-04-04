@@ -3,20 +3,20 @@
 //
 #include "../../catch.hpp"
 #include "../../TestUtility.h"
-#include "../../../src/OwnPass.h"
+#include "../../../src/NSPass.h"
 #include "../../../src/Password.h"
 #include "../../../src/Group.h"
 #include "../../../src/storage/serializer/GroupSerializer.h"
 
 using namespace std;
-using OwnPass::IdGenerator;
-using OwnPass::Password;
-using OwnPass::PasswordPtr;
-using OwnPass::PasswordFactory;
-using OwnPass::Group;
-using OwnPass::GroupFactory;
-using OwnPass::Crypto::SecureString;
-using OwnPass::Storage::Serializer::GroupSerializer;
+using NSPass::IdGenerator;
+using NSPass::Password;
+using NSPass::PasswordPtr;
+using NSPass::PasswordFactory;
+using NSPass::Group;
+using NSPass::GroupFactory;
+using NSPass::Crypto::SecureString;
+using NSPass::Storage::Serializer::GroupSerializer;
 
 class GroupSerializerFixture {
 public:

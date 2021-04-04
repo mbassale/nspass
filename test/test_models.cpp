@@ -9,7 +9,7 @@
 #include "../src/Category.h"
 
 using namespace std;
-using namespace OwnPass;
+using namespace NSPass;
 
 TEST_CASE("Create passwords")
 {

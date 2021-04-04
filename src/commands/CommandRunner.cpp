@@ -5,7 +5,7 @@
 #include "VersionCommand.h"
 #include "CommandRunner.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 
 	void CommandRunner::run()
 	{

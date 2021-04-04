@@ -7,7 +7,7 @@
 
 #include <stdexcept>
 
-namespace OwnPass {
+namespace NSPass {
 	class ApplicationException : public std::runtime_error {
 	public:
 		explicit ApplicationException(const char* message)

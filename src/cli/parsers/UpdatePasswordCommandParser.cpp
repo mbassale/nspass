@@ -2,18 +2,18 @@
 // Created by Marco Bassaletti on 02-04-21.
 //
 
-#include "../../OwnPass.h"
+#include "../../NSPass.h"
 #include "../../commands/HelpCommand.h"
 #include "../../commands/UpdatePasswordCommand.h"
 #include "../InvalidCommandSyntaxException.h"
 #include "UpdatePasswordCommandParser.h"
 
-namespace OwnPass::CLI::Parsers {
+namespace NSPass::CLI::Parsers {
 	using namespace std;
-	using OwnPass::Commands::CommandPtr;
-	using OwnPass::Commands::HelpCommand;
-	using OwnPass::Commands::UpdatePasswordCommand;
-	using OwnPass::CLI::InvalidCommandSyntaxException;
+	using NSPass::Commands::CommandPtr;
+	using NSPass::Commands::HelpCommand;
+	using NSPass::Commands::UpdatePasswordCommand;
+	using NSPass::CLI::InvalidCommandSyntaxException;
 	namespace po = boost::program_options;
 
 	CommandPtr UpdatePasswordCommandParser::operator()()

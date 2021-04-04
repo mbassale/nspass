@@ -8,16 +8,16 @@
 #include <boost/program_options.hpp>
 #include "../../Application.h"
 #include "../../commands/Command.h"
-namespace OwnPass::CLI::Parsers {
+namespace NSPass::CLI::Parsers {
 	class Parser {
 	public:
-		Parser(OwnPass::Application& app, boost::program_options::parsed_options& parsed,
+		Parser(NSPass::Application& app, boost::program_options::parsed_options& parsed,
 				boost::program_options::variables_map& vm)
 				:app{ app }, parsed{ parsed }, vm{ vm } { }
 		virtual ~Parser() = default;
 
 	protected:
-		OwnPass::Application& app;
+		NSPass::Application& app;
 		boost::program_options::parsed_options& parsed;
 		boost::program_options::variables_map& vm;
 		std::string format_error(std::string_view error_message, const boost::program_options::options_description& opt_desc);

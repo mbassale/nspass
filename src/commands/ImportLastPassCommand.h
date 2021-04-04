@@ -5,10 +5,10 @@
 #ifndef OWNPASS_IMPORTLASTPASSCOMMAND_H
 #define OWNPASS_IMPORTLASTPASSCOMMAND_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "Command.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	class ImportLastPassCommand : public Command {
 	public:
 		struct ImportErrors {
@@ -18,7 +18,7 @@ namespace OwnPass::Commands {
 					:line{ line }, error{ error } { }
 		};
 		static constexpr auto Name = "copy-password";
-		ImportLastPassCommand(OwnPass::Application& app, std::string filename)
+		ImportLastPassCommand(NSPass::Application& app, std::string filename)
 				:Command(app), filename{ std::move(filename) } { };
 		~ImportLastPassCommand() override = default;
 

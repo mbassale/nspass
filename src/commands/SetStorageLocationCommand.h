@@ -5,15 +5,15 @@
 #ifndef OWNPASS_SETSTORAGELOCATIONCOMMAND_H
 #define OWNPASS_SETSTORAGELOCATIONCOMMAND_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "../Application.h"
 #include "Command.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	class SetStorageLocationCommand : public Command {
 	public:
 		static constexpr auto Name = "storage";
-		explicit SetStorageLocationCommand(OwnPass::Application& app, std::string_view storage_location)
+		explicit SetStorageLocationCommand(NSPass::Application& app, std::string_view storage_location)
 				:Command(app), storage_location{ storage_location } { };
 		~SetStorageLocationCommand() override = default;
 

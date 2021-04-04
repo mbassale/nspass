@@ -5,15 +5,15 @@
 #ifndef OWNPASS_COMMAND_H
 #define OWNPASS_COMMAND_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "../Application.h"
 #include "CannotUndoException.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 
 	class Command {
 	public:
-		explicit Command(OwnPass::Application& app)
+		explicit Command(NSPass::Application& app)
 				:app{ app } { };
 		virtual ~Command() = default;
 
@@ -24,7 +24,7 @@ namespace OwnPass::Commands {
 		virtual void undo() = 0;
 	protected:
 		Application& app;
-		OwnPass::Storage::Storage& get_storage() { return app.get_vault().get_storage(); }
+		NSPass::Storage::Storage& get_storage() { return app.get_vault().get_storage(); }
 	};
 
 	typedef std::shared_ptr<Command> CommandPtr;

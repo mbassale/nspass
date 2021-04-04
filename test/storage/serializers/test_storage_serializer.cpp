@@ -3,20 +3,20 @@
 //
 
 #include "../../catch.hpp"
-#include "../../../src/OwnPass.h"
+#include "../../../src/NSPass.h"
 #include "../../../src/storage/StorageHeader.h"
 #include "../../../src/Category.h"
 #include "../../../src/storage/serializer/StorageSerializer.h"
 #include <iostream>
 
 using namespace std;
-using OwnPass::Storage::StorageHeader;
-using OwnPass::Storage::StorageHeaderFactory;
-using OwnPass::Category;
-using OwnPass::CategoryPtr;
-using OwnPass::CategoryFactory;
-using OwnPass::Storage::Serializer::StorageTuple;
-using OwnPass::Storage::Serializer::StorageSerializer;
+using NSPass::Storage::StorageHeader;
+using NSPass::Storage::StorageHeaderFactory;
+using NSPass::Category;
+using NSPass::CategoryPtr;
+using NSPass::CategoryFactory;
+using NSPass::Storage::Serializer::StorageTuple;
+using NSPass::Storage::Serializer::StorageSerializer;
 
 class StorageSerializerFixture {
 public:

@@ -7,9 +7,9 @@
 #include "../../src/query/GroupNotFoundException.h"
 #include "../../src/query/GroupQuery.h"
 
-using OwnPass::Group;
-using OwnPass::Query::GroupNotFoundException;
-using OwnPass::Query::GroupQuery;
+using NSPass::Group;
+using NSPass::Query::GroupNotFoundException;
+using NSPass::Query::GroupQuery;
 
 class GroupQueryFixture : public SampleStorageFixture {
 public:

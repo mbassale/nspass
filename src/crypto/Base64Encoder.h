@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-namespace OwnPass::Crypto {
+namespace NSPass::Crypto {
 	class Base64Encoder {
 	public:
 		static std::string encode(const std::vector<uint8_t>& plain_buffer);

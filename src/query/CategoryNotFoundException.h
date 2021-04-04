@@ -5,10 +5,10 @@
 #ifndef OWNPASS_CATEGORYNOTFOUNDEXCEPTION_H
 #define OWNPASS_CATEGORYNOTFOUNDEXCEPTION_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "RecordNotFoundException.h"
 
-namespace OwnPass::Query {
+namespace NSPass::Query {
 	class CategoryNotFoundException : public RecordNotFoundException {
 	public:
 		explicit CategoryNotFoundException(const std::string& message)

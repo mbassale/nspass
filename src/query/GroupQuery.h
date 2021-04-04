@@ -5,13 +5,13 @@
 #ifndef OWNPASS_GROUPQUERY_H
 #define OWNPASS_GROUPQUERY_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "../Group.h"
 #include "Query.h"
 
 #include <utility>
 
-namespace OwnPass::Query {
+namespace NSPass::Query {
 	struct GroupQueryItem {
 		CategoryPtr category;
 		GroupPtr group;
@@ -34,7 +34,7 @@ namespace OwnPass::Query {
 		size_t size() override;
 	protected:
 		QueryArguments args;
-		std::vector<OwnPass::CategoryPtr> categories;
+		std::vector<NSPass::CategoryPtr> categories;
 		std::vector<GroupQueryItem> results;
 		void find_categories();
 	};

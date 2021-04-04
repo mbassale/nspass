@@ -8,7 +8,7 @@
 #include <vector>
 #include <memory>
 
-namespace OwnPass::Crypto {
+namespace NSPass::Crypto {
 	class InitializationVectorFactory {
 	public:
 		static std::vector<uint8_t> make(size_t block_size);

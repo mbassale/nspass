@@ -5,7 +5,7 @@
 #include "../../catch.hpp"
 #include "../../../src/cli/input/BoolConfirmInput.h"
 
-using OwnPass::CLI::Input::BoolConfirmInput;
+using NSPass::CLI::Input::BoolConfirmInput;
 
 class BoolConfirmInputFixture {
 public:

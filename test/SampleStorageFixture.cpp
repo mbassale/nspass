@@ -2,16 +2,16 @@
 // Created by Marco Bassaletti on 30-03-21.
 //
 
-#include "../src/OwnPass.h"
+#include "../src/NSPass.h"
 #include "TestUtility.h"
 #include "SampleStorageFixture.h"
 
 using namespace std;
-using OwnPass::Application;
-using OwnPass::CategoryFactory;
-using OwnPass::GroupFactory;
-using OwnPass::PasswordFactory;
-using OwnPass::Crypto::SecureString;
+using NSPass::Application;
+using NSPass::CategoryFactory;
+using NSPass::GroupFactory;
+using NSPass::PasswordFactory;
+using NSPass::Crypto::SecureString;
 
 SampleStorageFixture::SampleStorageFixture()
 		:app{ Application::instance() }

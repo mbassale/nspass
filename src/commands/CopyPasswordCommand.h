@@ -5,14 +5,14 @@
 #ifndef OWNPASS_COPYPASSWORDCOMMAND_H
 #define OWNPASS_COPYPASSWORDCOMMAND_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "Command.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	class CopyPasswordCommand : public Command {
 	public:
 		static constexpr auto Name = "copy-password";
-		CopyPasswordCommand(OwnPass::Application& app, std::string category_filter, std::string group_filter,
+		CopyPasswordCommand(NSPass::Application& app, std::string category_filter, std::string group_filter,
 				std::string password_filter)
 				:Command(app), category_filter{ std::move(category_filter) }, group_filter{ std::move(group_filter) },
 				 password_filter{ std::move(password_filter) } { };

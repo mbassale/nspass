@@ -5,10 +5,10 @@
 #ifndef OWNPASS_DELETEPASSWORDCOMMAND_H
 #define OWNPASS_DELETEPASSWORDCOMMAND_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "Command.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	class DeletePasswordCommand : public Command {
 	public:
 		struct Filter {
@@ -18,7 +18,7 @@ namespace OwnPass::Commands {
 			std::string username_search;
 		};
 		static constexpr auto Name = "copy-password";
-		DeletePasswordCommand(OwnPass::Application& app, Filter filter)
+		DeletePasswordCommand(NSPass::Application& app, Filter filter)
 				:Command(app), filter{ std::move(filter) } { };
 		~DeletePasswordCommand() override = default;
 

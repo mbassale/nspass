@@ -5,10 +5,10 @@
 #ifndef OWNPASS_SECRETINPUT_H
 #define OWNPASS_SECRETINPUT_H
 
-#include "../../OwnPass.h"
+#include "../../NSPass.h"
 #include "UserInput.h"
 
-namespace OwnPass::CLI::Input {
+namespace NSPass::CLI::Input {
 	class SecretInput : public UserInput<std::string> {
 	};
 }

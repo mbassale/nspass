@@ -7,7 +7,7 @@
 
 #include <utility>
 
-namespace OwnPass::CLI::Output {
+namespace NSPass::CLI::Output {
 
 	CSVTableOutput::CSVTableOutput(const CSVTableOutputOptions& options, std::vector<std::string> headers)
 			:options{ options }, headers{ std::move(headers) }

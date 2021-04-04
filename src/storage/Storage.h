@@ -5,13 +5,13 @@
 #ifndef OWNPASS_STORAGE_H
 #define OWNPASS_STORAGE_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "../Category.h"
 #include "../Group.h"
 #include "../Password.h"
 #include "StorageHeader.h"
 
-namespace OwnPass::Storage {
+namespace NSPass::Storage {
 
 	class Storage {
 	public:
@@ -26,7 +26,7 @@ namespace OwnPass::Storage {
 		virtual std::string dump() = 0;
 
 		virtual StorageHeader& get_header() = 0;
-		virtual std::vector<OwnPass::CategoryPtr>& get_categories() = 0;
+		virtual std::vector<NSPass::CategoryPtr>& get_categories() = 0;
 		virtual void save_category(const CategoryPtr& category) = 0;
 		virtual CategoryPtr find_category(ObjectId category_id) = 0;
 		virtual CategoryPtr find_category(std::string_view search) = 0;

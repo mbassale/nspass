@@ -10,7 +10,7 @@
 #include <list>
 #include <boost/json.hpp>
 
-namespace OwnPass::Storage::Serializer {
+namespace NSPass::Storage::Serializer {
 	class CategorySerializer : public JsonSerializer<CategoryPtr> {
 	public:
 		CategorySerializer() = default;

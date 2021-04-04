@@ -7,11 +7,11 @@
 
 #include <utility>
 
-#include "OwnPass.h"
+#include "NSPass.h"
 #include "./crypto/SecureString.h"
 
-namespace OwnPass {
-	using OwnPass::Crypto::SecureString;
+namespace NSPass {
+	using NSPass::Crypto::SecureString;
 
 	class Password {
 	public:

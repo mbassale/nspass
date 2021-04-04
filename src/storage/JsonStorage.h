@@ -5,12 +5,12 @@
 #ifndef OWNPASS_JSONSTORAGE_H
 #define OWNPASS_JSONSTORAGE_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "Storage.h"
 #include "../Category.h"
 #include "../Group.h"
 
-namespace OwnPass::Storage {
+namespace NSPass::Storage {
 	class JsonStorage : public Storage {
 	public:
 		JsonStorage(std::string_view master_password, std::string_view storage_filename);
@@ -22,7 +22,7 @@ namespace OwnPass::Storage {
 		std::string dump() override;
 
 		StorageHeader& get_header() override;
-		std::vector<OwnPass::CategoryPtr>& get_categories() override;
+		std::vector<NSPass::CategoryPtr>& get_categories() override;
 		void save_category(const CategoryPtr& category) override;
 		CategoryPtr find_category(ObjectId category_id) override;
 		CategoryPtr find_category(std::string_view search) override;

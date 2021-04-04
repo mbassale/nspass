@@ -9,15 +9,15 @@
 #include "Parser.h"
 #include "CreatePasswordCommandParser.h"
 
-namespace OwnPass::CLI::Parsers {
+namespace NSPass::CLI::Parsers {
 	using namespace std;
-	using OwnPass::Commands::CommandPtr;
-	using OwnPass::Commands::HelpCommand;
-	using OwnPass::Commands::CreatePasswordCommand;
-	using OwnPass::CLI::InvalidCommandSyntaxException;
+	using NSPass::Commands::CommandPtr;
+	using NSPass::Commands::HelpCommand;
+	using NSPass::Commands::CreatePasswordCommand;
+	using NSPass::CLI::InvalidCommandSyntaxException;
 	namespace po = boost::program_options;
 
-	CommandPtr OwnPass::CLI::Parsers::CreatePasswordCommandParser::operator()()
+	CommandPtr NSPass::CLI::Parsers::CreatePasswordCommandParser::operator()()
 	{
 		po::options_description create_desc{ "Create command options" };
 		create_desc.add_options()

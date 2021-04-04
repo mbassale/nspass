@@ -4,6 +4,6 @@
 
 #include "UserInput.h"
 
-namespace OwnPass::CLI::Input {
+namespace NSPass::CLI::Input {
 
 }

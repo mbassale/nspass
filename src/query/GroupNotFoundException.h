@@ -5,10 +5,10 @@
 #ifndef OWNPASS_GROUPNOTFOUNDEXCEPTION_H
 #define OWNPASS_GROUPNOTFOUNDEXCEPTION_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "RecordNotFoundException.h"
 
-namespace OwnPass::Query {
+namespace NSPass::Query {
 	class GroupNotFoundException : public RecordNotFoundException {
 	public:
 		explicit GroupNotFoundException(const std::string& message)

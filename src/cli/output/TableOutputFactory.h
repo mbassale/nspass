@@ -8,7 +8,7 @@
 #include "StreamTableOutput.h"
 #include "CSVTableOutput.h"
 
-namespace OwnPass::CLI::Output {
+namespace NSPass::CLI::Output {
 
 	class TableOutputFactory {
 	public:

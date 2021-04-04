@@ -5,8 +5,8 @@
 #include "../query/CategoryQuery.h"
 #include "ListCategoriesCommand.h"
 
-namespace OwnPass::Commands {
-	using OwnPass::Query::CategoryQuery;
+namespace NSPass::Commands {
+	using NSPass::Query::CategoryQuery;
 
 	void ListCategoriesCommand::execute()
 	{

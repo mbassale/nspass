@@ -4,6 +4,6 @@
 
 #include "Query.h"
 
-namespace OwnPass::Query {
+namespace NSPass::Query {
 
 }

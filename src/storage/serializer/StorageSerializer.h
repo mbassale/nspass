@@ -5,14 +5,14 @@
 #ifndef OWNPASS_STORAGESERIALIZER_H
 #define OWNPASS_STORAGESERIALIZER_H
 
-#include "../../OwnPass.h"
+#include "../../NSPass.h"
 #include "JsonSerializer.h"
 #include "../../Category.h"
 #include "../StorageHeader.h"
 
-namespace OwnPass::Storage::Serializer {
+namespace NSPass::Storage::Serializer {
 
-	typedef std::tuple<OwnPass::Storage::StorageHeader, std::vector<OwnPass::CategoryPtr>> StorageTuple;
+	typedef std::tuple<NSPass::Storage::StorageHeader, std::vector<NSPass::CategoryPtr>> StorageTuple;
 
 	class StorageSerializer : public JsonSerializer<StorageTuple> {
 	public:

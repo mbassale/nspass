@@ -7,7 +7,7 @@
 #include "../../../src/cli/input/StringSecretInput.h"
 
 using namespace std;
-using OwnPass::CLI::Input::StringSecretInput;
+using NSPass::CLI::Input::StringSecretInput;
 
 class StringSecretInputFixture {
 public:

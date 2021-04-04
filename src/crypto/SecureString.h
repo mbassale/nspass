@@ -8,7 +8,7 @@
 #include <string>
 #include "StringCrypto.h"
 
-namespace OwnPass::Crypto {
+namespace NSPass::Crypto {
 	class SecureString {
 	public:
 		SecureString()

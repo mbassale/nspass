@@ -5,11 +5,11 @@
 #ifndef OWNPASS_COMMANDRUNNER_H
 #define OWNPASS_COMMANDRUNNER_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "../Application.h"
 #include "../commands/Command.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	class CommandRunner {
 	public:
 		explicit CommandRunner(const std::vector<CommandPtr>& commands)

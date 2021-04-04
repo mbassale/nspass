@@ -7,7 +7,7 @@
 
 #include "SecretInput.h"
 
-namespace OwnPass::CLI::Input {
+namespace NSPass::CLI::Input {
 	class PromptSecretInput : public SecretInput {
 	public:
 		PromptSecretInput() = default;

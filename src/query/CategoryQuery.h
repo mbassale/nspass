@@ -5,22 +5,22 @@
 #ifndef OWNPASS_CATEGORYQUERY_H
 #define OWNPASS_CATEGORYQUERY_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "../Category.h"
 #include "Query.h"
 
-namespace OwnPass::Query {
-	class CategoryQuery : public Query<OwnPass::CategoryPtr> {
+namespace NSPass::Query {
+	class CategoryQuery : public Query<NSPass::CategoryPtr> {
 	public:
 		CategoryQuery(Storage::Storage& storage, std::string_view search)
-				:Query<OwnPass::CategoryPtr>(storage), search{ search } { }
-		std::vector<OwnPass::CategoryPtr> find() override;
-		OwnPass::CategoryPtr find_first() override;
+				:Query<NSPass::CategoryPtr>(storage), search{ search } { }
+		std::vector<NSPass::CategoryPtr> find() override;
+		NSPass::CategoryPtr find_first() override;
 		bool empty() override;
 		size_t size() override;
 	protected:
 		std::string search;
-		std::vector<OwnPass::CategoryPtr> results{};
+		std::vector<NSPass::CategoryPtr> results{};
 	};
 }
 

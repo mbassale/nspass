@@ -6,7 +6,7 @@
 #include "../../src/crypto/Base64Encoder.h"
 
 using namespace std;
-using namespace OwnPass::Crypto;
+using namespace NSPass::Crypto;
 
 constexpr auto LoremIpsumText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
 							 " ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation "

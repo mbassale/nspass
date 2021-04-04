@@ -5,7 +5,7 @@
 #include <iostream>
 #include "HelpCommand.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	using namespace std;
 
 	void HelpCommand::execute()

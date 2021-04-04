@@ -5,10 +5,10 @@
 #ifndef OWNPASS_UPDATEPASSWORDCOMMAND_H
 #define OWNPASS_UPDATEPASSWORDCOMMAND_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "Command.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	class UpdatePasswordCommand : public Command {
 	public:
 		struct Filter {
@@ -25,7 +25,7 @@ namespace OwnPass::Commands {
 		};
 
 		static constexpr auto Name = "update-password";
-		UpdatePasswordCommand(OwnPass::Application& app, Filter filter, UpdateData update_data)
+		UpdatePasswordCommand(NSPass::Application& app, Filter filter, UpdateData update_data)
 				:Command(app), filter{ std::move(filter) }, update_data{ std::move(update_data) } { };
 		~UpdatePasswordCommand() override = default;
 

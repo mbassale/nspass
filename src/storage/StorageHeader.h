@@ -5,9 +5,9 @@
 #ifndef OWNPASS_STORAGEHEADER_H
 #define OWNPASS_STORAGEHEADER_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 
-namespace OwnPass::Storage {
+namespace NSPass::Storage {
 	class StorageHeader {
 	public:
 		StorageHeader()

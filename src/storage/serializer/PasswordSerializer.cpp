@@ -11,10 +11,10 @@
 #include "../../Password.h"
 #include "PasswordSerializer.h"
 
-namespace OwnPass::Storage::Serializer {
+namespace NSPass::Storage::Serializer {
 	using namespace std;
-	using namespace OwnPass;
-	using namespace OwnPass::Crypto;
+	using namespace NSPass;
+	using namespace NSPass::Crypto;
 
 	boost::json::object PasswordSerializer::serialize(const PasswordPtr& obj)
 	{

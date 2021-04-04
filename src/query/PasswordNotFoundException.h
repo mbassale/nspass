@@ -5,10 +5,10 @@
 #ifndef OWNPASS_PASSWORDNOTFOUNDEXCEPTION_H
 #define OWNPASS_PASSWORDNOTFOUNDEXCEPTION_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "RecordNotFoundException.h"
 
-namespace OwnPass::Query {
+namespace NSPass::Query {
 	class PasswordNotFoundException : public RecordNotFoundException {
 	public:
 		explicit PasswordNotFoundException(const std::string& password)

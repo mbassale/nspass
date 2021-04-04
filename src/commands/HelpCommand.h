@@ -9,11 +9,11 @@
 #include <boost/program_options.hpp>
 #include <utility>
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	class HelpCommand : public Command {
 	public:
 		static constexpr auto Name = "help";
-		explicit HelpCommand(OwnPass::Application& app, boost::program_options::options_description opt_desc)
+		explicit HelpCommand(NSPass::Application& app, boost::program_options::options_description opt_desc)
 				:Command(app), opt_desc{ std::move(opt_desc) } { };
 		~HelpCommand() override = default;
 

@@ -5,7 +5,7 @@
 #include <optional>
 #include "CreatePasswordCommand.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	using namespace std;
 
 	void CreatePasswordCommand::execute()

@@ -5,10 +5,10 @@
 #ifndef OWNPASS_BOOLCONFIRMINPUT_H
 #define OWNPASS_BOOLCONFIRMINPUT_H
 
-#include "../../OwnPass.h"
+#include "../../NSPass.h"
 #include "ConfirmInput.h"
 
-namespace OwnPass::CLI::Input {
+namespace NSPass::CLI::Input {
 	class BoolConfirmInput : public ConfirmInput {
 	public:
 		explicit BoolConfirmInput(bool confirm)

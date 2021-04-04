@@ -4,7 +4,7 @@
 
 #include "TableOutputFactory.h"
 
-namespace OwnPass::CLI::Output {
+namespace NSPass::CLI::Output {
 	StreamTableOutput TableOutputFactory::create(const StreamTableOutputOptions& options,
 			const std::vector<std::string>& headers)
 	{

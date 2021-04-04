@@ -1,12 +1,12 @@
 //
 // Created by Marco Bassaletti on 30-03-21.
 //
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "CategoryNotFoundException.h"
 #include "CategoryQuery.h"
 
-namespace OwnPass::Query {
-	using OwnPass::CategoryRef;
+namespace NSPass::Query {
+	using NSPass::CategoryRef;
 
 	std::vector<CategoryPtr> CategoryQuery::find()
 	{
@@ -20,7 +20,7 @@ namespace OwnPass::Query {
 		return results;
 	}
 
-	OwnPass::CategoryPtr CategoryQuery::find_first()
+	NSPass::CategoryPtr CategoryQuery::find_first()
 	{
 		boost::algorithm::trim(search);
 		results.clear();

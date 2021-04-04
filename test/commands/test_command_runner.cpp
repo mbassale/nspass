@@ -9,9 +9,9 @@
 #include "../../src/commands/CommandRunner.h"
 
 using namespace std;
-using OwnPass::Application;
-using OwnPass::CLI::CommandParser;
-using OwnPass::Commands::CommandRunner;
+using NSPass::Application;
+using NSPass::CLI::CommandParser;
+using NSPass::Commands::CommandRunner;
 
 class CommandRunnerFixture {
 public:

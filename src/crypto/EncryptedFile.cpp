@@ -8,7 +8,7 @@
 #include "StringCrypto.h"
 #include "EncryptedFile.h"
 
-namespace OwnPass::Crypto {
+namespace NSPass::Crypto {
 	using namespace std;
 
 	EncryptedFile::EncryptedFile(std::string_view filename, std::string_view shared_key)

@@ -5,7 +5,7 @@
 #include "../../catch.hpp"
 #include "../../../src/cli/input/PromptSecretInput.h"
 
-using OwnPass::CLI::Input::PromptSecretInput;
+using NSPass::CLI::Input::PromptSecretInput;
 
 class PromptSecretInputFixture {
 public:

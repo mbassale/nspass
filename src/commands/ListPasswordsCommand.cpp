@@ -1,14 +1,14 @@
 //
 // Created by Marco Bassaletti on 27-03-21.
 //
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "../Group.h"
 #include "../query/PasswordQuery.h"
 #include "CannotUndoException.h"
 #include "ListPasswordsCommand.h"
 
-namespace OwnPass::Commands {
-	using OwnPass::Query::PasswordQuery;
+namespace NSPass::Commands {
+	using NSPass::Query::PasswordQuery;
 
 	struct PasswordItem {
 		ObjectId id;

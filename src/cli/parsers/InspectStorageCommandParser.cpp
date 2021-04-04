@@ -5,10 +5,10 @@
 #include "../../commands/InspectStorageCommand.h"
 #include "InspectStorageCommandParser.h"
 
-namespace OwnPass::CLI::Parsers {
+namespace NSPass::CLI::Parsers {
 	using namespace std;
-	using OwnPass::Commands::CommandPtr;
-	using OwnPass::Commands::InspectStorageCommand;
+	using NSPass::Commands::CommandPtr;
+	using NSPass::Commands::InspectStorageCommand;
 
 	CommandPtr InspectStorageCommandParser::operator()()
 	{

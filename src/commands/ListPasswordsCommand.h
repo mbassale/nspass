@@ -5,14 +5,14 @@
 #ifndef OWNPASS_LISTPASSWORDSCOMMAND_H
 #define OWNPASS_LISTPASSWORDSCOMMAND_H
 
-#include "../OwnPass.h"
+#include "../NSPass.h"
 #include "ListCommand.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	class ListPasswordsCommand : public ListCommand {
 	public:
 		static constexpr auto Name = "list-passwords";
-		explicit ListPasswordsCommand(OwnPass::Application& app, Format format = Format::STDOUT,
+		explicit ListPasswordsCommand(NSPass::Application& app, Format format = Format::STDOUT,
 				const Filter& filter = EmptyFilter)
 				:ListCommand(app, format, filter) { };
 		~ListPasswordsCommand() override = default;

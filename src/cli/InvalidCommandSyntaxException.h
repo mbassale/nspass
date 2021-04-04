@@ -8,7 +8,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace OwnPass::CLI {
+namespace NSPass::CLI {
 	class InvalidCommandSyntaxException : public std::runtime_error {
 	public:
 		explicit InvalidCommandSyntaxException(const std::string& message) : std::runtime_error(message) {}

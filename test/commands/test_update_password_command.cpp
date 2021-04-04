@@ -2,17 +2,17 @@
 // Created by Marco Bassaletti on 03-04-21.
 //
 #include "../catch.hpp"
-#include "../../src/OwnPass.h"
+#include "../../src/NSPass.h"
 #include "../SampleStorageFixture.h"
 #include "../TestUtility.h"
 #include "../../src/query/PasswordNotFoundException.h"
 #include "../../src/commands/UpdatePasswordCommand.h"
 
 using namespace std;
-using OwnPass::Application;
-using OwnPass::ApplicationException;
-using OwnPass::Query::PasswordNotFoundException;
-using OwnPass::Commands::UpdatePasswordCommand;
+using NSPass::Application;
+using NSPass::ApplicationException;
+using NSPass::Query::PasswordNotFoundException;
+using NSPass::Commands::UpdatePasswordCommand;
 
 class UpdatePasswordCommandFixture : public SampleStorageFixture {
 public:

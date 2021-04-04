@@ -8,7 +8,7 @@
 #include "../../Password.h"
 #include "JsonSerializer.h"
 
-namespace OwnPass::Storage::Serializer {
+namespace NSPass::Storage::Serializer {
 	class PasswordSerializer : public JsonSerializer<PasswordPtr> {
 	public:
 		PasswordSerializer() = default;

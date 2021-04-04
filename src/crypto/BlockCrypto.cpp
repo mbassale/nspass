@@ -10,7 +10,7 @@
 #include "InitializationVector.h"
 #include "BlockCrypto.h"
 
-namespace OwnPass::Crypto {
+namespace NSPass::Crypto {
 
 	BlockCrypto::BlockCrypto(std::string_view shared_key, const std::vector<uint8_t>& init_vector)
 			:shared_key{ shared_key }, init_vector{ init_vector }

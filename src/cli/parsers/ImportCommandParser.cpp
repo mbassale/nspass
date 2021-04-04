@@ -2,18 +2,18 @@
 // Created by Marco Bassaletti on 01-04-21.
 //
 
-#include "../../OwnPass.h"
+#include "../../NSPass.h"
 #include "../../commands/HelpCommand.h"
 #include "../../commands/ImportLastPassCommand.h"
 #include "../InvalidCommandSyntaxException.h"
 #include "ImportCommandParser.h"
 
-namespace OwnPass::CLI::Parsers {
+namespace NSPass::CLI::Parsers {
 	using namespace std;
-	using OwnPass::Commands::CommandPtr;
-	using OwnPass::Commands::HelpCommand;
-	using OwnPass::Commands::ImportLastPassCommand;
-	using OwnPass::CLI::InvalidCommandSyntaxException;
+	using NSPass::Commands::CommandPtr;
+	using NSPass::Commands::HelpCommand;
+	using NSPass::Commands::ImportLastPassCommand;
+	using NSPass::CLI::InvalidCommandSyntaxException;
 	namespace po = boost::program_options;
 
 	CommandPtr ImportCommandParser::operator()()

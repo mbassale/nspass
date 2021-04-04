@@ -7,10 +7,10 @@
 
 #include <utility>
 
-#include "OwnPass.h"
+#include "NSPass.h"
 #include "Group.h"
 
-namespace OwnPass {
+namespace NSPass {
 	class Category {
 	public:
 		static constexpr auto DefaultName = "Default";

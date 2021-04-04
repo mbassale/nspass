@@ -10,7 +10,7 @@
 
 #define GCRY_CIPHER GCRY_CIPHER_AES256
 
-namespace OwnPass::Crypto {
+namespace NSPass::Crypto {
 	using namespace std;
 
 	StringCrypto::StringCrypto(std::string_view shared_key)

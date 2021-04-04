@@ -10,7 +10,7 @@
 #include "PasswordSerializer.h"
 #include "GroupSerializer.h"
 
-namespace OwnPass::Storage::Serializer {
+namespace NSPass::Storage::Serializer {
 	using namespace std;
 
 	boost::json::object GroupSerializer::serialize(const GroupPtr& obj)

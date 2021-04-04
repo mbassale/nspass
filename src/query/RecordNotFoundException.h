@@ -7,7 +7,7 @@
 
 #include "../ApplicationException.h"
 
-namespace OwnPass::Query {
+namespace NSPass::Query {
 	class RecordNotFoundException : public ApplicationException {
 	public:
 		explicit RecordNotFoundException(const char* message)

@@ -3,15 +3,15 @@
 //
 #include "../../catch.hpp"
 #include "../../TestUtility.h"
-#include "../../../src/OwnPass.h"
+#include "../../../src/NSPass.h"
 #include "../../../src/storage/StorageHeader.h"
 #include "../../../src/storage/serializer/StorageHeaderSerializer.h"
 
 using namespace std;
-using OwnPass::ObjectId;
-using OwnPass::Storage::StorageHeader;
-using OwnPass::Storage::StorageHeaderFactory;
-using OwnPass::Storage::Serializer::StorageHeaderSerializer;
+using NSPass::ObjectId;
+using NSPass::Storage::StorageHeader;
+using NSPass::Storage::StorageHeaderFactory;
+using NSPass::Storage::Serializer::StorageHeaderSerializer;
 
 class StorageHeaderSerializerFixture {
 public:

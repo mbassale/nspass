@@ -9,7 +9,7 @@
 
 #include <utility>
 
-namespace OwnPass::CLI::Output {
+namespace NSPass::CLI::Output {
 	struct CSVTableOutputOptions {
 	public:
 		static constexpr auto DefaultColumnSeparator = ",";

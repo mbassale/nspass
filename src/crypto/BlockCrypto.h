@@ -13,7 +13,7 @@
 
 #define GCRY_CIPHER GCRY_CIPHER_AES256
 
-namespace OwnPass::Crypto {
+namespace NSPass::Crypto {
 
 	class KeyLengthError : public std::runtime_error {
 	public:

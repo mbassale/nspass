@@ -7,10 +7,10 @@
 #include "../../src/query/CategoryNotFoundException.h"
 #include "../../src/query/CategoryQuery.h"
 
-using OwnPass::Category;
-using OwnPass::CategoryPtr;
-using OwnPass::Query::CategoryNotFoundException;
-using OwnPass::Query::CategoryQuery;
+using NSPass::Category;
+using NSPass::CategoryPtr;
+using NSPass::Query::CategoryNotFoundException;
+using NSPass::Query::CategoryQuery;
 
 class CategoryQueryFixture : public SampleStorageFixture {
 public:

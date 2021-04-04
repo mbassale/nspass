@@ -5,9 +5,9 @@
 #include "../../commands/DumpStorageCommand.h"
 #include "DumpStorageCommandParser.h"
 
-namespace OwnPass::CLI::Parsers {
-	using OwnPass::Commands::CommandPtr;
-	using OwnPass::Commands::DumpStorageCommand;
+namespace NSPass::CLI::Parsers {
+	using NSPass::Commands::CommandPtr;
+	using NSPass::Commands::DumpStorageCommand;
 
 	CommandPtr DumpStorageCommandParser::operator()()
 	{

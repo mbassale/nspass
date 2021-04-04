@@ -4,7 +4,7 @@
 
 #include "StringSecretInput.h"
 
-namespace OwnPass::CLI::Input {
+namespace NSPass::CLI::Input {
 
 	std::string StringSecretInput::request()
 	{

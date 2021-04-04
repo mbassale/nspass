@@ -8,7 +8,7 @@
 #include <sstream>
 #include <boost/json.hpp>
 
-namespace OwnPass::Storage {
+namespace NSPass::Storage {
 	class JsonParser {
 	public:
 		explicit JsonParser(std::string_view contents);

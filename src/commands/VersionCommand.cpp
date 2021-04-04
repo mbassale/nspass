@@ -5,11 +5,11 @@
 #include <iostream>
 #include "VersionCommand.h"
 
-namespace OwnPass::Commands {
+namespace NSPass::Commands {
 	using namespace std;
 
 	void VersionCommand::execute() {
-		cout << "OwnPass v0.1" << endl;
+		cout << "NSPass v0.1" << endl;
 	}
 
 	void VersionCommand::undo() {}

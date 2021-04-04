@@ -4,11 +4,11 @@
 
 #include "catch.hpp"
 #include "TestUtility.h"
-#include "../src/OwnPass.h"
+#include "../src/NSPass.h"
 #include "../src/Application.h"
 
 using namespace std;
-using namespace OwnPass;
+using namespace NSPass;
 
 class VaultFixture {
 public:

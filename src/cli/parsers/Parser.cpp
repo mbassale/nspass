@@ -7,7 +7,7 @@
 #include <boost/program_options.hpp>
 #include "Parser.h"
 
-namespace OwnPass::CLI::Parsers {
+namespace NSPass::CLI::Parsers {
 	using namespace std;
 	namespace po = boost::program_options;
 

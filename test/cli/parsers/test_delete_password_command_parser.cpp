@@ -10,12 +10,12 @@
 #include "../../../src/commands/DeletePasswordCommand.h"
 
 using namespace std;
-using OwnPass::Application;
-using OwnPass::Category;
-using OwnPass::CLI::CommandParser;
-using OwnPass::CLI::InvalidCommandSyntaxException;
-using OwnPass::Commands::HelpCommand;
-using OwnPass::Commands::DeletePasswordCommand;
+using NSPass::Application;
+using NSPass::Category;
+using NSPass::CLI::CommandParser;
+using NSPass::CLI::InvalidCommandSyntaxException;
+using NSPass::Commands::HelpCommand;
+using NSPass::Commands::DeletePasswordCommand;
 
 class DeletePasswordCommandParserFixture : public SampleStorageFixture {
 public:

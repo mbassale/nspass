@@ -10,7 +10,7 @@
 #include "../../src/crypto/EncryptedFile.h"
 
 using namespace std;
-using namespace OwnPass::Crypto;
+using namespace NSPass::Crypto;
 
 class EncryptedFileFixture {
 public:

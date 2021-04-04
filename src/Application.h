@@ -5,12 +5,12 @@
 #ifndef OWNPASS_APPLICATION_H
 #define OWNPASS_APPLICATION_H
 
-#include "OwnPass.h"
+#include "NSPass.h"
 #include "storage/JsonStorageFactory.h"
 #include "Vault.h"
 #include "storage/Storage.h"
 
-namespace OwnPass {
+namespace NSPass {
 
 	typedef std::function<void()> InitCallback;
 
@@ -29,7 +29,7 @@ namespace OwnPass {
 		static Application& instance();
 
 		[[nodiscard]] Vault& get_vault() const;
-		[[nodiscard]] OwnPass::Storage::Storage& get_storage() const;
+		[[nodiscard]] NSPass::Storage::Storage& get_storage() const;
 		void init();
 		void cleanup();
 
@@ -52,7 +52,7 @@ namespace OwnPass {
 		}
 
 	private:
-		OwnPass::Storage::JsonStorageFactory storage_factory{};
+		NSPass::Storage::JsonStorageFactory storage_factory{};
 		LogMode log_mode = LogMode::NORMAL;
 		std::list<InitCallback> init_callbacks;
 		std::list<CleanupCallback> cleanup_callbacks;
