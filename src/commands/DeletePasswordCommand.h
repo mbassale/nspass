@@ -17,13 +17,6 @@ namespace OwnPass::Commands {
 			std::string site_search;
 			std::string username_search;
 		};
-		struct PasswordData {
-			ObjectId id{};
-			std::string username;
-			SecureString password;
-			std::string url;
-			std::string description;
-		};
 		static constexpr auto Name = "copy-password";
 		DeletePasswordCommand(OwnPass::Application& app, Filter filter)
 				:Command(app), filter{ std::move(filter) } { };
@@ -31,14 +24,13 @@ namespace OwnPass::Commands {
 
 		std::string_view get_name() override { return Name; }
 		bool requires_master_password() override { return true; }
+		bool requires_confirmation() override { return true; }
 		[[nodiscard]] const Filter& get_filter() const { return filter; }
-		[[nodiscard]] const PasswordData& get_deleted_password_data() const { return deleted_password_data; }
 
 		void execute() override;
 		void undo() override;
 	protected:
 		Filter filter;
-		PasswordData deleted_password_data;
 	};
 }
 

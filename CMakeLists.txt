@@ -128,6 +128,7 @@ set(TEST_FILES
         test/commands/test_command_runner.cpp
         test/commands/test_copy_password_command.cpp
         test/commands/test_update_password_command.cpp
+        test/commands/test_delete_password_command.cpp
         test/commands/test_import_lastpass_command.cpp
         test/storage/test_storage_header.cpp
         test/storage/serializers/test_storage_header_serializer.cpp
