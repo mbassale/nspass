@@ -47,12 +47,16 @@ protected:
 		auto update_password_command = dynamic_cast<UpdatePasswordCommand*>(command_ptr);
 		REQUIRE(update_password_command);
 		REQUIRE(update_password_command->get_name() == UpdatePasswordCommand::Name);
-		REQUIRE(update_password_command->get_category() == category_name);
-		REQUIRE(update_password_command->get_site() == site_name);
-		REQUIRE(update_password_command->get_username() == username);
-		REQUIRE(update_password_command->get_password() == password);
-		REQUIRE(update_password_command->get_url() == url);
-		REQUIRE(update_password_command->get_description() == description);
+
+		auto& filter = update_password_command->get_filter();
+		REQUIRE(filter.category_search == category_name);
+		REQUIRE(filter.site_search == site_name);
+		REQUIRE(filter.username_search == username);
+
+		auto& update_data = update_password_command->get_update_data();
+		REQUIRE(update_data.password == password);
+		REQUIRE(update_data.url == url);
+		REQUIRE(update_data.description == description);
 	}
 };
 

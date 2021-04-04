@@ -26,6 +26,7 @@ namespace OwnPass::CLI::Parsers {
 				("site,s", po::value<string>(), "Site name")
 				("url", po::value<string>()->default_value("")->implicit_value(""), "Site url")
 				("description", po::value<string>()->default_value("")->implicit_value(""), "Description")
+				("new-username,n", po::value<string>(), "New username")
 				("username,u", po::value<string>(), "Username")
 				("password,p", po::value<string>(), "Password");
 
@@ -49,15 +50,21 @@ namespace OwnPass::CLI::Parsers {
 			throw InvalidCommandSyntaxException(format_error("Missing application or site.", create_desc));
 		}
 
-		auto category = vm["category"].as<string>();
-		auto application = vm.count("application") ? vm["application"].as<string>() : "";
-		auto site = vm.count("site") ? vm["site"].as<string>() : "";
-		auto username = vm["username"].as<string>();
-		auto password = vm["password"].as<string>();
-		auto url = vm["url"].as<string>();
-		auto description = vm["description"].as<string>();
+		UpdatePasswordCommand::Filter filter;
+		filter.category_search = vm["category"].as<string>();
+		filter.application_search = vm.count("application") ? vm["application"].as<string>() : "";
+		filter.site_search = vm.count("site") ? vm["site"].as<string>() : "";
+		filter.username_search = vm["username"].as<string>();
 
-		return CommandPtr{
-				new UpdatePasswordCommand{ app, category, application, site, username, password, url, description }};
+		UpdatePasswordCommand::UpdateData update_data;
+		update_data.username = vm.count("new-username") ? std::optional<string>{ vm["new-username"].as<string>() }
+														: std::nullopt;
+		update_data.password = vm.count("password") ? std::optional<string>{ vm["password"].as<string>() }
+													: std::nullopt;
+		update_data.url = vm.count("url") ? std::optional<string>{ vm["url"].as<string>() } : std::nullopt;
+		update_data.description = vm.count("description") ? std::optional<string>{ vm["description"].as<string>() }
+														  : std::nullopt;
+
+		return CommandPtr{ new UpdatePasswordCommand{ app, filter, update_data }};
 	}
 }

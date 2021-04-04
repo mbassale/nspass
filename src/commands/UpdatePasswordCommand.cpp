@@ -11,17 +11,27 @@ namespace OwnPass::Commands {
 	void UpdatePasswordCommand::execute()
 	{
 		PasswordQuery::QueryArguments args;
-		args.category_search = category;
-		args.group_search = application.empty() ? site : application;
-		args.username = username;
+		args.category_search = filter.category_search;
+		args.group_search = filter.application_search.empty() ? filter.site_search : filter.application_search;
+		args.username = filter.username_search;
 		PasswordQuery password_query{ get_storage(), args };
 		auto result = password_query.find_first();
 		auto password_to_update = result.password;
-		auto secure_password = SecureString::FromPlainText(app.get_vault().get_master_password(), password);
-		password_to_update->set_username(username);
-		password_to_update->set_password(secure_password);
-		password_to_update->set_description(description);
-		password_to_update->set_url(url);
+		if (update_data.username) {
+			password_to_update->set_username(*(update_data.username));
+		}
+		if (update_data.password) {
+			auto secure_password = SecureString::FromPlainText(password_to_update->get_username(),
+					*(update_data.password));
+			password_to_update->set_password(secure_password);
+		}
+		if (update_data.description) {
+			password_to_update->set_description(*(update_data.description));
+		}
+		if (update_data.url) {
+			password_to_update->set_url(*(update_data.url));
+		}
+		updated_password = password_to_update;
 		get_storage().flush();
 	}
 

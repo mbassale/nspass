@@ -131,7 +131,7 @@ set(TEST_FILES
         test/storage/serializers/test_password_serializer.cpp
         test/storage/serializers/test_group_serializer.cpp
         test/storage/serializers/test_category_serializer.cpp
-        test/storage/test_json_storage.cpp)
+        test/storage/test_json_storage.cpp test/commands/test_update_password_command.cpp)
 
 include_directories(${Boost_INCLUDE_DIRS})
 

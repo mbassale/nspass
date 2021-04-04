@@ -8,44 +8,41 @@
 #include "../OwnPass.h"
 #include "Command.h"
 
-#include <utility>
-
 namespace OwnPass::Commands {
 	class UpdatePasswordCommand : public Command {
 	public:
+		struct Filter {
+			std::string category_search;
+			std::string application_search;
+			std::string site_search;
+			std::string username_search;
+		};
+		struct UpdateData {
+			std::optional<std::string> username;
+			std::optional<std::string> password;
+			std::optional<std::string> url;
+			std::optional<std::string> description;
+		};
+
 		static constexpr auto Name = "update-password";
-		UpdatePasswordCommand(OwnPass::Application& app, std::string_view category, std::string_view application,
-				std::string_view site, std::string_view username, std::string_view password, std::string_view url,
-				std::string_view description)
-				:Command(app), category{ category }, application{ application }, site{ site }, username{ username },
-				 password{ password }, url{ url }, description{ description } { };
+		UpdatePasswordCommand(OwnPass::Application& app, Filter filter, UpdateData update_data)
+				:Command(app), filter{ std::move(filter) }, update_data{ std::move(update_data) } { };
 		~UpdatePasswordCommand() override = default;
 
 		std::string_view get_name() override { return Name; }
 		bool requires_master_password() override { return true; }
 
-		[[nodiscard]] std::string_view get_category() const { return category; }
-		[[nodiscard]] std::string_view get_application() const { return application; }
-		[[nodiscard]] std::string_view get_site() const { return site; }
-		[[nodiscard]] std::string_view get_username() const { return username; }
-		[[nodiscard]] std::string_view get_password() const { return password; }
-		[[nodiscard]] std::string_view get_url() const { return url; }
-		[[nodiscard]] std::string_view get_description() const { return description; }
+		[[nodiscard]] const Filter& get_filter() const { return filter; }
+		[[nodiscard]] const UpdateData& get_update_data() const { return update_data; }
+		[[nodiscard]] const PasswordWeakPtr& get_updated_password() const { return updated_password; }
 
 		void execute() override;
 		void undo() override;
 
 	protected:
-		ObjectId category_id{};
-		ObjectId group_id{};
-		ObjectId password_id{};
-		std::string category;
-		std::string application;
-		std::string site;
-		std::string username;
-		std::string password;
-		std::string url;
-		std::string description;
+		Filter filter;
+		UpdateData update_data;
+		PasswordWeakPtr updated_password;
 	};
 }
 
