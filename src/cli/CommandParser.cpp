@@ -13,6 +13,7 @@
 #include "./parsers/InspectStorageCommandParser.h"
 #include "./parsers/CreatePasswordCommandParser.h"
 #include "./parsers/UpdatePasswordCommandParser.h"
+#include "./parsers/DeletePasswordCommandParser.h"
 #include "./parsers/CopyPasswordCommandParser.h"
 #include "./parsers/PurgeStorageCommandParser.h"
 #include "./parsers/DumpStorageCommandParser.h"
@@ -75,6 +76,7 @@ Command can be one of:
 			CommandTable command_table[] = {
 					CommandTable{ "create", CreatePasswordCommandParser{ app, parsed, vm }},
 					CommandTable{ "update", UpdatePasswordCommandParser{ app, parsed, vm }},
+					CommandTable{ "delete", DeletePasswordCommandParser{ app, parsed, vm }},
 					CommandTable{ "copy", CopyPasswordCommandParser{ app, parsed, vm }},
 					CommandTable{ "inspect", InspectStorageCommandParser{ app, parsed, vm }},
 					CommandTable{ "purge", PurgeStorageCommandParser{ app, parsed, vm }},

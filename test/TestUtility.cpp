@@ -67,3 +67,15 @@ std::string TestUtility::get_clipboard_text()
 	clip::get_text(value);
 	return value;
 }
+
+std::pair<int, std::unique_ptr<const char*>> TestUtility::create_command_line_args(
+		const std::vector<std::string>& args)
+{
+	const char** argv = new const char* [args.size()+1];
+	for (size_t i = 0; i < args.size(); i++) {
+		argv[i] = args[i].c_str();
+	}
+	argv[args.size()] = nullptr;
+	int argc = TestUtility::get_argc(argv);
+	return std::pair<int, std::unique_ptr<const char*>>{ argc, std::unique_ptr<const char*>(argv) };
+}

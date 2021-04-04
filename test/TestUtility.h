@@ -25,6 +25,7 @@ public:
 	static std::string random_string(size_t length);
 	static std::string get_random_filename();
 	static std::string get_clipboard_text();
+	static std::pair<int, std::unique_ptr<const char*>> create_command_line_args(const std::vector<std::string>& args);
 };
 
 #endif //OWNPASS_TESTUTILITY_H

@@ -35,6 +35,7 @@ set(SOURCE_FILES
         src/cli/parsers/ListCommandParser.cpp src/cli/parsers/ListCommandParser.h
         src/cli/parsers/CreatePasswordCommandParser.h src/cli/parsers/CreatePasswordCommandParser.cpp
         src/cli/parsers/UpdatePasswordCommandParser.cpp src/cli/parsers/UpdatePasswordCommandParser.h
+        src/cli/parsers/DeletePasswordCommandParser.cpp src/cli/parsers/DeletePasswordCommandParser.h
         src/cli/parsers/CopyPasswordCommandParser.cpp src/cli/parsers/CopyPasswordCommandParser.h
         src/cli/parsers/ImportCommandParser.cpp src/cli/parsers/ImportCommandParser.h
         src/cli/parsers/InspectStorageCommandParser.cpp src/cli/parsers/InspectStorageCommandParser.h
@@ -60,6 +61,7 @@ set(SOURCE_FILES
         src/commands/InspectStorageCommand.cpp src/commands/InspectStorageCommand.h
         src/commands/CreatePasswordCommand.h src/commands/CreatePasswordCommand.cpp
         src/commands/UpdatePasswordCommand.cpp src/commands/UpdatePasswordCommand.h
+        src/commands/DeletePasswordCommand.cpp src/commands/DeletePasswordCommand.h
         src/commands/PurgeStorageCommand.h src/commands/PurgeStorageCommand.cpp
         src/commands/SetStorageLocationCommand.cpp src/commands/SetStorageLocationCommand.h
         src/commands/DumpStorageCommand.cpp src/commands/DumpStorageCommand.h
@@ -113,6 +115,7 @@ set(TEST_FILES
         test/cli/parsers/test_import_command_parser.cpp
         test/cli/parsers/test_create_password_command_parser.cpp
         test/cli/parsers/test_update_password_command_parser.cpp
+        test/cli/parsers/test_delete_password_command_parser.cpp
         test/cli/parsers/test_copy_password_command_parser.cpp
         test/cli/parsers/test_inspect_storage_command_parser.cpp
         test/cli/parsers/test_purge_storage_command_parser.cpp
@@ -124,6 +127,7 @@ set(TEST_FILES
         test/cli/output/test_csv_table_output.cpp
         test/commands/test_command_runner.cpp
         test/commands/test_copy_password_command.cpp
+        test/commands/test_update_password_command.cpp
         test/commands/test_import_lastpass_command.cpp
         test/storage/test_storage_header.cpp
         test/storage/serializers/test_storage_header_serializer.cpp
@@ -131,7 +135,7 @@ set(TEST_FILES
         test/storage/serializers/test_password_serializer.cpp
         test/storage/serializers/test_group_serializer.cpp
         test/storage/serializers/test_category_serializer.cpp
-        test/storage/test_json_storage.cpp test/commands/test_update_password_command.cpp)
+        test/storage/test_json_storage.cpp)
 
 include_directories(${Boost_INCLUDE_DIRS})
 
