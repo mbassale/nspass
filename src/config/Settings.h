@@ -10,6 +10,8 @@
 namespace NSPass::Config {
 	class Settings {
 	public:
+		Settings() = default;
+		virtual ~Settings() = default;
 		virtual std::string get_data_directory() = 0;
 		virtual std::string get_temp_directory() = 0;
 	};

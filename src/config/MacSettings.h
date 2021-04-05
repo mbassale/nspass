@@ -12,6 +12,7 @@ namespace NSPass::Config {
 	class MacSettings : public Settings {
 	public:
 		MacSettings() = default;
+		~MacSettings() override = default;
 
 		std::string get_data_directory() override;
 		std::string get_temp_directory() override;
