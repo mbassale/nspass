@@ -21,7 +21,6 @@ set(SOURCE_FILES
         src/Category.cpp src/Category.h
         src/IdGenerator.h src/IdGenerator.cpp
         src/config/Settings.cpp src/config/Settings.h
-        src/config/SettingsFactory.cpp src/config/SettingsFactory.h
         src/config/MacSettings.mm src/config/MacSettings.h
         src/query/Query.cpp src/query/Query.h
         src/query/CategoryQuery.cpp src/query/CategoryQuery.h

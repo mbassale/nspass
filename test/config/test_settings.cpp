@@ -5,11 +5,9 @@
 #include "../../src/NSPass.h"
 #include "../../src/Application.h"
 #include "../../src/config/Settings.h"
-#include "../../src/config/SettingsFactory.h"
 
 using namespace std;
 using NSPass::Config::Settings;
-using NSPass::Config::SettingsFactory;
 
 class SettingsFixture {
 public:
@@ -19,15 +17,14 @@ public:
 
 TEST_CASE_METHOD(SettingsFixture, "Settings - create settings instance", SettingsFixture::Tag)
 {
-	REQUIRE_NOTHROW(SettingsFactory::make());
+	REQUIRE_NOTHROW(Settings{});
 }
 
 TEST_CASE_METHOD(SettingsFixture, "Settings - get data directory", SettingsFixture::Tag)
 {
 	REQUIRE_NOTHROW([&] {
-		auto settings = SettingsFactory::make();
-		REQUIRE(settings);
-		auto data_directory = settings->get_data_directory();
+		Settings settings;
+		auto data_directory = settings.get_data_directory();
 		REQUIRE_FALSE(data_directory.empty());
 	});
 }
@@ -35,9 +32,8 @@ TEST_CASE_METHOD(SettingsFixture, "Settings - get data directory", SettingsFixtu
 TEST_CASE_METHOD(SettingsFixture, "Settings - get temp directory", SettingsFixture::Tag)
 {
 	REQUIRE_NOTHROW([&] {
-		auto settings = SettingsFactory::make();
-		REQUIRE(settings);
-		auto temp_directory = settings->get_temp_directory();
+		Settings settings;
+		auto temp_directory = settings.get_temp_directory();
 		REQUIRE_FALSE(temp_directory.empty());
 	});
 }

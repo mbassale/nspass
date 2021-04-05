@@ -27,12 +27,6 @@ namespace NSPass::Storage {
 
 	JsonStorage::~JsonStorage()
 	{
-		try {
-			save();
-		}
-		catch (std::runtime_error& e) {
-			std::cerr << "Error closing json file: " << storage_location << " error: " << e.what() << std::endl;
-		}
 	}
 
 	void JsonStorage::flush()

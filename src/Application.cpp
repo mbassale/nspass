@@ -9,11 +9,9 @@
 #include <boost/log/expressions.hpp>
 #include <boost/log/utility/setup/file.hpp>
 #include <boost/log/utility/setup/common_attributes.hpp>
-#include "config/SettingsFactory.h"
 #include "Application.h"
 
 namespace logging = boost::log;
-using NSPass::Config::SettingsFactory;
 
 namespace NSPass {
 	Application app;
@@ -21,7 +19,6 @@ namespace NSPass {
 	Application::Application()
 	{
 		init_logging();
-		init_settings();
 		init_vault();
 	}
 
@@ -62,20 +59,14 @@ namespace NSPass {
 		}
 	}
 
-	void Application::init_settings()
-	{
-		settings = SettingsFactory::make();
-	}
-
 	void Application::init_vault()
 	{
 		vault = std::make_unique<Vault>(storage_factory);
 	}
 
-	NSPass::Config::Settings& Application::get_settings() const
+	NSPass::Config::Settings& Application::get_settings()
 	{
-		if (settings) *settings;
-		throw ApplicationException{ "Settings not initialized." };
+		return settings;
 	}
 
 	Vault& Application::get_vault() const
