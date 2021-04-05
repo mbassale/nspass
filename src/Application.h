@@ -7,6 +7,7 @@
 
 #include "NSPass.h"
 #include "storage/JsonStorageFactory.h"
+#include "config/Settings.h"
 #include "Vault.h"
 #include "storage/Storage.h"
 
@@ -28,6 +29,7 @@ namespace NSPass {
 
 		static Application& instance();
 
+		[[nodiscard]] NSPass::Config::Settings& get_settings() const;
 		[[nodiscard]] Vault& get_vault() const;
 		[[nodiscard]] NSPass::Storage::Storage& get_storage() const;
 		void init();
@@ -57,8 +59,10 @@ namespace NSPass {
 		std::list<InitCallback> init_callbacks;
 		std::list<CleanupCallback> cleanup_callbacks;
 		std::unique_ptr<Vault> vault;
+		NSPass::Config::SettingsPtr settings;
 
 		void init_logging();
+		void init_settings();
 		void init_vault();
 	};
 }
