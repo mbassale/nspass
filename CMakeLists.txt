@@ -20,6 +20,9 @@ set(SOURCE_FILES
         src/Password.cpp src/Password.h
         src/Category.cpp src/Category.h
         src/IdGenerator.h src/IdGenerator.cpp
+        src/config/Settings.cpp src/config/Settings.h
+        src/config/SettingsFactory.cpp src/config/SettingsFactory.h
+        src/config/MacSettings.mm src/config/MacSettings.h
         src/query/Query.cpp src/query/Query.h
         src/query/CategoryQuery.cpp src/query/CategoryQuery.h
         src/query/GroupQuery.cpp src/query/GroupQuery.h
@@ -101,6 +104,8 @@ set(TEST_FILES
         test/test_models.cpp
         test/test_vault.cpp
         test/test_command_line.cpp
+        test/config/test_settings.cpp
+        test/config/test_mac_settings.cpp
         test/query/test_category_query.cpp
         test/query/test_group_query.cpp
         test/query/test_password_query.cpp
