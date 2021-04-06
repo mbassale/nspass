@@ -18,6 +18,7 @@ namespace NSPass::Commands {
 		group_obj->add_password(password_ptr);
 		category_obj->save_group(group_obj);
 		get_storage().save_category(category_obj);
+		get_storage().flush();
 		category_id = category_obj->get_id();
 		password_id = password_ptr->get_id();
 		group_id = group_obj->get_id();
