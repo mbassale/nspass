@@ -20,6 +20,10 @@ namespace NSPass::Commands {
 		bool requires_master_password() override { return true; }
 		void execute() override;
 		void undo() override;
+	protected:
+		size_t get_categories_count();
+		size_t get_groups_count();
+		size_t get_passwords_count();
 	};
 }
 
