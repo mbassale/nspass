@@ -152,3 +152,5 @@ add_executable(tests ${TEST_FILES} ${SOURCE_FILES})
 target_link_libraries(nspass clip ${Boost_LIBRARIES} ${LIBGCRYPT_LIBRARIES})
 
 target_link_libraries(tests clip ${Boost_LIBRARIES} ${LIBGCRYPT_LIBRARIES})
+
+install(TARGETS nspass DESTINATION bin)
