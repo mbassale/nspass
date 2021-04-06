@@ -18,6 +18,9 @@ namespace NSPass::Commands {
 		}
 		string line_str;
 		size_t line_count = 0;
+		size_t password_count = 0;
+		size_t error_count = 0;
+		std::cout << "Import start." << std::endl;
 		while (getline(infile, line_str)) {
 			if (line_count++ == 0) continue;
 			boost::tokenizer<boost::escaped_list_separator<char>> tok(line_str);
@@ -35,11 +38,24 @@ namespace NSPass::Commands {
 					item.site_name = row_data[4];
 					item.category_name = row_data[5];
 					import_item(item);
+					password_count++;
 				}
 				catch (std::runtime_error& err) {
 					errors.emplace_back(line_count, err.what());
+					error_count++;
 				}
 			}
+		}
+		get_storage().flush();
+
+		std::cout << "Import end." << std::endl;
+		std::cout << "Summary:" << std::endl;
+		std::cout << "Line Count: " << line_count << std::endl;
+		std::cout << "Password Count: " << password_count << std::endl;
+		std::cout << "Error Count: " << error_count << std::endl;
+		std::cout << "Errors:" << std::endl;
+		for (auto& err : errors) {
+			std::cout << "Error Line #" << err.line << ": " << err.error << std::endl;
 		}
 	}
 
