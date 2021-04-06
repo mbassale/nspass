@@ -65,6 +65,10 @@ namespace NSPass::Storage {
 		else {
 			*it = category;
 		}
+		std::sort(categories.begin(), categories.end(),
+				[](const CategoryPtr& category1, const CategoryPtr& category2) -> bool {
+					return category1->get_name() < category2->get_name();
+				});
 	}
 
 	CategoryPtr JsonStorage::find_category(ObjectId category_id)
