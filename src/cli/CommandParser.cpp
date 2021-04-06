@@ -39,7 +39,15 @@ namespace NSPass::CLI {
 	{
 		static constexpr auto CommandHelp = R"(command to execute.
 Command can be one of:
-    create: Creates a password.
+	create: Creates a password.
+	update: Updates a password.
+	delete: Deletes a password.
+	copy: Copies a password into the clipboard.
+	inspect: Inspects storage and show basic statistics.
+	purge: Purges storage and removing all data.
+	dump: Dump storage to stdout in JSON format.
+	list: List categories, sites and passwords.
+	import: Import passwords from a CSV file.
 )";
 		opt_descriptions.add_options()
 				("help,h", "show this help.")
