@@ -13,6 +13,10 @@ namespace NSPass {
 	Category& Category::add_group(const GroupPtr& group)
 	{
 		groups.push_back(group);
+		std::sort(groups.begin(), groups.end(),
+				[](const GroupPtr& group1, const GroupPtr& group2) -> bool {
+					return group1->get_name() < group2->get_name();
+				});
 		return *this;
 	}
 
@@ -63,6 +67,10 @@ namespace NSPass {
 		else {
 			*it = group;
 		}
+		std::sort(groups.begin(), groups.end(),
+				[](const GroupPtr& group1, const GroupPtr& group2) -> bool {
+					return group1->get_name() < group2->get_name();
+				});
 		return *this;
 	}
 
