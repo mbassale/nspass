@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.17)
 project(nspass)
 
 #SET(Boost_USE_STATIC_LIBS ON)
-find_package(Boost REQUIRED COMPONENTS json log program_options)
+find_package(Boost REQUIRED COMPONENTS json program_options)
 find_library(LIBGCRYPT_LIBRARIES gcrypt)
 
 set(CLIP_EXAMPLES OFF CACHE BOOL "Compile clip examples")

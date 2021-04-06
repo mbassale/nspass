@@ -2,10 +2,9 @@
 // Created by Marco Bassaletti on 16-03-21.
 //
 
-#include <boost/log/trivial.hpp>
 #include "../Application.h"
-#include "CommandParser.h"
 #include "../commands/CommandRunner.h"
+#include "CommandParser.h"
 #include "CommandLine.h"
 
 using NSPass::Application;
@@ -39,12 +38,12 @@ namespace NSPass::CLI {
 			}
 		}
 		catch (std::runtime_error& err) {
-			BOOST_LOG_TRIVIAL(fatal) << "Runtime Error: " << err.what() << std::endl;
+			std::cerr << "Runtime Error: " << err.what() << std::endl;
 			call_cleanup();
 			return 1;
 		}
 		catch (std::exception& ex) {
-			BOOST_LOG_TRIVIAL(fatal) << "Error: " << ex.what() << std::endl;
+			std::cerr << "Error: " << ex.what() << std::endl;
 			call_cleanup();
 			return 1;
 		}

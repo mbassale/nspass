@@ -4,8 +4,6 @@
 
 #include <gcrypt.h>
 #include "InitCrypto.h"
-#include <iomanip>
-#include <boost/log/trivial.hpp>
 
 namespace NSPass::Crypto {
 
@@ -14,7 +12,6 @@ namespace NSPass::Crypto {
 	InitCrypto::InitCrypto()
 	{
 		auto& app = Application::instance();
-		BOOST_LOG_TRIVIAL(trace) << "Registering crypto initialization... " << std::flush;
 		app.register_init([] {
 			/* http://lists.gnupg.org/pipermail/gcrypt-devel/2003-August/000458.html
 			 * Because you can't know in a library whether another library has
@@ -24,6 +21,5 @@ namespace NSPass::Crypto {
 				gcry_check_version(nullptr); /* before calling any other functions */
 			}
 		});
-		BOOST_LOG_TRIVIAL(trace) << "Done." << std::endl;
 	}
 }
