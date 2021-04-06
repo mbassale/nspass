@@ -9,7 +9,29 @@
 namespace NSPass {
 	using namespace std;
 
-	PasswordPtr Group::find_password(ObjectId password_id) {
+	Group& Group::add_password(const PasswordPtr& password)
+	{
+		passwords.push_back(password);
+		std::sort(passwords.begin(), passwords.end(),
+				[](const PasswordPtr& password1, const PasswordPtr& password2) -> bool {
+					return password1->get_username() < password2->get_username();
+				});
+		return *this;
+	}
+
+	Group& Group::remove_password(PasswordPtr& password)
+	{
+		for (auto it = passwords.begin(); it != passwords.end(); it++) {
+			if ((*it)->get_id() == password->get_id()) {
+				passwords.erase(it);
+				break;
+			}
+		}
+		return *this;
+	}
+
+	PasswordPtr Group::find_password(ObjectId password_id)
+	{
 		auto match_group = [password_id](const auto& password) {
 			return password_id == password->get_id();
 		};
@@ -19,7 +41,8 @@ namespace NSPass {
 		return *filtered_iterator_begin;
 	}
 
-	PasswordPtr Group::find_password(std::string_view username) {
+	PasswordPtr Group::find_password(std::string_view username)
+	{
 		auto match_group = [username](const auto& password) {
 			return boost::iequals(password->get_username(), username);
 		};

@@ -73,21 +73,8 @@ namespace NSPass {
 
 		[[nodiscard]] const std::vector<PasswordPtr>& get_passwords() const { return passwords; }
 		[[nodiscard]] std::vector<PasswordPtr>& get_passwords() { return passwords; }
-		Group& add_password(const PasswordPtr& password)
-		{
-			passwords.push_back(password);
-			return *this;
-		}
-		Group& remove_password(PasswordPtr& password)
-		{
-			for (auto it = passwords.begin(); it != passwords.end(); it++) {
-				if ((*it)->get_id() == password->get_id()) {
-					passwords.erase(it);
-					break;
-				}
-			}
-			return *this;
-		}
+		Group& add_password(const PasswordPtr& password);
+		Group& remove_password(PasswordPtr& password);
 
 		[[nodiscard]] std::string_view get_url() const { return url; }
 		Group& set_url(std::string_view new_url)
