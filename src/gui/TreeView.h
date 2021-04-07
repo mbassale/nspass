@@ -14,16 +14,55 @@
 #include "wx/wx.h"
 #endif
 
+#include "../NSPass.h"
+#include "../Application.h"
+#include "../Category.h"
+#include "../storage/StorageHeader.h"
 #include <wx/treectrl.h>
 
+#include <utility>
+
 namespace NSPass::GUI {
+
+	class StorageItemData : public wxTreeItemData {
+	public:
+		explicit StorageItemData(Storage::StorageHeader storageHeader)
+				:storageHeader{ std::move(storageHeader) } { }
+	protected:
+		Storage::StorageHeader storageHeader;
+	};
+
+	class CategoryItemData : public wxTreeItemData {
+	public:
+		explicit CategoryItemData(CategoryPtr category)
+				:category{ std::move(category) } { }
+	private:
+		CategoryPtr category;
+	};
+
+	class GroupItemData : public wxTreeItemData {
+	public:
+		explicit GroupItemData(GroupPtr group)
+				:group{ std::move(group) } { }
+	private:
+		GroupPtr group;
+	};
+
 	class TreeView : public wxTreeCtrl {
 	public:
-		TreeView() = default;
+		TreeView()
+				:app{ Application::instance() } { };
 		TreeView(wxWindow* parent, wxWindowID id);
 		~TreeView() override = default;
 
+		void FillStorageData();
+		void DeleteStorageData();
+
 	protected:
+		Application& app;
+		wxTreeItemId rootId;
+
+		Storage::Storage& getStorage() { return app.get_storage(); }
 		int OnCompareItems(const wxTreeItemId& i1, const wxTreeItemId& i2) wxOVERRIDE;
 
 	private:
