@@ -5,6 +5,9 @@ project(nspass)
 find_package(Boost REQUIRED COMPONENTS json program_options)
 find_library(LIBGCRYPT_LIBRARIES gcrypt)
 
+find_package(wxWidgets COMPONENTS core base REQUIRED)
+include(${wxWidgets_USE_FILE})
+
 set(CLIP_EXAMPLES OFF CACHE BOOL "Compile clip examples")
 set(CLIP_TESTS OFF CACHE BOOL "Compile clip tests")
 set(CLIP_X11_WITH_PNG OFF CACHE BOOL "Compile with libpng to support copy/paste image in png format")
@@ -96,6 +99,12 @@ set(SOURCE_FILES
         src/crypto/SecureString.h src/crypto/SecureString.cpp
         src/crypto/EncryptedFile.h src/crypto/EncryptedFile.cpp)
 
+set(GUI_FILES src/gui/App.h src/gui/App.cpp src/gui/MainFrame.cpp src/gui/MainFrame.h)
+if(APPLE)
+    # Add an icon for the apple .app file
+    list(APPEND GUI_FILES ./assets/icons/wxmac.icns)
+endif()
+
 set(TEST_FILES
         test/TestUtility.h test/TestUtility.cpp
         test/SampleStorageFixture.cpp test/SampleStorageFixture.h
@@ -144,13 +153,29 @@ set(TEST_FILES
 
 include_directories(${Boost_INCLUDE_DIRS})
 
-# Password Manager
+# Password Manager Command Line
 add_executable(nspass src/main.cpp ${SOURCE_FILES})
+
+# Password Manager GUI
+add_executable(nspass-gui WIN32 MACOSX_BUNDLE ${GUI_FILES} ${SOURCE_FILES})
+
 # Test Suites
 add_executable(tests ${TEST_FILES} ${SOURCE_FILES})
 
 target_link_libraries(nspass clip ${Boost_LIBRARIES} ${LIBGCRYPT_LIBRARIES})
 
-target_link_libraries(tests clip ${Boost_LIBRARIES} ${LIBGCRYPT_LIBRARIES})
+target_link_libraries(nspass-gui clip ${Boost_LIBRARIES} ${LIBGCRYPT_LIBRARIES} ${wxWidgets_LIBRARIES})
+
+target_link_libraries(tests clip ${Boost_LIBRARIES} ${LIBGCRYPT_LIBRARIES} ${wxWidgets_LIBRARIES})
 
 install(TARGETS nspass DESTINATION bin)
+
+if(APPLE)
+    set_target_properties(nspass-gui PROPERTIES
+            OUTPUT_NAME "nspass"
+            RESOURCE "./assets/icons/wxmac.icns"
+            MACOSX_BUNDLE_ICON_FILE wxmac.icns
+            MACOSX_BUNDLE_COPYRIGHT "Copyright Marco Bassaletti <bassaletti@gmail.com>"
+            MACOSX_BUNDLE_GUI_IDENTIFIER "com.mbassale.nspass"
+            )
+endif()
