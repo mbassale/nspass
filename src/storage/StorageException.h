@@ -8,10 +8,10 @@
 #include "../NSPass.h"
 
 namespace NSPass::Storage {
-	class StorageException : public std::runtime_error {
+	class StorageException : public ApplicationException {
 	public:
 		explicit StorageException(const std::string& message)
-				:std::runtime_error(message) { }
+				:ApplicationException(message) { }
 	};
 }
 
