@@ -99,7 +99,12 @@ set(SOURCE_FILES
         src/crypto/SecureString.h src/crypto/SecureString.cpp
         src/crypto/EncryptedFile.h src/crypto/EncryptedFile.cpp)
 
-set(GUI_FILES src/gui/App.h src/gui/App.cpp src/gui/MainFrame.cpp src/gui/MainFrame.h)
+set(GUI_FILES src/gui/GlobalIds.h
+        src/gui/App.h src/gui/App.cpp
+        src/gui/MainFrame.cpp src/gui/MainFrame.h
+        src/gui/TreeView.cpp src/gui/TreeView.h
+        src/gui/ContentPanel.cpp src/gui/ContentPanel.h
+        src/gui/MainMenuBar.cpp src/gui/MainMenuBar.h)
 if(APPLE)
     # Add an icon for the apple .app file
     list(APPEND GUI_FILES ./assets/icons/wxmac.icns)
