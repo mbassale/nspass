@@ -18,15 +18,27 @@ namespace NSPass::GUI {
 	class MainFrame : public wxFrame {
 	public:
 		// ctor(s)
-		MainFrame(const wxString& title);
+		explicit MainFrame(const wxString& title);
 
 		// event handlers (these functions should _not_ be virtual)
+		void OnCreate(wxWindowCreateEvent& event);
+		void OnOpen(wxCommandEvent& event);
+		void OnOpenDefault(wxCommandEvent& event);
+		void OnSave(wxCommandEvent& event);
+		void OnClose(wxCommandEvent& event);
 		void OnQuit(wxCommandEvent& event);
 		void OnAbout(wxCommandEvent& event);
 
 	private:
+		wxMenuBar* menuBar;
+		wxMenu* fileMenu;
+		wxMenu* helpMenu;
+
 		// any class wishing to process wxWidgets events must use this macro
-		wxDECLARE_EVENT_TABLE();
+	wxDECLARE_EVENT_TABLE();
+
+		void OpenDefaultStorage();
+		void CloseStorage();
 	};
 }
 #endif //NSPASS_MAINFRAME_H
