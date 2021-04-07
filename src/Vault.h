@@ -25,6 +25,9 @@ namespace NSPass {
 		Vault& set_storage_location(std::string_view new_storage_location);
 
 		BaseStorage& get_storage();
+		void open();
+		void save();
+		void close();
 
 	private:
 		NSPass::Storage::StorageFactory& storage_factory;

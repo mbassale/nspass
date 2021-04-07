@@ -12,7 +12,6 @@ namespace NSPass {
 		return *this;
 	}
 
-
 	Vault& Vault::set_storage_location(std::string_view new_storage_location)
 	{
 		storage_location = new_storage_location;
@@ -30,4 +29,20 @@ namespace NSPass {
 		return *storage;
 	}
 
+	void Vault::open()
+	{
+		if (!storage) get_storage();
+	}
+
+	void Vault::save()
+	{
+		if (storage) storage->flush();
+		else throw ApplicationException("Trying to save without storage");
+	}
+
+	void Vault::close()
+	{
+		if (storage) storage.reset();
+		else throw ApplicationException("Trying to close without storage");
+	}
 }
