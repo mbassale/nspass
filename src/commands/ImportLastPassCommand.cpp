@@ -37,6 +37,8 @@ namespace NSPass::Commands {
 					item.extra = row_data[3];
 					item.site_name = row_data[4];
 					item.category_name = row_data[5];
+					boost::trim(item.site_name);
+					boost::trim(item.site_name);
 					import_item(item);
 					password_count++;
 				}
@@ -70,11 +72,8 @@ namespace NSPass::Commands {
 		if (!category) return;
 		auto group = find_or_create_group(category, GroupType::Site, item.site_name);
 		if (!group) return;
-		auto password = create_password(item.username, item.password, item.url);
+		auto password = create_password(group, item.username, item.password, item.url);
 		if (!password) return;
-		group->add_password(password);
-		category->add_group(group);
-		app.get_storage().save_category(category);
 		save_imported_category(category);
 		save_imported_group(group);
 		save_imported_password(password);
@@ -87,12 +86,14 @@ namespace NSPass::Commands {
 			category = app.get_storage().find_category(Category::DefaultName);
 			if (!category) {
 				category = CategoryFactory::make(Category::DefaultName);
+				get_storage().save_category(category);
 			}
 		}
 		else {
 			category = app.get_storage().find_category(category_name);
 			if (!category) {
 				category = CategoryFactory::make(category_name);
+				get_storage().save_category(category);
 			}
 		}
 		return category;
@@ -104,14 +105,17 @@ namespace NSPass::Commands {
 		GroupPtr group = category->find_group(group_name);
 		if (!group) {
 			group = GroupFactory::make_site(group_name);
+			category->add_group(group);
 		}
 		return group;
 	}
 
-	PasswordPtr ImportLastPassCommand::create_password(std::string_view username,
+	PasswordPtr ImportLastPassCommand::create_password(const GroupPtr& group, std::string_view username,
 			std::string_view password, std::string_view url)
 	{
-		return PasswordFactory::make(username, SecureString::FromPlainText(username, password), url);
+		auto password_obj = PasswordFactory::make(username, SecureString::FromPlainText(username, password), url);
+		group->add_password(password_obj);
+		return password_obj;
 	}
 
 	void ImportLastPassCommand::save_imported_category(const CategoryPtr& category)
@@ -119,7 +123,7 @@ namespace NSPass::Commands {
 		auto found_count = std::count_if(imported_categories.begin(), imported_categories.end(),
 				[&category](const CategoryWeakPtr& existing_category) {
 					if (auto ptr = existing_category.lock(); ptr) {
-						return ptr == category;
+						return ptr->get_id() == category->get_id();
 					}
 					return false;
 				});
@@ -133,7 +137,7 @@ namespace NSPass::Commands {
 		auto found_count = std::count_if(imported_groups.begin(), imported_groups.end(),
 				[&group](const GroupWeakPtr& existing_group) {
 					if (auto ptr = existing_group.lock(); ptr) {
-						return ptr == group;
+						return ptr->get_id() == group->get_id();
 					}
 					return false;
 				});
@@ -147,7 +151,7 @@ namespace NSPass::Commands {
 		auto found_count = std::count_if(imported_passwords.begin(), imported_passwords.end(),
 				[&password](const PasswordWeakPtr& existing_password) {
 					if (auto ptr = existing_password.lock(); ptr) {
-						return ptr == password;
+						return ptr->get_id() == password->get_id();
 					}
 					return false;
 				});

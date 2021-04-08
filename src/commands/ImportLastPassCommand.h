@@ -56,7 +56,7 @@ namespace NSPass::Commands {
 		CategoryPtr find_or_create_category(std::string_view category_name);
 		static GroupPtr find_or_create_group(const CategoryPtr& category, GroupType group_type,
 				std::string_view group_name);
-		static PasswordPtr create_password(std::string_view username, std::string_view password, std::string_view url);
+		static PasswordPtr create_password(const GroupPtr& group, std::string_view username, std::string_view password, std::string_view url);
 		void save_imported_category(const CategoryPtr& category);
 		void save_imported_group(const GroupPtr& group);
 		void save_imported_password(const PasswordPtr& password);
