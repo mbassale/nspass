@@ -44,10 +44,7 @@ BaseCategoryForm::BaseCategoryForm( wxWindow* parent, wxWindowID id, const wxPoi
 	categorySizer->Add( flexGridSizer1, 1, wxEXPAND, 5 );
 
 
-	boxSizer->Add( categorySizer, 1, wxEXPAND, 5 );
-
-
-	boxSizer->Add( 0, 5, 0, wxEXPAND, 5 );
+	boxSizer->Add( categorySizer, 1, wxBOTTOM|wxEXPAND|wxTOP, 5 );
 
 	wxStaticBoxSizer* groupSizer;
 	groupSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Group Stats") ), wxVERTICAL );
@@ -77,7 +74,7 @@ BaseCategoryForm::BaseCategoryForm( wxWindow* parent, wxWindowID id, const wxPoi
 	groupSizer->Add( flexGridSizer2, 1, wxEXPAND, 5 );
 
 
-	boxSizer->Add( groupSizer, 1, wxEXPAND, 5 );
+	boxSizer->Add( groupSizer, 1, wxBOTTOM|wxEXPAND|wxTOP, 5 );
 
 
 	this->SetSizer( boxSizer );
@@ -100,79 +97,74 @@ BaseGroupForm::BaseGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& po
 	wxBoxSizer* boxSizer;
 	boxSizer = new wxBoxSizer( wxVERTICAL );
 
-	wxStaticBoxSizer* categorySizer;
-	categorySizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Group") ), wxVERTICAL );
+	wxStaticBoxSizer* groupSizer;
+	groupSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Group") ), wxVERTICAL );
 
 	wxFlexGridSizer* flexGridSizer1;
 	flexGridSizer1 = new wxFlexGridSizer( 4, 2, 0, 0 );
 	flexGridSizer1->SetFlexibleDirection( wxBOTH );
 	flexGridSizer1->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 
-	idLabel = new wxStaticText( categorySizer->GetStaticBox(), wxID_ANY, wxT("ID"), wxDefaultPosition, wxDefaultSize, 0 );
+	idLabel = new wxStaticText( groupSizer->GetStaticBox(), wxID_ANY, wxT("ID"), wxDefaultPosition, wxDefaultSize, 0 );
 	idLabel->Wrap( -1 );
 	flexGridSizer1->Add( idLabel, 0, wxALL, 5 );
 
-	idText = new wxStaticText( categorySizer->GetStaticBox(), GroupIdText_Ctrl, wxT("ID"), wxDefaultPosition, wxDefaultSize, 0 );
+	idText = new wxStaticText( groupSizer->GetStaticBox(), GroupIdText_Ctrl, wxT("ID"), wxDefaultPosition, wxDefaultSize, 0 );
 	idText->Wrap( -1 );
 	flexGridSizer1->Add( idText, 0, wxALL, 5 );
 
-	nameLabel = new wxStaticText( categorySizer->GetStaticBox(), wxID_ANY, wxT("Name"), wxDefaultPosition, wxDefaultSize, 0 );
+	nameLabel = new wxStaticText( groupSizer->GetStaticBox(), wxID_ANY, wxT("Name"), wxDefaultPosition, wxDefaultSize, 0 );
 	nameLabel->Wrap( -1 );
 	flexGridSizer1->Add( nameLabel, 0, wxALL, 5 );
 
-	nameText = new wxTextCtrl( categorySizer->GetStaticBox(), GroupNameText_Ctrl, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	nameText = new wxTextCtrl( groupSizer->GetStaticBox(), GroupNameText_Ctrl, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	nameText->SetMinSize( wxSize( 300,-1 ) );
 
 	flexGridSizer1->Add( nameText, 0, wxALL, 5 );
 
-	urlLabel = new wxStaticText( categorySizer->GetStaticBox(), wxID_ANY, wxT("URL"), wxDefaultPosition, wxDefaultSize, 0 );
+	urlLabel = new wxStaticText( groupSizer->GetStaticBox(), wxID_ANY, wxT("URL"), wxDefaultPosition, wxDefaultSize, 0 );
 	urlLabel->Wrap( -1 );
 	flexGridSizer1->Add( urlLabel, 0, wxALL, 5 );
 
-	urlText = new wxTextCtrl( categorySizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	urlText = new wxTextCtrl( groupSizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	urlText->SetMinSize( wxSize( 300,-1 ) );
 
 	flexGridSizer1->Add( urlText, 0, wxALL, 5 );
 
-	descriptionLabel = new wxStaticText( categorySizer->GetStaticBox(), wxID_ANY, wxT("Description"), wxDefaultPosition, wxDefaultSize, 0 );
+	descriptionLabel = new wxStaticText( groupSizer->GetStaticBox(), wxID_ANY, wxT("Description"), wxDefaultPosition, wxDefaultSize, 0 );
 	descriptionLabel->Wrap( -1 );
 	flexGridSizer1->Add( descriptionLabel, 0, wxALL, 5 );
 
-	descriptionText = new wxTextCtrl( categorySizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE );
+	descriptionText = new wxTextCtrl( groupSizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE );
 	descriptionText->SetMinSize( wxSize( 300,50 ) );
 
 	flexGridSizer1->Add( descriptionText, 0, wxALL, 5 );
 
 
-	categorySizer->Add( flexGridSizer1, 1, wxEXPAND, 5 );
+	groupSizer->Add( flexGridSizer1, 1, wxEXPAND, 5 );
 
 
-	boxSizer->Add( categorySizer, 1, wxEXPAND, 5 );
-
-
-	boxSizer->Add( 0, 5, 0, wxEXPAND, 5 );
+	boxSizer->Add( groupSizer, 1, wxBOTTOM|wxEXPAND|wxTOP, 5 );
 
 	wxStaticBoxSizer* passwordSizer;
-	passwordSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Password Stats") ), wxVERTICAL );
+	passwordSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Passwords") ), wxVERTICAL );
 
 	wxFlexGridSizer* flexGridSizer2;
-	flexGridSizer2 = new wxFlexGridSizer( 1, 2, 0, 0 );
+	flexGridSizer2 = new wxFlexGridSizer( 1, 1, 0, 0 );
+	flexGridSizer2->AddGrowableCol( 0 );
+	flexGridSizer2->AddGrowableRow( 0 );
 	flexGridSizer2->SetFlexibleDirection( wxBOTH );
-	flexGridSizer2->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+	flexGridSizer2->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_ALL );
 
-	passwordCountLabel = new wxStaticText( passwordSizer->GetStaticBox(), wxID_ANY, wxT("Password Count"), wxDefaultPosition, wxDefaultSize, 0 );
-	passwordCountLabel->Wrap( -1 );
-	flexGridSizer2->Add( passwordCountLabel, 0, wxALL, 5 );
-
-	passwordCountText = new wxStaticText( passwordSizer->GetStaticBox(), GroupPasswordCountText_Ctrl, wxT("N/A"), wxDefaultPosition, wxDefaultSize, 0 );
-	passwordCountText->Wrap( -1 );
-	flexGridSizer2->Add( passwordCountText, 0, wxALL, 5 );
+	flexGridSizer2->SetMinSize( wxSize( 300,100 ) );
+	passwordsList = new wxListCtrl( passwordSizer->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VRULES );
+	flexGridSizer2->Add( passwordsList, 0, wxALL|wxEXPAND, 5 );
 
 
 	passwordSizer->Add( flexGridSizer2, 1, wxEXPAND, 5 );
 
 
-	boxSizer->Add( passwordSizer, 1, wxEXPAND, 5 );
+	boxSizer->Add( passwordSizer, 1, wxBOTTOM|wxEXPAND|wxTOP, 5 );
 
 
 	this->SetSizer( boxSizer );

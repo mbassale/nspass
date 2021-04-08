@@ -19,6 +19,7 @@
 #include <wx/sizer.h>
 #include <wx/statbox.h>
 #include <wx/panel.h>
+#include <wx/listctrl.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -71,8 +72,7 @@ namespace NSPass::GUI
 			enum
 			{
 				GroupIdText_Ctrl = 1000,
-				GroupNameText_Ctrl,
-				GroupPasswordCountText_Ctrl
+				GroupNameText_Ctrl
 			};
 
 			wxStaticText* idLabel;
@@ -83,8 +83,7 @@ namespace NSPass::GUI
 			wxTextCtrl* urlText;
 			wxStaticText* descriptionLabel;
 			wxTextCtrl* descriptionText;
-			wxStaticText* passwordCountLabel;
-			wxStaticText* passwordCountText;
+			wxListCtrl* passwordsList;
 
 			// Virtual event handlers, overide them in your derived class
 			virtual void OnTextChanged( wxCommandEvent& event ) = 0;
