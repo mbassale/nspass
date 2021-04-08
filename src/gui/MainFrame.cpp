@@ -35,7 +35,7 @@ namespace NSPass::GUI {
 
 		splitter = new wxSplitterWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSP_3D);
 		splitter->SetSize(GetClientSize());
-		splitter->SetSashGravity(0.5);
+		splitter->SetSashGravity(1.0);
 
 		treeView = new TreeView(splitter, LeftTree_Ctrl);
 		contentPanel = new ContentPanel(splitter, ContentPanel_Ctrl);
@@ -46,7 +46,7 @@ namespace NSPass::GUI {
 		treeView->SetGroupSelectedCallback([&](const GroupPtr& group) {
 			contentPanel->ShowGroup(group);
 		});
-		splitter->SplitVertically(treeView, contentPanel);
+		splitter->SplitVertically(treeView, contentPanel, 300);
 
 #if wxUSE_STATUSBAR
 		CreateStatusBar(2);
@@ -123,6 +123,7 @@ namespace NSPass::GUI {
 			app.get_vault().close();
 			menuBar->OnClose();
 			treeView->DeleteStorageData();
+			contentPanel->Clear();
 		}
 		catch (ApplicationException& ex) {
 			wxMessageBox(ex.what(), "Error closing storage.", wxOK | wxICON_ERROR);

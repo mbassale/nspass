@@ -14,6 +14,7 @@
 #include "wx/wx.h"
 #endif
 
+#include "../NSPass.h"
 
 namespace NSPass::GUI {
 	class App : public wxApp
