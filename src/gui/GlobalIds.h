@@ -5,6 +5,8 @@
 #ifndef NSPASS_GLOBALIDS_H
 #define NSPASS_GLOBALIDS_H
 
+#include "App.h"
+
 namespace NSPass::GUI {
 	enum {
 		// menu items

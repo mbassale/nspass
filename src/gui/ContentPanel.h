@@ -14,10 +14,18 @@
 #include "wx/wx.h"
 #endif
 
+#include "App.h"
+#include "../Application.h"
+#include "../Category.h"
+#include "../Group.h"
+
 namespace NSPass::GUI {
 	class ContentPanel : public wxPanel {
 	public:
 		ContentPanel(wxWindow* parent, wxWindowID id);
+
+		void ShowCategory(const CategoryPtr& category);
+		void ShowGroup(const GroupPtr& group);
 	};
 }
 

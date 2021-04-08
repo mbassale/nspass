@@ -3,10 +3,12 @@
 //
 
 #include "TreeView.h"
+#include "GlobalIds.h"
 
 namespace NSPass::GUI {
 
 	wxBEGIN_EVENT_TABLE(TreeView, wxTreeCtrl)
+					EVT_TREE_SEL_CHANGED(LeftTree_Ctrl, TreeView::OnSelChanged)
 	wxEND_EVENT_TABLE()
 
 	TreeView::TreeView(wxWindow* parent, wxWindowID id)
@@ -18,6 +20,22 @@ namespace NSPass::GUI {
 	int TreeView::OnCompareItems(const wxTreeItemId& i1, const wxTreeItemId& i2)
 	{
 		return wxTreeCtrlBase::OnCompareItems(i1, i2);
+	}
+
+	void TreeView::OnSelChanged(wxTreeEvent& event)
+	{
+		wxTreeItemId selectedId = event.GetItem();
+		auto* itemData = GetItemData(selectedId);
+		auto* categoryItem = dynamic_cast<CategoryItemData*>(itemData);
+		auto* groupItem = dynamic_cast<GroupItemData*>(itemData);
+		if (categoryItem && categorySelectedCallback) {
+			auto& category = categoryItem->get_category();
+			categorySelectedCallback(category);
+		}
+		else if (groupItem && groupSelectedCallback) {
+			auto& group = groupItem->get_group();
+			groupSelectedCallback(group);
+		}
 	}
 
 	void TreeView::FillStorageData()
@@ -37,7 +55,6 @@ namespace NSPass::GUI {
 
 		ExpandAll();
 	}
-
 	void TreeView::DeleteStorageData()
 	{
 		DeleteAllItems();

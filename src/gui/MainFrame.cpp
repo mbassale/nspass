@@ -40,6 +40,12 @@ namespace NSPass::GUI {
 		treeView = new TreeView(splitter, LeftTree_Ctrl);
 		contentPanel = new ContentPanel(splitter, ContentPanel_Ctrl);
 
+		treeView->SetCategorySelectedCallback([&](const CategoryPtr& category) {
+			contentPanel->ShowCategory(category);
+		});
+		treeView->SetGroupSelectedCallback([&](const GroupPtr& group) {
+			contentPanel->ShowGroup(group);
+		});
 		splitter->SplitVertically(treeView, contentPanel);
 
 #if wxUSE_STATUSBAR

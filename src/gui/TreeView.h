@@ -17,6 +17,7 @@
 #include "../NSPass.h"
 #include "../Application.h"
 #include "../Category.h"
+#include "../Group.h"
 #include "../storage/StorageHeader.h"
 #include <wx/treectrl.h>
 
@@ -36,6 +37,8 @@ namespace NSPass::GUI {
 	public:
 		explicit CategoryItemData(CategoryPtr category)
 				:category{ std::move(category) } { }
+
+		[[nodiscard]] const CategoryPtr& get_category() const { return category; }
 	private:
 		CategoryPtr category;
 	};
@@ -44,9 +47,15 @@ namespace NSPass::GUI {
 	public:
 		explicit GroupItemData(GroupPtr group)
 				:group{ std::move(group) } { }
+
+		[[nodiscard]] const GroupPtr& get_group() const { return group; }
 	private:
 		GroupPtr group;
 	};
+
+	typedef std::function<void(const CategoryPtr&)> CategorySelectedCallback;
+
+	typedef std::function<void(const GroupPtr&)> GroupSelectedCallback;
 
 	class TreeView : public wxTreeCtrl {
 	public:
@@ -55,12 +64,22 @@ namespace NSPass::GUI {
 		TreeView(wxWindow* parent, wxWindowID id);
 		~TreeView() override = default;
 
+		void SetCategorySelectedCallback(CategorySelectedCallback callback)
+		{
+			categorySelectedCallback = std::move(callback);
+		}
+		void SetGroupSelectedCallback(GroupSelectedCallback callback) { groupSelectedCallback = std::move(callback); }
+
+		void OnSelChanged(wxTreeEvent& event);
+
 		void FillStorageData();
 		void DeleteStorageData();
 
 	protected:
 		Application& app;
 		wxTreeItemId rootId;
+		CategorySelectedCallback categorySelectedCallback;
+		GroupSelectedCallback groupSelectedCallback;
 
 		Storage::Storage& getStorage() { return app.get_storage(); }
 		int OnCompareItems(const wxTreeItemId& i1, const wxTreeItemId& i2) wxOVERRIDE;

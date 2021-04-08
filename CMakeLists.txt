@@ -104,7 +104,7 @@ set(GUI_FILES src/gui/GlobalIds.h
         src/gui/MainFrame.cpp src/gui/MainFrame.h
         src/gui/TreeView.cpp src/gui/TreeView.h
         src/gui/ContentPanel.cpp src/gui/ContentPanel.h
-        src/gui/MainMenuBar.cpp src/gui/MainMenuBar.h)
+        src/gui/MainMenuBar.cpp src/gui/MainMenuBar.h src/gui/CategoryForm.cpp)
 if(APPLE)
     # Add an icon for the apple .app file
     list(APPEND GUI_FILES ./assets/icons/wxmac.icns)
