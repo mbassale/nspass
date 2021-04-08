@@ -6,7 +6,7 @@
 #define NSPASS_CATEGORYFORM_H
 
 #include "App.h"
-#include "BaseCategoryForm.h"
+#include "GeneratedUI.h"
 #include "../Category.h"
 
 namespace NSPass::GUI {

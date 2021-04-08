@@ -60,5 +60,38 @@ namespace NSPass::GUI
 
 	};
 
+	///////////////////////////////////////////////////////////////////////////////
+	/// Class BaseGroupForm
+	///////////////////////////////////////////////////////////////////////////////
+	class BaseGroupForm : public wxPanel
+	{
+		private:
+
+		protected:
+			enum
+			{
+				GroupIdText_Ctrl = 1000,
+				GroupNameText_Ctrl,
+				GroupPasswordCountText_Ctrl
+			};
+
+			wxStaticText* idLabel;
+			wxStaticText* idText;
+			wxStaticText* nameLabel;
+			wxTextCtrl* nameText;
+			wxStaticText* passwordCountLabel;
+			wxStaticText* passwordCountText;
+
+			// Virtual event handlers, overide them in your derived class
+			virtual void OnTextChanged( wxCommandEvent& event ) = 0;
+
+
+		public:
+
+			BaseGroupForm( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxTAB_TRAVERSAL, const wxString& name = wxEmptyString );
+			~BaseGroupForm();
+
+	};
+
 } // namespace NSPass::GUI
 
