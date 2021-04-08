@@ -4,6 +4,7 @@
 
 #include "App.h"
 #include "CategoryForm.h"
+#include "GroupForm.h"
 #include "ContentPanel.h"
 
 namespace NSPass::GUI {
@@ -24,7 +25,9 @@ namespace NSPass::GUI {
 
 	void ContentPanel::ShowGroup(const GroupPtr& group)
 	{
+		auto* groupForm = new GroupForm(this, group);
 		mainSizer->Clear(true);
+		mainSizer->Add(groupForm, wxSizerFlags().Expand().Border(wxALL, 10));
 		mainSizer->Layout();
 	}
 

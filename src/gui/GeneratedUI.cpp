@@ -104,7 +104,7 @@ BaseGroupForm::BaseGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& po
 	categorySizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Group") ), wxVERTICAL );
 
 	wxFlexGridSizer* flexGridSizer1;
-	flexGridSizer1 = new wxFlexGridSizer( 2, 2, 0, 0 );
+	flexGridSizer1 = new wxFlexGridSizer( 4, 2, 0, 0 );
 	flexGridSizer1->SetFlexibleDirection( wxBOTH );
 	flexGridSizer1->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 
@@ -125,6 +125,24 @@ BaseGroupForm::BaseGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& po
 
 	flexGridSizer1->Add( nameText, 0, wxALL, 5 );
 
+	urlLabel = new wxStaticText( categorySizer->GetStaticBox(), wxID_ANY, wxT("URL"), wxDefaultPosition, wxDefaultSize, 0 );
+	urlLabel->Wrap( -1 );
+	flexGridSizer1->Add( urlLabel, 0, wxALL, 5 );
+
+	urlText = new wxTextCtrl( categorySizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	urlText->SetMinSize( wxSize( 300,-1 ) );
+
+	flexGridSizer1->Add( urlText, 0, wxALL, 5 );
+
+	descriptionLabel = new wxStaticText( categorySizer->GetStaticBox(), wxID_ANY, wxT("Description"), wxDefaultPosition, wxDefaultSize, 0 );
+	descriptionLabel->Wrap( -1 );
+	flexGridSizer1->Add( descriptionLabel, 0, wxALL, 5 );
+
+	descriptionText = new wxTextCtrl( categorySizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE );
+	descriptionText->SetMinSize( wxSize( 300,50 ) );
+
+	flexGridSizer1->Add( descriptionText, 0, wxALL, 5 );
+
 
 	categorySizer->Add( flexGridSizer1, 1, wxEXPAND, 5 );
 
@@ -138,7 +156,7 @@ BaseGroupForm::BaseGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& po
 	passwordSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Password Stats") ), wxVERTICAL );
 
 	wxFlexGridSizer* flexGridSizer2;
-	flexGridSizer2 = new wxFlexGridSizer( 2, 2, 0, 0 );
+	flexGridSizer2 = new wxFlexGridSizer( 1, 2, 0, 0 );
 	flexGridSizer2->SetFlexibleDirection( wxBOTH );
 	flexGridSizer2->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 

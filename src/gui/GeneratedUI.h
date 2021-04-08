@@ -79,6 +79,10 @@ namespace NSPass::GUI
 			wxStaticText* idText;
 			wxStaticText* nameLabel;
 			wxTextCtrl* nameText;
+			wxStaticText* urlLabel;
+			wxTextCtrl* urlText;
+			wxStaticText* descriptionLabel;
+			wxTextCtrl* descriptionText;
 			wxStaticText* passwordCountLabel;
 			wxStaticText* passwordCountText;
 

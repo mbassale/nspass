@@ -105,12 +105,13 @@ set(GUI_FILES src/gui/GlobalIds.h
         src/gui/TreeView.cpp src/gui/TreeView.h
         src/gui/ContentPanel.cpp src/gui/ContentPanel.h
         src/gui/MainMenuBar.cpp src/gui/MainMenuBar.h
-        src/gui/BaseCategoryForm.cpp src/gui/BaseCategoryForm.h
-        src/gui/CategoryForm.cpp src/gui/CategoryForm.h)
-if(APPLE)
+        src/gui/GeneratedUI.cpp src/gui/GeneratedUI.h
+        src/gui/CategoryForm.cpp src/gui/CategoryForm.h
+        src/gui/GroupForm.cpp src/gui/GroupForm.h)
+if (APPLE)
     # Add an icon for the apple .app file
     list(APPEND GUI_FILES ./assets/icons/wxmac.icns)
-endif()
+endif ()
 
 set(TEST_FILES
         test/TestUtility.h test/TestUtility.cpp
@@ -177,7 +178,7 @@ target_link_libraries(tests clip ${Boost_LIBRARIES} ${LIBGCRYPT_LIBRARIES} ${wxW
 
 install(TARGETS nspass DESTINATION bin)
 
-if(APPLE)
+if (APPLE)
     set_target_properties(nspass-gui PROPERTIES
             OUTPUT_NAME "nspass"
             RESOURCE "./assets/icons/wxmac.icns"
@@ -185,4 +186,4 @@ if(APPLE)
             MACOSX_BUNDLE_COPYRIGHT "Copyright Marco Bassaletti <bassaletti@gmail.com>"
             MACOSX_BUNDLE_GUI_IDENTIFIER "com.mbassale.nspass"
             )
-endif()
+endif ()
