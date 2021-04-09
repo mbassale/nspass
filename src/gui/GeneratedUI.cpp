@@ -94,7 +94,7 @@ BaseCategoryForm::~BaseCategoryForm()
 
 BaseGroupForm::BaseGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name ) : wxPanel( parent, id, pos, size, style, name )
 {
-	this->SetMinSize( wxSize( -1,700 ) );
+	this->SetMinSize( wxSize( -1,650 ) );
 
 	wxBoxSizer* boxSizer;
 	boxSizer = new wxBoxSizer( wxVERTICAL );
@@ -196,18 +196,18 @@ BaseGroupForm::~BaseGroupForm()
 
 BasePasswordForm::BasePasswordForm( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name ) : wxPanel( parent, id, pos, size, style, name )
 {
-	this->SetMinSize( wxSize( 300,300 ) );
+	this->SetMinSize( wxSize( 300,250 ) );
 
 	wxBoxSizer* boxSizer;
 	boxSizer = new wxBoxSizer( wxVERTICAL );
 
-	boxSizer->SetMinSize( wxSize( 300,300 ) );
+	boxSizer->SetMinSize( wxSize( 300,250 ) );
 	wxFlexGridSizer* flexGridSizer;
 	flexGridSizer = new wxFlexGridSizer( 5, 2, 0, 0 );
 	flexGridSizer->SetFlexibleDirection( wxBOTH );
 	flexGridSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_ALL );
 
-	flexGridSizer->SetMinSize( wxSize( 300,250 ) );
+	flexGridSizer->SetMinSize( wxSize( 300,200 ) );
 	idLabel = new wxStaticText( this, wxID_ANY, wxT("ID"), wxDefaultPosition, wxDefaultSize, 0 );
 	idLabel->Wrap( -1 );
 	flexGridSizer->Add( idLabel, 0, wxALL, 5 );
