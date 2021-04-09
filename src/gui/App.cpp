@@ -13,6 +13,8 @@ namespace NSPass::GUI {
 		if (!wxApp::OnInit())
 			return false;
 
+		wxInitAllImageHandlers();
+
 		// On Mac, activate spell checker for text inputs.
 #ifdef __WXMAC__
 		wxSystemOptions::SetOption(wxMAC_TEXTCONTROL_USE_SPELL_CHECKER, 1);

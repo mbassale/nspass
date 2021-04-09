@@ -184,7 +184,7 @@ if (APPLE)
             OUTPUT_NAME "nspass"
             RESOURCE "./assets/icons/wxmac.icns"
             MACOSX_BUNDLE_ICON_FILE wxmac.icns
-            MACOSX_BUNDLE_COPYRIGHT "Copyright Marco Bassaletti <bassaletti@gmail.com>"
+            MACOSX_BUNDLE_COPYRIGHT "Copyright (c) Marco Bassaletti"
             MACOSX_BUNDLE_GUI_IDENTIFIER "com.mbassale.nspass"
             )
 endif ()

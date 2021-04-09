@@ -1,7 +1,8 @@
 //
 // Created by Marco Bassaletti on 08-04-21.
 //
-
+#include <wx/stdpaths.h>
+#include <wx/clipbrd.h>
 #include "../commands/CopyPasswordCommand.h"
 #include "PasswordForm.h"
 
@@ -13,6 +14,7 @@ namespace NSPass::GUI {
 			:BasePasswordForm(parent), password{ std::move(password) }
 	{
 		FillData();
+		DisableEdition();
 	}
 
 	void PasswordForm::FillData()
@@ -53,6 +55,93 @@ namespace NSPass::GUI {
 
 	void PasswordForm::OnChangePassword(wxCommandEvent& event)
 	{
+		EnableEdition();
+	}
+
+	void PasswordForm::OnSave(wxCommandEvent& event)
+	{
 
 	}
+
+	void PasswordForm::OnCancel(wxCommandEvent& event)
+	{
+		OnReset(event);
+		DisableEdition();
+	}
+
+	void PasswordForm::OnReset(wxCommandEvent& event)
+	{
+		FillData();
+	}
+
+	void PasswordForm::OnUsernameCopy(wxCommandEvent& event)
+	{
+		if (wxTheClipboard->Open()) {
+			wxString username = usernameText->GetValue();
+			wxTheClipboard->SetData(new wxTextDataObject(username));
+			wxTheClipboard->Close();
+		}
+	}
+
+	void PasswordForm::OnUrlCopy(wxCommandEvent& event)
+	{
+		if (wxTheClipboard->Open()) {
+			wxString url = urlText->GetValue();
+			wxTheClipboard->SetData(new wxTextDataObject(url));
+			wxTheClipboard->Close();
+		}
+	}
+
+	void PasswordForm::OnDescriptionCopy(wxCommandEvent& event)
+	{
+		if (wxTheClipboard->Open()) {
+			wxString description = descriptionText->GetValue();
+			wxTheClipboard->SetData(new wxTextDataObject(description));
+			wxTheClipboard->Close();
+		}
+	}
+
+	void PasswordForm::OnPasswordCopy(wxCommandEvent& event)
+	{
+		OnCopy(event);
+	}
+
+	void PasswordForm::EnableEdition()
+	{
+		isUpdating = true;
+		usernameText->SetEditable(true);
+		urlText->SetEditable(true);
+		descriptionText->SetEditable(true);
+		passwordText->SetEditable(true);
+
+		copyPasswordButton->Hide();
+		openUrlButton->Hide();
+		changePasswordButton->Hide();
+		saveButton->Show();
+		cancelButton->Show();
+		resetButton->Show();
+
+		this->Layout();
+		boxSizer->Fit(this);
+	}
+
+	void PasswordForm::DisableEdition()
+	{
+		isUpdating = false;
+		usernameText->SetEditable(false);
+		urlText->SetEditable(false);
+		descriptionText->SetEditable(false);
+		passwordText->SetEditable(false);
+
+		copyPasswordButton->Show();
+		openUrlButton->Show();
+		changePasswordButton->Show();
+		saveButton->Hide();
+		cancelButton->Hide();
+		resetButton->Hide();
+
+		this->Layout();
+		boxSizer->Fit(this);
+	}
+
 }

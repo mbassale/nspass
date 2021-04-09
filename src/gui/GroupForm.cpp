@@ -73,6 +73,6 @@ namespace NSPass::GUI {
 		auto* passwordForm = new PasswordForm(this, password);
 		passwordDetailSizer->Clear(true);
 		passwordDetailSizer->Add(passwordForm, wxSizerFlags().Expand().Border(wxALL, 0));
-		passwordDetailSizer->Layout();
+		Layout();
 	}
 }

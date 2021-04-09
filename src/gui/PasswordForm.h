@@ -19,11 +19,21 @@ namespace NSPass::GUI {
 		void OnCopy(wxCommandEvent& event) override;
 		void OnOpenUrl(wxCommandEvent& event) override;
 		void OnChangePassword(wxCommandEvent& event) override;
+		void OnSave(wxCommandEvent& event) override;
+		void OnCancel(wxCommandEvent& event) override;
+		void OnReset(wxCommandEvent& event) override;
+		void OnUsernameCopy(wxCommandEvent& event) override;
+		void OnUrlCopy(wxCommandEvent& event) override;
+		void OnDescriptionCopy(wxCommandEvent& event) override;
+		void OnPasswordCopy(wxCommandEvent& event) override;
 
 	protected:
+		bool isUpdating = false;
 		PasswordPtr password;
 
 		void FillData();
+		void EnableEdition();
+		void DisableEdition();
 	};
 }
 

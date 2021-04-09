@@ -20,6 +20,7 @@
 #include <wx/statbox.h>
 #include <wx/panel.h>
 #include <wx/listctrl.h>
+#include <wx/bmpbuttn.h>
 #include <wx/bitmap.h>
 #include <wx/image.h>
 #include <wx/icon.h>
@@ -111,24 +112,39 @@ namespace NSPass::GUI
 		private:
 
 		protected:
+			wxBoxSizer* boxSizer;
 			wxStaticText* idLabel;
 			wxStaticText* idText;
 			wxStaticText* usernameLabel;
 			wxTextCtrl* usernameText;
+			wxBitmapButton* usernameCopyButton;
 			wxStaticText* urlLabel;
 			wxTextCtrl* urlText;
+			wxBitmapButton* urlCopyButton;
 			wxStaticText* descriptionLabel;
 			wxTextCtrl* descriptionText;
+			wxBitmapButton* descriptionCopyButton;
 			wxStaticText* passwordLabel;
 			wxTextCtrl* passwordText;
+			wxBitmapButton* passwordCopyButton;
 			wxButton* copyPasswordButton;
 			wxButton* openUrlButton;
 			wxButton* changePasswordButton;
+			wxButton* saveButton;
+			wxButton* cancelButton;
+			wxButton* resetButton;
 
 			// Virtual event handlers, overide them in your derived class
+			virtual void OnUsernameCopy( wxCommandEvent& event ) = 0;
+			virtual void OnUrlCopy( wxCommandEvent& event ) = 0;
+			virtual void OnDescriptionCopy( wxCommandEvent& event ) = 0;
+			virtual void OnPasswordCopy( wxCommandEvent& event ) = 0;
 			virtual void OnCopy( wxCommandEvent& event ) = 0;
 			virtual void OnOpenUrl( wxCommandEvent& event ) = 0;
 			virtual void OnChangePassword( wxCommandEvent& event ) = 0;
+			virtual void OnSave( wxCommandEvent& event ) = 0;
+			virtual void OnCancel( wxCommandEvent& event ) = 0;
+			virtual void OnReset( wxCommandEvent& event ) = 0;
 
 
 		public:

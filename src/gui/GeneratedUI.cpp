@@ -7,6 +7,8 @@
 
 #include "GeneratedUI.h"
 
+#include "icons/Copy.png.h"
+
 ///////////////////////////////////////////////////////////////////////////
 using namespace NSPass::GUI;
 
@@ -198,7 +200,6 @@ BasePasswordForm::BasePasswordForm( wxWindow* parent, wxWindowID id, const wxPoi
 {
 	this->SetMinSize( wxSize( 300,250 ) );
 
-	wxBoxSizer* boxSizer;
 	boxSizer = new wxBoxSizer( wxVERTICAL );
 
 	boxSizer->SetMinSize( wxSize( 300,250 ) );
@@ -220,37 +221,97 @@ BasePasswordForm::BasePasswordForm( wxWindow* parent, wxWindowID id, const wxPoi
 	usernameLabel->Wrap( -1 );
 	flexGridSizer->Add( usernameLabel, 0, wxALL, 5 );
 
-	usernameText = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	wxBoxSizer* usernameSizer;
+	usernameSizer = new wxBoxSizer( wxHORIZONTAL );
+
+	usernameText = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY );
 	usernameText->SetMinSize( wxSize( 300,-1 ) );
 
-	flexGridSizer->Add( usernameText, 0, wxALL, 5 );
+	usernameSizer->Add( usernameText, 0, wxALL, 5 );
+
+	usernameCopyButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
+
+	usernameCopyButton->SetBitmap( Copy_png_to_wx_bitmap() );
+	usernameCopyButton->SetBitmapMargins( wxSize( 2,2 ) );
+	usernameCopyButton->SetToolTip( wxT("Copy Username") );
+	usernameCopyButton->SetMinSize( wxSize( 22,22 ) );
+
+	usernameSizer->Add( usernameCopyButton, 0, wxBOTTOM|wxTOP, 5 );
+
+
+	flexGridSizer->Add( usernameSizer, 1, wxEXPAND, 5 );
 
 	urlLabel = new wxStaticText( this, wxID_ANY, wxT("URL"), wxDefaultPosition, wxDefaultSize, 0 );
 	urlLabel->Wrap( -1 );
 	flexGridSizer->Add( urlLabel, 0, wxALL, 5 );
 
-	urlText = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	wxBoxSizer* urlSizer;
+	urlSizer = new wxBoxSizer( wxHORIZONTAL );
+
+	urlText = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY );
 	urlText->SetMinSize( wxSize( 300,-1 ) );
 
-	flexGridSizer->Add( urlText, 0, wxALL, 5 );
+	urlSizer->Add( urlText, 0, wxALL, 5 );
+
+	urlCopyButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
+
+	urlCopyButton->SetBitmap( Copy_png_to_wx_bitmap() );
+	urlCopyButton->SetBitmapMargins( wxSize( 2,2 ) );
+	urlCopyButton->SetToolTip( wxT("Copy URL") );
+	urlCopyButton->SetMinSize( wxSize( 22,22 ) );
+
+	urlSizer->Add( urlCopyButton, 0, wxBOTTOM|wxTOP, 5 );
+
+
+	flexGridSizer->Add( urlSizer, 1, wxEXPAND, 5 );
 
 	descriptionLabel = new wxStaticText( this, wxID_ANY, wxT("Description"), wxDefaultPosition, wxDefaultSize, 0 );
 	descriptionLabel->Wrap( -1 );
 	flexGridSizer->Add( descriptionLabel, 0, wxALL, 5 );
 
-	descriptionText = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxTE_WORDWRAP );
+	wxBoxSizer* descriptionSizer;
+	descriptionSizer = new wxBoxSizer( wxHORIZONTAL );
+
+	descriptionText = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxTE_READONLY|wxTE_WORDWRAP );
 	descriptionText->SetMinSize( wxSize( 300,50 ) );
 
-	flexGridSizer->Add( descriptionText, 0, wxALL, 5 );
+	descriptionSizer->Add( descriptionText, 0, wxALL, 5 );
+
+	descriptionCopyButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
+
+	descriptionCopyButton->SetBitmap( Copy_png_to_wx_bitmap() );
+	descriptionCopyButton->SetBitmapMargins( wxSize( 2,2 ) );
+	descriptionCopyButton->SetToolTip( wxT("Copy Description") );
+	descriptionCopyButton->SetMinSize( wxSize( 22,22 ) );
+
+	descriptionSizer->Add( descriptionCopyButton, 0, wxBOTTOM|wxTOP, 5 );
+
+
+	flexGridSizer->Add( descriptionSizer, 1, wxEXPAND, 5 );
 
 	passwordLabel = new wxStaticText( this, wxID_ANY, wxT("Password"), wxDefaultPosition, wxDefaultSize, 0 );
 	passwordLabel->Wrap( -1 );
 	flexGridSizer->Add( passwordLabel, 0, wxALL, 5 );
 
+	wxBoxSizer* passwordSizer;
+	passwordSizer = new wxBoxSizer( wxHORIZONTAL );
+
 	passwordText = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD|wxTE_READONLY );
 	passwordText->SetMinSize( wxSize( 300,-1 ) );
 
-	flexGridSizer->Add( passwordText, 0, wxALL, 5 );
+	passwordSizer->Add( passwordText, 0, wxALL, 5 );
+
+	passwordCopyButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
+
+	passwordCopyButton->SetBitmap( Copy_png_to_wx_bitmap() );
+	passwordCopyButton->SetBitmapMargins( wxSize( 2,2 ) );
+	passwordCopyButton->SetToolTip( wxT("Copy Password") );
+	passwordCopyButton->SetMinSize( wxSize( 22,22 ) );
+
+	passwordSizer->Add( passwordCopyButton, 0, wxBOTTOM|wxTOP, 5 );
+
+
+	flexGridSizer->Add( passwordSizer, 1, wxEXPAND, 5 );
 
 
 	boxSizer->Add( flexGridSizer, 1, wxBOTTOM|wxEXPAND, 5 );
@@ -270,6 +331,21 @@ BasePasswordForm::BasePasswordForm( wxWindow* parent, wxWindowID id, const wxPoi
 	changePasswordButton = new wxButton( this, wxID_ANY, wxT("Change Password"), wxDefaultPosition, wxDefaultSize, 0 );
 	buttonSizer->Add( changePasswordButton, 0, wxALL, 5 );
 
+	saveButton = new wxButton( this, wxID_ANY, wxT("Save"), wxDefaultPosition, wxDefaultSize, 0 );
+	saveButton->Hide();
+
+	buttonSizer->Add( saveButton, 0, wxALL, 5 );
+
+	cancelButton = new wxButton( this, wxID_ANY, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
+	cancelButton->Hide();
+
+	buttonSizer->Add( cancelButton, 0, wxALL, 5 );
+
+	resetButton = new wxButton( this, wxID_ANY, wxT("Reset"), wxDefaultPosition, wxDefaultSize, 0 );
+	resetButton->Hide();
+
+	buttonSizer->Add( resetButton, 0, wxALL, 5 );
+
 
 	boxSizer->Add( buttonSizer, 0, wxEXPAND|wxTOP, 5 );
 
@@ -279,16 +355,30 @@ BasePasswordForm::BasePasswordForm( wxWindow* parent, wxWindowID id, const wxPoi
 	boxSizer->Fit( this );
 
 	// Connect Events
+	usernameCopyButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnUsernameCopy ), NULL, this );
+	urlCopyButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnUrlCopy ), NULL, this );
+	descriptionCopyButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnDescriptionCopy ), NULL, this );
+	passwordCopyButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnPasswordCopy ), NULL, this );
 	copyPasswordButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnCopy ), NULL, this );
 	openUrlButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnOpenUrl ), NULL, this );
 	changePasswordButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnChangePassword ), NULL, this );
+	saveButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnSave ), NULL, this );
+	cancelButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnCancel ), NULL, this );
+	resetButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnReset ), NULL, this );
 }
 
 BasePasswordForm::~BasePasswordForm()
 {
 	// Disconnect Events
+	usernameCopyButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnUsernameCopy ), NULL, this );
+	urlCopyButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnUrlCopy ), NULL, this );
+	descriptionCopyButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnDescriptionCopy ), NULL, this );
+	passwordCopyButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnPasswordCopy ), NULL, this );
 	copyPasswordButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnCopy ), NULL, this );
 	openUrlButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnOpenUrl ), NULL, this );
 	changePasswordButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnChangePassword ), NULL, this );
+	saveButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnSave ), NULL, this );
+	cancelButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnCancel ), NULL, this );
+	resetButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnReset ), NULL, this );
 
 }
