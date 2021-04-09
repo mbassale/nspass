@@ -14,4 +14,10 @@ namespace NSPass::Commands {
 			executed_commands.push_back(command_ptr);
 		}
 	}
+
+	void CommandRunner::run_command(const CommandPtr& command)
+	{
+		command->execute();
+		executed_commands.push_back(command);
+	}
 }
