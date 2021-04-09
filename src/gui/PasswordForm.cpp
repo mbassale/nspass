@@ -42,7 +42,13 @@ namespace NSPass::GUI {
 
 	void PasswordForm::OnOpenUrl(wxCommandEvent& event)
 	{
-
+		try {
+			wxString url{ password->get_url().data() };
+			wxLaunchDefaultBrowser(url, wxBROWSER_NEW_WINDOW);
+		}
+		catch (...) {
+			wxMessageBox("Error launching default browser.", "Error Opening URL", wxICON_ERROR);
+		}
 	}
 
 	void PasswordForm::OnChangePassword(wxCommandEvent& event)
