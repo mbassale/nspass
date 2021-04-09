@@ -10,6 +10,7 @@
 using namespace std;
 using NSPass::Application;
 using NSPass::ApplicationException;
+using NSPass::PasswordWeakPtr;
 using NSPass::Commands::CopyPasswordCommand;
 
 class CopyPasswordCommandFixture : public SampleStorageFixture {
@@ -19,6 +20,15 @@ public:
 	{
 		reset_sample_storage();
 	};
+protected:
+	static void assert_password_copied(const std::string& password_str, const PasswordWeakPtr& copied_password)
+	{
+		REQUIRE_FALSE(copied_password.expired());
+		auto password = copied_password.lock();
+		REQUIRE(password);
+		auto plaintext_password = password->get_password().get_plain_text(password->get_username());
+		REQUIRE(plaintext_password == password_str);
+	}
 };
 
 TEST_CASE_METHOD(CopyPasswordCommandFixture, "CopyPasswordCommand - Construct", CopyPasswordCommandFixture::Tag)
@@ -42,10 +52,12 @@ TEST_CASE_METHOD(CopyPasswordCommandFixture, "CopyPasswordCommand - Execute", Co
 		REQUIRE_NOTHROW(copy_password_command.execute());
 		auto copied_password_str = TestUtility::get_clipboard_text();
 		auto copied_password = copy_password_command.get_copied_password();
-		REQUIRE_FALSE(copied_password.expired());
-		auto password = copied_password.lock();
-		auto plaintext_password = password->get_password().get_plain_text(password->get_username());
-		REQUIRE(plaintext_password == copied_password_str);
+		assert_password_copied(copied_password_str, copied_password);
+
+		auto password_id = copied_password.lock()->get_id();
+		CopyPasswordCommand copy_password_command_by_id{ Application::instance(), password_id };
+		REQUIRE_NOTHROW(copy_password_command_by_id.execute());
+		assert_password_copied(TestUtility::get_clipboard_text(), copy_password_command_by_id.get_copied_password());
 	}
 }
 

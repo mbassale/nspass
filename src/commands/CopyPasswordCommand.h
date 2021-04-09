@@ -12,6 +12,8 @@ namespace NSPass::Commands {
 	class CopyPasswordCommand : public Command {
 	public:
 		static constexpr auto Name = "copy-password";
+		CopyPasswordCommand(NSPass::Application& app, ObjectId password_id)
+				:Command(app), password_id{ password_id } { };
 		CopyPasswordCommand(NSPass::Application& app, std::string category_filter, std::string group_filter,
 				std::string password_filter)
 				:Command(app), category_filter{ std::move(category_filter) }, group_filter{ std::move(group_filter) },
@@ -29,12 +31,15 @@ namespace NSPass::Commands {
 		void execute() override;
 		void undo() override;
 	protected:
+		ObjectId password_id{};
 		std::string category_filter;
 		std::string group_filter;
 		std::string password_filter;
 		PasswordWeakPtr copied_password;
 
 		PasswordPtr find_first_password();
+		PasswordPtr find_first_password_by_id();
+		PasswordPtr find_first_password_by_filter();
 	};
 }
 

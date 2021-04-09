@@ -26,6 +26,20 @@ namespace NSPass::Commands {
 
 	PasswordPtr CopyPasswordCommand::find_first_password()
 	{
+		if (!password_id.is_nil())
+			return find_first_password_by_id();
+		else
+			return find_first_password_by_filter();
+	}
+
+	PasswordPtr CopyPasswordCommand::find_first_password_by_id()
+	{
+		PasswordQuery password_query{ app.get_storage() };
+		return password_query.find(password_id).password;
+	}
+
+	PasswordPtr CopyPasswordCommand::find_first_password_by_filter()
+	{
 		PasswordQuery::QueryArguments args;
 		args.category_search = category_filter;
 		args.group_search = group_filter;
