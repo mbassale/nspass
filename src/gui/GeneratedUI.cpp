@@ -94,6 +94,8 @@ BaseCategoryForm::~BaseCategoryForm()
 
 BaseGroupForm::BaseGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name ) : wxPanel( parent, id, pos, size, style, name )
 {
+	this->SetMinSize( wxSize( -1,700 ) );
+
 	wxBoxSizer* boxSizer;
 	boxSizer = new wxBoxSizer( wxVERTICAL );
 
@@ -105,6 +107,7 @@ BaseGroupForm::BaseGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& po
 	flexGridSizer1->SetFlexibleDirection( wxBOTH );
 	flexGridSizer1->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 
+	flexGridSizer1->SetMinSize( wxSize( 300,160 ) );
 	idLabel = new wxStaticText( groupSizer->GetStaticBox(), wxID_ANY, wxT("ID"), wxDefaultPosition, wxDefaultSize, 0 );
 	idLabel->Wrap( -1 );
 	flexGridSizer1->Add( idLabel, 0, wxALL, 5 );
@@ -144,9 +147,8 @@ BaseGroupForm::BaseGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& po
 	groupSizer->Add( flexGridSizer1, 1, wxEXPAND, 5 );
 
 
-	boxSizer->Add( groupSizer, 1, wxBOTTOM|wxEXPAND|wxTOP, 5 );
+	boxSizer->Add( groupSizer, 0, wxBOTTOM|wxEXPAND|wxTOP, 5 );
 
-	wxStaticBoxSizer* passwordSizer;
 	passwordSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Passwords") ), wxVERTICAL );
 
 	wxFlexGridSizer* flexGridSizer2;
@@ -157,14 +159,22 @@ BaseGroupForm::BaseGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& po
 	flexGridSizer2->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_ALL );
 
 	flexGridSizer2->SetMinSize( wxSize( 300,100 ) );
-	passwordsList = new wxListCtrl( passwordSizer->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VRULES );
+	passwordsList = new wxListCtrl( passwordSizer->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxSize( -1,50 ), wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VRULES );
+	passwordsList->SetMinSize( wxSize( 300,50 ) );
+
 	flexGridSizer2->Add( passwordsList, 0, wxALL|wxEXPAND, 5 );
 
 
 	passwordSizer->Add( flexGridSizer2, 1, wxEXPAND, 5 );
 
 
-	boxSizer->Add( passwordSizer, 1, wxBOTTOM|wxEXPAND|wxTOP, 5 );
+	boxSizer->Add( passwordSizer, 0, wxBOTTOM|wxEXPAND|wxTOP, 5 );
+
+	passwordDetailSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Password Detail") ), wxVERTICAL );
+
+	passwordDetailSizer->SetMinSize( wxSize( 300,300 ) );
+
+	boxSizer->Add( passwordDetailSizer, 1, wxBOTTOM|wxEXPAND|wxRESERVE_SPACE_EVEN_IF_HIDDEN|wxTOP, 5 );
 
 
 	this->SetSizer( boxSizer );
@@ -173,11 +183,102 @@ BaseGroupForm::BaseGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& po
 
 	// Connect Events
 	nameText->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( BaseGroupForm::OnTextChanged ), NULL, this );
+	passwordsList->Connect( wxEVT_COMMAND_LIST_ITEM_SELECTED, wxListEventHandler( BaseGroupForm::OnItemSelected ), NULL, this );
 }
 
 BaseGroupForm::~BaseGroupForm()
 {
 	// Disconnect Events
 	nameText->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( BaseGroupForm::OnTextChanged ), NULL, this );
+	passwordsList->Disconnect( wxEVT_COMMAND_LIST_ITEM_SELECTED, wxListEventHandler( BaseGroupForm::OnItemSelected ), NULL, this );
 
+}
+
+BasePasswordForm::BasePasswordForm( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name ) : wxPanel( parent, id, pos, size, style, name )
+{
+	this->SetMinSize( wxSize( 300,300 ) );
+
+	wxBoxSizer* boxSizer;
+	boxSizer = new wxBoxSizer( wxVERTICAL );
+
+	boxSizer->SetMinSize( wxSize( 300,300 ) );
+	wxFlexGridSizer* flexGridSizer;
+	flexGridSizer = new wxFlexGridSizer( 5, 2, 0, 0 );
+	flexGridSizer->SetFlexibleDirection( wxBOTH );
+	flexGridSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_ALL );
+
+	flexGridSizer->SetMinSize( wxSize( 300,250 ) );
+	idLabel = new wxStaticText( this, wxID_ANY, wxT("ID"), wxDefaultPosition, wxDefaultSize, 0 );
+	idLabel->Wrap( -1 );
+	flexGridSizer->Add( idLabel, 0, wxALL, 5 );
+
+	idText = new wxStaticText( this, wxID_ANY, wxT("N/A"), wxDefaultPosition, wxDefaultSize, 0 );
+	idText->Wrap( -1 );
+	flexGridSizer->Add( idText, 0, wxALL, 5 );
+
+	usernameLabel = new wxStaticText( this, wxID_ANY, wxT("Username"), wxDefaultPosition, wxDefaultSize, 0 );
+	usernameLabel->Wrap( -1 );
+	flexGridSizer->Add( usernameLabel, 0, wxALL, 5 );
+
+	usernameText = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	usernameText->SetMinSize( wxSize( 300,-1 ) );
+
+	flexGridSizer->Add( usernameText, 0, wxALL, 5 );
+
+	urlLabel = new wxStaticText( this, wxID_ANY, wxT("URL"), wxDefaultPosition, wxDefaultSize, 0 );
+	urlLabel->Wrap( -1 );
+	flexGridSizer->Add( urlLabel, 0, wxALL, 5 );
+
+	urlText = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	urlText->SetMinSize( wxSize( 300,-1 ) );
+
+	flexGridSizer->Add( urlText, 0, wxALL, 5 );
+
+	descriptionLabel = new wxStaticText( this, wxID_ANY, wxT("Description"), wxDefaultPosition, wxDefaultSize, 0 );
+	descriptionLabel->Wrap( -1 );
+	flexGridSizer->Add( descriptionLabel, 0, wxALL, 5 );
+
+	descriptionText = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxTE_WORDWRAP );
+	descriptionText->SetMinSize( wxSize( 300,50 ) );
+
+	flexGridSizer->Add( descriptionText, 0, wxALL, 5 );
+
+	passwordLabel = new wxStaticText( this, wxID_ANY, wxT("Password"), wxDefaultPosition, wxDefaultSize, 0 );
+	passwordLabel->Wrap( -1 );
+	flexGridSizer->Add( passwordLabel, 0, wxALL, 5 );
+
+	passwordText = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD|wxTE_READONLY );
+	passwordText->SetMinSize( wxSize( 300,-1 ) );
+
+	flexGridSizer->Add( passwordText, 0, wxALL, 5 );
+
+
+	boxSizer->Add( flexGridSizer, 1, wxBOTTOM|wxEXPAND, 5 );
+
+	wxBoxSizer* buttonSizer;
+	buttonSizer = new wxBoxSizer( wxHORIZONTAL );
+
+	buttonSizer->SetMinSize( wxSize( -1,40 ) );
+	copyPasswordButton = new wxButton( this, wxID_ANY, wxT("Copy Password"), wxDefaultPosition, wxDefaultSize, 0 );
+
+	copyPasswordButton->SetDefault();
+	buttonSizer->Add( copyPasswordButton, 0, wxALL, 5 );
+
+	openUrlButton = new wxButton( this, wxID_ANY, wxT("Open URL"), wxDefaultPosition, wxDefaultSize, 0 );
+	buttonSizer->Add( openUrlButton, 0, wxALL, 5 );
+
+	changePasswordButton = new wxButton( this, wxID_ANY, wxT("Change Password"), wxDefaultPosition, wxDefaultSize, 0 );
+	buttonSizer->Add( changePasswordButton, 0, wxALL, 5 );
+
+
+	boxSizer->Add( buttonSizer, 0, wxEXPAND|wxTOP, 5 );
+
+
+	this->SetSizer( boxSizer );
+	this->Layout();
+	boxSizer->Fit( this );
+}
+
+BasePasswordForm::~BasePasswordForm()
+{
 }

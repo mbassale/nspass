@@ -20,6 +20,10 @@
 #include <wx/statbox.h>
 #include <wx/panel.h>
 #include <wx/listctrl.h>
+#include <wx/bitmap.h>
+#include <wx/image.h>
+#include <wx/icon.h>
+#include <wx/button.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -83,16 +87,48 @@ namespace NSPass::GUI
 			wxTextCtrl* urlText;
 			wxStaticText* descriptionLabel;
 			wxTextCtrl* descriptionText;
+			wxStaticBoxSizer* passwordSizer;
 			wxListCtrl* passwordsList;
+			wxStaticBoxSizer* passwordDetailSizer;
 
 			// Virtual event handlers, overide them in your derived class
 			virtual void OnTextChanged( wxCommandEvent& event ) = 0;
+			virtual void OnItemSelected( wxListEvent& event ) = 0;
 
 
 		public:
 
 			BaseGroupForm( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxTAB_TRAVERSAL, const wxString& name = wxEmptyString );
 			~BaseGroupForm();
+
+	};
+
+	///////////////////////////////////////////////////////////////////////////////
+	/// Class BasePasswordForm
+	///////////////////////////////////////////////////////////////////////////////
+	class BasePasswordForm : public wxPanel
+	{
+		private:
+
+		protected:
+			wxStaticText* idLabel;
+			wxStaticText* idText;
+			wxStaticText* usernameLabel;
+			wxTextCtrl* usernameText;
+			wxStaticText* urlLabel;
+			wxTextCtrl* urlText;
+			wxStaticText* descriptionLabel;
+			wxTextCtrl* descriptionText;
+			wxStaticText* passwordLabel;
+			wxTextCtrl* passwordText;
+			wxButton* copyPasswordButton;
+			wxButton* openUrlButton;
+			wxButton* changePasswordButton;
+
+		public:
+
+			BasePasswordForm( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxTAB_TRAVERSAL, const wxString& name = wxEmptyString );
+			~BasePasswordForm();
 
 	};
 

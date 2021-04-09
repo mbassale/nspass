@@ -20,6 +20,7 @@ namespace NSPass::GUI {
 
 		void FillData();
 		void OnTextChanged(wxCommandEvent& event) override;
+		void OnItemSelected(wxListEvent& event) override;
 	};
 };
 

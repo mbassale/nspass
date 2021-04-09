@@ -2,6 +2,7 @@
 // Created by Marco Bassaletti on 08-04-21.
 //
 
+#include "PasswordForm.h"
 #include "GroupForm.h"
 
 namespace NSPass::GUI {
@@ -44,6 +45,7 @@ namespace NSPass::GUI {
 			}
 			long itemId = passwordsList->InsertItem(row, password_id, 0);
 			passwordsList->SetItemData(itemId, row);
+			passwordsList->SetItemPtrData(itemId, reinterpret_cast<wxUIntPtr>(&password));
 			passwordsList->SetItem(itemId, 0, password_url);
 			passwordsList->SetItem(itemId, 1, username);
 			row++;
@@ -63,5 +65,14 @@ namespace NSPass::GUI {
 			}
 			break;
 		}
+	}
+
+	void GroupForm::OnItemSelected(wxListEvent& event)
+	{
+		auto& password = *(reinterpret_cast<PasswordPtr*>(event.GetData()));
+		auto* passwordForm = new PasswordForm(this, password);
+		passwordDetailSizer->Clear(true);
+		passwordDetailSizer->Add(passwordForm, wxSizerFlags().Expand().Border(wxALL, 0));
+		passwordDetailSizer->Layout();
 	}
 }

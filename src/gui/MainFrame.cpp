@@ -21,7 +21,7 @@ namespace NSPass::GUI {
 	wxEND_EVENT_TABLE()
 
 	MainFrame::MainFrame(const wxString& title)
-			:wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(800, 600))
+			:wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(800, 800))
 	{
 		SetIcon(wxICON(sample));
 

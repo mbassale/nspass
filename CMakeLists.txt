@@ -107,7 +107,8 @@ set(GUI_FILES src/gui/GlobalIds.h
         src/gui/MainMenuBar.cpp src/gui/MainMenuBar.h
         src/gui/GeneratedUI.cpp src/gui/GeneratedUI.h
         src/gui/CategoryForm.cpp src/gui/CategoryForm.h
-        src/gui/GroupForm.cpp src/gui/GroupForm.h)
+        src/gui/GroupForm.cpp src/gui/GroupForm.h
+        src/gui/PasswordForm.cpp src/gui/PasswordForm.h)
 if (APPLE)
     # Add an icon for the apple .app file
     list(APPEND GUI_FILES ./assets/icons/wxmac.icns)
