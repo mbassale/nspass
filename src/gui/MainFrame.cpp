@@ -15,6 +15,7 @@ namespace NSPass::GUI {
 					EVT_SIZE(MainFrame::OnSize)
 					EVT_MENU(MainFrame_OpenDefault, MainFrame::OnOpenDefault)
 					EVT_MENU(MainFrame_Open, MainFrame::OnOpen)
+					EVT_MENU(MainFrame_Save, MainFrame::OnSave)
 					EVT_MENU(MainFrame_Close, MainFrame::OnClose)
 					EVT_MENU(MainFrame_Quit, MainFrame::OnQuit)
 					EVT_MENU(MainFrame_About, MainFrame::OnAbout)
