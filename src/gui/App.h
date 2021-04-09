@@ -15,10 +15,11 @@
 #endif
 
 #include "../NSPass.h"
+#include "../commands/Command.h"
+#include "../commands/CommandRunner.h"
 
 namespace NSPass::GUI {
-	class App : public wxApp
-	{
+	class App : public wxApp {
 	public:
 		// override base class virtuals
 		// ----------------------------
@@ -27,7 +28,14 @@ namespace NSPass::GUI {
 		// initialization (doing it here and not in the ctor allows to have an error
 		// return: if OnInit() returns false, the application terminates)
 		bool OnInit() wxOVERRIDE;
+
+		NSPass::Commands::CommandRunner& GetCommandRunner() { return commandRunner; }
+
+	protected:
+		NSPass::Commands::CommandRunner commandRunner{};
 	};
 }
+
+wxDECLARE_APP(NSPass::GUI::App);
 
 #endif //NSPASS_APP_H

@@ -15,6 +15,11 @@ namespace NSPass::GUI {
 	public:
 		PasswordForm(wxWindow* parent, PasswordPtr password);
 		~PasswordForm() override = default;
+
+		void OnCopy(wxCommandEvent& event) override;
+		void OnOpenUrl(wxCommandEvent& event) override;
+		void OnChangePassword(wxCommandEvent& event) override;
+
 	protected:
 		PasswordPtr password;
 

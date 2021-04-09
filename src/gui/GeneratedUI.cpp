@@ -277,8 +277,18 @@ BasePasswordForm::BasePasswordForm( wxWindow* parent, wxWindowID id, const wxPoi
 	this->SetSizer( boxSizer );
 	this->Layout();
 	boxSizer->Fit( this );
+
+	// Connect Events
+	copyPasswordButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnCopy ), NULL, this );
+	openUrlButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnOpenUrl ), NULL, this );
+	changePasswordButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnChangePassword ), NULL, this );
 }
 
 BasePasswordForm::~BasePasswordForm()
 {
+	// Disconnect Events
+	copyPasswordButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnCopy ), NULL, this );
+	openUrlButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnOpenUrl ), NULL, this );
+	changePasswordButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnChangePassword ), NULL, this );
+
 }
