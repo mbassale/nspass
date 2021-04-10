@@ -3,12 +3,14 @@
 //
 #include <wx/stdpaths.h>
 #include <wx/clipbrd.h>
+#include "../commands/UpdatePasswordCommand.h"
 #include "../commands/CopyPasswordCommand.h"
 #include "PasswordForm.h"
 
 namespace NSPass::GUI {
 	using NSPass::Commands::CommandPtr;
 	using NSPass::Commands::CopyPasswordCommand;
+	using NSPass::Commands::UpdatePasswordCommand;
 
 	PasswordForm::PasswordForm(wxWindow* parent, PasswordPtr password)
 			:BasePasswordForm(parent), password{ std::move(password) }
@@ -26,7 +28,7 @@ namespace NSPass::GUI {
 		wxString url{ password->get_url().data() };
 		urlText->SetValue(url);
 		wxString description{ password->get_description().data() };
-		urlText->SetValue(description);
+		descriptionText->SetValue(description);
 		passwordText->SetValue("******");
 	}
 
@@ -60,7 +62,23 @@ namespace NSPass::GUI {
 
 	void PasswordForm::OnSave(wxCommandEvent& event)
 	{
-
+		try {
+			auto& commandRunner = wxGetApp().GetCommandRunner();
+			UpdatePasswordCommand::UpdateData update_data;
+			update_data.username = usernameText->GetValue();
+			update_data.url = urlText->GetValue();
+			update_data.description = descriptionText->GetValue();
+			update_data.password = isShowingPassword ? passwordShownText->GetValue() : passwordText->GetValue();
+			CommandPtr save_password_command{
+					new UpdatePasswordCommand(Application::instance(), password->get_id(), update_data) };
+			commandRunner.run_command(save_password_command);
+			FillData();
+			OnPasswordHide(event);
+			DisableEdition();
+		}
+		catch (ApplicationException& ex) {
+			wxMessageBox(ex.what(), "Error saving password", wxICON_ERROR);
+		}
 	}
 
 	void PasswordForm::OnCancel(wxCommandEvent& event)

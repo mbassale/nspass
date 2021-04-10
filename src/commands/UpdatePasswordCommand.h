@@ -8,6 +8,8 @@
 #include "../NSPass.h"
 #include "Command.h"
 
+#include <utility>
+
 namespace NSPass::Commands {
 	class UpdatePasswordCommand : public Command {
 	public:
@@ -25,6 +27,8 @@ namespace NSPass::Commands {
 		};
 
 		static constexpr auto Name = "update-password";
+		UpdatePasswordCommand(NSPass::Application& app, ObjectId password_id, UpdateData update_data)
+				:Command(app), password_id{ password_id }, update_data{ std::move(update_data) } { };
 		UpdatePasswordCommand(NSPass::Application& app, Filter filter, UpdateData update_data)
 				:Command(app), filter{ std::move(filter) }, update_data{ std::move(update_data) } { };
 		~UpdatePasswordCommand() override = default;
@@ -40,9 +44,13 @@ namespace NSPass::Commands {
 		void undo() override;
 
 	protected:
+		ObjectId password_id{};
 		Filter filter;
 		UpdateData update_data;
 		PasswordWeakPtr updated_password;
+
+		PasswordPtr find_first_password_by_id();
+		PasswordPtr find_first_password_by_filter();
 	};
 }
 
