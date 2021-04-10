@@ -66,6 +66,7 @@ namespace NSPass::GUI {
 	void PasswordForm::OnCancel(wxCommandEvent& event)
 	{
 		OnReset(event);
+		OnPasswordHide(event);
 		DisableEdition();
 	}
 
