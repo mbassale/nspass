@@ -3,6 +3,8 @@
 //
 
 #include "../Application.h"
+#include "App.h"
+#include "states/StateContext.h"
 #include "MainFrame.h"
 
 #ifndef wxHAS_IMAGES_IN_RESOURCES
@@ -10,6 +12,7 @@
 #endif
 
 namespace NSPass::GUI {
+	using States::StateName;
 
 	wxBEGIN_EVENT_TABLE(MainFrame, wxFrame)
 					EVT_SIZE(MainFrame::OnSize)
@@ -46,12 +49,6 @@ namespace NSPass::GUI {
 		treeView = new TreeView(splitter, LeftTree_Ctrl);
 		contentPanel = new ContentPanel(splitter, ContentPanel_Ctrl);
 
-		treeView->SetCategorySelectedCallback([&](const CategoryPtr& category) {
-			contentPanel->ShowCategory(category);
-		});
-		treeView->SetGroupSelectedCallback([&](const GroupPtr& group) {
-			contentPanel->ShowGroup(group);
-		});
 		splitter->SplitVertically(treeView, contentPanel, 300);
 		mainSizer->Add(splitter, wxSizerFlags(1).Expand().Border(wxALL, 0));
 
@@ -62,6 +59,16 @@ namespace NSPass::GUI {
 
 		SetSizer(mainSizer);
 		this->Layout();
+
+		treeView->SetCategorySelectedCallback([&](const CategoryPtr& category) {
+			contentPanel->ShowCategory(category);
+		});
+		treeView->SetGroupSelectedCallback([&](const GroupPtr& group) {
+			contentPanel->ShowGroup(group);
+		});
+		wxGetApp().GetStateContext().Subscribe(StateName::Initial, [&] {
+			// empty for now
+		});
 	}
 
 	void MainFrame::OnOpen(wxCommandEvent& WXUNUSED(event))
@@ -99,16 +106,7 @@ namespace NSPass::GUI {
 	void MainFrame::OpenDefaultStorage()
 	{
 		try {
-			auto masterPassword = wxGetPasswordFromUser("Please enter master password:", "Master Password Required",
-					wxEmptyString, this);
-			if (masterPassword.empty()) return;
-			auto& app = Application::instance();
-			auto& vault = app.get_vault();
-			vault.set_master_password(std::string(masterPassword.c_str()));
-			vault.set_storage_location(app.get_settings().get_data_directory()+"/nspass.db");
-			vault.open();
-			menuBar->OnOpen();
-			treeView->FillStorageData();
+			wxGetApp().GetStateContext().OpenDefault();
 		}
 		catch (ApplicationException& ex) {
 			wxMessageBox(ex.what(), "Error opening storage.", wxOK | wxICON_ERROR);
@@ -118,8 +116,7 @@ namespace NSPass::GUI {
 	void MainFrame::OnSave(wxCommandEvent& event)
 	{
 		try {
-			auto& app = Application::instance();
-			app.get_vault().save();
+			wxGetApp().GetStateContext().Save();
 		}
 		catch (ApplicationException& ex) {
 			wxMessageBox(ex.what(), "Error saving storage.", wxOK | wxICON_ERROR);
@@ -129,11 +126,7 @@ namespace NSPass::GUI {
 	void MainFrame::CloseStorage()
 	{
 		try {
-			auto& app = Application::instance();
-			app.get_vault().close();
-			menuBar->OnClose();
-			treeView->DeleteStorageData();
-			contentPanel->Clear();
+			wxGetApp().GetStateContext().Close();
 		}
 		catch (ApplicationException& ex) {
 			wxMessageBox(ex.what(), "Error closing storage.", wxOK | wxICON_ERROR);

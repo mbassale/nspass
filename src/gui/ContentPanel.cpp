@@ -6,13 +6,20 @@
 #include "CategoryForm.h"
 #include "GroupForm.h"
 #include "ContentPanel.h"
+#include "states/StateContext.h"
 
 namespace NSPass::GUI {
+	using States::StateName;
+
 	ContentPanel::ContentPanel(wxWindow* parent, wxWindowID id)
 			:wxPanel(parent, id)
 	{
 		mainSizer = new wxBoxSizer(wxVERTICAL);
 		SetSizer(mainSizer);
+
+		wxGetApp().GetStateContext().Subscribe(StateName::Close, [&] {
+			mainSizer->Clear(true);
+		});
 	}
 
 	void ContentPanel::ShowCategory(const CategoryPtr& category)
@@ -29,10 +36,5 @@ namespace NSPass::GUI {
 		mainSizer->Clear(true);
 		mainSizer->Add(groupForm, wxSizerFlags().Expand().Border(wxALL, 10));
 		mainSizer->Layout();
-	}
-
-	void ContentPanel::Clear()
-	{
-		mainSizer->Clear(true);
 	}
 }

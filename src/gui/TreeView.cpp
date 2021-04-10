@@ -2,10 +2,12 @@
 // Created by Marco Bassaletti on 07-04-21.
 //
 
+#include "states/StateContext.h"
 #include "TreeView.h"
 #include "GlobalIds.h"
 
 namespace NSPass::GUI {
+	using States::StateName;
 
 	wxBEGIN_EVENT_TABLE(TreeView, wxTreeCtrl)
 					EVT_TREE_SEL_CHANGED(LeftTree_Ctrl, TreeView::OnSelChanged)
@@ -14,7 +16,12 @@ namespace NSPass::GUI {
 	TreeView::TreeView(wxWindow* parent, wxWindowID id)
 			:wxTreeCtrl(parent, id), app{ Application::instance() }
 	{
-
+		wxGetApp().GetStateContext().Subscribe(StateName::Open, [&]{
+			this->FillStorageData();
+		});
+		wxGetApp().GetStateContext().Subscribe(StateName::Close, [&]{
+			this->DeleteAllItems();
+		});
 	}
 
 	int TreeView::OnCompareItems(const wxTreeItemId& i1, const wxTreeItemId& i2)
@@ -54,9 +61,5 @@ namespace NSPass::GUI {
 		}
 
 		ExpandAll();
-	}
-	void TreeView::DeleteStorageData()
-	{
-		DeleteAllItems();
 	}
 }

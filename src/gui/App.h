@@ -17,6 +17,8 @@
 #include "../NSPass.h"
 #include "../commands/Command.h"
 #include "../commands/CommandRunner.h"
+#include "states/State.h"
+#include "states/StateContext.h"
 
 namespace NSPass::GUI {
 	class App : public wxApp {
@@ -30,8 +32,10 @@ namespace NSPass::GUI {
 		bool OnInit() wxOVERRIDE;
 
 		NSPass::Commands::CommandRunner& GetCommandRunner() { return commandRunner; }
+		States::StateContext& GetStateContext() { return stateContext; }
 
 	protected:
+		States::StateContext stateContext{};
 		NSPass::Commands::CommandRunner commandRunner{};
 	};
 }

@@ -73,7 +73,6 @@ namespace NSPass::GUI {
 		void OnSelChanged(wxTreeEvent& event);
 
 		void FillStorageData();
-		void DeleteStorageData();
 
 	protected:
 		Application& app;

@@ -22,6 +22,8 @@ namespace NSPass::GUI {
 
 		auto* frame = new MainFrame("NSPass v0.1");
 		frame->Show(true);
+
+		GetStateContext().Init();
 		return true;
 	}
 }

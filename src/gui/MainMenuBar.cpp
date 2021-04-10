@@ -3,8 +3,12 @@
 //
 
 #include "MainMenuBar.h"
+#include "states/StateContext.h"
 
 namespace NSPass::GUI {
+	using States::StateContext;
+	using States::StateName;
+
 	MainMenuBar::MainMenuBar()
 	{
 		// create a menu bar
@@ -24,6 +28,19 @@ namespace NSPass::GUI {
 		Append(helpMenu, "&Help");
 
 		Reset();
+
+		wxGetApp().GetStateContext().Subscribe(StateName::Initial, [&] {
+			Reset();
+		});
+		wxGetApp().GetStateContext().Subscribe(StateName::Open, [&] {
+			OnOpen();
+		});
+		wxGetApp().GetStateContext().Subscribe(StateName::Save, [&] {
+
+		});
+		wxGetApp().GetStateContext().Subscribe(StateName::Close, [&] {
+			OnClose();
+		});
 	}
 
 	void MainMenuBar::Reset()

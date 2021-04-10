@@ -109,7 +109,12 @@ set(GUI_FILES src/gui/GlobalIds.h
         src/gui/CategoryForm.cpp src/gui/CategoryForm.h
         src/gui/GroupForm.cpp src/gui/GroupForm.h
         src/gui/PasswordForm.cpp src/gui/PasswordForm.h
-        src/gui/MainToolbar.cpp src/gui/MainToolbar.h)
+        src/gui/MainToolbar.cpp src/gui/MainToolbar.h
+        src/gui/states/State.h
+        src/gui/states/OpenState.cpp src/gui/states/OpenState.h
+        src/gui/states/StateContext.cpp src/gui/states/StateContext.h
+        src/gui/states/InitialState.cpp src/gui/states/InitialState.h
+        src/gui/states/SaveState.cpp src/gui/states/SaveState.h src/gui/states/CloseState.cpp src/gui/states/CloseState.h)
 if (APPLE)
     # Add an icon for the apple .app file
     list(APPEND GUI_FILES ./assets/icons/wxmac.icns)
