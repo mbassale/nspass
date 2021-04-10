@@ -18,7 +18,7 @@ namespace NSPass::GUI {
 
 		void OnCopy(wxCommandEvent& event) override;
 		void OnOpenUrl(wxCommandEvent& event) override;
-		void OnChangePassword(wxCommandEvent& event) override;
+		void OnEdit(wxCommandEvent& event) override;
 		void OnSave(wxCommandEvent& event) override;
 		void OnCancel(wxCommandEvent& event) override;
 		void OnReset(wxCommandEvent& event) override;
@@ -26,14 +26,17 @@ namespace NSPass::GUI {
 		void OnUrlCopy(wxCommandEvent& event) override;
 		void OnDescriptionCopy(wxCommandEvent& event) override;
 		void OnPasswordCopy(wxCommandEvent& event) override;
+		void OnPasswordShow(wxCommandEvent& event) override;
+		void OnPasswordHide(wxCommandEvent& event) override;
 
 	protected:
-		bool isUpdating = false;
+		bool isShowingPassword = false;
 		PasswordPtr password;
 
 		void FillData();
 		void EnableEdition();
 		void DisableEdition();
+		void RedrawForm();
 	};
 }
 

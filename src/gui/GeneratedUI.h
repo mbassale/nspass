@@ -126,10 +126,13 @@ namespace NSPass::GUI
 			wxBitmapButton* descriptionCopyButton;
 			wxStaticText* passwordLabel;
 			wxTextCtrl* passwordText;
+			wxTextCtrl* passwordShownText;
 			wxBitmapButton* passwordCopyButton;
+			wxBitmapButton* passwordShowButton;
+			wxBitmapButton* passwordHideButton;
 			wxButton* copyPasswordButton;
 			wxButton* openUrlButton;
-			wxButton* changePasswordButton;
+			wxButton* editButton;
 			wxButton* saveButton;
 			wxButton* cancelButton;
 			wxButton* resetButton;
@@ -139,9 +142,11 @@ namespace NSPass::GUI
 			virtual void OnUrlCopy( wxCommandEvent& event ) = 0;
 			virtual void OnDescriptionCopy( wxCommandEvent& event ) = 0;
 			virtual void OnPasswordCopy( wxCommandEvent& event ) = 0;
+			virtual void OnPasswordShow( wxCommandEvent& event ) = 0;
+			virtual void OnPasswordHide( wxCommandEvent& event ) = 0;
 			virtual void OnCopy( wxCommandEvent& event ) = 0;
 			virtual void OnOpenUrl( wxCommandEvent& event ) = 0;
-			virtual void OnChangePassword( wxCommandEvent& event ) = 0;
+			virtual void OnEdit( wxCommandEvent& event ) = 0;
 			virtual void OnSave( wxCommandEvent& event ) = 0;
 			virtual void OnCancel( wxCommandEvent& event ) = 0;
 			virtual void OnReset( wxCommandEvent& event ) = 0;

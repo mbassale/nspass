@@ -53,7 +53,7 @@ namespace NSPass::GUI {
 		}
 	}
 
-	void PasswordForm::OnChangePassword(wxCommandEvent& event)
+	void PasswordForm::OnEdit(wxCommandEvent& event)
 	{
 		EnableEdition();
 	}
@@ -106,40 +106,75 @@ namespace NSPass::GUI {
 		OnCopy(event);
 	}
 
+	void PasswordForm::OnPasswordShow(wxCommandEvent& event)
+	{
+		isShowingPassword = true;
+		passwordShownText->SetValue(passwordText->GetValue());
+		passwordText->Hide();
+		passwordShownText->Show();
+		passwordShowButton->Hide();
+		passwordHideButton->Show();
+		RedrawForm();
+	}
+
+	void PasswordForm::OnPasswordHide(wxCommandEvent& event)
+	{
+		isShowingPassword = false;
+		passwordShownText->SetValue("");
+		passwordShownText->Hide();
+		passwordText->Show();
+		passwordHideButton->Hide();
+		passwordShowButton->Show();
+		RedrawForm();
+	}
+
 	void PasswordForm::EnableEdition()
 	{
-		isUpdating = true;
 		usernameText->SetEditable(true);
 		urlText->SetEditable(true);
 		descriptionText->SetEditable(true);
+
+		auto passwordStr = password->get_password().get_plain_text(password->get_username());
+		passwordText->SetValue(passwordStr);
 		passwordText->SetEditable(true);
+		passwordCopyButton->Hide();
+		passwordHideButton->Hide();
+		passwordShowButton->Show();
 
 		copyPasswordButton->Hide();
 		openUrlButton->Hide();
-		changePasswordButton->Hide();
+		editButton->Hide();
 		saveButton->Show();
 		cancelButton->Show();
 		resetButton->Show();
 
-		this->Layout();
-		boxSizer->Fit(this);
+		RedrawForm();
 	}
 
 	void PasswordForm::DisableEdition()
 	{
-		isUpdating = false;
 		usernameText->SetEditable(false);
 		urlText->SetEditable(false);
 		descriptionText->SetEditable(false);
+
+		passwordText->SetValue("******");
 		passwordText->SetEditable(false);
+		passwordCopyButton->Show();
+		passwordShowButton->Hide();
+		passwordHideButton->Hide();
 
 		copyPasswordButton->Show();
 		openUrlButton->Show();
-		changePasswordButton->Show();
+		editButton->Show();
 		saveButton->Hide();
 		cancelButton->Hide();
 		resetButton->Hide();
 
+		RedrawForm();
+	}
+
+	void PasswordForm::RedrawForm()
+	{
 		this->Layout();
 		boxSizer->Fit(this);
 	}
