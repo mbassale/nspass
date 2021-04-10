@@ -7,10 +7,13 @@
 #include "../TestUtility.h"
 #include "../../src/query/PasswordNotFoundException.h"
 #include "../../src/commands/UpdatePasswordCommand.h"
+#include "../../src/IdGenerator.h"
 
 using namespace std;
 using NSPass::Application;
 using NSPass::ApplicationException;
+using NSPass::IdGenerator;
+using NSPass::PasswordWeakPtr;
 using NSPass::Query::PasswordNotFoundException;
 using NSPass::Commands::UpdatePasswordCommand;
 
@@ -18,6 +21,18 @@ class UpdatePasswordCommandFixture : public SampleStorageFixture {
 public:
 	static constexpr auto Tag = "[update command]";
 	UpdatePasswordCommandFixture() = default;
+protected:
+	static void assert_password_updated(const UpdatePasswordCommand::UpdateData& update_data,
+			const PasswordWeakPtr& updated_password)
+	{
+		REQUIRE_FALSE(updated_password.expired());
+		auto password = updated_password.lock();
+		REQUIRE(password);
+		REQUIRE(password->get_username() == update_data.username);
+		REQUIRE(password->get_password().get_plain_text(*(update_data.username)) == update_data.password);
+		REQUIRE(password->get_url() == update_data.url);
+		REQUIRE(password->get_description() == update_data.description);
+	}
 };
 
 TEST_CASE_METHOD(UpdatePasswordCommandFixture, "UpdatePasswordCommand - Construct", UpdatePasswordCommandFixture::Tag)
@@ -52,12 +67,13 @@ TEST_CASE_METHOD(UpdatePasswordCommandFixture, "UpdatePasswordCommand - Execute"
 		UpdatePasswordCommand update_password_command{ Application::instance(), filter, update_data };
 		REQUIRE_NOTHROW(update_password_command.execute());
 		auto& updated_password_weak_ptr = update_password_command.get_updated_password();
-		auto updated_password = updated_password_weak_ptr.lock();
-		REQUIRE(updated_password);
-		REQUIRE(updated_password->get_username() == update_data.username);
-		REQUIRE(updated_password->get_password().get_plain_text(*(update_data.username)) == update_data.password);
-		REQUIRE(updated_password->get_url() == update_data.url);
-		REQUIRE(updated_password->get_description() == update_data.description);
+		assert_password_updated(update_data, updated_password_weak_ptr);
+
+		auto password_id = updated_password_weak_ptr.lock()->get_id();
+		UpdatePasswordCommand update_password_command_by_id{ Application::instance(), password_id, update_data };
+		REQUIRE_NOTHROW(update_password_command_by_id.execute());
+		auto& updated_password_weak_ptr2 = update_password_command_by_id.get_updated_password();
+		assert_password_updated(update_data, updated_password_weak_ptr2);
 	}
 }
 
@@ -72,4 +88,9 @@ TEST_CASE_METHOD(UpdatePasswordCommandFixture, "UpdatePasswordCommand - Password
 	UpdatePasswordCommand::UpdateData update_data;
 	UpdatePasswordCommand update_password_command{ Application::instance(), filter, update_data };
 	REQUIRE_THROWS_AS(update_password_command.execute(), PasswordNotFoundException);
+
+	auto random_password_id = IdGenerator::make();
+	UpdatePasswordCommand update_password_command_with_random_id{ Application::instance(), random_password_id,
+																  update_data };
+	REQUIRE_THROWS_AS(update_password_command_with_random_id.execute(), PasswordNotFoundException);
 }
