@@ -25,6 +25,7 @@
 #include <wx/image.h>
 #include <wx/icon.h>
 #include <wx/button.h>
+#include <wx/toolbar.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -156,6 +157,33 @@ namespace NSPass::GUI
 
 			BasePasswordForm( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxTAB_TRAVERSAL, const wxString& name = wxEmptyString );
 			~BasePasswordForm();
+
+	};
+
+	///////////////////////////////////////////////////////////////////////////////
+	/// Class BaseToolBar
+	///////////////////////////////////////////////////////////////////////////////
+	class BaseToolBar : public wxToolBar
+	{
+		private:
+
+		protected:
+			wxToolBarToolBase* openDefaultTool;
+			wxToolBarToolBase* openTool;
+			wxToolBarToolBase* saveTool;
+			wxToolBarToolBase* copyTool;
+
+			// Virtual event handlers, overide them in your derived class
+			virtual void OnOpenDefault( wxCommandEvent& event ) { event.Skip(); }
+			virtual void OnOpen( wxCommandEvent& event ) { event.Skip(); }
+			virtual void OnSave( wxCommandEvent& event ) { event.Skip(); }
+			virtual void OnCopy( wxCommandEvent& event ) { event.Skip(); }
+
+
+		public:
+
+			BaseToolBar( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0 );
+			~BaseToolBar();
 
 	};
 

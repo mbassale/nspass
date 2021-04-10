@@ -34,6 +34,11 @@ namespace NSPass::GUI {
 #else // !wxUSE_MENUBAR
 #endif // wxUSE_MENUBAR/!wxUSE_MENUBAR
 
+		mainSizer = new wxBoxSizer(wxVERTICAL);
+
+		toolbar = new MainToolbar(this);
+		mainSizer->Add(toolbar, wxSizerFlags(0).Expand().Border(wxALL, 0));
+
 		splitter = new wxSplitterWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSP_3D);
 		splitter->SetSize(GetClientSize());
 		splitter->SetSashGravity(1.0);
@@ -48,11 +53,15 @@ namespace NSPass::GUI {
 			contentPanel->ShowGroup(group);
 		});
 		splitter->SplitVertically(treeView, contentPanel, 300);
+		mainSizer->Add(splitter, wxSizerFlags(1).Expand().Border(wxALL, 0));
 
 #if wxUSE_STATUSBAR
 		CreateStatusBar(2);
 		SetStatusText("Welcome to NSPass!");
 #endif // wxUSE_STATUSBAR
+
+		SetSizer(mainSizer);
+		this->Layout();
 	}
 
 	void MainFrame::OnOpen(wxCommandEvent& WXUNUSED(event))

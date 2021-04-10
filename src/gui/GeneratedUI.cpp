@@ -9,6 +9,9 @@
 
 #include "icons/Copy.png.h"
 #include "icons/HidePassword.png.h"
+#include "icons/Open.png.h"
+#include "icons/OpenDefault.png.h"
+#include "icons/Save.png.h"
 #include "icons/ShowPassword.png.h"
 
 ///////////////////////////////////////////////////////////////////////////
@@ -411,5 +414,37 @@ BasePasswordForm::~BasePasswordForm()
 	saveButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnSave ), NULL, this );
 	cancelButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnCancel ), NULL, this );
 	resetButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnReset ), NULL, this );
+
+}
+
+BaseToolBar::BaseToolBar( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : wxToolBar( parent, id, pos, size, style )
+{
+	openDefaultTool = AddTool( wxID_ANY, wxT("Open Default"), OpenDefault_png_to_wx_bitmap(), wxNullBitmap, wxITEM_NORMAL, wxT("Open default storage."), wxT("Open default storage."), NULL );
+
+	openTool = AddTool( wxID_ANY, wxT("Open"), Open_png_to_wx_bitmap(), wxNullBitmap, wxITEM_NORMAL, wxEmptyString, wxT("Open a Storage File."), NULL );
+
+	saveTool = AddTool( wxID_ANY, wxT("Save"), Save_png_to_wx_bitmap(), wxNullBitmap, wxITEM_NORMAL, wxT("Save changes to storage."), wxT("Save changes to storage."), NULL );
+
+	AddSeparator();
+
+	copyTool = AddTool( wxID_ANY, wxT("Copy"), Copy_png_to_wx_bitmap(), wxNullBitmap, wxITEM_NORMAL, wxT("Copy selected password."), wxT("Copy selected password."), NULL );
+
+
+	Realize();
+
+	// Connect Events
+	this->Connect( openDefaultTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnOpenDefault ) );
+	this->Connect( openTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnOpen ) );
+	this->Connect( saveTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnSave ) );
+	this->Connect( copyTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnCopy ) );
+}
+
+BaseToolBar::~BaseToolBar()
+{
+	// Disconnect Events
+	this->Disconnect( openDefaultTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnOpenDefault ) );
+	this->Disconnect( openTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnOpen ) );
+	this->Disconnect( saveTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnSave ) );
+	this->Disconnect( copyTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnCopy ) );
 
 }

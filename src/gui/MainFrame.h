@@ -17,6 +17,7 @@
 #include <wx/splitter.h>
 #include "GlobalIds.h"
 #include "MainMenuBar.h"
+#include "MainToolbar.h"
 #include "TreeView.h"
 #include "ContentPanel.h"
 
@@ -35,8 +36,10 @@ namespace NSPass::GUI {
 		void OnAbout(wxCommandEvent& event);
 
 	private:
+		wxBoxSizer* mainSizer;
 		wxSplitterWindow* splitter;
 		MainMenuBar* menuBar;
+		MainToolbar* toolbar;
 		TreeView* treeView;
 		ContentPanel* contentPanel;
 
