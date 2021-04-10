@@ -171,13 +171,21 @@ namespace NSPass::GUI
 			wxToolBarToolBase* openDefaultTool;
 			wxToolBarToolBase* openTool;
 			wxToolBarToolBase* saveTool;
+			wxToolBarToolBase* cutTool;
 			wxToolBarToolBase* copyTool;
+			wxToolBarToolBase* pasteTool;
+			wxToolBarToolBase* deleteTool;
+			wxToolBarToolBase* clearTool;
 
 			// Virtual event handlers, overide them in your derived class
 			virtual void OnOpenDefault( wxCommandEvent& event ) { event.Skip(); }
 			virtual void OnOpen( wxCommandEvent& event ) { event.Skip(); }
 			virtual void OnSave( wxCommandEvent& event ) { event.Skip(); }
+			virtual void OnCut( wxCommandEvent& event ) { event.Skip(); }
 			virtual void OnCopy( wxCommandEvent& event ) { event.Skip(); }
+			virtual void OnPaste( wxCommandEvent& event ) { event.Skip(); }
+			virtual void OnDelete( wxCommandEvent& event ) { event.Skip(); }
+			virtual void OnClear( wxCommandEvent& event ) { event.Skip(); }
 
 
 		public:

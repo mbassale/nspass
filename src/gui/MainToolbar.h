@@ -14,9 +14,13 @@ namespace NSPass::GUI {
 		~MainToolbar() override = default;
 
 		void OnOpenDefault(wxCommandEvent& event) override;
-		void OnSave(wxCommandEvent& event) override;
 		void OnOpen(wxCommandEvent& event) override;
+		void OnSave(wxCommandEvent& event) override;
+		void OnCut(wxCommandEvent& event) override;
 		void OnCopy(wxCommandEvent& event) override;
+		void OnPaste(wxCommandEvent& event) override;
+		void OnDelete(wxCommandEvent& event) override;
+		void OnClear(wxCommandEvent& event) override;
 	};
 }
 

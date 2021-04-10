@@ -27,4 +27,24 @@ namespace NSPass::GUI {
 	void MainToolbar::OnCopy(wxCommandEvent& event)
 	{
 	}
+
+	void MainToolbar::OnCut(wxCommandEvent& event)
+	{
+
+	}
+
+	void MainToolbar::OnPaste(wxCommandEvent& event)
+	{
+
+	}
+
+	void MainToolbar::OnDelete(wxCommandEvent& event)
+	{
+
+	}
+
+	void MainToolbar::OnClear(wxCommandEvent& event)
+	{
+
+	}
 }
