@@ -24,7 +24,6 @@ set(SOURCE_FILES
         src/Category.cpp src/Category.h
         src/IdGenerator.h src/IdGenerator.cpp
         src/config/Settings.cpp src/config/Settings.h
-        src/config/MacSettings.mm src/config/MacSettings.h
         src/query/Query.cpp src/query/Query.h
         src/query/CategoryQuery.cpp src/query/CategoryQuery.h
         src/query/GroupQuery.cpp src/query/GroupQuery.h
@@ -98,6 +97,11 @@ set(SOURCE_FILES
         src/crypto/InitializationVector.h src/crypto/InitializationVector.cpp
         src/crypto/SecureString.h src/crypto/SecureString.cpp
         src/crypto/EncryptedFile.h src/crypto/EncryptedFile.cpp)
+if (UNIX)
+    list(APPEND SOURCE_FILES src/config/UnixSettings.cpp src/config/UnixSettings.h)
+elseif (APPLE)
+    list(APPEND SOURCE_FILES src/config/MacSettings.mm src/config/MacSettings.h)
+endif()
 
 set(GUI_FILES src/gui/GlobalIds.h
         src/gui/App.h src/gui/App.cpp
@@ -131,7 +135,6 @@ set(TEST_FILES
         test/test_vault.cpp
         test/test_command_line.cpp
         test/config/test_settings.cpp
-        test/config/test_mac_settings.cpp
         test/query/test_category_query.cpp
         test/query/test_group_query.cpp
         test/query/test_password_query.cpp
@@ -168,6 +171,10 @@ set(TEST_FILES
         test/storage/serializers/test_group_serializer.cpp
         test/storage/serializers/test_category_serializer.cpp
         test/storage/test_json_storage.cpp)
+if (APPLE)
+    list(APPEND TEST_FILES test/config/test_mac_settings.cpp)
+elseif(UNIX)
+endif()
 
 include_directories(${Boost_INCLUDE_DIRS})
 

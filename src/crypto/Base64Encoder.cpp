@@ -4,6 +4,7 @@
 
 #include <cstdlib>
 #include <cstring>
+#include <stdexcept>
 #include "Base64Encoder.h"
 
 extern "C" {

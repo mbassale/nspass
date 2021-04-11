@@ -73,7 +73,7 @@ namespace NSPass::GUI {
 		wxTreeItemId rootId;
 
 		Storage::Storage& getStorage() { return app.get_storage(); }
-		int OnCompareItems(const wxTreeItemId& i1, const wxTreeItemId& i2) wxOVERRIDE;
+		int OnCompareItems(const wxTreeItemId& i1, const wxTreeItemId& i2) override;
 
 	private:
 	wxDECLARE_EVENT_TABLE();

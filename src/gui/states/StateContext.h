@@ -8,6 +8,7 @@
 #include <map>
 #include <vector>
 #include <functional>
+#include <variant>
 #include "State.h"
 
 namespace NSPass::GUI::States {

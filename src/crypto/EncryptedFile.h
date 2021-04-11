@@ -18,8 +18,8 @@ namespace NSPass::Crypto
 		void encrypt(std::string_view contents);
 		std::string decrypt();
 	private:
-		std::string_view filename;
-		std::string_view shared_key;
+		std::string filename;
+		std::string shared_key;
 	};
 }
 
