@@ -10,6 +10,7 @@
 #include "OpenState.h"
 #include "SaveState.h"
 #include "CloseState.h"
+#include "SelectCategoryState.h"
 
 namespace NSPass::GUI::States {
 
@@ -19,9 +20,10 @@ namespace NSPass::GUI::States {
 		states[StateName::Open] = StatePtr{ new OpenState(*this) };
 		states[StateName::Save] = StatePtr{ new SaveState{ *this }};
 		states[StateName::Close] = StatePtr{ new CloseState{ *this }};
+		states[StateName::SelectCategory] = StatePtr{ new SelectCategoryState{ *this }};
 	}
 
-	void StateContext::Subscribe(StateName state, const StateEnterCallback& callback)
+	void StateContext::Subscribe(StateName state, const StateCallback& callback)
 	{
 		enterCallbacks[state].push_back(callback);
 	}
@@ -52,11 +54,35 @@ namespace NSPass::GUI::States {
 		currentState->Close();
 	}
 
+	void StateContext::SelectCategory(const CategoryPtr& category)
+	{
+		currentState->SelectCategory(category);
+	}
+
 	void StateContext::Notify(StateName state)
 	{
 		if (enterCallbacks.count(state) > 0) {
 			for (auto& callback : enterCallbacks[state]) {
-				callback();
+				if (callback.index() == 0) {
+					auto* callback_ptr = std::get_if<0>(&callback);
+					if (callback_ptr) {
+						(*callback_ptr)();
+					}
+				}
+			}
+		}
+	}
+
+	void StateContext::Notify(StateName stateName, const CategoryPtr& category)
+	{
+		if (enterCallbacks.count(stateName) > 0) {
+			for (auto& callback : enterCallbacks[stateName]) {
+				if (callback.index() == 1) {
+					auto* callback_ptr = std::get_if<1>(&callback);
+					if (callback_ptr) {
+						(*callback_ptr)(category);
+					}
+				}
 			}
 		}
 	}

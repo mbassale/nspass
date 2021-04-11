@@ -16,10 +16,10 @@ namespace NSPass::GUI {
 	TreeView::TreeView(wxWindow* parent, wxWindowID id)
 			:wxTreeCtrl(parent, id), app{ Application::instance() }
 	{
-		wxGetApp().GetStateContext().Subscribe(StateName::Open, [&]{
+		wxGetApp().GetStateContext().Subscribe(StateName::Open, [&] {
 			this->FillStorageData();
 		});
-		wxGetApp().GetStateContext().Subscribe(StateName::Close, [&]{
+		wxGetApp().GetStateContext().Subscribe(StateName::Close, [&] {
 			this->DeleteAllItems();
 		});
 	}
@@ -35,9 +35,9 @@ namespace NSPass::GUI {
 		auto* itemData = GetItemData(selectedId);
 		auto* categoryItem = dynamic_cast<CategoryItemData*>(itemData);
 		auto* groupItem = dynamic_cast<GroupItemData*>(itemData);
-		if (categoryItem && categorySelectedCallback) {
+		if (categoryItem) {
 			auto& category = categoryItem->get_category();
-			categorySelectedCallback(category);
+			wxGetApp().GetStateContext().SelectCategory(category);
 		}
 		else if (groupItem && groupSelectedCallback) {
 			auto& group = groupItem->get_group();

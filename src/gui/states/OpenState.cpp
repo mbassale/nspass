@@ -23,6 +23,7 @@ namespace NSPass::GUI::States {
 		vault.set_storage_location(app.get_settings().get_data_directory()+"/nspass.db");
 		vault.open();
 		context.SetCurrentState(StateName::Open);
+		context.Notify(StateName::Open);
 	}
 
 	void OpenState::Save()
@@ -33,5 +34,10 @@ namespace NSPass::GUI::States {
 	void OpenState::Close()
 	{
 		context.GetState(StateName::Close).Close();
+	}
+
+	void OpenState::SelectCategory(const CategoryPtr& category)
+	{
+		context.GetState(StateName::SelectCategory).SelectCategory(category);
 	}
 }

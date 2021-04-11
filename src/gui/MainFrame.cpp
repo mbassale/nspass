@@ -60,9 +60,6 @@ namespace NSPass::GUI {
 		SetSizer(mainSizer);
 		this->Layout();
 
-		treeView->SetCategorySelectedCallback([&](const CategoryPtr& category) {
-			contentPanel->ShowCategory(category);
-		});
 		treeView->SetGroupSelectedCallback([&](const GroupPtr& group) {
 			contentPanel->ShowGroup(group);
 		});

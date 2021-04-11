@@ -15,5 +15,6 @@ namespace NSPass::GUI::States {
 		auto& app = Application::instance();
 		app.get_vault().save();
 		context.SetCurrentState(StateName::Save);
+		context.Notify(StateName::Save);
 	}
 }

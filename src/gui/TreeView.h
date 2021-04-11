@@ -64,10 +64,6 @@ namespace NSPass::GUI {
 		TreeView(wxWindow* parent, wxWindowID id);
 		~TreeView() override = default;
 
-		void SetCategorySelectedCallback(CategorySelectedCallback callback)
-		{
-			categorySelectedCallback = std::move(callback);
-		}
 		void SetGroupSelectedCallback(GroupSelectedCallback callback) { groupSelectedCallback = std::move(callback); }
 
 		void OnSelChanged(wxTreeEvent& event);
@@ -77,7 +73,6 @@ namespace NSPass::GUI {
 	protected:
 		Application& app;
 		wxTreeItemId rootId;
-		CategorySelectedCallback categorySelectedCallback;
 		GroupSelectedCallback groupSelectedCallback;
 
 		Storage::Storage& getStorage() { return app.get_storage(); }

@@ -6,6 +6,7 @@
 #define NSPASS_STATE_H
 
 #include <memory>
+#include "../../Category.h"
 
 namespace NSPass::GUI::States {
 	class State {
@@ -14,6 +15,7 @@ namespace NSPass::GUI::States {
 		virtual void Open() { };
 		virtual void Close() { };
 		virtual void Save() { };
+		virtual void SelectCategory(const CategoryPtr& category) { };
 	};
 
 	typedef std::unique_ptr<State> StatePtr;
