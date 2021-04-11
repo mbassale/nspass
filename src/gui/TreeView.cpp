@@ -32,16 +32,16 @@ namespace NSPass::GUI {
 	void TreeView::OnSelChanged(wxTreeEvent& event)
 	{
 		wxTreeItemId selectedId = event.GetItem();
-		auto* itemData = GetItemData(selectedId);
-		auto* categoryItem = dynamic_cast<CategoryItemData*>(itemData);
-		auto* groupItem = dynamic_cast<GroupItemData*>(itemData);
+		const auto* itemData = GetItemData(selectedId);
+		const auto* categoryItem = dynamic_cast<const CategoryItemData*>(itemData);
+		const auto* groupItem = dynamic_cast<const GroupItemData*>(itemData);
 		if (categoryItem) {
-			auto& category = categoryItem->get_category();
+			const auto& category = categoryItem->get_category();
 			wxGetApp().GetStateContext().SelectCategory(category);
 		}
-		else if (groupItem && groupSelectedCallback) {
-			auto& group = groupItem->get_group();
-			groupSelectedCallback(group);
+		else if (groupItem) {
+			const auto& group = groupItem->get_group();
+			wxGetApp().GetStateContext().SelectGroup(group);
 		}
 	}
 
@@ -50,11 +50,11 @@ namespace NSPass::GUI {
 		auto* rootNode = new StorageItemData(getStorage().get_header());
 		rootId = AddRoot("Storage", -1, -1, rootNode);
 
-		auto& categories = app.get_storage().get_categories();
-		for (auto& category : categories) {
+		const auto& categories = app.get_storage().get_categories();
+		for (const auto& category : categories) {
 			auto* categoryNode = new CategoryItemData(category);
 			wxTreeItemId categoryId = AppendItem(rootId, category->get_name().data(), -1, -1, categoryNode);
-			for (auto& group : category->get_groups()) {
+			for (const auto& group : category->get_groups()) {
 				auto* groupNode = new GroupItemData(group);
 				AppendItem(categoryId, group->get_name().data(), -1, -1, groupNode);
 			}

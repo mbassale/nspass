@@ -64,8 +64,6 @@ namespace NSPass::GUI {
 		TreeView(wxWindow* parent, wxWindowID id);
 		~TreeView() override = default;
 
-		void SetGroupSelectedCallback(GroupSelectedCallback callback) { groupSelectedCallback = std::move(callback); }
-
 		void OnSelChanged(wxTreeEvent& event);
 
 		void FillStorageData();
@@ -73,7 +71,6 @@ namespace NSPass::GUI {
 	protected:
 		Application& app;
 		wxTreeItemId rootId;
-		GroupSelectedCallback groupSelectedCallback;
 
 		Storage::Storage& getStorage() { return app.get_storage(); }
 		int OnCompareItems(const wxTreeItemId& i1, const wxTreeItemId& i2) wxOVERRIDE;

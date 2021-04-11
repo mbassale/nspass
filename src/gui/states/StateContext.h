@@ -51,9 +51,11 @@ namespace NSPass::GUI::States {
 		void Save();
 		void Close();
 		void SelectCategory(const CategoryPtr& category);
+		void SelectGroup(const GroupPtr& group);
 
 		void Notify(StateName state);
 		void Notify(StateName stateName, const CategoryPtr& category);
+		void Notify(StateName stateName, const GroupPtr& group);
 
 	protected:
 		State* currentState{};

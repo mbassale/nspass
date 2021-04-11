@@ -60,9 +60,6 @@ namespace NSPass::GUI {
 		SetSizer(mainSizer);
 		this->Layout();
 
-		treeView->SetGroupSelectedCallback([&](const GroupPtr& group) {
-			contentPanel->ShowGroup(group);
-		});
 		wxGetApp().GetStateContext().Subscribe(StateName::Initial, [&] {
 			// empty for now
 		});

@@ -18,7 +18,7 @@ namespace NSPass::GUI::States {
 	}
 	void CloseState::Close()
 	{
-		auto& app = Application::instance();
+		const auto& app = Application::instance();
 		app.get_vault().close();
 		context.SetCurrentState(StateName::Close);
 		context.Notify(StateName::Close);

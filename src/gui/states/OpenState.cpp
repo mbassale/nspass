@@ -14,7 +14,7 @@ namespace NSPass::GUI::States {
 
 	void OpenState::OpenDefault()
 	{
-		auto masterPassword = wxGetPasswordFromUser("Please enter master password:", "Master Password Required",
+		const auto masterPassword = wxGetPasswordFromUser("Please enter master password:", "Master Password Required",
 				wxEmptyString, wxGetActiveWindow());
 		if (masterPassword.empty()) return;
 		auto& app = Application::instance();
@@ -39,5 +39,10 @@ namespace NSPass::GUI::States {
 	void OpenState::SelectCategory(const CategoryPtr& category)
 	{
 		context.GetState(StateName::SelectCategory).SelectCategory(category);
+	}
+
+	void OpenState::SelectGroup(const GroupPtr& group)
+	{
+		context.GetState(StateName::SelectGroup).SelectGroup(group);
 	}
 }

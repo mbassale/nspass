@@ -24,12 +24,11 @@ namespace NSPass::GUI {
 	public:
 		ContentPanel(wxWindow* parent, wxWindowID id);
 
-		void ShowGroup(const GroupPtr& group);
-
 	protected:
 		wxBoxSizer* mainSizer{};
 
 		void ShowCategory(const CategoryPtr& category);
+		void ShowGroup(const GroupPtr& group);
 	};
 }
 

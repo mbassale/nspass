@@ -7,6 +7,7 @@
 
 #include <memory>
 #include "../../Category.h"
+#include "../../Group.h"
 
 namespace NSPass::GUI::States {
 	class State {
@@ -16,6 +17,7 @@ namespace NSPass::GUI::States {
 		virtual void Close() { };
 		virtual void Save() { };
 		virtual void SelectCategory(const CategoryPtr& category) { };
+		virtual void SelectGroup(const GroupPtr& group) { };
 	};
 
 	typedef std::unique_ptr<State> StatePtr;

@@ -23,6 +23,9 @@ namespace NSPass::GUI {
 		wxGetApp().GetStateContext().Subscribe(StateName::SelectCategory, [&](const CategoryPtr& category) {
 			ShowCategory(category);
 		});
+		wxGetApp().GetStateContext().Subscribe(StateName::SelectGroup, [&](const GroupPtr& group) {
+			ShowGroup(group);
+		});
 	}
 
 	void ContentPanel::ShowCategory(const CategoryPtr& category)

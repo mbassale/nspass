@@ -11,6 +11,7 @@
 #include "SaveState.h"
 #include "CloseState.h"
 #include "SelectCategoryState.h"
+#include "SelectGroupState.h"
 
 namespace NSPass::GUI::States {
 
@@ -21,6 +22,7 @@ namespace NSPass::GUI::States {
 		states[StateName::Save] = StatePtr{ new SaveState{ *this }};
 		states[StateName::Close] = StatePtr{ new CloseState{ *this }};
 		states[StateName::SelectCategory] = StatePtr{ new SelectCategoryState{ *this }};
+		states[StateName::SelectGroup] = StatePtr{ new SelectGroupState{ *this }};
 	}
 
 	void StateContext::Subscribe(StateName state, const StateCallback& callback)
@@ -59,12 +61,17 @@ namespace NSPass::GUI::States {
 		currentState->SelectCategory(category);
 	}
 
+	void StateContext::SelectGroup(const GroupPtr& group)
+	{
+		currentState->SelectGroup(group);
+	}
+
 	void StateContext::Notify(StateName state)
 	{
 		if (enterCallbacks.count(state) > 0) {
-			for (auto& callback : enterCallbacks[state]) {
+			for (const auto& callback : enterCallbacks[state]) {
 				if (callback.index() == 0) {
-					auto* callback_ptr = std::get_if<0>(&callback);
+					const auto* callback_ptr = std::get_if<0>(&callback);
 					if (callback_ptr) {
 						(*callback_ptr)();
 					}
@@ -72,15 +79,28 @@ namespace NSPass::GUI::States {
 			}
 		}
 	}
-
 	void StateContext::Notify(StateName stateName, const CategoryPtr& category)
 	{
 		if (enterCallbacks.count(stateName) > 0) {
-			for (auto& callback : enterCallbacks[stateName]) {
+			for (const auto& callback : enterCallbacks[stateName]) {
 				if (callback.index() == 1) {
-					auto* callback_ptr = std::get_if<1>(&callback);
+					const auto* callback_ptr = std::get_if<1>(&callback);
 					if (callback_ptr) {
 						(*callback_ptr)(category);
+					}
+				}
+			}
+		}
+	}
+
+	void StateContext::Notify(StateName stateName, const GroupPtr& group)
+	{
+		if (enterCallbacks.count(stateName) > 0) {
+			for (const auto& callback : enterCallbacks[stateName]) {
+				if (callback.index() == 2) {
+					const auto* callback_ptr = std::get_if<2>(&callback);
+					if (callback_ptr) {
+						(*callback_ptr)(group);
 					}
 				}
 			}

@@ -116,7 +116,8 @@ set(GUI_FILES src/gui/GlobalIds.h
         src/gui/states/InitialState.cpp src/gui/states/InitialState.h
         src/gui/states/SaveState.cpp src/gui/states/SaveState.h
         src/gui/states/CloseState.cpp src/gui/states/CloseState.h
-        src/gui/states/SelectCategoryState.cpp src/gui/states/SelectCategoryState.h)
+        src/gui/states/SelectCategoryState.cpp src/gui/states/SelectCategoryState.h
+        src/gui/states/SelectGroupState.cpp src/gui/states/SelectGroupState.h)
 if (APPLE)
     # Add an icon for the apple .app file
     list(APPEND GUI_FILES ./assets/icons/wxmac.icns)
