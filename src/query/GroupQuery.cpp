@@ -8,6 +8,23 @@
 
 namespace NSPass::Query {
 
+	GroupQueryItem GroupQuery::find(ObjectId group_id)
+	{
+		find_categories();
+		results.clear();
+		for (const auto& category : categories) {
+			for (const auto& group : category->get_groups()) {
+				if (group->get_id() == group_id) {
+					results.emplace_back(category, group);
+					return results.front();
+				}
+			}
+		}
+		std::ostringstream error_message;
+		error_message << "Group not found: " << object_id_to_string(group_id);
+		throw GroupNotFoundException{ error_message.str() };
+	}
+
 	std::vector<GroupQueryItem> GroupQuery::find()
 	{
 		find_categories();
@@ -63,7 +80,6 @@ namespace NSPass::Query {
 	{
 		return results.size();
 	}
-
 	void GroupQuery::find_categories()
 	{
 		CategoryQuery category_query{ storage, args.category_search };
