@@ -97,11 +97,12 @@ set(SOURCE_FILES
         src/crypto/InitializationVector.h src/crypto/InitializationVector.cpp
         src/crypto/SecureString.h src/crypto/SecureString.cpp
         src/crypto/EncryptedFile.h src/crypto/EncryptedFile.cpp)
-if (UNIX)
-    list(APPEND SOURCE_FILES src/config/UnixSettings.cpp src/config/UnixSettings.h)
-elseif (APPLE)
+
+if (APPLE)
     list(APPEND SOURCE_FILES src/config/MacSettings.mm src/config/MacSettings.h)
-endif()
+elseif (UNIX)
+    list(APPEND SOURCE_FILES src/config/UnixSettings.cpp src/config/UnixSettings.h)
+endif ()
 
 set(GUI_FILES src/gui/GlobalIds.h
         src/gui/App.h src/gui/App.cpp
@@ -173,8 +174,8 @@ set(TEST_FILES
         test/storage/test_json_storage.cpp)
 if (APPLE)
     list(APPEND TEST_FILES test/config/test_mac_settings.cpp)
-elseif(UNIX)
-endif()
+elseif (UNIX)
+endif ()
 
 include_directories(${Boost_INCLUDE_DIRS})
 
