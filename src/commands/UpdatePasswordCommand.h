@@ -8,8 +8,6 @@
 #include "../NSPass.h"
 #include "Command.h"
 
-#include <utility>
-
 namespace NSPass::Commands {
 	class UpdatePasswordCommand : public Command {
 	public:
