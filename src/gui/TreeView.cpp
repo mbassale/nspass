@@ -22,9 +22,10 @@ namespace NSPass::GUI {
 		wxGetApp().GetStateContext().Subscribe(StateName::Close, [&] {
 			this->DeleteAllItems();
 		});
-		wxGetApp().GetSignalContext().GetPasswordUpdate().Connect([&](const PasswordPtr& password) {
-			this->OnPasswordUpdate(password);
-		});
+		passwordUpdateSignalId = Application::instance().get_signal_context().get_password_update()
+				.connect([&](const PasswordPtr& password) {
+					this->OnPasswordUpdate(password);
+				});
 	}
 
 	int TreeView::OnCompareItems(const wxTreeItemId& i1, const wxTreeItemId& i2)
@@ -65,9 +66,14 @@ namespace NSPass::GUI {
 
 		ExpandAll();
 	}
-
 	void TreeView::OnPasswordUpdate(const PasswordPtr& password)
 	{
 		wxMessageBox("Password Updated!", "Password Updated.");
+	}
+
+	bool TreeView::Destroy()
+	{
+		Application::instance().get_signal_context().get_password_update().disconnect(passwordUpdateSignalId);
+		return wxWindowBase::Destroy();
 	}
 }

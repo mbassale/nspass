@@ -75,11 +75,6 @@ namespace NSPass::GUI {
 			FillData();
 			OnPasswordHide(event);
 			DisableEdition();
-			auto update_password_command = dynamic_cast<UpdatePasswordCommand*>(save_password_command.get());
-			const auto& updated_password = update_password_command->get_updated_password();
-			if (auto password_ptr = updated_password.lock(); password) {
-				wxGetApp().GetSignalContext().GetPasswordUpdate().Invoke(password_ptr);
-			}
 		}
 		catch (ApplicationException& ex) {
 			wxMessageBox(ex.what(), "Error saving password", wxICON_ERROR);

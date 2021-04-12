@@ -8,9 +8,9 @@
 #include <vector>
 #include <functional>
 #include "Signal.h"
-#include "../../Password.h"
+#include "../Password.h"
 
-namespace NSPass::GUI::Signals {
+namespace NSPass::Signals {
 
 	typedef std::function<void(const PasswordPtr&)> PasswordSlot;
 

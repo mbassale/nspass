@@ -12,6 +12,7 @@ namespace NSPass {
 	{
 		init_logging();
 		init_vault();
+		init_signal_context();
 	}
 
 	Application::~Application() = default;
@@ -44,6 +45,11 @@ namespace NSPass {
 		vault = std::make_unique<Vault>(storage_factory);
 	}
 
+	void Application::init_signal_context()
+	{
+		signal_context = std::make_unique<Signals::SignalContext>();
+	}
+
 	NSPass::Config::Settings& Application::get_settings()
 	{
 		return settings;
@@ -53,6 +59,12 @@ namespace NSPass {
 	{
 		if (vault) return *vault;
 		throw ApplicationException{ "Vault not initialized." };
+	}
+
+	NSPass::Signals::SignalContext& Application::get_signal_context() const
+	{
+		if (signal_context) return *signal_context;
+		throw ApplicationException{ "SignalContext not initialized." };
 	}
 
 	NSPass::Storage::Storage& Application::get_storage() const

@@ -18,6 +18,7 @@
 #include "../Application.h"
 #include "../Category.h"
 #include "../Group.h"
+#include "../signals/Signal.h"
 #include "../storage/StorageHeader.h"
 #include <wx/treectrl.h>
 
@@ -68,9 +69,12 @@ namespace NSPass::GUI {
 
 		void FillStorageData();
 
+		bool Destroy() override;
+
 	protected:
 		Application& app;
 		wxTreeItemId rootId;
+		Signals::SignalId passwordUpdateSignalId;
 
 		Storage::Storage& getStorage() { return app.get_storage(); }
 		int OnCompareItems(const wxTreeItemId& i1, const wxTreeItemId& i2) wxOVERRIDE;

@@ -9,6 +9,7 @@
 #include "storage/JsonStorageFactory.h"
 #include "config/Settings.h"
 #include "Vault.h"
+#include "signals/SignalContext.h"
 #include "storage/Storage.h"
 
 namespace NSPass {
@@ -31,6 +32,7 @@ namespace NSPass {
 
 		[[nodiscard]] NSPass::Config::Settings& get_settings();
 		[[nodiscard]] Vault& get_vault() const;
+		[[nodiscard]] NSPass::Signals::SignalContext& get_signal_context() const;
 		[[nodiscard]] NSPass::Storage::Storage& get_storage() const;
 		void init();
 		void cleanup();
@@ -59,10 +61,12 @@ namespace NSPass {
 		std::list<InitCallback> init_callbacks;
 		std::list<CleanupCallback> cleanup_callbacks;
 		std::unique_ptr<Vault> vault;
+		std::unique_ptr<NSPass::Signals::SignalContext> signal_context;
 		NSPass::Config::Settings settings;
 
 		void init_logging();
 		void init_vault();
+		void init_signal_context();
 	};
 }
 

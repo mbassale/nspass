@@ -4,6 +4,6 @@
 
 #include "SignalContext.h"
 
-namespace NSPass::GUI::Signals {
+namespace NSPass::Signals {
 
 }

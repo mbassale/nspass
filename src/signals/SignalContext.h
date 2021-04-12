@@ -7,16 +7,16 @@
 
 #include "PasswordUpdateSignal.h"
 
-namespace NSPass::GUI::Signals {
+namespace NSPass::Signals {
 
 	class SignalContext {
 	public:
 		SignalContext() = default;
 
-		PasswordUpdateSignal& GetPasswordUpdate() { return passwordUpdateSignal; }
+		PasswordUpdateSignal& get_password_update() { return password_update_signal; }
 
 	protected:
-		PasswordUpdateSignal passwordUpdateSignal;
+		PasswordUpdateSignal password_update_signal;
 	};
 
 }

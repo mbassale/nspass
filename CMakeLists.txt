@@ -96,7 +96,10 @@ set(SOURCE_FILES
         src/crypto/Base64Encoder.h src/crypto/Base64Encoder.cpp
         src/crypto/InitializationVector.h src/crypto/InitializationVector.cpp
         src/crypto/SecureString.h src/crypto/SecureString.cpp
-        src/crypto/EncryptedFile.h src/crypto/EncryptedFile.cpp)
+        src/crypto/EncryptedFile.h src/crypto/EncryptedFile.cpp
+        src/signals/Signal.h
+        src/signals/PasswordUpdateSignal.h
+        src/signals/SignalContext.cpp src/signals/SignalContext.h)
 
 if (APPLE)
     list(APPEND SOURCE_FILES src/config/MacSettings.mm src/config/MacSettings.h)
@@ -122,10 +125,7 @@ set(GUI_FILES src/gui/GlobalIds.h
         src/gui/states/SaveState.cpp src/gui/states/SaveState.h
         src/gui/states/CloseState.cpp src/gui/states/CloseState.h
         src/gui/states/SelectCategoryState.cpp src/gui/states/SelectCategoryState.h
-        src/gui/states/SelectGroupState.cpp src/gui/states/SelectGroupState.h
-        src/gui/signals/Signal.h
-        src/gui/signals/PasswordUpdateSignal.h
-        src/gui/signals/SignalContext.cpp src/gui/signals/SignalContext.h)
+        src/gui/states/SelectGroupState.cpp src/gui/states/SelectGroupState.h)
 if (APPLE)
     # Add an icon for the apple .app file
     list(APPEND GUI_FILES ./assets/icons/wxmac.icns)
@@ -175,7 +175,7 @@ set(TEST_FILES
         test/storage/serializers/test_group_serializer.cpp
         test/storage/serializers/test_category_serializer.cpp
         test/storage/test_json_storage.cpp
-        test/gui/signals/test_signal.cpp)
+        test/signals/test_signal.cpp)
 if (APPLE)
     list(APPEND TEST_FILES test/config/test_mac_settings.cpp)
 elseif (UNIX)

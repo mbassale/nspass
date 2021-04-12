@@ -8,25 +8,37 @@
 #include <vector>
 #include <memory>
 
-namespace NSPass::GUI::Signals {
+namespace NSPass::Signals {
+
+	typedef size_t SignalId;
+
 	template<typename T, typename ...Args>
 	class Signal {
 	public:
 		Signal() = default;
 		virtual ~Signal() = default;
-		void Connect(const T& slot) { slots.push_back(slot); };
-		void Disconnect(const T& slot)
+
+		SignalId connect(const T& slot)
 		{
+			slots.push_back(slot);
+			return slots.size()-1;
+		};
+
+		void disconnect(SignalId slot_id)
+		{
+			SignalId idx = 0;
 			auto it = slots.begin();
 			while (it != slots.end()) {
-				if (it == slot) {
+				if (idx == slot_id) {
 					slots.erase(it);
 					break;
 				}
+				idx++;
 				it++;
 			}
 		};
-		void Invoke(Args... args)
+
+		void invoke(Args... args)
 		{
 			for (const auto& slot : slots) {
 				slot(args...);

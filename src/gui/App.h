@@ -19,7 +19,6 @@
 #include "../commands/CommandRunner.h"
 #include "states/State.h"
 #include "states/StateContext.h"
-#include "signals/SignalContext.h"
 
 namespace NSPass::GUI {
 	class App : public wxApp {
@@ -34,11 +33,9 @@ namespace NSPass::GUI {
 
 		NSPass::Commands::CommandRunner& GetCommandRunner() { return commandRunner; }
 		States::StateContext& GetStateContext() { return stateContext; }
-		Signals::SignalContext& GetSignalContext() { return signalContext; }
 
 	protected:
 		States::StateContext stateContext{};
-		Signals::SignalContext signalContext{};
 		NSPass::Commands::CommandRunner commandRunner{};
 	};
 }
