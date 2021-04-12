@@ -108,7 +108,6 @@ BaseGroupForm::BaseGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& po
 {
 	this->SetMinSize( wxSize( -1,650 ) );
 
-	wxBoxSizer* boxSizer;
 	boxSizer = new wxBoxSizer( wxVERTICAL );
 
 	wxStaticBoxSizer* groupSizer;
@@ -132,7 +131,7 @@ BaseGroupForm::BaseGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& po
 	nameLabel->Wrap( -1 );
 	flexGridSizer1->Add( nameLabel, 0, wxALL, 5 );
 
-	nameText = new wxTextCtrl( groupSizer->GetStaticBox(), GroupNameText_Ctrl, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	nameText = new wxTextCtrl( groupSizer->GetStaticBox(), GroupNameText_Ctrl, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY );
 	nameText->SetMinSize( wxSize( 300,-1 ) );
 
 	flexGridSizer1->Add( nameText, 0, wxALL, 5 );
@@ -141,7 +140,7 @@ BaseGroupForm::BaseGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& po
 	urlLabel->Wrap( -1 );
 	flexGridSizer1->Add( urlLabel, 0, wxALL, 5 );
 
-	urlText = new wxTextCtrl( groupSizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	urlText = new wxTextCtrl( groupSizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY );
 	urlText->SetMinSize( wxSize( 300,-1 ) );
 
 	flexGridSizer1->Add( urlText, 0, wxALL, 5 );
@@ -150,13 +149,32 @@ BaseGroupForm::BaseGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& po
 	descriptionLabel->Wrap( -1 );
 	flexGridSizer1->Add( descriptionLabel, 0, wxALL, 5 );
 
-	descriptionText = new wxTextCtrl( groupSizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE );
+	descriptionText = new wxTextCtrl( groupSizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxTE_READONLY );
 	descriptionText->SetMinSize( wxSize( 300,50 ) );
 
 	flexGridSizer1->Add( descriptionText, 0, wxALL, 5 );
 
 
 	groupSizer->Add( flexGridSizer1, 1, wxEXPAND, 5 );
+
+	wxBoxSizer* buttonSizer;
+	buttonSizer = new wxBoxSizer( wxHORIZONTAL );
+
+	editButton = new wxButton( groupSizer->GetStaticBox(), wxID_ANY, wxT("Edit"), wxDefaultPosition, wxDefaultSize, 0 );
+	buttonSizer->Add( editButton, 0, wxALL, 5 );
+
+	saveButton = new wxButton( groupSizer->GetStaticBox(), wxID_ANY, wxT("Save"), wxDefaultPosition, wxDefaultSize, 0 );
+	saveButton->Hide();
+
+	buttonSizer->Add( saveButton, 0, wxALL, 5 );
+
+	cancelButton = new wxButton( groupSizer->GetStaticBox(), wxID_ANY, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
+	cancelButton->Hide();
+
+	buttonSizer->Add( cancelButton, 0, wxALL, 5 );
+
+
+	groupSizer->Add( buttonSizer, 0, wxEXPAND, 5 );
 
 
 	boxSizer->Add( groupSizer, 0, wxBOTTOM|wxEXPAND|wxTOP, 5 );
@@ -194,14 +212,18 @@ BaseGroupForm::BaseGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& po
 	boxSizer->Fit( this );
 
 	// Connect Events
-	nameText->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( BaseGroupForm::OnTextChanged ), NULL, this );
+	editButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseGroupForm::OnEdit ), NULL, this );
+	saveButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseGroupForm::OnSave ), NULL, this );
+	cancelButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseGroupForm::OnCancel ), NULL, this );
 	passwordsList->Connect( wxEVT_COMMAND_LIST_ITEM_SELECTED, wxListEventHandler( BaseGroupForm::OnItemSelected ), NULL, this );
 }
 
 BaseGroupForm::~BaseGroupForm()
 {
 	// Disconnect Events
-	nameText->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( BaseGroupForm::OnTextChanged ), NULL, this );
+	editButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseGroupForm::OnEdit ), NULL, this );
+	saveButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseGroupForm::OnSave ), NULL, this );
+	cancelButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseGroupForm::OnCancel ), NULL, this );
 	passwordsList->Disconnect( wxEVT_COMMAND_LIST_ITEM_SELECTED, wxListEventHandler( BaseGroupForm::OnItemSelected ), NULL, this );
 
 }

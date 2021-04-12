@@ -19,8 +19,13 @@ namespace NSPass::GUI {
 		GroupPtr group;
 
 		void FillData();
-		void OnTextChanged(wxCommandEvent& event) override;
 		void OnItemSelected(wxListEvent& event) override;
+		void OnEdit(wxCommandEvent& event) override;
+		void OnSave(wxCommandEvent& event) override;
+		void OnCancel(wxCommandEvent& event) override;
+		void EnableEdition();
+		void DisableEdition();
+		void RedrawForm();
 	};
 };
 

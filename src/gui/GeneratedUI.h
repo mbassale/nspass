@@ -19,12 +19,12 @@
 #include <wx/sizer.h>
 #include <wx/statbox.h>
 #include <wx/panel.h>
-#include <wx/listctrl.h>
-#include <wx/bmpbuttn.h>
 #include <wx/bitmap.h>
 #include <wx/image.h>
 #include <wx/icon.h>
 #include <wx/button.h>
+#include <wx/listctrl.h>
+#include <wx/bmpbuttn.h>
 #include <wx/toolbar.h>
 
 ///////////////////////////////////////////////////////////////////////////
@@ -81,6 +81,7 @@ namespace NSPass::GUI
 				GroupNameText_Ctrl
 			};
 
+			wxBoxSizer* boxSizer;
 			wxStaticText* idLabel;
 			wxStaticText* idText;
 			wxStaticText* nameLabel;
@@ -89,12 +90,17 @@ namespace NSPass::GUI
 			wxTextCtrl* urlText;
 			wxStaticText* descriptionLabel;
 			wxTextCtrl* descriptionText;
+			wxButton* editButton;
+			wxButton* saveButton;
+			wxButton* cancelButton;
 			wxStaticBoxSizer* passwordSizer;
 			wxListCtrl* passwordsList;
 			wxStaticBoxSizer* passwordDetailSizer;
 
 			// Virtual event handlers, overide them in your derived class
-			virtual void OnTextChanged( wxCommandEvent& event ) = 0;
+			virtual void OnEdit( wxCommandEvent& event ) = 0;
+			virtual void OnSave( wxCommandEvent& event ) = 0;
+			virtual void OnCancel( wxCommandEvent& event ) = 0;
 			virtual void OnItemSelected( wxListEvent& event ) = 0;
 
 
