@@ -24,7 +24,7 @@ namespace NSPass::Query {
 			}
 		}
 		std::ostringstream error_message;
-		error_message << "Password not found: " << args.username;
+		error_message << "Password not found: " << object_id_to_string(password_id);
 		throw PasswordNotFoundException{ error_message.str() };
 	}
 
