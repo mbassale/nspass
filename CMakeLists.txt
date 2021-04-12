@@ -122,7 +122,10 @@ set(GUI_FILES src/gui/GlobalIds.h
         src/gui/states/SaveState.cpp src/gui/states/SaveState.h
         src/gui/states/CloseState.cpp src/gui/states/CloseState.h
         src/gui/states/SelectCategoryState.cpp src/gui/states/SelectCategoryState.h
-        src/gui/states/SelectGroupState.cpp src/gui/states/SelectGroupState.h)
+        src/gui/states/SelectGroupState.cpp src/gui/states/SelectGroupState.h
+        src/gui/signals/Signal.h
+        src/gui/signals/PasswordUpdateSignal.h
+        src/gui/signals/SignalContext.cpp src/gui/signals/SignalContext.h)
 if (APPLE)
     # Add an icon for the apple .app file
     list(APPEND GUI_FILES ./assets/icons/wxmac.icns)
@@ -171,7 +174,8 @@ set(TEST_FILES
         test/storage/serializers/test_password_serializer.cpp
         test/storage/serializers/test_group_serializer.cpp
         test/storage/serializers/test_category_serializer.cpp
-        test/storage/test_json_storage.cpp)
+        test/storage/test_json_storage.cpp
+        test/gui/signals/test_signal.cpp)
 if (APPLE)
     list(APPEND TEST_FILES test/config/test_mac_settings.cpp)
 elseif (UNIX)
@@ -198,7 +202,7 @@ install(TARGETS nspass DESTINATION bin)
 
 if (APPLE)
     set_target_properties(nspass-gui PROPERTIES
-            OUTPUT_NAME "nspass"
+            OUTPUT_NAME "NSPass"
             RESOURCE "./assets/icons/wxmac.icns"
             MACOSX_BUNDLE_ICON_FILE wxmac.icns
             MACOSX_BUNDLE_COPYRIGHT "Copyright (c) Marco Bassaletti"
