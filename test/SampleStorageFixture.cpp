@@ -67,3 +67,21 @@ std::string SampleStorageFixture::get_storage_location()
 {
 	return TestUtility::get_random_filename();
 }
+
+NSPass::CategoryPtr SampleStorageFixture::get_random_category()
+{
+	size_t category_index = TestUtility::random_integer(0, get_storage().get_categories().size()-1);
+	return get_storage().get_categories()[category_index];
+}
+
+NSPass::GroupPtr SampleStorageFixture::get_random_group(const NSPass::CategoryPtr& category)
+{
+	size_t group_index = TestUtility::random_integer(0, category->get_groups().size()-1);
+	return category->get_groups()[group_index];
+}
+
+NSPass::PasswordPtr SampleStorageFixture::get_random_password(const NSPass::GroupPtr& group)
+{
+	size_t password_index = TestUtility::random_integer(0, group->get_passwords().size()-1);
+	return group->get_passwords()[password_index];
+}
