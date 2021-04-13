@@ -24,6 +24,7 @@ namespace NSPass::Commands {
 		virtual void undo() = 0;
 	protected:
 		Application& app;
+		NSPass::Signals::SignalContext& get_signal_context() { return app.get_signal_context(); }
 		NSPass::Storage::Storage& get_storage() { return app.get_vault().get_storage(); }
 	};
 
