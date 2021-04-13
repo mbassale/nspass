@@ -17,7 +17,7 @@ namespace NSPass::Commands {
 			std::optional<std::string> description;
 		};
 
-		static constexpr auto Name = "update-password";
+		static constexpr auto Name = "update-group";
 		UpdateGroupCommand(NSPass::Application& app, ObjectId group_id, UpdateData update_data)
 				:Command(app), group_id{ group_id }, update_data{ std::move(update_data) } { };
 		~UpdateGroupCommand() override = default;
