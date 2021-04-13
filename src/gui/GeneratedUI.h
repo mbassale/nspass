@@ -17,12 +17,12 @@
 #include <wx/settings.h>
 #include <wx/textctrl.h>
 #include <wx/sizer.h>
-#include <wx/statbox.h>
-#include <wx/panel.h>
 #include <wx/bitmap.h>
 #include <wx/image.h>
 #include <wx/icon.h>
 #include <wx/button.h>
+#include <wx/statbox.h>
+#include <wx/panel.h>
 #include <wx/listctrl.h>
 #include <wx/bmpbuttn.h>
 #include <wx/toolbar.h>
@@ -51,13 +51,18 @@ namespace NSPass::GUI
 			wxStaticText* idText;
 			wxStaticText* nameLabel;
 			wxTextCtrl* nameText;
+			wxButton* editButton;
+			wxButton* saveButton;
+			wxButton* cancelButton;
 			wxStaticText* groupCountLabel;
 			wxStaticText* groupCountText;
 			wxStaticText* passwordCountLabel;
 			wxStaticText* passwordCountText;
 
 			// Virtual event handlers, overide them in your derived class
-			virtual void OnTextChanged( wxCommandEvent& event ) = 0;
+			virtual void OnEdit( wxCommandEvent& event ) = 0;
+			virtual void OnSave( wxCommandEvent& event ) = 0;
+			virtual void OnCancel( wxCommandEvent& event ) = 0;
 
 
 		public:

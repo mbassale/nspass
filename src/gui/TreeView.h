@@ -72,17 +72,20 @@ namespace NSPass::GUI {
 	protected:
 		Application& app;
 		wxTreeItemId rootId;
+		Signals::SignalId categoryUpdatedSignalId;
 		Signals::SignalId groupUpdatedSignalId;
-		Signals::SignalId passwordUpdateSignalId;
+		Signals::SignalId passwordUpdatedSignalId;
 
 		Signals::SignalContext& getSignalContext() { return app.get_signal_context(); }
 		Storage::Storage& getStorage() { return app.get_storage(); }
 		int OnCompareItems(const wxTreeItemId& i1, const wxTreeItemId& i2) wxOVERRIDE;
+		void OnCategoryUpdated(const CategoryPtr& category);
 		void OnGroupUpdated(const GroupPtr& group);
-		void OnPasswordUpdate(const PasswordPtr& password);
+		void OnPasswordUpdated(const PasswordPtr& password);
 
 	private:
 	wxDECLARE_EVENT_TABLE();
+		wxTreeItemId FindItemId(const CategoryPtr& category) const;
 		wxTreeItemId FindItemId(const GroupPtr& group) const;
 	};
 }

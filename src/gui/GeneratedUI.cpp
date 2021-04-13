@@ -47,13 +47,32 @@ BaseCategoryForm::BaseCategoryForm( wxWindow* parent, wxWindowID id, const wxPoi
 	nameLabel->Wrap( -1 );
 	flexGridSizer1->Add( nameLabel, 0, wxALL, 5 );
 
-	nameText = new wxTextCtrl( categorySizer->GetStaticBox(), CategoryNameText_Ctrl, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	nameText = new wxTextCtrl( categorySizer->GetStaticBox(), CategoryNameText_Ctrl, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY );
 	nameText->SetMinSize( wxSize( 300,-1 ) );
 
 	flexGridSizer1->Add( nameText, 0, wxALL, 5 );
 
 
 	categorySizer->Add( flexGridSizer1, 1, wxEXPAND, 5 );
+
+	wxBoxSizer* buttonSizer;
+	buttonSizer = new wxBoxSizer( wxHORIZONTAL );
+
+	editButton = new wxButton( categorySizer->GetStaticBox(), wxID_ANY, wxT("Edit"), wxDefaultPosition, wxDefaultSize, 0 );
+	buttonSizer->Add( editButton, 0, wxALL, 5 );
+
+	saveButton = new wxButton( categorySizer->GetStaticBox(), wxID_ANY, wxT("Save"), wxDefaultPosition, wxDefaultSize, 0 );
+	saveButton->Hide();
+
+	buttonSizer->Add( saveButton, 0, wxALL, 5 );
+
+	cancelButton = new wxButton( categorySizer->GetStaticBox(), wxID_ANY, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
+	cancelButton->Hide();
+
+	buttonSizer->Add( cancelButton, 0, wxALL, 5 );
+
+
+	categorySizer->Add( buttonSizer, 0, wxEXPAND, 5 );
 
 
 	boxSizer->Add( categorySizer, 1, wxBOTTOM|wxEXPAND|wxTOP, 5 );
@@ -94,13 +113,17 @@ BaseCategoryForm::BaseCategoryForm( wxWindow* parent, wxWindowID id, const wxPoi
 	boxSizer->Fit( this );
 
 	// Connect Events
-	nameText->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( BaseCategoryForm::OnTextChanged ), NULL, this );
+	editButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCategoryForm::OnEdit ), NULL, this );
+	saveButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCategoryForm::OnSave ), NULL, this );
+	cancelButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCategoryForm::OnCancel ), NULL, this );
 }
 
 BaseCategoryForm::~BaseCategoryForm()
 {
 	// Disconnect Events
-	nameText->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( BaseCategoryForm::OnTextChanged ), NULL, this );
+	editButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCategoryForm::OnEdit ), NULL, this );
+	saveButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCategoryForm::OnSave ), NULL, this );
+	cancelButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCategoryForm::OnCancel ), NULL, this );
 
 }
 

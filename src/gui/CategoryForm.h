@@ -17,8 +17,14 @@ namespace NSPass::GUI {
 	protected:
 		CategoryPtr category;
 
+		void OnEdit(wxCommandEvent& event) override;
+		void OnSave(wxCommandEvent& event) override;
+		void OnCancel(wxCommandEvent& event) override;
+
 		void FillData();
-		void OnTextChanged(wxCommandEvent& event) override;
+		void EnableEdition();
+		void DisableEdition();
+		void RedrawForm();
 	};
 }
 

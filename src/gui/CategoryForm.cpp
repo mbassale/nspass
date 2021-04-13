@@ -2,9 +2,15 @@
 // Created by Marco Bassaletti on 08-04-21.
 //
 
+#include "../NSPass.h"
+#include "../commands/CommandRunner.h"
+#include "../commands/Command.h"
+#include "../commands/UpdateCategoryCommand.h"
 #include "CategoryForm.h"
 
 namespace NSPass::GUI {
+	using NSPass::Commands::CommandPtr;
+	using NSPass::Commands::UpdateCategoryCommand;
 
 	CategoryForm::CategoryForm(wxWindow* parent, CategoryPtr category)
 			:BaseCategoryForm{ parent }, category{ std::move(category) }
@@ -29,13 +35,58 @@ namespace NSPass::GUI {
 		passwordCountText->SetLabel(passwordCountStr);
 	}
 
-	void CategoryForm::OnTextChanged(wxCommandEvent& event)
+	void CategoryForm::OnEdit(wxCommandEvent& event)
 	{
-		switch (event.GetId()) {
-		case CategoryNameText_Ctrl:
-			auto newCategoryName = nameText->GetValue();
-			category->set_name(static_cast<const char*>(newCategoryName.c_str()));
-			break;
+		EnableEdition();
+	}
+
+	void CategoryForm::OnSave(wxCommandEvent& event)
+	{
+		try {
+			auto& commandRunner = wxGetApp().GetCommandRunner();
+			UpdateCategoryCommand::UpdateData update_data;
+			update_data.name = nameText->GetValue();
+			CommandPtr update_category_command{
+					new UpdateCategoryCommand(Application::instance(), category->get_id(), update_data) };
+			commandRunner.run_command(update_category_command);
+			FillData();
+			DisableEdition();
 		}
+		catch (ApplicationException& ex) {
+			wxMessageBox(ex.what(), "Error saving category", wxICON_ERROR);
+		}
+	}
+
+	void CategoryForm::OnCancel(wxCommandEvent& event)
+	{
+		FillData();
+		DisableEdition();
+	}
+
+	void CategoryForm::EnableEdition()
+	{
+		nameText->SetEditable(true);
+
+		editButton->Hide();
+		saveButton->Show();
+		cancelButton->Show();
+
+		RedrawForm();
+	}
+
+	void CategoryForm::DisableEdition()
+	{
+		nameText->SetEditable(false);
+
+		editButton->Show();
+		saveButton->Hide();
+		cancelButton->Hide();
+
+		RedrawForm();
+	}
+
+	void CategoryForm::RedrawForm()
+	{
+		this->Layout();
 	}
 }
