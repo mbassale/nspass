@@ -60,8 +60,6 @@ namespace NSPass::GUI {
 
 	class TreeView : public wxTreeCtrl {
 	public:
-		TreeView()
-				:app{ Application::instance() } { };
 		TreeView(wxWindow* parent, wxWindowID id);
 		~TreeView() override = default;
 
@@ -74,14 +72,18 @@ namespace NSPass::GUI {
 	protected:
 		Application& app;
 		wxTreeItemId rootId;
+		Signals::SignalId groupUpdatedSignalId;
 		Signals::SignalId passwordUpdateSignalId;
 
+		Signals::SignalContext& getSignalContext() { return app.get_signal_context(); }
 		Storage::Storage& getStorage() { return app.get_storage(); }
 		int OnCompareItems(const wxTreeItemId& i1, const wxTreeItemId& i2) wxOVERRIDE;
+		void OnGroupUpdated(const GroupPtr& group);
 		void OnPasswordUpdate(const PasswordPtr& password);
 
 	private:
 	wxDECLARE_EVENT_TABLE();
+		wxTreeItemId FindItemId(const GroupPtr& group) const;
 	};
 }
 

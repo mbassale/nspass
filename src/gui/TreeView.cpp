@@ -22,7 +22,11 @@ namespace NSPass::GUI {
 		wxGetApp().GetStateContext().Subscribe(StateName::Close, [&] {
 			this->DeleteAllItems();
 		});
-		passwordUpdateSignalId = Application::instance().get_signal_context().get_password_update()
+		groupUpdatedSignalId = getSignalContext().get_group_updated()
+				.connect([&](const GroupPtr& group) {
+					this->OnGroupUpdated(group);
+				});
+		passwordUpdateSignalId = getSignalContext().get_password_update()
 				.connect([&](const PasswordPtr& password) {
 					this->OnPasswordUpdate(password);
 				});
@@ -54,7 +58,7 @@ namespace NSPass::GUI {
 		auto* rootNode = new StorageItemData(getStorage().get_header());
 		rootId = AddRoot("Storage", -1, -1, rootNode);
 
-		const auto& categories = app.get_storage().get_categories();
+		const auto& categories = getStorage().get_categories();
 		for (const auto& category : categories) {
 			auto* categoryNode = new CategoryItemData(category);
 			wxTreeItemId categoryId = AppendItem(rootId, category->get_name().data(), -1, -1, categoryNode);
@@ -66,6 +70,39 @@ namespace NSPass::GUI {
 
 		ExpandAll();
 	}
+
+	void TreeView::OnGroupUpdated(const GroupPtr& group)
+	{
+		auto groupItemId = FindItemId(group);
+		if (groupItemId.IsOk()) {
+			wxString newName{ group->get_name().data() };
+			SetItemText(groupItemId, newName);
+		}
+	}
+
+	wxTreeItemId TreeView::FindItemId(const GroupPtr& group) const
+	{
+		wxTreeItemIdValue categoryCookie;
+		wxTreeItemId categoryItemId = GetFirstChild(rootId, categoryCookie);
+		while (categoryItemId.IsOk()) {
+			wxTreeItemIdValue groupCookie;
+			wxTreeItemId groupItemId = GetFirstChild(categoryItemId, groupCookie);
+			while (groupItemId.IsOk()) {
+				const auto* groupItemData = GetItemData(groupItemId);
+				const auto* groupItem = dynamic_cast<const GroupItemData*>(groupItemData);
+				if (groupItem) {
+					const auto& existing_group = groupItem->get_group();
+					if (existing_group->get_id() == group->get_id()) {
+						return groupItemId;
+					}
+				}
+				groupItemId = GetNextChild(categoryItemId, groupCookie);
+			}
+			categoryItemId = GetNextChild(rootId, categoryCookie);
+		}
+		return wxTreeItemId();
+	}
+
 	void TreeView::OnPasswordUpdate(const PasswordPtr& password)
 	{
 		wxMessageBox("Password Updated!", "Password Updated.");
@@ -73,7 +110,8 @@ namespace NSPass::GUI {
 
 	bool TreeView::Destroy()
 	{
-		Application::instance().get_signal_context().get_password_update().disconnect(passwordUpdateSignalId);
+		getSignalContext().get_group_updated().disconnect(groupUpdatedSignalId);
+		getSignalContext().get_password_update().disconnect(passwordUpdateSignalId);
 		return wxWindowBase::Destroy();
 	}
 }
