@@ -10,6 +10,7 @@
 
 using NSPass::IdGenerator;
 using NSPass::Application;
+using NSPass::GroupPtr;
 using NSPass::Commands::UpdateGroupCommand;
 
 class UpdateGroupCommandFixture : public SampleStorageFixture {
@@ -28,14 +29,25 @@ TEST_CASE_METHOD(UpdateGroupCommandFixture, "UpdateGroupCommand - construct", Up
 TEST_CASE_METHOD(UpdateGroupCommandFixture, "UpdateGroupCommand - execute", UpdateGroupCommandFixture::Tag)
 {
 	reset_sample_storage();
+	auto& app = Application::instance();
 	UpdateGroupCommand::UpdateData update_data;
 	update_data.name = "Updated Name";
 	update_data.url = "https://updated-url.test.com";
 	update_data.description = "Updated Description";
+	size_t invoke_count = 0;
 	auto category = get_random_category();
 	auto group = get_random_group(category);
+	app.get_signal_context().get_group_updated().connect([&](const GroupPtr& updated_group) {
+		REQUIRE(updated_group);
+		REQUIRE(updated_group->get_id() == group->get_id());
+		REQUIRE(updated_group->get_name() == update_data.name);
+		REQUIRE(updated_group->get_url() == update_data.url);
+		REQUIRE(updated_group->get_description() == update_data.description);
+		invoke_count++;
+	});
 	UpdateGroupCommand update_group_command{ Application::instance(), group->get_id(), update_data };
 	REQUIRE_NOTHROW(update_group_command.execute());
+	REQUIRE(invoke_count == 1);
 	auto& updated_group_ptr = update_group_command.get_updated_group();
 	auto updated_group = updated_group_ptr.lock();
 	REQUIRE(updated_group);
