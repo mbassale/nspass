@@ -14,6 +14,7 @@ namespace NSPass::Query {
 	public:
 		explicit Query(NSPass::Storage::Storage& storage)
 				:storage{ storage } { }
+		virtual T find(ObjectId id) = 0;
 		virtual std::vector<T> find() = 0;
 		virtual T find_first() = 0;
 		virtual bool empty() = 0;

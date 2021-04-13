@@ -30,7 +30,7 @@ namespace NSPass::Query {
 				:Query<GroupQueryItem>(storage) { }
 		GroupQuery(Storage::Storage& storage, QueryArguments args)
 				:Query<GroupQueryItem>(storage), args{ std::move(args) } { }
-		GroupQueryItem find(ObjectId group_id);
+		GroupQueryItem find(ObjectId group_id) override;
 		std::vector<GroupQueryItem> find() override;
 		GroupQueryItem find_first() override;
 		bool empty() override;

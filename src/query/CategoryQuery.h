@@ -12,8 +12,11 @@
 namespace NSPass::Query {
 	class CategoryQuery : public Query<NSPass::CategoryPtr> {
 	public:
+		CategoryQuery(Storage::Storage& storage)
+				:Query<NSPass::CategoryPtr>(storage) { }
 		CategoryQuery(Storage::Storage& storage, std::string_view search)
 				:Query<NSPass::CategoryPtr>(storage), search{ search } { }
+		NSPass::CategoryPtr find(ObjectId category_id) override;
 		std::vector<NSPass::CategoryPtr> find() override;
 		NSPass::CategoryPtr find_first() override;
 		bool empty() override;

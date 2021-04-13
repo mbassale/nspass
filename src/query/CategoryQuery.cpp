@@ -8,6 +8,21 @@
 namespace NSPass::Query {
 	using NSPass::CategoryRef;
 
+	NSPass::CategoryPtr CategoryQuery::find(ObjectId category_id)
+	{
+		results.clear();
+		auto& categories = storage.get_categories();
+		for (auto& category : categories) {
+			if (category->get_id() == category_id) {
+				results.push_back(category);
+				return results.front();
+			}
+		}
+		std::ostringstream error_message;
+		error_message << "Category not found: " << object_id_to_string(category_id);
+		throw CategoryNotFoundException{ error_message.str() };
+	}
+
 	std::vector<CategoryPtr> CategoryQuery::find()
 	{
 		boost::algorithm::trim(search);
@@ -40,7 +55,6 @@ namespace NSPass::Query {
 	{
 		return results.empty();
 	}
-
 	size_t CategoryQuery::size()
 	{
 		return results.size();

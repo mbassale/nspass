@@ -33,7 +33,7 @@ namespace NSPass::Query {
 				:Query<PasswordQueryItem>(storage) { }
 		PasswordQuery(Storage::Storage& storage, QueryArguments args)
 				:Query<PasswordQueryItem>(storage), args{ std::move(args) } { }
-		PasswordQueryItem find(ObjectId password_id);
+		PasswordQueryItem find(ObjectId password_id) override;
 		std::vector<PasswordQueryItem> find() override;
 		PasswordQueryItem find_first() override;
 		bool empty() override;
