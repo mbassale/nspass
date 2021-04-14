@@ -2,8 +2,8 @@
 // Created by Marco Bassaletti on 10-04-21.
 //
 
-#ifndef NSPASS_PASSWORDUPDATESIGNAL_H
-#define NSPASS_PASSWORDUPDATESIGNAL_H
+#ifndef NSPASS_PASSWORDSIGNAL_H
+#define NSPASS_PASSWORDSIGNAL_H
 
 #include <vector>
 #include <functional>
@@ -14,9 +14,9 @@ namespace NSPass::Signals {
 
 	typedef std::function<void(const PasswordPtr&)> PasswordSlot;
 
-	class PasswordUpdateSignal : public Signal<PasswordSlot, const PasswordPtr&> {
+	class PasswordSignal : public Signal<PasswordSlot, const PasswordPtr&> {
 	};
 
 }
 
-#endif //NSPASS_PASSWORDUPDATESIGNAL_H
+#endif //NSPASS_PASSWORDSIGNAL_H

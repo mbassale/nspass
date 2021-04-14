@@ -34,7 +34,7 @@ namespace NSPass::Commands {
 		updated_password = password_to_update;
 		get_storage().flush();
 		// invoke signal
-		app.get_signal_context().get_password_update().invoke(password_to_update);
+		app.get_signal_context().get_password_updated().invoke(password_to_update);
 	}
 
 	void UpdatePasswordCommand::undo()

@@ -7,22 +7,24 @@
 
 #include "CategoryUpdatedSignal.h"
 #include "GroupUpdatedSignal.h"
-#include "PasswordUpdateSignal.h"
+#include "PasswordSignal.h"
 
 namespace NSPass::Signals {
 
-	class SignalContext {
+class SignalContext : private boost::noncopyable {
 	public:
 		SignalContext() = default;
 
 		CategoryUpdatedSignal& get_category_updated() { return category_updated_signal; }
 		GroupUpdatedSignal& get_group_updated() { return group_updated_signal; }
-		PasswordUpdateSignal& get_password_update() { return password_update_signal; }
+		PasswordSignal& get_password_updated() { return password_updated_signal; }
+		PasswordSignal& get_password_deleted() { return password_deleted_signal; }
 
 	protected:
-		CategoryUpdatedSignal category_updated_signal;
-		GroupUpdatedSignal group_updated_signal;
-		PasswordUpdateSignal password_update_signal;
+		CategoryUpdatedSignal category_updated_signal{};
+		GroupUpdatedSignal group_updated_signal{};
+		PasswordSignal password_updated_signal{};
+		PasswordSignal password_deleted_signal{};
 	};
 
 }

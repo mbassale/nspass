@@ -100,7 +100,7 @@ set(SOURCE_FILES
         src/crypto/SecureString.h src/crypto/SecureString.cpp
         src/crypto/EncryptedFile.h src/crypto/EncryptedFile.cpp
         src/signals/Signal.h
-        src/signals/PasswordUpdateSignal.h
+        src/signals/PasswordSignal.h
         src/signals/GroupUpdatedSignal.h
         src/signals/CategoryUpdatedSignal.h
         src/signals/SignalContext.cpp src/signals/SignalContext.h)

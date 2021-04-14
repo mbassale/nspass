@@ -13,7 +13,7 @@
 
 namespace NSPass::Storage {
 
-	class Storage {
+	class Storage : private boost::noncopyable {
 	public:
 		Storage() = delete;
 		Storage(std::string_view master_password, std::string_view storage_location)
