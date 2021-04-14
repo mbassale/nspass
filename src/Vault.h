@@ -12,11 +12,10 @@
 namespace NSPass {
 	using BaseStorage = Storage::Storage;
 
-	class Vault {
+	class Vault : private boost::noncopyable {
 	public:
-		explicit Vault(NSPass::Storage::StorageFactory& storage_factory) : storage_factory{ storage_factory } {}
-		Vault(Vault const&) = delete;
-		Vault(Vault&&) = delete;
+		explicit Vault(NSPass::Storage::StorageFactory& storage_factory)
+				:storage_factory{ storage_factory } { }
 
 		[[nodiscard]] std::string_view get_master_password() const { return master_password; }
 		Vault& set_master_password(std::string_view new_master_password);
