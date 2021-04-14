@@ -6,6 +6,7 @@
 #define OWNPASS_DELETEPASSWORDCOMMAND_H
 
 #include "../NSPass.h"
+#include "../query/PasswordQuery.h"
 #include "Command.h"
 
 namespace NSPass::Commands {
@@ -18,6 +19,8 @@ namespace NSPass::Commands {
 			std::string username_search;
 		};
 		static constexpr auto Name = "copy-password";
+		DeletePasswordCommand(NSPass::Application& app, ObjectId password_id)
+				:Command(app), password_id{ password_id } { }
 		DeletePasswordCommand(NSPass::Application& app, Filter filter)
 				:Command(app), filter{ std::move(filter) } { };
 		~DeletePasswordCommand() override = default;
@@ -30,7 +33,11 @@ namespace NSPass::Commands {
 		void execute() override;
 		void undo() override;
 	protected:
-		Filter filter;
+		ObjectId password_id{};
+		Filter filter{};
+
+		NSPass::Query::PasswordQueryItem find_first_password_by_id();
+		NSPass::Query::PasswordQueryItem find_first_password_by_filter();
 	};
 }
 

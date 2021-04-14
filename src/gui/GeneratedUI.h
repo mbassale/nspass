@@ -148,6 +148,7 @@ namespace NSPass::GUI
 			wxButton* saveButton;
 			wxButton* cancelButton;
 			wxButton* resetButton;
+			wxButton* deleteButton;
 
 			// Virtual event handlers, overide them in your derived class
 			virtual void OnUsernameCopy( wxCommandEvent& event ) = 0;
@@ -162,6 +163,7 @@ namespace NSPass::GUI
 			virtual void OnSave( wxCommandEvent& event ) = 0;
 			virtual void OnCancel( wxCommandEvent& event ) = 0;
 			virtual void OnReset( wxCommandEvent& event ) = 0;
+			virtual void OnDelete( wxCommandEvent& event ) = 0;
 
 
 		public:

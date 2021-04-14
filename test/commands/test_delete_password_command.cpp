@@ -29,7 +29,8 @@ TEST_CASE_METHOD(DeletePasswordCommandFixture, "DeletePasswordCommand - Construc
 	REQUIRE_NOTHROW(DeletePasswordCommand{ Application::instance(), filter });
 }
 
-TEST_CASE_METHOD(DeletePasswordCommandFixture, "DeletePasswordCommand - Execute", DeletePasswordCommandFixture::Tag)
+TEST_CASE_METHOD(DeletePasswordCommandFixture, "DeletePasswordCommand - Delete by filter",
+		DeletePasswordCommandFixture::Tag)
 {
 	size_t passes = 5;
 	while (passes-- > 0) {
@@ -53,6 +54,22 @@ TEST_CASE_METHOD(DeletePasswordCommandFixture, "DeletePasswordCommand - Execute"
 		args.username = username_filter.str();
 		PasswordQuery password_query{ get_storage(), args };
 		REQUIRE_THROWS_AS(password_query.find_first(), PasswordNotFoundException);
+	}
+}
+
+TEST_CASE_METHOD(DeletePasswordCommandFixture, "DeletePasswordCommand - Delete by id",
+		DeletePasswordCommandFixture::Tag)
+{
+	size_t passes = 5;
+	while (passes-- > 0) {
+		reset_sample_storage();
+		auto category = get_random_category();
+		auto group = get_random_group(category);
+		auto password = get_random_password(group);
+		DeletePasswordCommand delete_password_command{ Application::instance(), password->get_id() };
+		REQUIRE_NOTHROW(delete_password_command.execute());
+		PasswordQuery password_query{ get_storage() };
+		REQUIRE_THROWS_AS(password_query.find(password->get_id()), PasswordNotFoundException);
 	}
 }
 

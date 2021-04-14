@@ -424,6 +424,9 @@ BasePasswordForm::BasePasswordForm( wxWindow* parent, wxWindowID id, const wxPoi
 
 	buttonSizer->Add( resetButton, 0, wxALL, 5 );
 
+	deleteButton = new wxButton( this, wxID_ANY, wxT("Delete"), wxDefaultPosition, wxDefaultSize, 0 );
+	buttonSizer->Add( deleteButton, 0, wxALL, 5 );
+
 
 	boxSizer->Add( buttonSizer, 0, wxEXPAND|wxTOP, 5 );
 
@@ -445,6 +448,7 @@ BasePasswordForm::BasePasswordForm( wxWindow* parent, wxWindowID id, const wxPoi
 	saveButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnSave ), NULL, this );
 	cancelButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnCancel ), NULL, this );
 	resetButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnReset ), NULL, this );
+	deleteButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnDelete ), NULL, this );
 }
 
 BasePasswordForm::~BasePasswordForm()
@@ -462,6 +466,7 @@ BasePasswordForm::~BasePasswordForm()
 	saveButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnSave ), NULL, this );
 	cancelButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnCancel ), NULL, this );
 	resetButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnReset ), NULL, this );
+	deleteButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BasePasswordForm::OnDelete ), NULL, this );
 
 }
 
