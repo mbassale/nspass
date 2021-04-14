@@ -9,6 +9,7 @@
 #include "GeneratedUI.h"
 #include "../Category.h"
 #include "../Group.h"
+#include "../signals/SignalContext.h"
 
 namespace NSPass::GUI {
 	class GroupForm : public BaseGroupForm {
@@ -18,11 +19,19 @@ namespace NSPass::GUI {
 	protected:
 		GroupPtr group;
 
-		void FillData();
+		[[nodiscard]] static Signals::SignalContext& GetSignalContext()
+		{
+			return Application::instance().get_signal_context();
+		}
+
 		void OnItemSelected(wxListEvent& event) override;
 		void OnEdit(wxCommandEvent& event) override;
 		void OnSave(wxCommandEvent& event) override;
 		void OnCancel(wxCommandEvent& event) override;
+		void OnPasswordDeleted();
+
+		void FillData();
+		void FillPasswordsData();
 		void EnableEdition();
 		void DisableEdition();
 		void RedrawForm();

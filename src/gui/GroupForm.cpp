@@ -14,6 +14,12 @@ namespace NSPass::GUI {
 			:BaseGroupForm(parent), group{ std::move(group) }
 	{
 		FillData();
+		GetSignalContext().get_password_updated().connect([&](const PasswordPtr& password) {
+			FillPasswordsData();
+		});
+		GetSignalContext().get_password_deleted().connect([&](const PasswordPtr& password) {
+			OnPasswordDeleted();
+		});
 	}
 
 	void GroupForm::FillData()
@@ -27,7 +33,12 @@ namespace NSPass::GUI {
 		wxString description{ group->get_description().data() };
 		descriptionText->SetValue(description);
 
-		passwordsList->ClearAll();
+		FillPasswordsData();
+	}
+
+	void GroupForm::FillPasswordsData()
+	{
+		passwordsList->DeleteAllItems();
 		wxListItem urlColumn;
 		urlColumn.SetText("URL");
 		urlColumn.SetAlign(wxLIST_FORMAT_LEFT);
@@ -96,6 +107,13 @@ namespace NSPass::GUI {
 		DisableEdition();
 	}
 
+	void GroupForm::OnPasswordDeleted()
+	{
+		passwordDetailSizer->Clear(true);
+		passwordsList->DeleteAllItems();
+		FillPasswordsData();
+	}
+
 	void GroupForm::EnableEdition()
 	{
 		nameText->SetEditable(true);
@@ -121,7 +139,6 @@ namespace NSPass::GUI {
 
 		RedrawForm();
 	}
-
 	void GroupForm::RedrawForm()
 	{
 		this->Layout();

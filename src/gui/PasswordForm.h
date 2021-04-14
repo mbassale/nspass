@@ -22,6 +22,7 @@ namespace NSPass::GUI {
 		void OnSave(wxCommandEvent& event) override;
 		void OnCancel(wxCommandEvent& event) override;
 		void OnReset(wxCommandEvent& event) override;
+		void OnDelete(wxCommandEvent& event) override;
 		void OnUsernameCopy(wxCommandEvent& event) override;
 		void OnUrlCopy(wxCommandEvent& event) override;
 		void OnDescriptionCopy(wxCommandEvent& event) override;
