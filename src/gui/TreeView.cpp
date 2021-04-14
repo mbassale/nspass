@@ -28,9 +28,6 @@ namespace NSPass::GUI {
 		groupUpdatedSignalId = getSignalContext().get_group_updated().connect([&](const GroupPtr& group) {
 			this->OnGroupUpdated(group);
 		});
-		passwordUpdatedSignalId = getSignalContext().get_password_update().connect([&](const PasswordPtr& password) {
-			this->OnPasswordUpdated(password);
-		});
 	}
 
 	int TreeView::OnCompareItems(const wxTreeItemId& i1, const wxTreeItemId& i2)
@@ -130,14 +127,11 @@ namespace NSPass::GUI {
 		}
 		return wxTreeItemId();
 	}
-	void TreeView::OnPasswordUpdated(const PasswordPtr& password)
-	{
-		wxMessageBox("Password Updated!", "Password Updated.");
-	}
+
 	bool TreeView::Destroy()
 	{
+		getSignalContext().get_category_updated().disconnect(categoryUpdatedSignalId);
 		getSignalContext().get_group_updated().disconnect(groupUpdatedSignalId);
-		getSignalContext().get_password_update().disconnect(passwordUpdatedSignalId);
 		return wxWindowBase::Destroy();
 	}
 }
