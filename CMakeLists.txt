@@ -99,10 +99,6 @@ set(SOURCE_FILES
         src/crypto/InitializationVector.h src/crypto/InitializationVector.cpp
         src/crypto/SecureString.h src/crypto/SecureString.cpp
         src/crypto/EncryptedFile.h src/crypto/EncryptedFile.cpp
-        src/signals/Signal.h
-        src/signals/PasswordSignal.h
-        src/signals/GroupUpdatedSignal.h
-        src/signals/CategoryUpdatedSignal.h
         src/signals/SignalContext.cpp src/signals/SignalContext.h)
 
 if (APPLE)
@@ -180,8 +176,7 @@ set(TEST_FILES
         test/storage/serializers/test_password_serializer.cpp
         test/storage/serializers/test_group_serializer.cpp
         test/storage/serializers/test_category_serializer.cpp
-        test/storage/test_json_storage.cpp
-        test/signals/test_signal.cpp)
+        test/storage/test_json_storage.cpp)
 if (APPLE)
     list(APPEND TEST_FILES test/config/test_mac_settings.cpp)
 elseif (UNIX)

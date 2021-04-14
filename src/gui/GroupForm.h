@@ -16,8 +16,13 @@ namespace NSPass::GUI {
 	public:
 		GroupForm(wxWindow* parent, GroupPtr group);
 		~GroupForm() override = default;
+
+		bool Destroy() override;
+
 	protected:
 		GroupPtr group;
+		boost::signals2::connection passwordUpdatedConnection;
+		boost::signals2::connection passwordDeletedConnection;
 
 		[[nodiscard]] static Signals::SignalContext& GetSignalContext()
 		{

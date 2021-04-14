@@ -23,7 +23,7 @@ namespace NSPass::Commands {
 		updated_group = group_to_update;
 		get_storage().flush();
 		// invoke signal
-		app.get_signal_context().get_group_updated().invoke(group_to_update);
+		(app.get_signal_context().get_group_updated())(group_to_update);
 	}
 
 	void UpdateGroupCommand::undo()

@@ -76,12 +76,13 @@ TEST_CASE_METHOD(CreateCommandParserFixture, "CreateCommandParser - create passw
 	auto create_command_ptr = dynamic_cast<CreatePasswordCommand*>(command_ptr);
 	REQUIRE(create_command_ptr);
 	REQUIRE(create_command_ptr->get_name() == CreatePasswordCommand::Name);
-	REQUIRE(create_command_ptr->get_category() == "Retail");
-	REQUIRE(create_command_ptr->get_site() == "Test.com");
-	REQUIRE(create_command_ptr->get_username() == "test@test.com");
-	REQUIRE(create_command_ptr->get_password() == "test1234");
-	REQUIRE(create_command_ptr->get_url() == "test.com");
-	REQUIRE(create_command_ptr->get_description() == "\"lorem ipsum dolor senet\"");
+	auto& create_data = create_command_ptr->get_create_data();
+	REQUIRE(create_data.category == "Retail");
+	REQUIRE(create_data.site == "Test.com");
+	REQUIRE(create_data.username == "test@test.com");
+	REQUIRE(create_data.password == "test1234");
+	REQUIRE(create_data.url == "test.com");
+	REQUIRE(create_data.description == "\"lorem ipsum dolor senet\"");
 }
 
 TEST_CASE_METHOD(CreateCommandParserFixture, "CreateCommandParser - create site password with minimal arguments",
@@ -102,10 +103,11 @@ TEST_CASE_METHOD(CreateCommandParserFixture, "CreateCommandParser - create site 
 	auto create_command_ptr = dynamic_cast<CreatePasswordCommand*>(command_ptr);
 	REQUIRE(create_command_ptr);
 	REQUIRE(create_command_ptr->get_name() == CreatePasswordCommand::Name);
-	REQUIRE(create_command_ptr->get_category() == Category::DefaultName);
-	REQUIRE(create_command_ptr->get_site() == "Test.com");
-	REQUIRE(create_command_ptr->get_username() == "test@test.com");
-	REQUIRE(create_command_ptr->get_password() == "test1234");
+	auto& create_data = create_command_ptr->get_create_data();
+	REQUIRE(create_data.category == Category::DefaultName);
+	REQUIRE(create_data.site == "Test.com");
+	REQUIRE(create_data.username == "test@test.com");
+	REQUIRE(create_data.password == "test1234");
 }
 
 TEST_CASE_METHOD(CreateCommandParserFixture, "CreateCommandParser - create application password with minimal arguments",
@@ -125,9 +127,10 @@ TEST_CASE_METHOD(CreateCommandParserFixture, "CreateCommandParser - create appli
 	auto command_ptr = command_parser.get_commands().front().get();
 	auto create_command_ptr = dynamic_cast<CreatePasswordCommand*>(command_ptr);
 	REQUIRE(create_command_ptr);
+	auto& create_data = create_command_ptr->get_create_data();
 	REQUIRE(create_command_ptr->get_name() == CreatePasswordCommand::Name);
-	REQUIRE(create_command_ptr->get_category() == Category::DefaultName);
-	REQUIRE(create_command_ptr->get_application() == "TestApp");
-	REQUIRE(create_command_ptr->get_username() == "test@test.com");
-	REQUIRE(create_command_ptr->get_password() == "test1234");
+	REQUIRE(create_data.category == Category::DefaultName);
+	REQUIRE(create_data.application == "TestApp");
+	REQUIRE(create_data.username == "test@test.com");
+	REQUIRE(create_data.password == "test1234");
 }

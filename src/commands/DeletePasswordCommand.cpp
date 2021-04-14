@@ -17,7 +17,7 @@ namespace NSPass::Commands {
 		group->remove_password(password);
 		get_storage().flush();
 		// invoke signal
-		get_signal_context().get_password_deleted().invoke(password);
+		(get_signal_context().get_password_deleted())(password);
 	}
 
 	void DeletePasswordCommand::undo()

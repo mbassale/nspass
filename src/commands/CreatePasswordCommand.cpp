@@ -13,8 +13,9 @@ namespace NSPass::Commands {
 		auto category_obj = find_or_create_category();
 		auto group_obj = find_or_create_group(category_obj);
 		// TODO: we should have a second master pass or pin to encrypt this password.
-		auto password_ptr = PasswordFactory::make(username,
-				SecureString::FromPlainText(username, password), url, description);
+		auto password_ptr = PasswordFactory::make(create_data.username,
+				SecureString::FromPlainText(create_data.username, create_data.password), create_data.url,
+				create_data.description);
 		group_obj->add_password(password_ptr);
 		category_obj->save_group(group_obj);
 		get_storage().save_category(category_obj);
@@ -41,20 +42,20 @@ namespace NSPass::Commands {
 
 	CategoryPtr CreatePasswordCommand::find_or_create_category()
 	{
-		auto category_obj = get_storage().find_category(category);
-		return category_obj ? category_obj : CategoryFactory::make(category);
+		auto category_obj = get_storage().find_category(create_data.category);
+		return category_obj ? category_obj : CategoryFactory::make(create_data.category);
 	}
 
 	GroupPtr CreatePasswordCommand::find_or_create_group(CategoryPtr& category_obj)
 	{
 		GroupPtr group_obj;
-		if (site.length() > 0) {
-			group_obj = category_obj->find_group(site);
-			return group_obj ? group_obj : GroupFactory::make_site(site);
+		if (create_data.site.length() > 0) {
+			group_obj = category_obj->find_group(create_data.site);
+			return group_obj ? group_obj : GroupFactory::make_site(create_data.site);
 		}
-		else if (application.length() > 0) {
-			group_obj = category_obj->find_group(application);
-			return group_obj ? group_obj : GroupFactory::make_application(application);
+		else if (create_data.application.length() > 0) {
+			group_obj = category_obj->find_group(create_data.application);
+			return group_obj ? group_obj : GroupFactory::make_application(create_data.application);
 		}
 		throw ApplicationException{ "Attempt to store password without associated site or application." };
 	}

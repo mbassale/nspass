@@ -5,13 +5,20 @@
 #ifndef NSPASS_SIGNALCONTEXT_H
 #define NSPASS_SIGNALCONTEXT_H
 
-#include "CategoryUpdatedSignal.h"
-#include "GroupUpdatedSignal.h"
-#include "PasswordSignal.h"
+#include "../Category.h"
+#include "../Group.h"
+#include "../Password.h"
+#include <boost/signals2.hpp>
 
 namespace NSPass::Signals {
 
-class SignalContext : private boost::noncopyable {
+	typedef boost::signals2::signal<void(const CategoryPtr&)> CategoryUpdatedSignal;
+
+	typedef boost::signals2::signal<void(const GroupPtr&)> GroupUpdatedSignal;
+
+	typedef boost::signals2::signal<void(const PasswordPtr&)> PasswordSignal;
+
+	class SignalContext : private boost::noncopyable {
 	public:
 		SignalContext() = default;
 

@@ -45,7 +45,7 @@ namespace NSPass::CLI::Parsers {
 		}
 
 		if (vm.empty() || vm.count("help")) {
-			return CommandPtr{ new HelpCommand{ app, create_desc } };
+			return CommandPtr{ new HelpCommand{ app, create_desc }};
 		}
 
 		if (vm.count("username") == 0 || vm.count("password") == 0) {
@@ -55,16 +55,17 @@ namespace NSPass::CLI::Parsers {
 			throw InvalidCommandSyntaxException(format_error("Missing application or site.", create_desc));
 		}
 
-		auto category = vm["category"].as<string>();
-		auto application = vm.count("application") ? vm["application"].as<string>() : "";
-		auto site = vm.count("site") ? vm["site"].as<string>() : "";
-		auto username = vm["username"].as<string>();
-		auto password = vm["password"].as<string>();
-		auto url = vm["url"].as<string>();
-		auto description = vm["description"].as<string>();
+		CreatePasswordCommand::CreateData create_data{};
+		create_data.category = vm["category"].as<string>();
+		create_data.application = vm.count("application") ? vm["application"].as<string>() : "";
+		create_data.site = vm.count("site") ? vm["site"].as<string>() : "";
+		create_data.username = vm["username"].as<string>();
+		create_data.password = vm["password"].as<string>();
+		create_data.url = vm["url"].as<string>();
+		create_data.description = vm["description"].as<string>();
 
 		return CommandPtr{
-				new CreatePasswordCommand{ app, category, application, site, username, password, url, description }};
+				new CreatePasswordCommand{ app, create_data }};
 	}
 
 }

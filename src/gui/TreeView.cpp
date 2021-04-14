@@ -22,10 +22,10 @@ namespace NSPass::GUI {
 		wxGetApp().GetStateContext().Subscribe(StateName::Close, [&] {
 			this->DeleteAllItems();
 		});
-		categoryUpdatedSignalId = getSignalContext().get_category_updated().connect([&](const CategoryPtr& category) {
+		categoryUpdatedConnection = getSignalContext().get_category_updated().connect([&](const CategoryPtr& category) {
 			this->OnCategoryUpdated(category);
 		});
-		groupUpdatedSignalId = getSignalContext().get_group_updated().connect([&](const GroupPtr& group) {
+		groupUpdatedConnection = getSignalContext().get_group_updated().connect([&](const GroupPtr& group) {
 			this->OnGroupUpdated(group);
 		});
 	}
@@ -130,8 +130,8 @@ namespace NSPass::GUI {
 
 	bool TreeView::Destroy()
 	{
-		getSignalContext().get_category_updated().disconnect(categoryUpdatedSignalId);
-		getSignalContext().get_group_updated().disconnect(groupUpdatedSignalId);
+		categoryUpdatedConnection.disconnect();
+		groupUpdatedConnection.disconnect();
 		return wxWindowBase::Destroy();
 	}
 }

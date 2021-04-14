@@ -15,7 +15,7 @@ namespace NSPass::Commands {
 		}
 		updated_category = category;
 		get_storage().flush();
-		get_signal_context().get_category_updated().invoke(category);
+		(get_signal_context().get_category_updated())(category);
 	}
 
 	void UpdateCategoryCommand::undo()

@@ -18,7 +18,6 @@
 #include "../Application.h"
 #include "../Category.h"
 #include "../Group.h"
-#include "../signals/Signal.h"
 #include "../storage/StorageHeader.h"
 #include <wx/treectrl.h>
 
@@ -72,8 +71,8 @@ namespace NSPass::GUI {
 	protected:
 		Application& app;
 		wxTreeItemId rootId;
-		Signals::SignalId categoryUpdatedSignalId;
-		Signals::SignalId groupUpdatedSignalId;
+		boost::signals2::connection categoryUpdatedConnection;
+		boost::signals2::connection groupUpdatedConnection;
 
 		Signals::SignalContext& getSignalContext() { return app.get_signal_context(); }
 		Storage::Storage& getStorage() { return app.get_storage(); }

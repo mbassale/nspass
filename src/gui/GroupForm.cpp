@@ -14,10 +14,10 @@ namespace NSPass::GUI {
 			:BaseGroupForm(parent), group{ std::move(group) }
 	{
 		FillData();
-		GetSignalContext().get_password_updated().connect([&](const PasswordPtr& password) {
+		passwordUpdatedConnection = GetSignalContext().get_password_updated().connect([&](const PasswordPtr& password) {
 			FillPasswordsData();
 		});
-		GetSignalContext().get_password_deleted().connect([&](const PasswordPtr& password) {
+		passwordDeletedConnection = GetSignalContext().get_password_deleted().connect([&](const PasswordPtr& password) {
 			OnPasswordDeleted();
 		});
 	}
@@ -38,6 +38,7 @@ namespace NSPass::GUI {
 
 	void GroupForm::FillPasswordsData()
 	{
+		passwordsList->Hide();
 		passwordsList->DeleteAllItems();
 		wxListItem urlColumn;
 		urlColumn.SetText("URL");
@@ -66,6 +67,7 @@ namespace NSPass::GUI {
 		}
 		passwordsList->SetColumnWidth(0, wxLIST_AUTOSIZE);
 		passwordsList->SetColumnWidth(1, wxLIST_AUTOSIZE);
+		passwordsList->Show();
 	}
 
 	void GroupForm::OnItemSelected(wxListEvent& event)
@@ -110,7 +112,6 @@ namespace NSPass::GUI {
 	void GroupForm::OnPasswordDeleted()
 	{
 		passwordDetailSizer->Clear(true);
-		passwordsList->DeleteAllItems();
 		FillPasswordsData();
 	}
 
@@ -139,8 +140,16 @@ namespace NSPass::GUI {
 
 		RedrawForm();
 	}
+
 	void GroupForm::RedrawForm()
 	{
 		this->Layout();
+	}
+
+	bool GroupForm::Destroy()
+	{
+		passwordUpdatedConnection.disconnect();
+		passwordDeletedConnection.disconnect();
+		return wxWindowBase::Destroy();
 	}
 }
