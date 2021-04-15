@@ -180,6 +180,7 @@ set(TEST_FILES
 if (APPLE)
     list(APPEND TEST_FILES test/config/test_mac_settings.cpp)
 elseif (UNIX)
+    list(APPEND TEST_FILES test/config/test_unix_settings.cpp)
 endif ()
 
 include_directories(${Boost_INCLUDE_DIRS})
