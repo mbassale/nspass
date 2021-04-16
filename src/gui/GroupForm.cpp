@@ -2,6 +2,7 @@
 // Created by Marco Bassaletti on 08-04-21.
 //
 
+#include "CreatePasswordForm.h"
 #include "PasswordForm.h"
 #include "GroupForm.h"
 #include "../commands/UpdateGroupCommand.h"
@@ -10,10 +11,13 @@ namespace NSPass::GUI {
 	using NSPass::Commands::CommandPtr;
 	using NSPass::Commands::UpdateGroupCommand;
 
-	GroupForm::GroupForm(wxWindow* parent, GroupPtr group)
-			:BaseGroupForm(parent), group{ std::move(group) }
+	GroupForm::GroupForm(wxWindow* parent, CategoryPtr category, GroupPtr group)
+			:BaseGroupForm(parent), category{ std::move(category) }, group{ std::move(group) }
 	{
 		FillData();
+		passwordCreatedConnection = GetSignalContext().get_password_created().connect([&](const PasswordPtr& password) {
+			OnPasswordCreated(password);
+		});
 		passwordUpdatedConnection = GetSignalContext().get_password_updated().connect([&](const PasswordPtr& password) {
 			FillPasswordsData();
 		});
@@ -39,7 +43,7 @@ namespace NSPass::GUI {
 	void GroupForm::FillPasswordsData()
 	{
 		passwordsList->Hide();
-		passwordsList->DeleteAllItems();
+		passwordsList->ClearAll();
 		wxListItem urlColumn;
 		urlColumn.SetText("URL");
 		urlColumn.SetAlign(wxLIST_FORMAT_LEFT);
@@ -109,6 +113,23 @@ namespace NSPass::GUI {
 		DisableEdition();
 	}
 
+	void GroupForm::OnAddPassword(wxCommandEvent& event)
+	{
+		auto* passwordForm = new CreatePasswordForm(this, category, group);
+		passwordDetailSizer->Clear(true);
+		passwordDetailSizer->Add(passwordForm, wxSizerFlags().Expand().Border(wxALL, 0));
+		Layout();
+	}
+
+	void GroupForm::OnPasswordCreated(const PasswordPtr& password)
+	{
+		FillPasswordsData();
+		auto* passwordForm = new PasswordForm(this, password);
+		passwordDetailSizer->Clear(true);
+		passwordDetailSizer->Add(passwordForm, wxSizerFlags().Expand().Border(wxALL, 0));
+		Layout();
+	}
+
 	void GroupForm::OnPasswordDeleted()
 	{
 		passwordDetailSizer->Clear(true);
@@ -148,6 +169,7 @@ namespace NSPass::GUI {
 
 	bool GroupForm::Destroy()
 	{
+		passwordCreatedConnection.disconnect();
 		passwordUpdatedConnection.disconnect();
 		passwordDeletedConnection.disconnect();
 		return wxWindowBase::Destroy();

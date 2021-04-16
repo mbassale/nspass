@@ -117,6 +117,7 @@ set(GUI_FILES src/gui/GlobalIds.h
         src/gui/CategoryForm.cpp src/gui/CategoryForm.h
         src/gui/GroupForm.cpp src/gui/GroupForm.h
         src/gui/PasswordForm.cpp src/gui/PasswordForm.h
+        src/gui/CreatePasswordForm.cpp src/gui/CreatePasswordForm.h
         src/gui/MainToolbar.cpp src/gui/MainToolbar.h
         src/gui/states/State.h
         src/gui/states/OpenState.cpp src/gui/states/OpenState.h

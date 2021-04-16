@@ -28,7 +28,7 @@ namespace NSPass::GUI {
 		wxBoxSizer* mainSizer{};
 
 		void ShowCategory(const CategoryPtr& category);
-		void ShowGroup(const GroupPtr& group);
+		void ShowGroup(const CategoryPtr& category, const GroupPtr& group);
 	};
 }
 

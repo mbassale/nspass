@@ -196,6 +196,9 @@ BaseGroupForm::BaseGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& po
 
 	buttonSizer->Add( cancelButton, 0, wxALL, 5 );
 
+	addPasswordButton = new wxButton( groupSizer->GetStaticBox(), wxID_ANY, wxT("Add Password"), wxDefaultPosition, wxDefaultSize, 0 );
+	buttonSizer->Add( addPasswordButton, 0, wxALL, 5 );
+
 
 	groupSizer->Add( buttonSizer, 0, wxEXPAND, 5 );
 
@@ -205,7 +208,7 @@ BaseGroupForm::BaseGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& po
 	passwordSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Passwords") ), wxVERTICAL );
 
 	wxFlexGridSizer* flexGridSizer2;
-	flexGridSizer2 = new wxFlexGridSizer( 1, 1, 0, 0 );
+	flexGridSizer2 = new wxFlexGridSizer( 2, 1, 0, 0 );
 	flexGridSizer2->AddGrowableCol( 0 );
 	flexGridSizer2->AddGrowableRow( 0 );
 	flexGridSizer2->SetFlexibleDirection( wxBOTH );
@@ -238,6 +241,7 @@ BaseGroupForm::BaseGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& po
 	editButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseGroupForm::OnEdit ), NULL, this );
 	saveButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseGroupForm::OnSave ), NULL, this );
 	cancelButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseGroupForm::OnCancel ), NULL, this );
+	addPasswordButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseGroupForm::OnAddPassword ), NULL, this );
 	passwordsList->Connect( wxEVT_COMMAND_LIST_ITEM_SELECTED, wxListEventHandler( BaseGroupForm::OnItemSelected ), NULL, this );
 }
 
@@ -247,6 +251,7 @@ BaseGroupForm::~BaseGroupForm()
 	editButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseGroupForm::OnEdit ), NULL, this );
 	saveButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseGroupForm::OnSave ), NULL, this );
 	cancelButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseGroupForm::OnCancel ), NULL, this );
+	addPasswordButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseGroupForm::OnAddPassword ), NULL, this );
 	passwordsList->Disconnect( wxEVT_COMMAND_LIST_ITEM_SELECTED, wxListEventHandler( BaseGroupForm::OnItemSelected ), NULL, this );
 
 }
@@ -428,7 +433,7 @@ BasePasswordForm::BasePasswordForm( wxWindow* parent, wxWindowID id, const wxPoi
 	buttonSizer->Add( deleteButton, 0, wxALL, 5 );
 
 
-	boxSizer->Add( buttonSizer, 0, wxEXPAND|wxTOP, 5 );
+	boxSizer->Add( buttonSizer, 0, wxBOTTOM|wxEXPAND|wxTOP, 5 );
 
 
 	this->SetSizer( boxSizer );

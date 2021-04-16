@@ -14,15 +14,17 @@
 namespace NSPass::GUI {
 	class GroupForm : public BaseGroupForm {
 	public:
-		GroupForm(wxWindow* parent, GroupPtr group);
+		GroupForm(wxWindow* parent, CategoryPtr category, GroupPtr group);
 		~GroupForm() override = default;
 
 		bool Destroy() override;
 
 	protected:
+		CategoryPtr category;
 		GroupPtr group;
-		boost::signals2::connection passwordUpdatedConnection;
-		boost::signals2::connection passwordDeletedConnection;
+		Signals::SignalConnection passwordCreatedConnection;
+		Signals::SignalConnection passwordUpdatedConnection;
+		Signals::SignalConnection passwordDeletedConnection;
 
 		[[nodiscard]] static Signals::SignalContext& GetSignalContext()
 		{
@@ -33,6 +35,8 @@ namespace NSPass::GUI {
 		void OnEdit(wxCommandEvent& event) override;
 		void OnSave(wxCommandEvent& event) override;
 		void OnCancel(wxCommandEvent& event) override;
+		void OnAddPassword(wxCommandEvent& event) override;
+		void OnPasswordCreated(const PasswordPtr& password);
 		void OnPasswordDeleted();
 
 		void FillData();

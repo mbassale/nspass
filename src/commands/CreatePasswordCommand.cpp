@@ -26,6 +26,7 @@ namespace NSPass::Commands {
 		category_id = category_obj->get_id();
 		password_id = password_ptr->get_id();
 		group_id = group_obj->get_id();
+		(get_signal_context().get_password_created())(password_ptr);
 	}
 
 	void CreatePasswordCommand::undo()
