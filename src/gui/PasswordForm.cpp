@@ -100,14 +100,12 @@ namespace NSPass::GUI {
 		auto* messageDialog = new wxMessageDialog(this, "Are you sure to delete this password?", "Please Confirm",
 				wxYES_NO | wxCENTRE);
 		auto result = messageDialog->ShowModal();
-		if (result == wxYES) {
+		if (result == wxID_YES) {
 			try {
 				auto& commandRunner = wxGetApp().GetCommandRunner();
 				CommandPtr delete_password_command{
 						new DeletePasswordCommand(Application::instance(), password->get_id()) };
 				commandRunner.run_command(delete_password_command);
-				OnPasswordHide(event);
-				DisableEdition();
 			}
 			catch (ApplicationException& ex) {
 				wxMessageBox(ex.what(), "Error deleting password", wxICON_ERROR);

@@ -80,7 +80,7 @@ namespace NSPass::GUI {
 		auto* passwordForm = new PasswordForm(this, password);
 		passwordDetailSizer->Clear(true);
 		passwordDetailSizer->Add(passwordForm, wxSizerFlags().Expand().Border(wxALL, 0));
-		Layout();
+		RedrawForm();
 	}
 
 	void GroupForm::OnEdit(wxCommandEvent& event)
@@ -118,7 +118,7 @@ namespace NSPass::GUI {
 		auto* passwordForm = new CreatePasswordForm(this, category, group);
 		passwordDetailSizer->Clear(true);
 		passwordDetailSizer->Add(passwordForm, wxSizerFlags().Expand().Border(wxALL, 0));
-		Layout();
+		RedrawForm();
 	}
 
 	void GroupForm::OnPasswordCreated(const PasswordPtr& password)
@@ -127,13 +127,14 @@ namespace NSPass::GUI {
 		auto* passwordForm = new PasswordForm(this, password);
 		passwordDetailSizer->Clear(true);
 		passwordDetailSizer->Add(passwordForm, wxSizerFlags().Expand().Border(wxALL, 0));
-		Layout();
+		RedrawForm();
 	}
 
 	void GroupForm::OnPasswordDeleted()
 	{
-		passwordDetailSizer->Clear(true);
 		FillPasswordsData();
+		passwordDetailSizer->Clear(true);
+		RedrawForm();
 	}
 
 	void GroupForm::EnableEdition()
