@@ -12,6 +12,8 @@ namespace NSPass::Commands {
 	class CreatePasswordCommand : public Command {
 	public:
 		struct CreateData {
+			ObjectId category_id{};
+			ObjectId group_id{};
 			std::string category;
 			std::string application;
 			std::string site;

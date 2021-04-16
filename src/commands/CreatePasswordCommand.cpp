@@ -1,12 +1,15 @@
 //
 // Created by Marco Bassaletti on 17-03-21.
 //
-
-#include <optional>
+#include "../NSPass.h"
+#include "../query/CategoryQuery.h"
+#include "../query/GroupQuery.h"
 #include "CreatePasswordCommand.h"
 
 namespace NSPass::Commands {
 	using namespace std;
+	using NSPass::Query::CategoryQuery;
+	using NSPass::Query::GroupQuery;
 
 	void CreatePasswordCommand::execute()
 	{
@@ -42,20 +45,37 @@ namespace NSPass::Commands {
 
 	CategoryPtr CreatePasswordCommand::find_or_create_category()
 	{
-		auto category_obj = get_storage().find_category(create_data.category);
-		return category_obj ? category_obj : CategoryFactory::make(create_data.category);
+		if (!create_data.category_id.is_nil()) {
+			CategoryQuery category_query{ get_storage() };
+			return category_query.find(create_data.category_id);
+		}
+		CategoryQuery category_query{ get_storage(), create_data.category };
+		auto categories = category_query.find();
+		if (!categories.empty()) {
+			return categories.front();
+		}
+		return CategoryFactory::make(create_data.category);
 	}
 
 	GroupPtr CreatePasswordCommand::find_or_create_group(CategoryPtr& category_obj)
 	{
-		GroupPtr group_obj;
+		if (!create_data.group_id.is_nil()) {
+			GroupQuery group_query{ get_storage() };
+			return group_query.find(create_data.group_id).group;
+		}
+		GroupQuery::QueryArguments args;
+		args.category_search = create_data.category;
+		args.search = create_data.site.empty() ? create_data.application : create_data.site;
+		GroupQuery group_query{ get_storage(), args };
+		auto groups = group_query.find();
+		if (!groups.empty()) {
+			return groups.front().group;
+		}
 		if (create_data.site.length() > 0) {
-			group_obj = category_obj->find_group(create_data.site);
-			return group_obj ? group_obj : GroupFactory::make_site(create_data.site);
+			return GroupFactory::make_site(create_data.site);
 		}
 		else if (create_data.application.length() > 0) {
-			group_obj = category_obj->find_group(create_data.application);
-			return group_obj ? group_obj : GroupFactory::make_application(create_data.application);
+			return GroupFactory::make_application(create_data.application);
 		}
 		throw ApplicationException{ "Attempt to store password without associated site or application." };
 	}
