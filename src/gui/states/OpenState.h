@@ -16,7 +16,7 @@ namespace NSPass::GUI::States {
 		void Save() override;
 		void Close() override;
 		void SelectCategory(const CategoryPtr& category) override;
-		void SelectGroup(const GroupPtr& group) override;
+		void SelectGroup(const CategoryPtr& category, const GroupPtr& group) override;
 	protected:
 		StateContext& context;
 	};

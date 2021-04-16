@@ -15,7 +15,7 @@ namespace NSPass::GUI::States {
 		explicit SelectGroupState(StateContext& context)
 				:OpenState(context) { }
 				
-		void SelectGroup(const GroupPtr& group) override;
+		void SelectGroup(const CategoryPtr& category, const GroupPtr& group) override;
 	};
 }
 

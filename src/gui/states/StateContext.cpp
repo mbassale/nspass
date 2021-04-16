@@ -61,9 +61,9 @@ namespace NSPass::GUI::States {
 		currentState->SelectCategory(category);
 	}
 
-	void StateContext::SelectGroup(const GroupPtr& group)
+	void StateContext::SelectGroup(const CategoryPtr& category, const GroupPtr& group)
 	{
-		currentState->SelectGroup(group);
+		currentState->SelectGroup(category, group);
 	}
 
 	void StateContext::Notify(StateName state)
@@ -93,14 +93,14 @@ namespace NSPass::GUI::States {
 		}
 	}
 
-	void StateContext::Notify(StateName stateName, const GroupPtr& group)
+	void StateContext::Notify(StateName stateName, const CategoryPtr& category, const GroupPtr& group)
 	{
 		if (enterCallbacks.count(stateName) > 0) {
 			for (const auto& callback : enterCallbacks[stateName]) {
 				if (callback.index() == 2) {
 					const auto* callback_ptr = std::get_if<2>(&callback);
 					if (callback_ptr) {
-						(*callback_ptr)(group);
+						(*callback_ptr)(category, group);
 					}
 				}
 			}

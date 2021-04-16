@@ -46,8 +46,12 @@ namespace NSPass::GUI {
 			wxGetApp().GetStateContext().SelectCategory(category);
 		}
 		else if (groupItem) {
+			auto categoryItemId = GetItemParent(selectedId);
+			const auto* categoryItemData = GetItemData(categoryItemId);
+			const auto* parentCategoryItem = dynamic_cast<const CategoryItemData*>(categoryItemData);
+			const auto& category = parentCategoryItem->get_category();
 			const auto& group = groupItem->get_group();
-			wxGetApp().GetStateContext().SelectGroup(group);
+			wxGetApp().GetStateContext().SelectGroup(category, group);
 		}
 	}
 

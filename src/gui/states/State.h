@@ -17,7 +17,7 @@ namespace NSPass::GUI::States {
 		virtual void Close() { };
 		virtual void Save() { };
 		virtual void SelectCategory(const CategoryPtr& category) { };
-		virtual void SelectGroup(const GroupPtr& group) { };
+		virtual void SelectGroup(const CategoryPtr& category, const GroupPtr& group) { };
 	};
 
 	typedef std::unique_ptr<State> StatePtr;

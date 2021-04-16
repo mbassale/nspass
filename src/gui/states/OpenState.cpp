@@ -41,8 +41,8 @@ namespace NSPass::GUI::States {
 		context.GetState(StateName::SelectCategory).SelectCategory(category);
 	}
 
-	void OpenState::SelectGroup(const GroupPtr& group)
+	void OpenState::SelectGroup(const CategoryPtr& category, const GroupPtr& group)
 	{
-		context.GetState(StateName::SelectGroup).SelectGroup(group);
+		context.GetState(StateName::SelectGroup).SelectGroup(category, group);
 	}
 }
