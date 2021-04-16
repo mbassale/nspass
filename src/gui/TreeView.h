@@ -71,8 +71,8 @@ namespace NSPass::GUI {
 	protected:
 		Application& app;
 		wxTreeItemId rootId;
-		boost::signals2::connection categoryUpdatedConnection;
-		boost::signals2::connection groupUpdatedConnection;
+		Signals::SignalConnection categoryUpdatedConnection;
+		Signals::SignalConnection groupUpdatedConnection;
 
 		Signals::SignalContext& getSignalContext() { return app.get_signal_context(); }
 		Storage::Storage& getStorage() { return app.get_storage(); }
