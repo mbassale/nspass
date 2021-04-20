@@ -63,6 +63,7 @@ set(SOURCE_FILES
         src/commands/VerboseCommand.h src/commands/VerboseCommand.cpp
         src/commands/VersionCommand.h src/commands/VersionCommand.cpp
         src/commands/InspectStorageCommand.cpp src/commands/InspectStorageCommand.h
+        src/commands/CreateGroupCommand.cpp src/commands/CreateGroupCommand.h
         src/commands/CreatePasswordCommand.h src/commands/CreatePasswordCommand.cpp
         src/commands/UpdatePasswordCommand.cpp src/commands/UpdatePasswordCommand.h
         src/commands/DeletePasswordCommand.cpp src/commands/DeletePasswordCommand.h
@@ -117,6 +118,7 @@ set(GUI_FILES src/gui/GlobalIds.h
         src/gui/CategoryForm.cpp src/gui/CategoryForm.h
         src/gui/GroupForm.cpp src/gui/GroupForm.h
         src/gui/PasswordForm.cpp src/gui/PasswordForm.h
+        src/gui/CreateGroupForm.cpp src/gui/CreateGroupForm.h
         src/gui/CreatePasswordForm.cpp src/gui/CreatePasswordForm.h
         src/gui/MainToolbar.cpp src/gui/MainToolbar.h
         src/gui/states/State.h
@@ -169,6 +171,7 @@ set(TEST_FILES
         test/commands/test_update_password_command.cpp
         test/commands/test_delete_password_command.cpp
         test/commands/test_import_lastpass_command.cpp
+        test/commands/test_create_group_command.cpp
         test/commands/test_update_group_command.cpp
         test/commands/test_update_category_command.cpp
         test/storage/test_storage_header.cpp
