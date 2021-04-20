@@ -14,9 +14,9 @@ namespace NSPass::Signals {
 
 	typedef boost::signals2::connection SignalConnection;
 
-	typedef boost::signals2::signal<void(const CategoryPtr&)> CategoryUpdatedSignal;
+	typedef boost::signals2::signal<void(const CategoryPtr&)> CategorySignal;
 
-	typedef boost::signals2::signal<void(const GroupPtr&)> GroupUpdatedSignal;
+	typedef boost::signals2::signal<void(const GroupPtr&)> GroupSignal;
 
 	typedef boost::signals2::signal<void(const PasswordPtr&)> PasswordSignal;
 
@@ -24,17 +24,17 @@ namespace NSPass::Signals {
 	public:
 		SignalContext() = default;
 
-		CategoryUpdatedSignal& get_category_updated() { return category_updated_signal; }
-		GroupUpdatedSignal& get_group_created() { return group_created_signal; }
-		GroupUpdatedSignal& get_group_updated() { return group_updated_signal; }
+		CategorySignal& get_category_updated() { return category_updated_signal; }
+		GroupSignal& get_group_created() { return group_created_signal; }
+		GroupSignal& get_group_updated() { return group_updated_signal; }
 		PasswordSignal& get_password_created() { return password_created_signal; }
 		PasswordSignal& get_password_updated() { return password_updated_signal; }
 		PasswordSignal& get_password_deleted() { return password_deleted_signal; }
 
 	protected:
-		CategoryUpdatedSignal category_updated_signal{};
-		GroupUpdatedSignal group_created_signal{};
-		GroupUpdatedSignal group_updated_signal{};
+		CategorySignal category_updated_signal{};
+		GroupSignal group_created_signal{};
+		GroupSignal group_updated_signal{};
 		PasswordSignal password_created_signal{};
 		PasswordSignal password_updated_signal{};
 		PasswordSignal password_deleted_signal{};
