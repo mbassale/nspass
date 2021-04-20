@@ -50,17 +50,32 @@ namespace NSPass::GUI {
 
 	void MainToolbar::OnOpenDefault(wxCommandEvent& event)
 	{
-		wxGetApp().GetStateContext().OpenDefault();
+		try {
+			wxGetApp().GetStateContext().OpenDefault();
+		}
+		catch (ApplicationException& ex) {
+			wxMessageBox(ex.what(), "Error opening storage.", wxOK | wxICON_ERROR);
+		}
 	}
 
 	void MainToolbar::OnOpen(wxCommandEvent& event)
 	{
-		wxGetApp().GetStateContext().Open();
+		try {
+			wxGetApp().GetStateContext().Open();
+		}
+		catch (ApplicationException& ex) {
+			wxMessageBox(ex.what(), "Error opening storage.", wxOK | wxICON_ERROR);
+		}
 	}
 
 	void MainToolbar::OnSave(wxCommandEvent& event)
 	{
-		wxGetApp().GetStateContext().Save();
+		try {
+			wxGetApp().GetStateContext().Save();
+		}
+		catch (ApplicationException& ex) {
+			wxMessageBox(ex.what(), "Error saving storage.", wxOK | wxICON_ERROR);
+		}
 	}
 
 	void MainToolbar::OnCopy(wxCommandEvent& event)
