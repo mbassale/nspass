@@ -102,6 +102,7 @@ namespace NSPass::GUI
 			wxButton* saveButton;
 			wxButton* cancelButton;
 			wxButton* addPasswordButton;
+			wxButton* deleteButton;
 			wxStaticBoxSizer* passwordSizer;
 			wxListCtrl* passwordsList;
 			wxStaticBoxSizer* passwordDetailSizer;
@@ -111,6 +112,7 @@ namespace NSPass::GUI
 			virtual void OnSave( wxCommandEvent& event ) = 0;
 			virtual void OnCancel( wxCommandEvent& event ) = 0;
 			virtual void OnAddPassword( wxCommandEvent& event ) = 0;
+			virtual void OnDelete( wxCommandEvent& event ) = 0;
 			virtual void OnItemSelected( wxListEvent& event ) = 0;
 
 

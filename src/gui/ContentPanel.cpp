@@ -23,13 +23,27 @@ namespace NSPass::GUI {
 		wxGetApp().GetStateContext().Subscribe(StateName::SelectCategory, [&](const CategoryPtr& category) {
 			ShowCategory(category);
 		});
-		wxGetApp().GetStateContext().Subscribe(StateName::SelectGroup, [&](const CategoryPtr& category, const GroupPtr& group) {
-			ShowGroup(category, group);
+		wxGetApp().GetStateContext()
+				.Subscribe(StateName::SelectGroup, [&](const CategoryPtr& category, const GroupPtr& group) {
+					ShowGroup(category, group);
+				});
+		GetSignalContext().get_group_deleted().connect([&](const GroupPtr& group) {
+			if (currentCategory)
+				ShowCategory(currentCategory);
+			else
+				ClearPanel();
 		});
+	}
+
+	void ContentPanel::ClearPanel()
+	{
+		mainSizer->Clear(true);
+		mainSizer->Layout();
 	}
 
 	void ContentPanel::ShowCategory(const CategoryPtr& category)
 	{
+		currentCategory = category;
 		auto* categoryForm = new CategoryForm(this, category);
 		mainSizer->Clear(true);
 		mainSizer->Add(categoryForm, wxSizerFlags().Expand().Border(wxALL, 10));
@@ -38,6 +52,8 @@ namespace NSPass::GUI {
 
 	void ContentPanel::ShowGroup(const CategoryPtr& category, const GroupPtr& group)
 	{
+		currentCategory = category;
+		currentGroup = group;
 		auto* groupForm = new GroupForm(this, category, group);
 		mainSizer->Clear(true);
 		mainSizer->Add(groupForm, wxSizerFlags().Expand().Border(wxALL, 10));

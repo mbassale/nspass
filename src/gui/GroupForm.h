@@ -35,6 +35,7 @@ namespace NSPass::GUI {
 		void OnEdit(wxCommandEvent& event) override;
 		void OnSave(wxCommandEvent& event) override;
 		void OnCancel(wxCommandEvent& event) override;
+		void OnDelete(wxCommandEvent& event) override;
 		void OnAddPassword(wxCommandEvent& event) override;
 		void OnPasswordCreated(const PasswordPtr& password);
 		void OnPasswordDeleted();

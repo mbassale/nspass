@@ -18,6 +18,7 @@
 #include "../Application.h"
 #include "../Category.h"
 #include "../Group.h"
+#include "../signals/SignalContext.h"
 
 namespace NSPass::GUI {
 	class ContentPanel : public wxPanel {
@@ -26,7 +27,15 @@ namespace NSPass::GUI {
 
 	protected:
 		wxBoxSizer* mainSizer{};
+		CategoryPtr currentCategory;
+		GroupPtr currentGroup;
 
+		[[nodiscard]] static Signals::SignalContext& GetSignalContext()
+		{
+			return Application::instance().get_signal_context();
+		}
+
+		void ClearPanel();
 		void ShowCategory(const CategoryPtr& category);
 		void ShowGroup(const CategoryPtr& category, const GroupPtr& group);
 	};

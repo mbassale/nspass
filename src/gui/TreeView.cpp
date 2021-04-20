@@ -32,6 +32,9 @@ namespace NSPass::GUI {
 		groupUpdatedConnection = getSignalContext().get_group_updated().connect([&](const GroupPtr& group) {
 			OnGroupUpdated(group);
 		});
+		groupDeletedConnection = getSignalContext().get_group_deleted().connect([&](const GroupPtr& group) {
+			OnGroupDeleted(group);
+		});
 	}
 
 	int TreeView::OnCompareItems(const wxTreeItemId& i1, const wxTreeItemId& i2)
@@ -95,6 +98,16 @@ namespace NSPass::GUI {
 		}
 	}
 
+	void TreeView::OnGroupDeleted(const GroupPtr& group)
+	{
+		auto groupItemId = FindItemId(group);
+		if (groupItemId.IsOk()) {
+			ClearFocusedItem();
+			UnselectAll();
+			Delete(groupItemId);
+		}
+	}
+
 	wxTreeItemId TreeView::FindItemId(const CategoryPtr& category) const
 	{
 		wxTreeItemIdValue categoryCookie;
@@ -141,6 +154,7 @@ namespace NSPass::GUI {
 		categoryUpdatedConnection.disconnect();
 		groupCreatedConnection.disconnect();
 		groupUpdatedConnection.disconnect();
+		groupDeletedConnection.disconnect();
 		return wxWindowBase::Destroy();
 	}
 }

@@ -6,10 +6,12 @@
 #include "PasswordForm.h"
 #include "GroupForm.h"
 #include "../commands/UpdateGroupCommand.h"
+#include "../commands/DeleteGroupCommand.h"
 
 namespace NSPass::GUI {
 	using NSPass::Commands::CommandPtr;
 	using NSPass::Commands::UpdateGroupCommand;
+	using NSPass::Commands::DeleteGroupCommand;
 
 	GroupForm::GroupForm(wxWindow* parent, CategoryPtr category, GroupPtr group)
 			:BaseGroupForm(parent), category{ std::move(category) }, group{ std::move(group) }
@@ -113,6 +115,25 @@ namespace NSPass::GUI {
 		DisableEdition();
 	}
 
+	void GroupForm::OnDelete(wxCommandEvent& event)
+	{
+		auto* messageDialog = new wxMessageDialog(this,
+				"Are you sure to delete this group? All passwords on this group will be deleted.", "Please Confirm",
+				wxYES_NO | wxCENTRE);
+		auto result = messageDialog->ShowModal();
+		if (result == wxID_YES) {
+			try {
+				auto& commandRunner = wxGetApp().GetCommandRunner();
+				CommandPtr delete_group_command{
+						new DeleteGroupCommand(Application::instance(), group->get_id()) };
+				commandRunner.run_command(delete_group_command);
+			}
+			catch (ApplicationException& ex) {
+				wxMessageBox(ex.what(), "Error deleting group", wxICON_ERROR);
+			}
+		}
+	}
+
 	void GroupForm::OnAddPassword(wxCommandEvent& event)
 	{
 		auto* passwordForm = new CreatePasswordForm(this, category, group);
@@ -167,7 +188,6 @@ namespace NSPass::GUI {
 	{
 		this->Layout();
 	}
-
 	bool GroupForm::Destroy()
 	{
 		passwordCreatedConnection.disconnect();
