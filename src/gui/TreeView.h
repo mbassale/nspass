@@ -72,6 +72,7 @@ namespace NSPass::GUI {
 		Application& app;
 		wxTreeItemId rootId;
 		Signals::SignalConnection categoryUpdatedConnection;
+		Signals::SignalConnection groupCreatedConnection;
 		Signals::SignalConnection groupUpdatedConnection;
 
 		Signals::SignalContext& getSignalContext() { return app.get_signal_context(); }

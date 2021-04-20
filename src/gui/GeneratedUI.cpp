@@ -53,7 +53,7 @@ BaseCategoryForm::BaseCategoryForm( wxWindow* parent, wxWindowID id, const wxPoi
 	flexGridSizer1->Add( nameText, 0, wxALL, 5 );
 
 
-	categorySizer->Add( flexGridSizer1, 1, wxEXPAND, 5 );
+	categorySizer->Add( flexGridSizer1, 1, wxBOTTOM|wxEXPAND, 5 );
 
 	wxBoxSizer* buttonSizer;
 	buttonSizer = new wxBoxSizer( wxHORIZONTAL );
@@ -71,11 +71,14 @@ BaseCategoryForm::BaseCategoryForm( wxWindow* parent, wxWindowID id, const wxPoi
 
 	buttonSizer->Add( cancelButton, 0, wxALL, 5 );
 
+	addGroupButton = new wxButton( categorySizer->GetStaticBox(), wxID_ANY, wxT("Add Group"), wxDefaultPosition, wxDefaultSize, 0 );
+	buttonSizer->Add( addGroupButton, 0, wxALL, 5 );
 
-	categorySizer->Add( buttonSizer, 0, wxEXPAND, 5 );
+
+	categorySizer->Add( buttonSizer, 0, wxALIGN_LEFT|wxBOTTOM|wxEXPAND|wxTOP, 5 );
 
 
-	boxSizer->Add( categorySizer, 1, wxBOTTOM|wxEXPAND|wxTOP, 5 );
+	boxSizer->Add( categorySizer, 0, wxBOTTOM|wxEXPAND|wxTOP, 5 );
 
 	wxStaticBoxSizer* groupSizer;
 	groupSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Group Stats") ), wxVERTICAL );
@@ -102,10 +105,16 @@ BaseCategoryForm::BaseCategoryForm( wxWindow* parent, wxWindowID id, const wxPoi
 	flexGridSizer2->Add( passwordCountText, 0, wxALL, 5 );
 
 
-	groupSizer->Add( flexGridSizer2, 1, wxEXPAND, 5 );
+	groupSizer->Add( flexGridSizer2, 1, wxALIGN_LEFT|wxBOTTOM|wxEXPAND|wxTOP, 5 );
 
 
-	boxSizer->Add( groupSizer, 1, wxBOTTOM|wxEXPAND|wxTOP, 5 );
+	boxSizer->Add( groupSizer, 0, wxBOTTOM|wxEXPAND|wxTOP, 5 );
+
+	createGroupSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Create Group") ), wxVERTICAL );
+
+	createGroupSizer->SetMinSize( wxSize( 300,280 ) );
+
+	boxSizer->Add( createGroupSizer, 0, wxBOTTOM|wxEXPAND|wxTOP, 5 );
 
 
 	this->SetSizer( boxSizer );
@@ -116,6 +125,7 @@ BaseCategoryForm::BaseCategoryForm( wxWindow* parent, wxWindowID id, const wxPoi
 	editButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCategoryForm::OnEdit ), NULL, this );
 	saveButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCategoryForm::OnSave ), NULL, this );
 	cancelButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCategoryForm::OnCancel ), NULL, this );
+	addGroupButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCategoryForm::OnAddGroup ), NULL, this );
 }
 
 BaseCategoryForm::~BaseCategoryForm()
@@ -124,6 +134,7 @@ BaseCategoryForm::~BaseCategoryForm()
 	editButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCategoryForm::OnEdit ), NULL, this );
 	saveButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCategoryForm::OnSave ), NULL, this );
 	cancelButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCategoryForm::OnCancel ), NULL, this );
+	addGroupButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCategoryForm::OnAddGroup ), NULL, this );
 
 }
 
@@ -524,5 +535,80 @@ BaseToolBar::~BaseToolBar()
 	this->Disconnect( pasteTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnPaste ) );
 	this->Disconnect( deleteTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnDelete ) );
 	this->Disconnect( clearTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnClear ) );
+
+}
+
+BaseCreateGroupForm::BaseCreateGroupForm( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name ) : wxPanel( parent, id, pos, size, style, name )
+{
+	this->SetMinSize( wxSize( 300,250 ) );
+
+	mainSizer = new wxBoxSizer( wxVERTICAL );
+
+	formSizer = new wxFlexGridSizer( 3, 2, 0, 0 );
+	formSizer->SetFlexibleDirection( wxBOTH );
+	formSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+
+	nameLabel = new wxStaticText( this, wxID_ANY, wxT("Name"), wxDefaultPosition, wxDefaultSize, 0 );
+	nameLabel->Wrap( -1 );
+	formSizer->Add( nameLabel, 0, wxALL, 5 );
+
+	nameText = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	nameText->SetMinSize( wxSize( 300,-1 ) );
+
+	formSizer->Add( nameText, 0, wxALL, 5 );
+
+	urlLabel = new wxStaticText( this, wxID_ANY, wxT("URL"), wxDefaultPosition, wxDefaultSize, 0 );
+	urlLabel->Wrap( -1 );
+	formSizer->Add( urlLabel, 0, wxALL, 5 );
+
+	urlText = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	urlText->SetMinSize( wxSize( 300,-1 ) );
+
+	formSizer->Add( urlText, 0, wxALL, 5 );
+
+	descriptionLabel = new wxStaticText( this, wxID_ANY, wxT("Description"), wxDefaultPosition, wxDefaultSize, 0 );
+	descriptionLabel->Wrap( -1 );
+	formSizer->Add( descriptionLabel, 0, wxALL, 5 );
+
+	descriptionText = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE );
+	descriptionText->SetMinSize( wxSize( 300,-1 ) );
+
+	formSizer->Add( descriptionText, 0, wxALL, 5 );
+
+
+	mainSizer->Add( formSizer, 1, wxALIGN_LEFT|wxALIGN_TOP|wxBOTTOM|wxEXPAND|wxTOP, 5 );
+
+	wxBoxSizer* buttonSizer;
+	buttonSizer = new wxBoxSizer( wxHORIZONTAL );
+
+	buttonSizer->SetMinSize( wxSize( 300,-1 ) );
+	saveButton = new wxButton( this, wxID_ANY, wxT("Save"), wxDefaultPosition, wxDefaultSize, 0 );
+	buttonSizer->Add( saveButton, 0, wxALL, 5 );
+
+	resetButton = new wxButton( this, wxID_ANY, wxT("Reset"), wxDefaultPosition, wxDefaultSize, 0 );
+	buttonSizer->Add( resetButton, 0, wxALL, 5 );
+
+	cancelButton = new wxButton( this, wxID_ANY, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
+	buttonSizer->Add( cancelButton, 0, wxALL, 5 );
+
+
+	mainSizer->Add( buttonSizer, 0, wxALIGN_LEFT|wxBOTTOM|wxEXPAND|wxTOP, 5 );
+
+
+	this->SetSizer( mainSizer );
+	this->Layout();
+
+	// Connect Events
+	saveButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCreateGroupForm::OnSave ), NULL, this );
+	resetButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCreateGroupForm::OnReset ), NULL, this );
+	cancelButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCreateGroupForm::OnCancel ), NULL, this );
+}
+
+BaseCreateGroupForm::~BaseCreateGroupForm()
+{
+	// Disconnect Events
+	saveButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCreateGroupForm::OnSave ), NULL, this );
+	resetButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCreateGroupForm::OnReset ), NULL, this );
+	cancelButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseCreateGroupForm::OnCancel ), NULL, this );
 
 }

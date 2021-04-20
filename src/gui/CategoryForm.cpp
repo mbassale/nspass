@@ -3,10 +3,11 @@
 //
 
 #include "../NSPass.h"
+#include "../signals/SignalContext.h"
 #include "../commands/CommandRunner.h"
-#include "../commands/Command.h"
 #include "../commands/UpdateCategoryCommand.h"
 #include "CategoryForm.h"
+#include "CreateGroupForm.h"
 
 namespace NSPass::GUI {
 	using NSPass::Commands::CommandPtr;
@@ -16,6 +17,9 @@ namespace NSPass::GUI {
 			:BaseCategoryForm{ parent }, category{ std::move(category) }
 	{
 		FillData();
+		groupCreatedConnection = GetSignalContext().get_group_created().connect([&](const GroupPtr& group) {
+			OnGroupCreated();
+		});
 	}
 
 	void CategoryForm::FillData()
@@ -63,6 +67,22 @@ namespace NSPass::GUI {
 		DisableEdition();
 	}
 
+	void CategoryForm::OnAddGroup(wxCommandEvent& event)
+	{
+		createGroupSizer->Clear(true);
+		auto* createGroupForm = new CreateGroupForm(this, category);
+		createGroupSizer->Add(createGroupForm, wxSizerFlags().Expand().Border(wxALL, 5));
+		RedrawForm();
+	}
+
+	void CategoryForm::OnGroupCreated()
+	{
+		FillData();
+		DisableEdition();
+		createGroupSizer->Clear(true);
+		RedrawForm();
+	}
+
 	void CategoryForm::EnableEdition()
 	{
 		nameText->SetEditable(true);
@@ -88,5 +108,11 @@ namespace NSPass::GUI {
 	void CategoryForm::RedrawForm()
 	{
 		this->Layout();
+	}
+
+	bool CategoryForm::Destroy()
+	{
+		groupCreatedConnection.disconnect();
+		return wxWindowBase::Destroy();
 	}
 }

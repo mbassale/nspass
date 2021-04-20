@@ -54,15 +54,18 @@ namespace NSPass::GUI
 			wxButton* editButton;
 			wxButton* saveButton;
 			wxButton* cancelButton;
+			wxButton* addGroupButton;
 			wxStaticText* groupCountLabel;
 			wxStaticText* groupCountText;
 			wxStaticText* passwordCountLabel;
 			wxStaticText* passwordCountText;
+			wxStaticBoxSizer* createGroupSizer;
 
 			// Virtual event handlers, overide them in your derived class
 			virtual void OnEdit( wxCommandEvent& event ) = 0;
 			virtual void OnSave( wxCommandEvent& event ) = 0;
 			virtual void OnCancel( wxCommandEvent& event ) = 0;
+			virtual void OnAddGroup( wxCommandEvent& event ) = 0;
 
 
 		public:
@@ -207,6 +210,39 @@ namespace NSPass::GUI
 
 			BaseToolBar( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0 );
 			~BaseToolBar();
+
+	};
+
+	///////////////////////////////////////////////////////////////////////////////
+	/// Class BaseCreateGroupForm
+	///////////////////////////////////////////////////////////////////////////////
+	class BaseCreateGroupForm : public wxPanel
+	{
+		private:
+
+		protected:
+			wxBoxSizer* mainSizer;
+			wxFlexGridSizer* formSizer;
+			wxStaticText* nameLabel;
+			wxTextCtrl* nameText;
+			wxStaticText* urlLabel;
+			wxTextCtrl* urlText;
+			wxStaticText* descriptionLabel;
+			wxTextCtrl* descriptionText;
+			wxButton* saveButton;
+			wxButton* resetButton;
+			wxButton* cancelButton;
+
+			// Virtual event handlers, overide them in your derived class
+			virtual void OnSave( wxCommandEvent& event ) = 0;
+			virtual void OnReset( wxCommandEvent& event ) = 0;
+			virtual void OnCancel( wxCommandEvent& event ) = 0;
+
+
+		public:
+
+			BaseCreateGroupForm( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,250 ), long style = wxTAB_TRAVERSAL, const wxString& name = wxEmptyString );
+			~BaseCreateGroupForm();
 
 	};
 

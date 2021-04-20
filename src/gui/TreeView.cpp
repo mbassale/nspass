@@ -17,16 +17,20 @@ namespace NSPass::GUI {
 			:wxTreeCtrl(parent, id), app{ Application::instance() }
 	{
 		wxGetApp().GetStateContext().Subscribe(StateName::Open, [&] {
-			this->FillStorageData();
+			FillStorageData();
 		});
 		wxGetApp().GetStateContext().Subscribe(StateName::Close, [&] {
-			this->DeleteAllItems();
+			DeleteAllItems();
 		});
 		categoryUpdatedConnection = getSignalContext().get_category_updated().connect([&](const CategoryPtr& category) {
-			this->OnCategoryUpdated(category);
+			OnCategoryUpdated(category);
+		});
+		groupCreatedConnection = getSignalContext().get_group_created().connect([&](const GroupPtr& group) {
+			DeleteAllItems();
+			FillStorageData();
 		});
 		groupUpdatedConnection = getSignalContext().get_group_updated().connect([&](const GroupPtr& group) {
-			this->OnGroupUpdated(group);
+			OnGroupUpdated(group);
 		});
 	}
 
@@ -135,6 +139,7 @@ namespace NSPass::GUI {
 	bool TreeView::Destroy()
 	{
 		categoryUpdatedConnection.disconnect();
+		groupCreatedConnection.disconnect();
 		groupUpdatedConnection.disconnect();
 		return wxWindowBase::Destroy();
 	}
