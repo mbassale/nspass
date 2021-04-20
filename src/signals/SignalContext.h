@@ -25,6 +25,7 @@ namespace NSPass::Signals {
 		SignalContext() = default;
 
 		CategoryUpdatedSignal& get_category_updated() { return category_updated_signal; }
+		GroupUpdatedSignal& get_group_created() { return group_created_signal; }
 		GroupUpdatedSignal& get_group_updated() { return group_updated_signal; }
 		PasswordSignal& get_password_created() { return password_created_signal; }
 		PasswordSignal& get_password_updated() { return password_updated_signal; }
@@ -32,6 +33,7 @@ namespace NSPass::Signals {
 
 	protected:
 		CategoryUpdatedSignal category_updated_signal{};
+		GroupUpdatedSignal group_created_signal{};
 		GroupUpdatedSignal group_updated_signal{};
 		PasswordSignal password_created_signal{};
 		PasswordSignal password_updated_signal{};
