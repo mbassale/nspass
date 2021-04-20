@@ -68,6 +68,7 @@ set(SOURCE_FILES
         src/commands/UpdatePasswordCommand.cpp src/commands/UpdatePasswordCommand.h
         src/commands/DeletePasswordCommand.cpp src/commands/DeletePasswordCommand.h
         src/commands/UpdateGroupCommand.cpp src/commands/UpdateGroupCommand.h
+        src/commands/DeleteGroupCommand.cpp src/commands/DeleteGroupCommand.h
         src/commands/UpdateCategoryCommand.cpp src/commands/UpdateCategoryCommand.h
         src/commands/PurgeStorageCommand.h src/commands/PurgeStorageCommand.cpp
         src/commands/SetStorageLocationCommand.cpp src/commands/SetStorageLocationCommand.h
@@ -173,6 +174,7 @@ set(TEST_FILES
         test/commands/test_import_lastpass_command.cpp
         test/commands/test_create_group_command.cpp
         test/commands/test_update_group_command.cpp
+        test/commands/test_delete_group_command.cpp
         test/commands/test_update_category_command.cpp
         test/storage/test_storage_header.cpp
         test/storage/serializers/test_storage_header_serializer.cpp
