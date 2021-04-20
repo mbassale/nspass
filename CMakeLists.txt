@@ -63,6 +63,7 @@ set(SOURCE_FILES
         src/commands/VerboseCommand.h src/commands/VerboseCommand.cpp
         src/commands/VersionCommand.h src/commands/VersionCommand.cpp
         src/commands/InspectStorageCommand.cpp src/commands/InspectStorageCommand.h
+        src/commands/CreateCategoryCommand.cpp src/commands/CreateCategoryCommand.h
         src/commands/CreateGroupCommand.cpp src/commands/CreateGroupCommand.h
         src/commands/CreatePasswordCommand.h src/commands/CreatePasswordCommand.cpp
         src/commands/UpdatePasswordCommand.cpp src/commands/UpdatePasswordCommand.h
@@ -169,6 +170,7 @@ set(TEST_FILES
         test/cli/output/test_csv_table_output.cpp
         test/commands/test_command_runner.cpp
         test/commands/test_copy_password_command.cpp
+        test/commands/test_create_category_command.cpp
         test/commands/test_update_password_command.cpp
         test/commands/test_delete_password_command.cpp
         test/commands/test_import_lastpass_command.cpp
