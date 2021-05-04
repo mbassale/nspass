@@ -7,15 +7,10 @@
 
 #include "GeneratedUI.h"
 
-#include "icons/Clear32x32.png.h"
 #include "icons/Copy.png.h"
-#include "icons/Copy32x32.png.h"
-#include "icons/Cut32x32.png.h"
-#include "icons/Delete32x32.png.h"
 #include "icons/HidePassword.png.h"
 #include "icons/Open32x32.png.h"
 #include "icons/OpenDefault32x32.png.h"
-#include "icons/Paste32x32.png.h"
 #include "icons/Save32x32.png.h"
 #include "icons/ShowPassword.png.h"
 
@@ -501,20 +496,6 @@ BaseToolBar::BaseToolBar( wxWindow* parent, wxWindowID id, const wxPoint& pos, c
 
 	saveTool = AddTool( wxID_ANY, wxT("Save"), Save32x32_png_to_wx_bitmap(), wxNullBitmap, wxITEM_NORMAL, wxT("Save changes to storage."), wxT("Save changes to storage."), NULL );
 
-	AddSeparator();
-
-	cutTool = AddTool( wxID_ANY, wxT("tool"), Cut32x32_png_to_wx_bitmap(), wxNullBitmap, wxITEM_NORMAL, wxEmptyString, wxEmptyString, NULL );
-
-	copyTool = AddTool( wxID_ANY, wxT("Copy"), Copy32x32_png_to_wx_bitmap(), wxNullBitmap, wxITEM_NORMAL, wxT("Copy selected password."), wxT("Copy selected password."), NULL );
-
-	pasteTool = AddTool( wxID_ANY, wxT("tool"), Paste32x32_png_to_wx_bitmap(), wxNullBitmap, wxITEM_NORMAL, wxEmptyString, wxEmptyString, NULL );
-
-	deleteTool = AddTool( wxID_ANY, wxT("tool"), Delete32x32_png_to_wx_bitmap(), wxNullBitmap, wxITEM_NORMAL, wxEmptyString, wxEmptyString, NULL );
-
-	AddSeparator();
-
-	clearTool = AddTool( wxID_ANY, wxT("tool"), Clear32x32_png_to_wx_bitmap(), wxNullBitmap, wxITEM_NORMAL, wxEmptyString, wxEmptyString, NULL );
-
 
 	Realize();
 
@@ -522,11 +503,6 @@ BaseToolBar::BaseToolBar( wxWindow* parent, wxWindowID id, const wxPoint& pos, c
 	this->Connect( openDefaultTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnOpenDefault ) );
 	this->Connect( openTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnOpen ) );
 	this->Connect( saveTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnSave ) );
-	this->Connect( cutTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnCut ) );
-	this->Connect( copyTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnCopy ) );
-	this->Connect( pasteTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnPaste ) );
-	this->Connect( deleteTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnDelete ) );
-	this->Connect( clearTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnClear ) );
 }
 
 BaseToolBar::~BaseToolBar()
@@ -535,11 +511,6 @@ BaseToolBar::~BaseToolBar()
 	this->Disconnect( openDefaultTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnOpenDefault ) );
 	this->Disconnect( openTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnOpen ) );
 	this->Disconnect( saveTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnSave ) );
-	this->Disconnect( cutTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnCut ) );
-	this->Disconnect( copyTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnCopy ) );
-	this->Disconnect( pasteTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnPaste ) );
-	this->Disconnect( deleteTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnDelete ) );
-	this->Disconnect( clearTool->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( BaseToolBar::OnClear ) );
 
 }
 

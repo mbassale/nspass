@@ -17,21 +17,11 @@ namespace NSPass::GUI {
 			openDefaultTool->Enable(true);
 			openTool->Enable(true);
 			saveTool->Enable(false);
-			cutTool->Enable(false);
-			copyTool->Enable(false);
-			pasteTool->Enable(false);
-			deleteTool->Enable(false);
-			clearTool->Enable(false);
 		});
 		wxGetApp().GetStateContext().Subscribe(StateName::Open, [&] {
 			openDefaultTool->Enable(false);
 			openTool->Enable(false);
 			saveTool->Enable(true);
-			cutTool->Enable(false);
-			copyTool->Enable(false);
-			pasteTool->Enable(false);
-			deleteTool->Enable(false);
-			clearTool->Enable(false);
 		});
 		wxGetApp().GetStateContext().Subscribe(StateName::Save, [&] {
 			saveTool->Enable(false);
@@ -40,11 +30,6 @@ namespace NSPass::GUI {
 			openDefaultTool->Enable(true);
 			openTool->Enable(true);
 			saveTool->Enable(false);
-			cutTool->Enable(false);
-			copyTool->Enable(false);
-			pasteTool->Enable(false);
-			deleteTool->Enable(false);
-			clearTool->Enable(false);
 		});
 	}
 
@@ -78,27 +63,4 @@ namespace NSPass::GUI {
 		}
 	}
 
-	void MainToolbar::OnCopy(wxCommandEvent& event)
-	{
-	}
-
-	void MainToolbar::OnCut(wxCommandEvent& event)
-	{
-
-	}
-
-	void MainToolbar::OnPaste(wxCommandEvent& event)
-	{
-
-	}
-
-	void MainToolbar::OnDelete(wxCommandEvent& event)
-	{
-
-	}
-
-	void MainToolbar::OnClear(wxCommandEvent& event)
-	{
-
-	}
 }
